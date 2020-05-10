@@ -6,7 +6,10 @@
 
 #include "Game.h"
 
-Game::Game() : lastKeyPressed(0) {}
+Game::Game() : lastKeyPressed(0) {
+  initGame();
+  paint();
+}
 
 Game::~Game() {
   std::cout << "=========================" << std::endl;
@@ -26,9 +29,8 @@ void Game::readInput() {
   uint8_t input;
   do {
     std::cin >> input;
-  }
-  while(lastKeyPressed<49 && lastKeyPressed>52);
-  lastKeyPressed = input-'0';
+  } while (lastKeyPressed < 49 && lastKeyPressed > 52);
+  lastKeyPressed = input - '0';
 }
 
 void Game::paint() {

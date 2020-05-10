@@ -1,0 +1,53 @@
+#Game Laboratory
+
+Game source code using C++ and Cmake for testing ideas and experimenting with game development.
+
+## Getting Started
+
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+
+### Prerequisites
+
+What things you need to install the software and how to install them
+
+```
+clang-format
+cmake
+```
+
+### Building
+
+1. Run the cmake project and output the make recipe in the build folder
+```
+mkdir build
+cd build
+cmake ..
+```
+
+2. Build the library and all the executables defined in the Cmake 
+```
+make all
+```
+
+3. Run the game in the console
+```
+./Game_v1
+```
+
+### And coding style tests
+
+In order to merge to master the code in the pull request should be formatted using the checks defined in <project>/.clang-format. To run the clang-format use:
+```
+clang-format -i $file
+```
+
+Another way is to use automatic formatting.
+```
+cd <project-path>
+cp tools/pre-commit.sh .git/hooks/pre-commit
+chmod +x .git/hooks/pre-commit
+```
+
+## Authors
+
+* **Nolasco Napoleao** - *Initial work* - [nolasconapoleao](https://github.com/nolasconapoleao)
