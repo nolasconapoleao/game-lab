@@ -2,9 +2,9 @@
 // Created by nolasco on 09/05/20.
 //
 
-#include <iostream>
-
 #include "Game.h"
+
+#include <iostream>
 
 Game::Game() : lastKeyPressed(0) {
   initGame();
@@ -17,12 +17,16 @@ Game::~Game() {
   std::cout << "End game!" << std::endl;
 }
 
-void Game::updateGame() {}
+void Game::updateGame() {
+  updatePlayer();
+  updateNonPlayableCharacters();
+}
 
 void Game::initGame() {
   std::cout << "Begin game!" << std::endl;
   std::cout << "=========================" << std::endl;
   std::cout << "=========================" << std::endl;
+  std::cout << "Enemy said: " << enemy.sayHi() << std::endl;
 }
 
 void Game::readInput() {
@@ -34,20 +38,20 @@ void Game::readInput() {
 }
 
 void Game::paint() {
-  std::cout << "\033[2J\033[1;1H";
-  std::cout << "Room description" << std::endl;
-  std::cout << "=========================" << std::endl;
-  std::cout << "1: Option 1" << std::endl;
-  std::cout << "2: Option 2" << std::endl;
-  std::cout << "3: Option 3" << std::endl;
-  std::cout << "4: Exit" << std::endl;
+  paintRoomDescription();
+  paintHUD();
+  paintOptions();
 }
 
-bool Game::isOver() { return 4 == lastKeyPressed; }
+bool Game::isOver() {
+  if (enemy.isDead())
+    std::cout << "Enemy said: " << enemy.sayBye() << std::endl;
+  return (4 == lastKeyPressed) || player.isDead() || enemy.isDead();
+}
 
-void Game::updatePlayer() {}
+void Game::updatePlayer() { player.receiveAttack(enemy.attackPoints); }
 
-void Game::updateNonPlayableCharacters() {}
+void Game::updateNonPlayableCharacters() { enemy.receiveAttack(player.attackPoints); }
 
 void Game::updateEntities() {}
 
@@ -55,4 +59,21 @@ void Game::loop() {
   readInput();
   updateGame();
   paint();
+}
+
+void Game::paintRoomDescription() {
+  std::cout << "\033[2J\033[1;1H";
+  std::cout << "Enemy HP: " << enemy.maxHealthPoints << "/" << enemy.currentHealthPoints << std::endl;
+}
+
+void Game::paintHUD() {
+  std::cout << "Player HP: " << player.maxHealthPoints << "/" << player.currentHealthPoints << std::endl;
+  std::cout << "=========================" << std::endl;
+}
+
+void Game::paintOptions() {
+  std::cout << "1: Attack" << std::endl;
+  std::cout << "2: Atack again." << std::endl;
+  std::cout << "3: Atack even more!" << std::endl;
+  std::cout << "4: Exit" << std::endl;
 }

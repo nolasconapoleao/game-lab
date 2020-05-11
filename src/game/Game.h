@@ -1,6 +1,8 @@
 //
 // Created by nolasco on 09/05/20.
 //
+#include "../characters/Enemy.h"
+#include "../characters/Player.h"
 
 #pragma once
 
@@ -22,6 +24,11 @@ private:
   void updatePlayer();
   void updateNonPlayableCharacters();
   void updateEntities();
+  void paintHUD();
+  void paintRoomDescription();
+  void paintOptions();
 
   uint8_t lastKeyPressed;
+  Player player;
+  Enemy enemy;
 };

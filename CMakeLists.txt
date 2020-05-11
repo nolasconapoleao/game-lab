@@ -10,11 +10,18 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_HOME_DIRECTORY}/build)
 
 set(SOURCES
     main.cpp
+
     src/game/Game.cpp
+
+    src/characters/Player.cpp
+    src/characters/Enemy.cpp
 )
 
 set(HEADERS
     src/game/Game.h
+
+    src/characters/Player.h
+    src/characters/Enemy.h
 )
 
 add_executable(
