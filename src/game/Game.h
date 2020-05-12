@@ -1,8 +1,8 @@
 //
 // Created by nolasco on 09/05/20.
 //
-#include "../characters/Enemy.h"
 #include "../characters/Player.h"
+#include "../rooms/Saloon.h"
 
 #pragma once
 
@@ -30,5 +30,5 @@ private:
 
   uint8_t lastKeyPressed;
   Player player;
-  Enemy enemy;
+  Saloon saloon;
 };

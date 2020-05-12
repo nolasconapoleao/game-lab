@@ -17,3 +17,7 @@ void Enemy::receiveAttack(uint attackPoints) {
 }
 
 std::string Enemy::sayBye() { return "Dude chillout, we should be friends!"; }
+std::ostream &operator<<(std::ostream &os, const Enemy &enemy) {
+  os << "Player HP: " << enemy.currentHealthPoints << "/" << enemy.maxHealthPoints << std::endl;
+  return os;
+}

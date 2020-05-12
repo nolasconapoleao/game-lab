@@ -5,10 +5,11 @@
 #pragma once
 
 #include <cstdint>
+#include <ostream>
 #include <string>
 #include <vector>
 
-#include "../items/BaseItem.h"
+//#include "../items/BaseItem.h"
 
 class BaseCharacter {
 public:
@@ -19,6 +20,11 @@ public:
   virtual std::string sayBye() = 0;
 
   bool isDead() { return currentHealthPoints == 0; };
+
+  friend std::ostream &operator<<(std::ostream &os, const BaseCharacter &character) {
+    os << "HP: " << character.currentHealthPoints << "/" << character.maxHealthPoints << std::endl;
+    return os;
+  }
 
   uint currentHealthPoints;
   uint maxHealthPoints;

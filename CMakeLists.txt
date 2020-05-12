@@ -15,6 +15,8 @@ set(SOURCES
 
     src/characters/Player.cpp
     src/characters/Enemy.cpp
+
+    src/rooms/Saloon.cpp
 )
 
 set(HEADERS
@@ -22,6 +24,8 @@ set(HEADERS
 
     src/characters/Player.h
     src/characters/Enemy.h
+
+    src/rooms/Saloon.h
 )
 
 add_executable(
