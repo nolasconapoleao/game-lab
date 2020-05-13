@@ -6,6 +6,8 @@
 
 #include <iostream>
 
+#include "../common/InteractUtil.h"
+
 Game::Game() : lastKeyPressed(0) {
   initGame();
   paint();
@@ -19,7 +21,7 @@ Game::~Game() {
 
 void Game::updateGame() {
   updatePlayer();
-  updateNonPlayableCharacters();
+  interpretInput();
 }
 
 void Game::initGame() {
@@ -60,9 +62,16 @@ void Game::updatePlayer() {
   }
 }
 
-void Game::updateNonPlayableCharacters() { saloon.npcs.at(lastKeyPressed - 1)->receiveAttack(player.attackPoints); }
+void Game::interpretInput() {
+  if (lastKeyPressed <= 2) {
+    saloon.npcs.at(lastKeyPressed - 1)->receiveAttack(player.attackPoints);
+  } else if (lastKeyPressed == 3) {
+    playerUsePotion(player, potion);
+  }
+}
 
-void Game::updateEntities() {}
+void Game::updateEntities() {
+}
 
 void Game::loop() {
   readInput();
@@ -84,7 +93,7 @@ void Game::paintHUD() {
 
 void Game::paintOptions() {
   std::cout << "1: Attack first bot" << std::endl;
-  std::cout << "2: Atack second bot." << std::endl;
-  std::cout << "3: Atack even more!" << std::endl;
+  std::cout << "2: Attack second bot." << std::endl;
+  std::cout << "3: Use potion!" << std::endl;
   std::cout << "4: Exit" << std::endl;
 }

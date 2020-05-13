@@ -2,6 +2,7 @@
 // Created by nolasco on 09/05/20.
 //
 #include "../characters/Player.h"
+#include "../items/Potion.h"
 #include "../rooms/Saloon.h"
 
 #pragma once
@@ -22,7 +23,7 @@ public:
 
 private:
   void updatePlayer();
-  void updateNonPlayableCharacters();
+  void interpretInput();
   void updateEntities();
   void paintHUD();
   void paintRoomDescription();
@@ -31,4 +32,5 @@ private:
   uint8_t lastKeyPressed;
   Player player;
   Saloon saloon;
+  Potion potion;
 };
