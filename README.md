@@ -2,6 +2,9 @@
 
 Game source code using C++ and Cmake for testing ideas and experimenting with game development.
 
+At the moment the game does not support graphics, it's only a text game, check this picture:
+![Game_v1](/demo/game.png)
+
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.

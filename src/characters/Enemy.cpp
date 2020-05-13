@@ -6,17 +6,14 @@
 
 Enemy::Enemy() : BaseCharacter(10, 2){};
 
-std::string Enemy::sayHi() { return "Prepare to fight!"; }
-
-void Enemy::receiveAttack(uint attackPoints) {
-  if (currentHealthPoints >= attackPoints) {
-    currentHealthPoints -= attackPoints;
-  } else {
-    currentHealthPoints = 0;
-  }
+std::string Enemy::sayHi() {
+  return "Prepare to fight!";
 }
 
-std::string Enemy::sayBye() { return "Dude chillout, we should be friends!"; }
+std::string Enemy::sayBye() {
+  return "Dude chillout, we should be friends!";
+}
+
 std::ostream &operator<<(std::ostream &os, const Enemy &enemy) {
   os << "Player HP: " << enemy.currentHealthPoints << "/" << enemy.maxHealthPoints << std::endl;
   return os;

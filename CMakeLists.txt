@@ -16,6 +16,11 @@ set(SOURCES
     src/characters/Player.cpp
     src/characters/Enemy.cpp
 
+    src/common/InteractUtil.cpp
+
+    src/items/BaseItem.cpp
+    src/items/Potion.cpp
+
     src/rooms/Saloon.cpp
 )
 
@@ -24,6 +29,11 @@ set(HEADERS
 
     src/characters/Player.h
     src/characters/Enemy.h
+
+    src/common/InteractUtil.h
+
+    src/items/BaseItem.h
+    src/items/Potion.h
 
     src/rooms/Saloon.h
 )

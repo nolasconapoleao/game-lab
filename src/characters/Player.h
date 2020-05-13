@@ -12,7 +12,7 @@ class Player : public BaseCharacter {
 public:
   Player();
   std::string sayHi() override;
-  void receiveAttack(uint attackPoints) override;
   std::string sayBye() override;
+
   friend std::ostream &operator<<(std::ostream &os, const Player &player);
 };

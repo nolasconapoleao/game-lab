@@ -12,7 +12,6 @@ class Enemy : public BaseCharacter {
 public:
   Enemy();
   std::string sayHi() override;
-  void receiveAttack(uint attackPoints) override;
   std::string sayBye() override;
 
   friend std::ostream &operator<<(std::ostream &os, const Enemy &enemy);
