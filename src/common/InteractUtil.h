@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "../characters/Player.h"
-#include "../items/Potion.h"
+#include "characters/Player.h"
+#include "items/Potion.h"
 
 void playerUsePotion(Player &player, const Potion &potion);

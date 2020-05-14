@@ -2,11 +2,34 @@ cmake_minimum_required(VERSION 3.12)
 project(Game_v1)
 
 # Defining compilation flags
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wall")
 
 # Defining output folders
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_HOME_DIRECTORY}/build)
+
+# Add cmake scripts
+include(cmake/utils.cmake)
+
+add_subdirectory(src)
+# To disable tests, comment these two lines
+enable_testing()
+add_subdirectory(tests)
+
+#file(
+#    GLOB_RECURSE
+#    source_files
+#        main.cpp
+#        src/utils/*
+#        src/characters/*
+#        src/common/*
+#        src/game/*
+#        src/items/*
+#        src/rooms/*
+#        src/utils/*
+#)
+#list(REMOVE_ITEM source_files ./build/* )
+#list(APPEND source_files ./src/game/* )
 
 set(SOURCES
     main.cpp
@@ -25,6 +48,8 @@ set(SOURCES
     src/rooms/Saloon.cpp
     src/rooms/Dungeon.cpp
     src/rooms/World.cpp
+
+    src/utils/MathUtils.cpp
 )
 
 set(HEADERS
@@ -43,10 +68,26 @@ set(HEADERS
     src/rooms/Dungeon.h
     src/rooms/World.h
 
+    src/utils/MathUtils.h
 )
 
+## Game executable
 add_executable(
     ${PROJECT_NAME}
         ${SOURCES}
         ${HEADERS}
+)
+
+## Unit tests target
+add_custom_target(RunAllTests
+    COMMAND ctest --output-on-failure
+    COMMENT "Run all tests"
+    WORKING_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
+)
+
+## To allow absolute header paths in includes
+target_include_directories(
+    ${PROJECT_NAME}
+    PRIVATE
+        ${CMAKE_SOURCE_DIR}/src
 )

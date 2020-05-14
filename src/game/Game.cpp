@@ -6,7 +6,7 @@
 
 #include <iostream>
 
-#include "../common/InteractUtil.h"
+#include "common/InteractUtil.h"
 
 Game::Game() : lastKeyPressed(0) {
   initGame();

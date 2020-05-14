@@ -6,8 +6,8 @@
 
 #include <memory>
 
-#include "../characters/Enemy.h"
-//#include "../items/Potion.h"
+#include "characters/Enemy.h"
+//#include "items/Potion.h"
 
 Saloon::Saloon() : BaseRoom("Saloon with dark oak doors no windows and smoke in the air") {
   npcs.push_back(std::make_shared<Enemy>(enemy1));

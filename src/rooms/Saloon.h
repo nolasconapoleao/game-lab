@@ -7,9 +7,9 @@
 #include <memory>
 #include <vector>
 
-#include "../characters/BaseCharacter.h"
-#include "../characters/Enemy.h"
 #include "BaseRoom.h"
+#include "characters/BaseCharacter.h"
+#include "characters/Enemy.h"
 
 class Saloon : public BaseRoom {
 public:

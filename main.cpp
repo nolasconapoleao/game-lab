@@ -1,7 +1,7 @@
 #include <iostream>
 #include <memory>
 
-#include "src/game/Game.h"
+#include "game/Game.h"
 
 int main() {
   Game game = Game();

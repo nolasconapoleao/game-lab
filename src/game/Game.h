@@ -1,9 +1,9 @@
 //
 // Created by nolasco on 09/05/20.
 //
-#include "../characters/Player.h"
-#include "../items/Potion.h"
-#include "../rooms/World.h"
+#include "characters/Player.h"
+#include "items/Potion.h"
+#include "rooms/World.h"
 
 #pragma once
 

@@ -9,6 +9,8 @@
 #include <string>
 #include <vector>
 
+#include "utils/MathUtils.h"
+
 class BaseCharacter {
 public:
   BaseCharacter(uint maxHealthPoints, uint attackPoints)
@@ -23,11 +25,7 @@ public:
   };
 
   void receiveAttack(uint attackPoints) {
-    if (currentHealthPoints >= attackPoints) {
-      currentHealthPoints -= attackPoints;
-    } else {
-      currentHealthPoints = 0;
-    }
+    currentHealthPoints = MathUtils::clamp_sub(currentHealthPoints, attackPoints, 0);
   };
 
   friend std::ostream &operator<<(std::ostream &os, const BaseCharacter &character) {

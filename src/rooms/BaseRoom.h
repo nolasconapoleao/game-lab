@@ -9,6 +9,8 @@
 #include <string>
 #include <vector>
 
+#include "characters/BaseCharacter.h"
+
 class BaseRoom {
 public:
   BaseRoom(const std::string &description) : description(description) {

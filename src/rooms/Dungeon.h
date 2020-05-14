@@ -4,8 +4,8 @@
 
 #pragma once
 
-#include "../characters/Goblin.h"
 #include "BaseRoom.h"
+#include "characters/Goblin.h"
 
 class Dungeon : public BaseRoom {
 public:
