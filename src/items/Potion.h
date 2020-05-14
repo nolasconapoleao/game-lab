@@ -14,6 +14,5 @@ public:
   Potion();
   void consume();
 
-  uint16_t modifierValue;
   std::string description;
 };

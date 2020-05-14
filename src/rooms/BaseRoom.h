@@ -11,7 +11,8 @@
 
 class BaseRoom {
 public:
-  BaseRoom(const std::string &description) : description(description) {}
+  BaseRoom(const std::string &description) : description(description) {
+  }
 
   void setAdjacentRooms(const std::vector<std::shared_ptr<BaseRoom>> &adjacentRooms) {
     BaseRoom::adjacentRooms = adjacentRooms;
@@ -24,4 +25,5 @@ public:
 
   std::string description;
   std::vector<std::shared_ptr<BaseRoom>> adjacentRooms;
+  std::vector<std::shared_ptr<BaseCharacter>> npcs;
 };

@@ -37,6 +37,11 @@ make all
 ./Game_v1
 ```
 
+### Contributing
+To contribute feel free to clone or fork the repository and check the board to see what needs doing.
+Help is needed in code architecture and definition of game concept.
+https://trello.com/b/CERrFOYJ/text-game
+
 ### And coding style tests
 
 In order to merge to master the code in the pull request should be formatted using the checks defined in <project>/.clang-format. To run the clang-format use:

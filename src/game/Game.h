@@ -3,7 +3,7 @@
 //
 #include "../characters/Player.h"
 #include "../items/Potion.h"
-#include "../rooms/Saloon.h"
+#include "../rooms/World.h"
 
 #pragma once
 
@@ -30,7 +30,8 @@ private:
   void paintOptions();
 
   uint8_t lastKeyPressed;
+
   Player player;
-  Saloon saloon;
   Potion potion;
+  World world;
 };

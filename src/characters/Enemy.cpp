@@ -15,6 +15,6 @@ std::string Enemy::sayBye() {
 }
 
 std::ostream &operator<<(std::ostream &os, const Enemy &enemy) {
-  os << "Player HP: " << enemy.currentHealthPoints << "/" << enemy.maxHealthPoints << std::endl;
+  os << "Enemy HP: " << enemy.currentHealthPoints << "/" << enemy.maxHealthPoints << std::endl;
   return os;
 }

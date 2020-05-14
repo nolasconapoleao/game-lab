@@ -48,14 +48,14 @@ void Game::paint() {
 bool Game::isOver() {
   if (player.isDead()) {
     std::cout << "Player said: " << player.sayBye() << std::endl;
-  } else if (4 == lastKeyPressed) {
+  } else if (5 == lastKeyPressed) {
     std::cout << "Game terminated by user." << std::endl;
   }
-  return (4 == lastKeyPressed || player.isDead());
+  return (5 == lastKeyPressed || player.isDead());
 }
 
 void Game::updatePlayer() {
-  for (const auto &npc : saloon.npcs) {
+  for (const auto &npc : world.currentRoom->npcs) {
     if (!npc->isDead()) {
       player.receiveAttack(npc->attackPoints);
     }
@@ -63,10 +63,18 @@ void Game::updatePlayer() {
 }
 
 void Game::interpretInput() {
-  if (lastKeyPressed <= 2) {
-    saloon.npcs.at(lastKeyPressed - 1)->receiveAttack(player.attackPoints);
-  } else if (lastKeyPressed == 3) {
-    playerUsePotion(player, potion);
+  if (world.isAnyNpcAliveInThisRoom()) {
+    if (lastKeyPressed <= 3) {
+      world.currentRoom->npcs.at(lastKeyPressed - 1)->receiveAttack(player.attackPoints);
+    } else if (lastKeyPressed == 4) {
+      playerUsePotion(player, potion);
+    }
+  } else {
+    if (lastKeyPressed <= 2) {
+      world.goToNextRoom(lastKeyPressed - 1);
+    } else if (lastKeyPressed == 4) {
+      playerUsePotion(player, potion);
+    }
   }
 }
 
@@ -81,7 +89,7 @@ void Game::loop() {
 
 void Game::paintRoomDescription() {
   std::cout << "\033[2J\033[1;1H";
-  for (const auto &npc : saloon.npcs) {
+  for (const auto &npc : world.currentRoom->npcs) {
     std::cout << "Enemy " << *npc.get();
   }
 }
@@ -92,8 +100,17 @@ void Game::paintHUD() {
 }
 
 void Game::paintOptions() {
-  std::cout << "1: Attack first bot" << std::endl;
-  std::cout << "2: Attack second bot." << std::endl;
-  std::cout << "3: Use potion!" << std::endl;
-  std::cout << "4: Exit" << std::endl;
+  if (world.isAnyNpcAliveInThisRoom()) {
+    std::cout << "1: Attack first bot" << std::endl;
+    std::cout << "2: Attack second bot." << std::endl;
+    std::cout << "3: Attack third bot." << std::endl;
+    std::cout << "4: Use potion!" << std::endl;
+    std::cout << "5: Exit" << std::endl;
+  } else {
+    std::cout << "1: Go right" << std::endl;
+    std::cout << "2: Go left" << std::endl;
+    std::cout << "3: Use potion!" << std::endl;
+    std::cout << "4: Use mega potion." << std::endl;
+    std::cout << "5: Exit" << std::endl;
+  }
 }

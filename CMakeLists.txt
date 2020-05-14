@@ -15,6 +15,7 @@ set(SOURCES
 
     src/characters/Player.cpp
     src/characters/Enemy.cpp
+    src/characters/Goblin.cpp
 
     src/common/InteractUtil.cpp
 
@@ -22,6 +23,8 @@ set(SOURCES
     src/items/Potion.cpp
 
     src/rooms/Saloon.cpp
+    src/rooms/Dungeon.cpp
+    src/rooms/World.cpp
 )
 
 set(HEADERS
@@ -29,6 +32,7 @@ set(HEADERS
 
     src/characters/Player.h
     src/characters/Enemy.h
+    src/characters/Goblin.h
 
     src/common/InteractUtil.h
 
@@ -36,6 +40,9 @@ set(HEADERS
     src/items/Potion.h
 
     src/rooms/Saloon.h
+    src/rooms/Dungeon.h
+    src/rooms/World.h
+
 )
 
 add_executable(

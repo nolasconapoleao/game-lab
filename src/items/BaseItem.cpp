@@ -4,6 +4,6 @@
 
 #include "BaseItem.h"
 
-BaseItem::BaseItem(const std::string &name, CharacterProperty modifier, UseType useType)
-    : name(name), modifier(modifier), useType(useType) {
+BaseItem::BaseItem(const std::string &name, CharacterProperty modifier, UseType useType, uint modifierValue)
+    : name(name), modifier(modifier), useType(useType), modifierValue(modifierValue) {
 }
