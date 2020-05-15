@@ -22,6 +22,13 @@ add_subdirectory(src)
 enable_testing()
 add_subdirectory(tests)
 
+## To allow absolute header paths in includes
+target_include_directories(
+    ${PROJECT_NAME}
+    PRIVATE
+        ${CMAKE_SOURCE_DIR}/src
+)
+
 ## Unit tests target
 add_custom_target(RunAllTests
     COMMAND ctest --output-on-failure
@@ -29,9 +36,9 @@ add_custom_target(RunAllTests
     WORKING_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
 )
 
-## To allow absolute header paths in includes
-target_include_directories(
-    ${PROJECT_NAME}
-    PRIVATE
-        ${CMAKE_SOURCE_DIR}/src
+## Documentation target
+ADD_CUSTOM_TARGET(Doxygen
+    COMMAND doxygen
+    COMMENT "Generate documentation"
+    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/docs
 )
