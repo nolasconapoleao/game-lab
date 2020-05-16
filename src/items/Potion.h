@@ -12,7 +12,6 @@
 class Potion : public BaseItem {
 public:
   Potion();
-  void consume();
 
   std::string description;
 };
