@@ -4,7 +4,7 @@
 
 #include "Enemy.h"
 
-Enemy::Enemy() : BaseCharacter(10, 2){};
+Enemy::Enemy() : BaseCharacter("Enemy", 10, 2){};
 
 std::string Enemy::sayHi() {
   return "Prepare to fight!";
@@ -12,9 +12,4 @@ std::string Enemy::sayHi() {
 
 std::string Enemy::sayBye() {
   return "Dude chillout, we should be friends!";
-}
-
-std::ostream &operator<<(std::ostream &os, const Enemy &enemy) {
-  os << "Enemy HP: " << enemy.currentHealthPoints << "/" << enemy.maxHealthPoints << std::endl;
-  return os;
 }

@@ -5,10 +5,11 @@
 
 int main() {
   Game game = Game();
+  game.initGame();
 
-  while (!game.isOver()) {
+  do {
     game.loop();
-  }
+  } while (!game.isOver());
 
   return 0;
 }

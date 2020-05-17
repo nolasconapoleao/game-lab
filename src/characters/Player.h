@@ -13,6 +13,4 @@ public:
   Player();
   std::string sayHi() override;
   std::string sayBye() override;
-
-  friend std::ostream &operator<<(std::ostream &os, const Player &player);
 };

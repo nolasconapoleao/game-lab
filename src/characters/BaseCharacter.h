@@ -13,8 +13,8 @@
 
 class BaseCharacter {
 public:
-  BaseCharacter(uint maxHealthPoints, uint attackPoints)
-      : currentHealthPoints(maxHealthPoints), maxHealthPoints(maxHealthPoints), attackPoints(attackPoints) {
+  BaseCharacter(std::string name, uint maxHealthPoints, uint attackPoints)
+      : name(name), currentHealthPoints(maxHealthPoints), maxHealthPoints(maxHealthPoints), attackPoints(attackPoints) {
   }
 
   virtual std::string sayHi() = 0;
@@ -28,12 +28,10 @@ public:
     currentHealthPoints = MathUtils::clamp_sub(currentHealthPoints, attackPoints, 0);
   };
 
-  friend std::ostream &operator<<(std::ostream &os, const BaseCharacter &character) {
-    os << "HP: " << character.currentHealthPoints << "/" << character.maxHealthPoints << std::endl;
-    return os;
-  }
+  friend std::ostream &operator<<(std::ostream &os, const BaseCharacter &character);
 
   uint currentHealthPoints;
   uint maxHealthPoints;
   uint attackPoints;
+  std::string name;
 };

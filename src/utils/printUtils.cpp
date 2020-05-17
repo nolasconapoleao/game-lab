@@ -2,6 +2,9 @@
 // Created by nolasco on 16/05/20.
 //
 
+#include <characters/BaseCharacter.h>
+#include <rooms/BaseRoom.h>
+
 #include "common/Inventory.h"
 #include "items/BaseItem.h"
 
@@ -33,6 +36,19 @@ std::ostream &operator<<(std::ostream &os, const Inventory &inventory) {
   for (const auto &equipableEntry : inventory.equipables) {
     os << equipableEntry.itemId << " (" << (equipableEntry.equipped ? "e" : "u") << "): " << equipableEntry.item->name
        << std::endl;
+  }
+  return os;
+}
+
+std::ostream &operator<<(std::ostream &os, const BaseCharacter &character) {
+  os << character.name << " HP: " << character.currentHealthPoints << "/" << character.maxHealthPoints;
+  return os;
+}
+
+std::ostream &operator<<(std::ostream &os, const BaseRoom &room) {
+  os << room.description << std::endl;
+  for (const auto &npc : room.npcs) {
+    os << *npc.get() << std::endl;
   }
   return os;
 }

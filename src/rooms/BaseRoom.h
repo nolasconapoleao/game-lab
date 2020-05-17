@@ -20,10 +20,7 @@ public:
     BaseRoom::adjacentRooms = adjacentRooms;
   }
 
-  friend std::ostream &operator<<(std::ostream &os, const BaseRoom &room) {
-    os << room.description;
-    return os;
-  }
+  friend std::ostream &operator<<(std::ostream &os, const BaseRoom &room);
 
   std::string description;
   std::vector<std::shared_ptr<BaseRoom>> adjacentRooms;

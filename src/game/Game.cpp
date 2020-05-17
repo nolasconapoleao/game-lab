@@ -9,14 +9,16 @@
 #include "common/InteractUtils.h"
 
 Game::Game() : lastKeyPressed(0) {
-  initGame();
-  paint();
+  std::cout << "Begin game!" << std::endl;
+  std::cout << "Player said: " << player.sayHi() << std::endl;
+  std::cout << "=========================" << std::endl;
+  std::cout << "=========================" << std::endl;
 }
 
 Game::~Game() {
   std::cout << "=========================" << std::endl;
   std::cout << "=========================" << std::endl;
-  std::cout << "End game!" << std::endl;
+  std::cout << "Game ended!" << std::endl;
 }
 
 void Game::updateGame() {
@@ -25,10 +27,7 @@ void Game::updateGame() {
 }
 
 void Game::initGame() {
-  std::cout << "Begin game!" << std::endl;
-  std::cout << "Player said: " << player.sayHi() << std::endl;
-  std::cout << "=========================" << std::endl;
-  std::cout << "=========================" << std::endl;
+  paint();
 }
 
 void Game::readInput() {
@@ -89,13 +88,11 @@ void Game::loop() {
 
 void Game::paintRoomDescription() {
   std::cout << "\033[2J\033[1;1H";
-  for (const auto &npc : world.currentRoom->npcs) {
-    std::cout << "Enemy " << *npc.get();
-  }
+  std::cout << *world.currentRoom.get();
 }
 
 void Game::paintHUD() {
-  std::cout << player;
+  std::cout << player << std::endl;
   std::cout << "=========================" << std::endl;
 }
 
