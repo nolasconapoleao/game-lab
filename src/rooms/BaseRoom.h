@@ -13,7 +13,7 @@
 
 class BaseRoom {
 public:
-  BaseRoom(const std::string &description) : description(description) {
+  BaseRoom(const std::string &name, const std::string &description) : name(name), description(description) {
   }
 
   void setAdjacentRooms(const std::vector<std::shared_ptr<BaseRoom>> &adjacentRooms) {
@@ -23,6 +23,7 @@ public:
   friend std::ostream &operator<<(std::ostream &os, const BaseRoom &room);
 
   std::string description;
+  std::string name;
   std::vector<std::shared_ptr<BaseRoom>> adjacentRooms;
   std::vector<std::shared_ptr<BaseCharacter>> npcs;
 };

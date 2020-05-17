@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "characters/Player.h"
-#include "items/Potion.h"
+#include "characters/BaseCharacter.h"
+#include "items/BaseItem.h"
 
-void playerUsePotion(Player &player, const Potion &potion);
+void entityUseItem(BaseCharacter &character, const std::shared_ptr<BaseItem> &item);

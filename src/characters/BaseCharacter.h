@@ -9,6 +9,7 @@
 #include <string>
 #include <vector>
 
+#include "common/Inventory.h"
 #include "utils/MathUtils.h"
 
 class BaseCharacter {
@@ -30,6 +31,7 @@ public:
 
   friend std::ostream &operator<<(std::ostream &os, const BaseCharacter &character);
 
+  Inventory inventory;
   uint currentHealthPoints;
   uint maxHealthPoints;
   uint attackPoints;

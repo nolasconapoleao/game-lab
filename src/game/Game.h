@@ -2,36 +2,45 @@
 // Created by nolasco on 09/05/20.
 //
 #include "characters/Player.h"
+#include "input/Input.h"
 #include "items/Potion.h"
 #include "rooms/World.h"
 
 #pragma once
 
+enum class GameState : u_int8_t {
+  Menu = 1,
+  Talk = 3,
+  Attack = 4,
+  Inventory = 5,
+  Walk = 6,
+  Pickup = 7,
+};
+
 class Game {
 public:
   Game();
+  ~Game();
 
-  virtual ~Game();
-
-  void updateGame();
   void initGame();
-  void readInput();
-  void paint();
   void loop();
-
-  bool isOver();
+  void closeGame();
+  bool isGameOver();
 
 private:
+  void updateGameState();
   void updatePlayer();
-  void interpretInput();
-  void updateEntities();
+  void paintScreen();
   void paintHUD();
-  void paintRoomDescription();
+  void paintRoom();
   void paintOptions();
+  void handleInput();
+  void updateOptions();
 
-  uint8_t lastKeyPressed;
-
-  Player player;
-  Potion potion;
+  std::vector<std::string> options;
+  uint8_t userInput;
+  GameState gameState;
   World world;
+  Input input;
+  Player player;
 };

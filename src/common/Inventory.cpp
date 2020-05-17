@@ -91,3 +91,34 @@ bool Inventory::unequipItem(uint itemId) {
   it->equipped = false;
   return true;
 }
+
+bool Inventory::useItem(uint itemId) {
+  const auto item = getItem(itemId);
+  if (item->useType == UseType::consumable) {
+    consumeItem(itemId);
+  } else if (item->useType == UseType::equipable) {
+    toggleEquip(itemId);
+  }
+}
+
+bool Inventory::toggleEquip(uint itemId) {
+  const auto entry = std::find_if(equipables.begin(), equipables.end(),
+                                  [itemId](EquipableEntry entry) { return itemId == entry.itemId; });
+  return entry->equipped ? unequipItem(itemId) : equipItem(itemId);
+}
+
+std::shared_ptr<BaseItem> Inventory::getItem(uint itemId) {
+  const auto consumableEntry = std::find_if(consumables.begin(), consumables.end(),
+                                            [itemId](ConsumableEntry entry) { return itemId == entry.itemId; });
+  if (consumableEntry != consumables.end()) {
+    return consumableEntry->item;
+  }
+
+  const auto equipableEntry = std::find_if(equipables.begin(), equipables.end(),
+                                           [itemId](EquipableEntry entry) { return itemId == entry.itemId; });
+  if (equipableEntry != equipables.end()) {
+    return equipableEntry->item;
+  }
+
+  return nullptr;
+}

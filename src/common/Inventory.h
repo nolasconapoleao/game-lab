@@ -29,14 +29,17 @@ public:
   void addItem(std::shared_ptr<BaseItem> item);
   bool dropItem(uint itemId);
 
-  bool consumeItem(uint itemId);
+  std::shared_ptr<BaseItem> getItem(uint itemId);
+  bool useItem(uint itemId);
 
+  bool consumeItem(uint itemId);
   bool equipItem(uint itemId);
   bool unequipItem(uint itemId);
 
   friend std::ostream &operator<<(std::ostream &os, const Inventory &inventory);
 
 private:
+  bool toggleEquip(uint itemId);
   std::vector<ConsumableEntry> consumables;
   std::vector<EquipableEntry> equipables;
   uint lastItemId;

@@ -9,7 +9,7 @@ int main() {
 
   do {
     game.loop();
-  } while (!game.isOver());
+  } while (!game.isGameOver());
 
   return 0;
 }
