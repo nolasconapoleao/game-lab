@@ -8,6 +8,9 @@
 
 #include "BaseCharacter.h"
 
+/**
+ * @brief Basic enemy, 10 health and 2 attack points.
+ */
 class Enemy : public BaseCharacter {
 public:
   Enemy();

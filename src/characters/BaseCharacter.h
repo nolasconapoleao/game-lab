@@ -12,6 +12,9 @@
 #include "common/Inventory.h"
 #include "utils/MathUtils.h"
 
+/**
+ * @brief Base character, all derived characters have an inventory and are battle ready.
+ */
 class BaseCharacter {
 public:
   BaseCharacter(std::string name, uint maxHealthPoints, uint attackPoints)

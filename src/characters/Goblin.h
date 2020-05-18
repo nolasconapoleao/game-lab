@@ -8,6 +8,9 @@
 
 #pragma once
 
+/**
+ * @brief Goblin enemy, 7 health and 1 attack points.
+ */
 class Goblin : public BaseCharacter {
 public:
   Goblin();

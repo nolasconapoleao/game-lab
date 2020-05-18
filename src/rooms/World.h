@@ -7,6 +7,9 @@
 #include "Dungeon.h"
 #include "Saloon.h"
 
+/**
+ * @brief World class defines a static room structure for the adventure.
+ */
 class World {
 public:
   World();

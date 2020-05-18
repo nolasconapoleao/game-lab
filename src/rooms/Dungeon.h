@@ -7,6 +7,9 @@
 #include "BaseRoom.h"
 #include "characters/Goblin.h"
 
+/**
+ * @brief Dungeon room, contains 3 goblins.
+ */
 class Dungeon : public BaseRoom {
 public:
   Dungeon();

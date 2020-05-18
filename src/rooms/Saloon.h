@@ -11,6 +11,9 @@
 #include "characters/BaseCharacter.h"
 #include "characters/Enemy.h"
 
+/**
+ * @brief Saloon room, contains 2 enemies.
+ */
 class Saloon : public BaseRoom {
 public:
   Saloon();

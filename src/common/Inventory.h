@@ -22,6 +22,9 @@ struct EquipableEntry {
   bool equipped;
 };
 
+/**
+ * @brief Inventory class has a list of consumable and equipable items.
+ */
 class Inventory {
 public:
   Inventory();
@@ -32,11 +35,8 @@ public:
   std::shared_ptr<BaseItem> getItem(uint itemId);
   bool useItem(uint itemId);
 
-  bool consumeItem(uint itemId);
-  bool equipItem(uint itemId);
-  bool unequipItem(uint itemId);
-
   friend std::ostream &operator<<(std::ostream &os, const Inventory &inventory);
+
   /**
    * All items in origin inventory with itemId are sent to destination inventory.
    * @param origin inventory
@@ -46,6 +46,9 @@ public:
   friend void exchangeItem(Inventory &origin, Inventory &destination, uint itemId);
 
 private:
+  bool consumeItem(uint itemId);
+  bool equipItem(uint itemId);
+  bool unequipItem(uint itemId);
   bool toggleEquip(uint itemId);
   std::vector<ConsumableEntry> consumables;
   std::vector<EquipableEntry> equipables;

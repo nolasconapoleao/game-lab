@@ -6,6 +6,9 @@
 
 #include "BaseItem.h"
 
+/**
+ * @brief A basic swrod, increases 2 attack points.
+ */
 class Sword : public BaseItem {
 public:
   Sword();

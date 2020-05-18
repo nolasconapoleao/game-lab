@@ -8,6 +8,9 @@
 
 #include "BaseCharacter.h"
 
+/**
+ * @brief Player class, 20 health and 3 attack points.
+ */
 class Player : public BaseCharacter {
 public:
   Player();

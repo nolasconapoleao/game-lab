@@ -7,6 +7,7 @@ int main() {
   do {
     game.loop();
   } while (!game.isGameOver());
+  game.closeGame();
 
   return 0;
 }

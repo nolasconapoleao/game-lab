@@ -11,6 +11,9 @@
 
 #include "characters/BaseCharacter.h"
 
+/**
+ * @brief Base room, all derived rooms have an inventory of "dropped" items, a list of npcs and linked rooms.
+ */
 class BaseRoom {
 public:
   BaseRoom(const std::string &name, const std::string &description) : name(name), description(description) {
