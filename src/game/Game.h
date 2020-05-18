@@ -3,7 +3,6 @@
 //
 #include "characters/Player.h"
 #include "input/Input.h"
-#include "items/Potion.h"
 #include "rooms/World.h"
 
 #pragma once

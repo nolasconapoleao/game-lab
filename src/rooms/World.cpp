@@ -3,11 +3,15 @@
 //
 
 #include "World.h"
+
+#include "items/Potion.h"
+
 World::World() : currentRoom(std::make_shared<BaseRoom>(s1)), roomIndex(1) {
   std::vector<std::shared_ptr<BaseRoom>> adjacentS1;
   adjacentS1.push_back(std::make_shared<Saloon>(s2));
   adjacentS1.push_back(std::make_shared<Dungeon>(d1));
   s1.setAdjacentRooms(adjacentS1);
+  s1.inventory.addItem(std::make_shared<Potion>(), 9);
 
   std::vector<std::shared_ptr<BaseRoom>> adjacentD1;
   adjacentD1.push_back(std::make_shared<Saloon>(s2));

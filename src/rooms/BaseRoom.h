@@ -24,6 +24,7 @@ public:
 
   std::string description;
   std::string name;
+  Inventory inventory;
   std::vector<std::shared_ptr<BaseRoom>> adjacentRooms;
   std::vector<std::shared_ptr<BaseCharacter>> npcs;
 };

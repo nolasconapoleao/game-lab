@@ -20,3 +20,25 @@ void entityUseItem(BaseCharacter &character, const std::shared_ptr<BaseItem> &it
     break;
   }
 }
+
+void exchangeItem(Inventory &origin, Inventory &destination, uint itemId) {
+  auto consumableEntry = std::find_if(origin.consumables.begin(), origin.consumables.end(),
+                                      [itemId](ConsumableEntry entry) { return itemId == entry.itemId; });
+  if (consumableEntry != origin.consumables.end()) {
+    destination.addItem(consumableEntry->item, consumableEntry->quantity);
+
+    origin.consumables.erase(std::remove_if(origin.consumables.begin(), origin.consumables.end(),
+                                            [itemId](ConsumableEntry entry) { return itemId == entry.itemId; }),
+                             origin.consumables.end());
+  }
+
+  auto equipableEntry = std::find_if(origin.equipables.begin(), origin.equipables.end(),
+                                     [itemId](EquipableEntry entry) { return itemId == entry.itemId; });
+  if (equipableEntry != origin.equipables.end()) {
+    destination.addItem(equipableEntry->item);
+
+    origin.equipables.erase(std::remove_if(origin.equipables.begin(), origin.equipables.end(),
+                                           [itemId](EquipableEntry entry) { return itemId == entry.itemId; }),
+                            origin.equipables.end());
+  }
+}

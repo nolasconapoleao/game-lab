@@ -5,10 +5,11 @@
 #include "Game.h"
 
 #include <iostream>
-#include <items/Sword.h>
 #include <sstream>
 
 #include "common/InteractUtils.h"
+#include "items/Potion.h"
+#include "items/Sword.h"
 
 Game::Game() : userInput(0) {
   std::cout << "Begin game!" << std::endl;
@@ -25,9 +26,7 @@ Game::~Game() {
 void Game::initGame() {
   gameState = GameState::Menu;
 
-  for (int i = 0; i < 50; i++) {
-    player.inventory.addItem(std::make_shared<BaseItem>(Potion{}));
-  }
+  player.inventory.addItem(std::make_shared<BaseItem>(Potion{}), 12);
   player.inventory.addItem(std::make_shared<BaseItem>(Sword{}));
 
   updateOptions();
@@ -133,6 +132,7 @@ void Game::handleInput() {
   switch (gameState) {
   case GameState::Menu:
     break;
+
   case GameState::Talk: {
     const auto npc = world.currentRoom->npcs.at(userInput - 1);
     std::cout << npc->name << " said: " << (npc->isDead() ? npc->sayBye() : npc->sayHi()) << std::endl;
@@ -148,6 +148,13 @@ void Game::handleInput() {
       const auto item = player.inventory.getItem(userInput);
       entityUseItem(player, item);
       player.inventory.useItem(userInput);
+    }
+    break;
+  }
+
+  case GameState::Pickup: {
+    {
+      exchangeItem(world.currentRoom->inventory, player.inventory, userInput);
     }
     break;
   }
@@ -215,6 +222,18 @@ void Game::updateOptions() {
       std::ostringstream oss;
       oss << "" << it << ": Go to room " << room->name;
       options.emplace_back(oss.str());
+    }
+    break;
+  }
+
+  case GameState::Pickup: {
+    std::ostringstream oss;
+    oss << world.currentRoom->inventory;
+    std::istringstream ss(oss.str());
+    std::string option;
+
+    while (std::getline(ss, option, '\n')) {
+      options.emplace_back(option);
     }
     break;
   }

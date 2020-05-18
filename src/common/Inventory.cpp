@@ -10,16 +10,16 @@ Inventory::Inventory() {
   lastItemId = 1;
 }
 
-void Inventory::addItem(std::shared_ptr<BaseItem> item) {
+void Inventory::addItem(std::shared_ptr<BaseItem> item, uint quantity) {
   if (UseType::consumable == item->useType) {
     const auto &it = std::find_if(consumables.begin(), consumables.end(),
                                   [item](ConsumableEntry entry) { return item->name == entry.item->name; });
 
     if (it == consumables.end()) {
-      consumables.emplace_back(ConsumableEntry{lastItemId, item, 1});
+      consumables.emplace_back(ConsumableEntry{lastItemId, item, quantity});
       lastItemId++;
     } else {
-      it->quantity++;
+      it->quantity += quantity;
     }
   } else if (UseType::equipable == item->useType) {
     equipables.emplace_back(EquipableEntry{lastItemId, item, false});
