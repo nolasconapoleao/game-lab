@@ -13,13 +13,14 @@
 
 Game::Game() : userInput(0) {
   std::cout << "Begin game!" << std::endl;
-  std::cout << "=========================" << std::endl;
-  std::cout << "=========================" << std::endl;
+  std::cout << "=====================================================================" << std::endl;
+  std::cout << "=====================================================================" << std::endl;
 }
 
 Game::~Game() {
-  std::cout << "=========================" << std::endl;
-  std::cout << "=========================" << std::endl;
+  std::cout << std::endl;
+  std::cout << "=====================================================================" << std::endl;
+  std::cout << "=====================================================================" << std::endl;
   std::cout << "Game ended!" << std::endl;
 }
 
@@ -30,15 +31,14 @@ void Game::initGame() {
   player.inventory.addItem(std::make_shared<BaseItem>(Sword{}));
 
   updateOptions();
-  paintScreen();
 }
 
 void Game::loop() {
+  updateOptions();
+  paintScreen();
   userInput = input.readInput(options.size() - 3);
   handleInput();
   updateGameState();
-  updateOptions();
-  paintScreen();
 }
 
 void Game::closeGame() {
@@ -108,9 +108,14 @@ void Game::updatePlayer() {
 }
 
 void Game::paintScreen() {
+  std::cout << std::endl;
+  std::cout << std::endl;
+  std::cout << "=====================================================================" << std::endl;
   paintRoom();
   paintHUD();
+  std::cout << "---------------------------------------------------------------------" << std::endl;
   paintOptions();
+  std::cout << "What do you wanna do? ";
 }
 
 void Game::paintHUD() {
@@ -126,7 +131,6 @@ void Game::paintOptions() {
   for (const auto &option : options) {
     std::cout << option << std::endl;
   }
-  std::cout << "=========================" << std::endl;
 }
 
 void Game::handleInput() {

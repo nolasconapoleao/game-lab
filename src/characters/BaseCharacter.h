@@ -20,10 +20,10 @@ struct CharacterProperties {
   uint experience = 0;
 };
 
-enum class CharacterRelation : u_int8_t {
-  friendly = 0,
-  hostile = 1,
-  neutral = 2,
+enum class CharacterRelation {
+  friendly,
+  hostile,
+  neutral,
 };
 
 /**

@@ -10,10 +10,10 @@
 /**
  * @brief Character property that is affected by the item.
  */
-enum class CharacterProperty : u_int8_t {
-  maxHealth = 0,
-  currentHealth = 1,
-  attack = 2,
+enum class CharacterProperty {
+  maxHealth,
+  currentHealth,
+  attack,
 };
 
 /**

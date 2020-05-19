@@ -7,14 +7,14 @@
 
 #pragma once
 
-enum class GameState : u_int8_t {
-  Menu = 1,
-  Talk = 3,
-  Attack = 4,
-  Inventory = 5,
-  Walk = 6,
-  Pickup = 7,
-  Shop = 8,
+enum class GameState {
+  Menu,
+  Talk,
+  Attack,
+  Inventory,
+  Walk,
+  Pickup,
+  Shop,
 };
 
 class Game {

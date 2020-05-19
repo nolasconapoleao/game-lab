@@ -4,9 +4,9 @@ int main() {
   Game game = Game();
   game.initGame();
 
-  do {
+  while (!game.isGameOver()) {
     game.loop();
-  } while (!game.isGameOver());
+  }
   game.closeGame();
 
   return 0;
