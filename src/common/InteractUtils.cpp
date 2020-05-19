@@ -8,18 +8,18 @@
 
 void entityUseItem(BaseCharacter &character, const std::shared_ptr<BaseItem> &item) {
   switch (item->modifier) {
-  case CharacterProperty::currentHealth:
-    character.properties.currentHealthPoints = MathUtils::clamp_add(
-        character.properties.currentHealthPoints, item->modifierValue, character.properties.maxHealthPoints);
-    break;
-  case CharacterProperty::attack:
-    character.properties.attackPoints =
-        MathUtils::clamp_add(character.properties.attackPoints, item->modifierValue, 1e3);
-    break;
-  case CharacterProperty::maxHealth:
-    character.properties.maxHealthPoints =
-        MathUtils::clamp_add(character.properties.maxHealthPoints, item->modifierValue, 1e3);
-    break;
+    case CharacterProperty::currentHealth:
+      character.properties.currentHealthPoints = MathUtils::clamp_add(
+          character.properties.currentHealthPoints, item->modifierValue, character.properties.maxHealthPoints);
+      break;
+    case CharacterProperty::attack:
+      character.properties.attackPoints
+          = MathUtils::clamp_add(character.properties.attackPoints, item->modifierValue, 1e3);
+      break;
+    case CharacterProperty::maxHealth:
+      character.properties.maxHealthPoints
+          = MathUtils::clamp_add(character.properties.maxHealthPoints, item->modifierValue, 1e3);
+      break;
   }
 }
 

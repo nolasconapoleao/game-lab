@@ -10,15 +10,15 @@
 
 std::ostream &operator<<(std::ostream &os, const CharacterProperty &property) {
   switch (property) {
-  case CharacterProperty::maxHealth:
-    os << "Max health";
-    break;
-  case CharacterProperty::currentHealth:
-    os << "Current health";
-    break;
-  case CharacterProperty::attack:
-    os << "Attack";
-    break;
+    case CharacterProperty::maxHealth:
+      os << "Max health";
+      break;
+    case CharacterProperty::currentHealth:
+      os << "Current health";
+      break;
+    case CharacterProperty::attack:
+      os << "Attack";
+      break;
   }
   return os;
 }

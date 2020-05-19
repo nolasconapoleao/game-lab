@@ -55,47 +55,47 @@ bool Game::isGameOver() {
 
 void Game::updateGameState() {
   switch (gameState) {
-  case GameState::Menu:
-    if (world.isAnyNpcHostileInThisRoom()) {
-      if (userInput == 1) {
-        gameState = GameState::Attack;
-      } else if (userInput == 2) {
-        gameState = GameState::Talk;
-      } else if (userInput == 3) {
-        gameState = GameState::Inventory;
+    case GameState::Menu:
+      if (world.isAnyNpcHostileInThisRoom()) {
+        if (userInput == 1) {
+          gameState = GameState::Attack;
+        } else if (userInput == 2) {
+          gameState = GameState::Talk;
+        } else if (userInput == 3) {
+          gameState = GameState::Inventory;
+        }
+      } else {
+        if (userInput == 1) {
+          gameState = GameState::Walk;
+        } else if (userInput == 2) {
+          gameState = GameState::Pickup;
+        } else if (userInput == 3) {
+          gameState = GameState::Inventory;
+        } else if (userInput == 4) {
+          gameState = GameState::Shop;
+        }
       }
-    } else {
-      if (userInput == 1) {
-        gameState = GameState::Walk;
-      } else if (userInput == 2) {
-        gameState = GameState::Pickup;
-      } else if (userInput == 3) {
-        gameState = GameState::Inventory;
-      } else if (userInput == 4) {
-        gameState = GameState::Shop;
-      }
-    }
-    break;
-  case GameState::Talk:
-    // Talking does not advance the round
-    break;
-  case GameState::Attack:
-    gameState = GameState::Menu;
-    updatePlayer();
-    break;
-  case GameState::Inventory:
-    gameState = GameState::Menu;
-    updatePlayer();
-    break;
-  case GameState::Walk:
-    gameState = GameState::Menu;
-    break;
-  case GameState::Pickup:
-    gameState = GameState::Menu;
-    break;
-  case GameState::Shop:
-    gameState = GameState::Menu;
-    break;
+      break;
+    case GameState::Talk:
+      // Talking does not advance the round
+      break;
+    case GameState::Attack:
+      gameState = GameState::Menu;
+      updatePlayer();
+      break;
+    case GameState::Inventory:
+      gameState = GameState::Menu;
+      updatePlayer();
+      break;
+    case GameState::Walk:
+      gameState = GameState::Menu;
+      break;
+    case GameState::Pickup:
+      gameState = GameState::Menu;
+      break;
+    case GameState::Shop:
+      gameState = GameState::Menu;
+      break;
   }
 }
 
@@ -139,44 +139,44 @@ void Game::handleInput() {
   }
 
   switch (gameState) {
-  case GameState::Menu:
-    break;
+    case GameState::Menu:
+      break;
 
-  case GameState::Talk: {
-    const auto npc = world.rooms.at(world.currentRoom)->npcs.at(userInput - 1);
-    std::cout << npc->name << " said: " << (npc->isDead() ? npc->sayBye : npc->sayHi) << std::endl;
-    break;
-  }
+    case GameState::Talk: {
+      const auto npc = world.rooms.at(world.currentRoom)->npcs.at(userInput - 1);
+      std::cout << npc->name << " said: " << (npc->isDead() ? npc->sayBye : npc->sayHi) << std::endl;
+      break;
+    }
 
-  case GameState::Attack:
-    world.rooms.at(world.currentRoom)->npcs.at(userInput - 1)->receiveAttack(player.properties.attackPoints);
-    break;
+    case GameState::Attack:
+      world.rooms.at(world.currentRoom)->npcs.at(userInput - 1)->receiveAttack(player.properties.attackPoints);
+      break;
 
-  case GameState::Inventory: {
-    {
+    case GameState::Inventory: {
+      {
+        const auto item = player.inventory.getItem(userInput);
+        entityUseItem(player, item);
+        player.inventory.useItem(userInput);
+      }
+      break;
+    }
+
+    case GameState::Pickup: {
+      {
+        exchangeItem(world.rooms.at(world.currentRoom)->inventory, player.inventory, userInput);
+      }
+      break;
+    }
+
+    case GameState::Walk:
+      world.goToNextRoom(userInput - 1);
+      break;
+
+    case GameState::Shop:
       const auto item = player.inventory.getItem(userInput);
-      entityUseItem(player, item);
-      player.inventory.useItem(userInput);
-    }
-    break;
-  }
-
-  case GameState::Pickup: {
-    {
       exchangeItem(world.rooms.at(world.currentRoom)->inventory, player.inventory, userInput);
-    }
-    break;
-  }
-
-  case GameState::Walk:
-    world.goToNextRoom(userInput - 1);
-    break;
-
-  case GameState::Shop:
-    const auto item = player.inventory.getItem(userInput);
-    exchangeItem(world.rooms.at(world.currentRoom)->inventory, player.inventory, userInput);
-    player.pay(item->price);
-    break;
+      player.pay(item->price);
+      break;
   }
 }
 
@@ -184,88 +184,88 @@ void Game::updateOptions() {
   options.clear();
 
   switch (gameState) {
-  case GameState::Menu:
-    if (world.isAnyNpcHostileInThisRoom()) {
-      options.emplace_back("1: Attack");
-      options.emplace_back("2: Talk");
-      options.emplace_back("3: Inventory");
-    } else {
-      options.emplace_back("1: Walk");
-      options.emplace_back("2: Pickup");
-      options.emplace_back("3: Inventory");
-      if ("Shop" == world.rooms.at(world.currentRoom)->name) {
-        options.emplace_back("4: Shop");
+    case GameState::Menu:
+      if (world.isAnyNpcHostileInThisRoom()) {
+        options.emplace_back("1: Attack");
+        options.emplace_back("2: Talk");
+        options.emplace_back("3: Inventory");
+      } else {
+        options.emplace_back("1: Walk");
+        options.emplace_back("2: Pickup");
+        options.emplace_back("3: Inventory");
+        if ("Shop" == world.rooms.at(world.currentRoom)->name) {
+          options.emplace_back("4: Shop");
+        }
       }
-    }
-    break;
+      break;
 
-  case GameState::Talk: {
-    uint it = 0;
-    for (const auto &npc : world.rooms.at(world.currentRoom)->npcs) {
-      it++;
+    case GameState::Talk: {
+      uint it = 0;
+      for (const auto &npc : world.rooms.at(world.currentRoom)->npcs) {
+        it++;
+        std::ostringstream oss;
+        oss << "" << it << ": Speak to " << npc->name;
+        options.emplace_back(oss.str());
+      }
+      break;
+    }
+
+    case GameState::Attack: {
+      uint it = 0;
+      for (const auto &npc : world.rooms.at(world.currentRoom)->npcs) {
+        it++;
+        std::ostringstream oss;
+        oss << "" << it << ": Attack " << npc->name;
+        options.emplace_back(oss.str());
+      }
+      break;
+    }
+
+    case GameState::Inventory: {
       std::ostringstream oss;
-      oss << "" << it << ": Speak to " << npc->name;
-      options.emplace_back(oss.str());
-    }
-    break;
-  }
+      oss << player.inventory;
+      std::istringstream ss(oss.str());
+      std::string option;
 
-  case GameState::Attack: {
-    uint it = 0;
-    for (const auto &npc : world.rooms.at(world.currentRoom)->npcs) {
-      it++;
+      while (std::getline(ss, option, '\n')) {
+        options.emplace_back(option);
+      }
+      break;
+    }
+
+    case GameState::Walk: {
+      uint it = 1;
+      for (const auto &room : world.rooms.at(world.currentRoom)->adjacentRooms) {
+        std::ostringstream oss;
+        oss << "" << it << ": Go to room " << world.rooms.at(room)->name;
+        options.emplace_back(oss.str());
+        it++;
+      }
+      break;
+    }
+
+    case GameState::Pickup: {
       std::ostringstream oss;
-      oss << "" << it << ": Attack " << npc->name;
-      options.emplace_back(oss.str());
+      oss << world.rooms.at(world.currentRoom)->inventory;
+      std::istringstream ss(oss.str());
+      std::string option;
+
+      while (std::getline(ss, option, '\n')) {
+        options.emplace_back(option);
+      }
+      break;
     }
-    break;
-  }
 
-  case GameState::Inventory: {
-    std::ostringstream oss;
-    oss << player.inventory;
-    std::istringstream ss(oss.str());
-    std::string option;
+    case GameState::Shop: {
 
-    while (std::getline(ss, option, '\n')) {
-      options.emplace_back(option);
+      for (uint it = 1; it <= world.rooms.at(world.currentRoom)->inventory.totalItems(); it++) {
+        auto item = world.rooms.at(world.currentRoom)->inventory.getItem(it);
+        std::ostringstream oss;
+        oss << "" << it << ": Buy " << item->name << "(" << item->price << ")";
+        options.emplace_back(oss.str());
+      }
+      break;
     }
-    break;
-  }
-
-  case GameState::Walk: {
-    uint it = 1;
-    for (const auto &room : world.rooms.at(world.currentRoom)->adjacentRooms) {
-      std::ostringstream oss;
-      oss << "" << it << ": Go to room " << world.rooms.at(room)->name;
-      options.emplace_back(oss.str());
-      it++;
-    }
-    break;
-  }
-
-  case GameState::Pickup: {
-    std::ostringstream oss;
-    oss << world.rooms.at(world.currentRoom)->inventory;
-    std::istringstream ss(oss.str());
-    std::string option;
-
-    while (std::getline(ss, option, '\n')) {
-      options.emplace_back(option);
-    }
-    break;
-  }
-
-  case GameState::Shop: {
-
-    for (uint it = 1; it <= world.rooms.at(world.currentRoom)->inventory.totalItems(); it++) {
-      auto item = world.rooms.at(world.currentRoom)->inventory.getItem(it);
-      std::ostringstream oss;
-      oss << "" << it << ": Buy " << item->name << "(" << item->price << ")";
-      options.emplace_back(oss.str());
-    }
-    break;
-  }
   }
   options.emplace_back("0: Back");
   options.emplace_back("e: Exit");
