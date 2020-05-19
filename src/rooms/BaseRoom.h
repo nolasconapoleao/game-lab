@@ -19,15 +19,15 @@ public:
   BaseRoom(const std::string &name, const std::string &description) : name(name), description(description) {
   }
 
-  void setAdjacentRooms(const std::vector<std::shared_ptr<BaseRoom>> &adjacentRooms) {
+  void setAdjacentRooms(const std::vector<uint> &adjacentRooms) {
     BaseRoom::adjacentRooms = adjacentRooms;
   }
 
   friend std::ostream &operator<<(std::ostream &os, const BaseRoom &room);
 
-  std::string description;
   std::string name;
+  std::string description;
   Inventory inventory;
-  std::vector<std::shared_ptr<BaseRoom>> adjacentRooms;
+  std::vector<uint> adjacentRooms;
   std::vector<std::shared_ptr<BaseCharacter>> npcs;
 };

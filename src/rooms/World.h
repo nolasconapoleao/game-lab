@@ -13,6 +13,13 @@
  */
 class World {
 public:
+  /**
+   * Room network:
+   * s1 -> (s2, d1)
+   * s2 -> (s1)
+   * sh -> (d1)
+   * d1 -> (s2, sh)
+   */
   World();
 
   bool isAnyNpcHostileInThisRoom();
@@ -20,10 +27,10 @@ public:
   void goToNextRoom(uint option);
 
   Saloon s1;
-  Saloon s2;
   Dungeon d1;
+  Saloon s2;
   Shop sh;
 
-  std::shared_ptr<BaseRoom> currentRoom;
-  uint roomIndex;
+  std::vector<std::shared_ptr<BaseRoom>> rooms;
+  uint currentRoom;
 };
