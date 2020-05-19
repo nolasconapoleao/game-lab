@@ -4,7 +4,7 @@
 
 #include "Goblin.h"
 
-Goblin::Goblin() : BaseCharacter("Goblin", 7, 1) {
+Goblin::Goblin() : BaseCharacter("Goblin", 7, 1, CharacterRelation::hostile) {
 }
 
 std::string Goblin::sayHi() {

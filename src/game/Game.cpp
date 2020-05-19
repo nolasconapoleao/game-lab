@@ -56,7 +56,7 @@ bool Game::isGameOver() {
 void Game::updateGameState() {
   switch (gameState) {
   case GameState::Menu:
-    if (world.isAnyNpcAliveInThisRoom()) {
+    if (world.isAnyNpcHostileInThisRoom()) {
       if (userInput == 1) {
         gameState = GameState::Attack;
       } else if (userInput == 2) {
@@ -71,6 +71,8 @@ void Game::updateGameState() {
         gameState = GameState::Pickup;
       } else if (userInput == 3) {
         gameState = GameState::Inventory;
+      } else if (userInput == 4) {
+        gameState = GameState::Shop;
       }
     }
     break;
@@ -91,13 +93,16 @@ void Game::updateGameState() {
   case GameState::Pickup:
     gameState = GameState::Menu;
     break;
+  case GameState::Shop:
+    gameState = GameState::Menu;
+    break;
   }
 }
 
 void Game::updatePlayer() {
   for (const auto &npc : world.currentRoom->npcs) {
-    if (!npc->isDead()) {
-      player.receiveAttack(npc->attackPoints);
+    if (!npc->isDead() && CharacterRelation::hostile == npc->relation) {
+      player.receiveAttack(npc->properties.attackPoints);
     }
   }
 }
@@ -140,7 +145,7 @@ void Game::handleInput() {
   }
 
   case GameState::Attack:
-    world.currentRoom->npcs.at(userInput - 1)->receiveAttack(player.attackPoints);
+    world.currentRoom->npcs.at(userInput - 1)->receiveAttack(player.properties.attackPoints);
     break;
 
   case GameState::Inventory: {
@@ -162,6 +167,12 @@ void Game::handleInput() {
   case GameState::Walk:
     world.goToNextRoom(userInput - 1);
     break;
+
+  case GameState::Shop:
+    const auto item = player.inventory.getItem(userInput);
+    exchangeItem(world.currentRoom->inventory, player.inventory, userInput);
+    player.pay(item->price);
+    break;
   }
 }
 
@@ -170,7 +181,7 @@ void Game::updateOptions() {
 
   switch (gameState) {
   case GameState::Menu:
-    if (world.isAnyNpcAliveInThisRoom()) {
+    if (world.isAnyNpcHostileInThisRoom()) {
       options.emplace_back("1: Attack");
       options.emplace_back("2: Talk");
       options.emplace_back("3: Inventory");
@@ -178,6 +189,9 @@ void Game::updateOptions() {
       options.emplace_back("1: Walk");
       options.emplace_back("2: Pickup");
       options.emplace_back("3: Inventory");
+      if ("Shop" == world.currentRoom->name) {
+        options.emplace_back("4: Shop");
+      }
     }
     break;
 
@@ -216,12 +230,12 @@ void Game::updateOptions() {
   }
 
   case GameState::Walk: {
-    uint it = 0;
+    uint it = 1;
     for (const auto &room : world.currentRoom->adjacentRooms) {
-      it++;
       std::ostringstream oss;
       oss << "" << it << ": Go to room " << room->name;
       options.emplace_back(oss.str());
+      it++;
     }
     break;
   }
@@ -234,6 +248,17 @@ void Game::updateOptions() {
 
     while (std::getline(ss, option, '\n')) {
       options.emplace_back(option);
+    }
+    break;
+  }
+
+  case GameState::Shop: {
+
+    for (uint it = 1; it <= world.currentRoom->inventory.totalItems(); it++) {
+      auto item = world.currentRoom->inventory.getItem(it);
+      std::ostringstream oss;
+      oss << "" << it << ": Buy " << item->name << "(" << item->price << ")";
+      options.emplace_back(oss.str());
     }
     break;
   }

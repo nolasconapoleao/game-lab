@@ -4,7 +4,7 @@
 
 #include "Enemy.h"
 
-Enemy::Enemy() : BaseCharacter("Enemy", 10, 2){};
+Enemy::Enemy() : BaseCharacter("Enemy", 10, 2, CharacterRelation::hostile){};
 
 std::string Enemy::sayHi() {
   return "Prepare to fight!";

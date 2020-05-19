@@ -27,20 +27,25 @@ void Inventory::addItem(std::shared_ptr<BaseItem> item, uint quantity) {
   }
 }
 
-bool Inventory::dropItem(uint itemId) {
-  auto existsInInventory =
-      std::find_if(consumables.begin(), consumables.end(),
-                   [itemId](ConsumableEntry entry) { return itemId == entry.itemId; }) != consumables.end() ||
-      std::find_if(equipables.begin(), equipables.end(),
-                   [itemId](EquipableEntry entry) { return itemId == entry.itemId; }) != equipables.end();
+bool Inventory::dropItem(uint itemId, uint quantity) {
+  bool existsInInventory;
+  auto consumableEntry = std::find_if(consumables.begin(), consumables.end(),
+                                      [itemId](ConsumableEntry entry) { return itemId == entry.itemId; });
+  if (consumableEntry != consumables.end()) {
+    existsInInventory = true;
+    consumables.erase(std::remove_if(consumables.begin(), consumables.end(),
+                                     [itemId](ConsumableEntry entry) { return itemId == entry.itemId; }),
+                      consumables.end());
+  }
 
-  consumables.erase(std::remove_if(consumables.begin(), consumables.end(),
-                                   [itemId](ConsumableEntry entry) { return itemId == entry.itemId; }),
-                    consumables.end());
-
-  equipables.erase(std::remove_if(equipables.begin(), equipables.end(),
-                                  [itemId](EquipableEntry entry) { return itemId == entry.itemId; }),
-                   equipables.end());
+  auto equipableEntry = std::find_if(equipables.begin(), equipables.end(),
+                                     [itemId](EquipableEntry entry) { return itemId == entry.itemId; });
+  if (equipableEntry != equipables.end()) {
+    existsInInventory = true;
+    equipables.erase(std::remove_if(equipables.begin(), equipables.end(),
+                                    [itemId](EquipableEntry entry) { return itemId == entry.itemId; }),
+                     equipables.end());
+  }
 
   return existsInInventory;
 }
@@ -121,4 +126,7 @@ std::shared_ptr<BaseItem> Inventory::getItem(uint itemId) {
   }
 
   return nullptr;
+}
+uint Inventory::totalItems() {
+  return consumables.size() + equipables.size();
 }

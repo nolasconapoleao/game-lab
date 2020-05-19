@@ -5,6 +5,6 @@
 #include "Potion.h"
 
 Potion::Potion()
-    : BaseItem("Potion", CharacterProperty::currentHealth, UseType::consumable, 3u),
+    : BaseItem("Potion", CharacterProperty::currentHealth, UseType::consumable, 3u, 1u),
       description("A basic potion, recovers 3 points health") {
 }

@@ -12,31 +12,58 @@
 #include "common/Inventory.h"
 #include "utils/MathUtils.h"
 
+struct CharacterProperties {
+  uint currentHealthPoints;
+  uint maxHealthPoints;
+  uint attackPoints;
+  uint money = 0;
+  uint experience = 0;
+};
+
+enum class CharacterRelation : u_int8_t {
+  friendly = 0,
+  hostile = 1,
+  neutral = 2,
+};
+
 /**
  * @brief Base character, all derived characters have an inventory and are battle ready.
  */
 class BaseCharacter {
 public:
-  BaseCharacter(std::string name, uint maxHealthPoints, uint attackPoints)
-      : name(name), currentHealthPoints(maxHealthPoints), maxHealthPoints(maxHealthPoints), attackPoints(attackPoints) {
+  BaseCharacter(std::string name, uint maxHealthPoints, uint attackPoints, CharacterRelation relation)
+      : name(name), properties(CharacterProperties{maxHealthPoints, maxHealthPoints, attackPoints}),
+        relation(relation) {
   }
 
   virtual std::string sayHi() = 0;
   virtual std::string sayBye() = 0;
 
   bool isDead() {
-    return currentHealthPoints == 0;
+    return properties.currentHealthPoints == 0;
   };
 
   void receiveAttack(uint attackPoints) {
-    currentHealthPoints = MathUtils::clamp_sub(currentHealthPoints, attackPoints, 0);
+    properties.currentHealthPoints = MathUtils::clamp_sub(properties.currentHealthPoints, attackPoints, 0);
   };
+
+  bool pay(uint value) {
+    if (properties.money > value) {
+      properties.money -= value;
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  void getPayed(uint value) {
+    properties.money += value;
+  }
 
   friend std::ostream &operator<<(std::ostream &os, const BaseCharacter &character);
 
   Inventory inventory;
-  uint currentHealthPoints;
-  uint maxHealthPoints;
-  uint attackPoints;
+  CharacterProperties properties;
+  CharacterRelation relation;
   std::string name;
 };

@@ -41,7 +41,8 @@ std::ostream &operator<<(std::ostream &os, const Inventory &inventory) {
 }
 
 std::ostream &operator<<(std::ostream &os, const BaseCharacter &character) {
-  os << character.name << " HP: " << character.currentHealthPoints << "/" << character.maxHealthPoints;
+  os << character.name << " HP: " << character.properties.currentHealthPoints << "/"
+     << character.properties.maxHealthPoints;
   return os;
 }
 

@@ -14,6 +14,7 @@ enum class GameState : u_int8_t {
   Inventory = 5,
   Walk = 6,
   Pickup = 7,
+  Shop = 8,
 };
 
 class Game {

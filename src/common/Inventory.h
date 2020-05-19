@@ -30,9 +30,10 @@ public:
   Inventory();
 
   void addItem(std::shared_ptr<BaseItem> item, uint quantity = 1u);
-  bool dropItem(uint itemId);
+  bool dropItem(uint itemId, uint quantity = 1u);
 
   std::shared_ptr<BaseItem> getItem(uint itemId);
+  uint totalItems();
   bool useItem(uint itemId);
 
   friend std::ostream &operator<<(std::ostream &os, const Inventory &inventory);
