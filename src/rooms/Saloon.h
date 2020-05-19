@@ -17,8 +17,4 @@
 class Saloon : public BaseRoom {
 public:
   Saloon();
-
-private:
-  Enemy enemy1;
-  Enemy enemy2;
 };

@@ -12,7 +12,4 @@
 class Shopkeeper : public BaseCharacter {
 public:
   Shopkeeper();
-
-  std::string sayHi() override;
-  std::string sayBye() override;
 };

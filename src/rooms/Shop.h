@@ -14,7 +14,4 @@
 class Shop : public BaseRoom {
 public:
   Shop();
-
-private:
-  Shopkeeper shopkeeper;
 };

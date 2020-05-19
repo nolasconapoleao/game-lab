@@ -4,12 +4,6 @@
 
 #include "Shopkeeper.h"
 
-Shopkeeper::Shopkeeper() : BaseCharacter("Shopkeeper", 20, 3, CharacterRelation::neutral){};
-
-std::string Shopkeeper::sayHi() {
-  return "Hey, sup traveller what can I get you?";
-}
-
-std::string Shopkeeper::sayBye() {
-  return "Thank you for your business";
-}
+Shopkeeper::Shopkeeper()
+    : BaseCharacter("Shopkeeper", "Hey, sup traveller what can I get you?", "Thank you for your business", 20, 3,
+                    CharacterRelation::neutral){};

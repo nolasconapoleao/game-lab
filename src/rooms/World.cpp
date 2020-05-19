@@ -8,31 +8,25 @@
 #include "items/Sword.h"
 
 World::World() {
-  std::vector<uint> adjacentS1;
-  adjacentS1.emplace_back(2u);
-  adjacentS1.emplace_back(1u);
-  s1.setAdjacentRooms(adjacentS1);
-  s1.inventory.addItem(std::make_shared<Potion>(), 9);
+  s1.addLink(2u)
+      .addLink(1u)
+      .add(std::make_shared<Potion>(), 5)
+      .add(std::make_shared<Enemy>())
+      .add(std::make_shared<Enemy>());
+  d1.addLink(2u)
+      .addLink(3u)
+      .add(std::make_shared<Potion>(), 9)
+      .add(std::make_shared<Sword>())
+      .add(std::make_shared<Goblin>())
+      .add(std::make_shared<Goblin>())
+      .add(std::make_shared<Goblin>());
+  s2.addLink(0u).add(std::make_shared<Enemy>()).add(std::make_shared<Enemy>());
+  sh.addLink(1u).add(std::make_shared<Shopkeeper>());
 
-  std::vector<uint> adjacentD1;
-  adjacentD1.emplace_back(2u);
-  adjacentD1.emplace_back(3u);
-  sh.inventory.addItem(std::make_shared<Potion>(), 9);
-  sh.inventory.addItem(std::make_shared<Sword>());
-  d1.setAdjacentRooms(adjacentD1);
-
-  std::vector<uint> adjacentS2;
-  adjacentS2.emplace_back(0);
-  s2.setAdjacentRooms(adjacentS2);
-
-  std::vector<uint> adjacentSh;
-  adjacentSh.emplace_back(1u);
-  sh.setAdjacentRooms(adjacentSh);
-
-  rooms.emplace_back(std::make_shared<Saloon>(s1));
-  rooms.emplace_back(std::make_shared<Dungeon>(d1));
-  rooms.emplace_back(std::make_shared<Saloon>(s2));
-  rooms.emplace_back(std::make_shared<Shop>(sh));
+  add(std::make_shared<Saloon>(s1));
+  add(std::make_shared<Dungeon>(d1));
+  add(std::make_shared<Saloon>(s2));
+  add(std::make_shared<Shop>(sh));
   currentRoom = 0;
 }
 

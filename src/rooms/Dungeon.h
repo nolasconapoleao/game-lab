@@ -13,9 +13,4 @@
 class Dungeon : public BaseRoom {
 public:
   Dungeon();
-
-private:
-  Goblin goblin1;
-  Goblin goblin2;
-  Goblin goblin3;
 };

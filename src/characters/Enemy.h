@@ -14,6 +14,4 @@
 class Enemy : public BaseCharacter {
 public:
   Enemy();
-  std::string sayHi() override;
-  std::string sayBye() override;
 };

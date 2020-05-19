@@ -22,6 +22,11 @@ public:
    */
   World();
 
+  World add(const std::shared_ptr<BaseRoom> room) {
+    rooms.emplace_back(room);
+    return *this;
+  }
+
   bool isAnyNpcHostileInThisRoom();
   bool isAnyNpcAliveInThisRoom();
   void goToNextRoom(uint option);

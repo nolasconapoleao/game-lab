@@ -31,13 +31,16 @@ enum class CharacterRelation {
  */
 class BaseCharacter {
 public:
-  BaseCharacter(std::string name, uint maxHealthPoints, uint attackPoints, CharacterRelation relation)
-      : name(name), properties(CharacterProperties{maxHealthPoints, maxHealthPoints, attackPoints}),
-        relation(relation) {
+  BaseCharacter(std::string name, std::string sayHi, std::string sayBye, uint maxHealthPoints, uint attackPoints,
+                CharacterRelation relation)
+      : name(name), sayHi(sayHi), sayBye(sayBye),
+        properties(CharacterProperties{maxHealthPoints, maxHealthPoints, attackPoints}), relation(relation) {
   }
 
-  virtual std::string sayHi() = 0;
-  virtual std::string sayBye() = 0;
+  BaseCharacter add(const std::shared_ptr<BaseItem> &item, uint quantity = 1) {
+    inventory.addItem(item, quantity);
+    return *this;
+  }
 
   bool isDead() {
     return properties.currentHealthPoints == 0;
@@ -66,4 +69,6 @@ public:
   CharacterProperties properties;
   CharacterRelation relation;
   std::string name;
+  std::string sayHi;
+  std::string sayBye;
 };

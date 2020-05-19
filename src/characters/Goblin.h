@@ -14,6 +14,4 @@
 class Goblin : public BaseCharacter {
 public:
   Goblin();
-  std::string sayHi() override;
-  std::string sayBye() override;
 };

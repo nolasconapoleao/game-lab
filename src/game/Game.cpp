@@ -46,7 +46,7 @@ void Game::closeGame() {
 
 bool Game::isGameOver() {
   if (player.isDead()) {
-    std::cout << "Player said: " << player.sayBye() << std::endl;
+    std::cout << "Player said: " << player.sayBye << std::endl;
   } else if ('e' == userInput) {
     std::cout << "Game terminated by user." << std::endl;
   }
@@ -144,7 +144,7 @@ void Game::handleInput() {
 
   case GameState::Talk: {
     const auto npc = world.rooms.at(world.currentRoom)->npcs.at(userInput - 1);
-    std::cout << npc->name << " said: " << (npc->isDead() ? npc->sayBye() : npc->sayHi()) << std::endl;
+    std::cout << npc->name << " said: " << (npc->isDead() ? npc->sayBye : npc->sayHi) << std::endl;
     break;
   }
 

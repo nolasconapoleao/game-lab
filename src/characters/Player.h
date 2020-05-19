@@ -14,6 +14,4 @@
 class Player : public BaseCharacter {
 public:
   Player();
-  std::string sayHi() override;
-  std::string sayBye() override;
 };
