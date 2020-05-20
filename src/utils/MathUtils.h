@@ -35,4 +35,12 @@ uint clamp_add(uint augend, uint addend, uint upperBound);
  */
 uint clamp(uint num, uint lowerBound, uint upperBound);
 
+/**
+ * @brief Generates a random number between lowerBound and upperBound.
+ * @param lowerBound for generation
+ * @param upperBound for generation
+ * @return random number
+ */
+uint random(uint lowerBound, uint upperBound);
+
 }; // namespace MathUtils

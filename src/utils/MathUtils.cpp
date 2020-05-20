@@ -4,6 +4,9 @@
 
 #include "MathUtils.h"
 
+#include <cstdlib>
+#include <time.h>
+
 uint MathUtils::clamp_sub(uint minuend, uint subtrahend, uint lowerBound) {
   if (minuend >= (subtrahend + lowerBound)) {
     return (minuend - subtrahend);
@@ -28,4 +31,10 @@ uint MathUtils::clamp(uint num, uint lowerBound, uint upperBound) {
   } else {
     return num;
   };
+}
+
+uint MathUtils::random(uint lowerBound, uint upperBound) {
+  srand(time(NULL));
+  return rand() % upperBound + lowerBound;
+  ;
 }
