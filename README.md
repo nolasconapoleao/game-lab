@@ -16,6 +16,9 @@ What things you need to install the software and how to install them
 ```
 clang-format
 cmake
+doxygen
+gcov
+lcov
 ```
 
 ### Building
