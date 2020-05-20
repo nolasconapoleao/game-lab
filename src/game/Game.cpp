@@ -9,28 +9,23 @@
 
 #include "common/InteractUtils.h"
 #include "items/Potion.h"
-#include "items/Sword.h"
 
 Game::Game() : userInput(0) {
   std::cout << "Begin game!" << std::endl;
-  std::cout << "=====================================================================" << std::endl;
-  std::cout << "=====================================================================" << std::endl;
+  std::cout << sepatator << std::endl;
+  std::cout << sepatator << std::endl;
 }
 
 Game::~Game() {
   std::cout << std::endl;
-  std::cout << "=====================================================================" << std::endl;
-  std::cout << "=====================================================================" << std::endl;
+  std::cout << sepatator << std::endl;
+  std::cout << sepatator << std::endl;
   std::cout << "Game ended!" << std::endl;
 }
 
 void Game::initGame() {
   gameState = GameState::Menu;
-
-  player.inventory.addItem(std::make_shared<BaseItem>(Potion{}), 12);
-  player.inventory.addItem(std::make_shared<BaseItem>(Sword{}));
-
-  updateOptions();
+  player.add(std::make_shared<BaseItem>(Potion{}), 12);
 }
 
 void Game::loop() {
@@ -46,6 +41,7 @@ void Game::closeGame() {
 
 bool Game::isGameOver() {
   if (player.isDead()) {
+    std::cout << std::endl;
     std::cout << "Player said: " << player.sayBye << std::endl;
   } else if ('e' == userInput) {
     std::cout << "Game terminated by user." << std::endl;
@@ -108,14 +104,25 @@ void Game::updatePlayer() {
 }
 
 void Game::paintScreen() {
-  std::cout << std::endl;
-  std::cout << std::endl;
-  std::cout << "=====================================================================" << std::endl;
+  clearScreen();
+  paintConvos();
+  std::cout << sepatator << std::endl;
   paintRoom();
   paintHUD();
-  std::cout << "---------------------------------------------------------------------" << std::endl;
+  std::cout << sepatator2 << std::endl;
   paintOptions();
   std::cout << "What do you wanna do? ";
+}
+
+void Game::clearScreen() {
+  std::cout << "\033[2J\033[1;1H";
+};
+
+void Game::paintConvos() {
+  for (const auto &talk : convos) {
+    std::cout << talk;
+  }
+  convos.clear();
 }
 
 void Game::paintHUD() {
@@ -123,7 +130,6 @@ void Game::paintHUD() {
 }
 
 void Game::paintRoom() {
-  std::cout << "\033[2J\033[1;1H";
   std::cout << *world.rooms.at(world.currentRoom).get();
 }
 
@@ -144,7 +150,9 @@ void Game::handleInput() {
 
     case GameState::Talk: {
       const auto npc = world.rooms.at(world.currentRoom)->npcs.at(userInput - 1);
-      std::cout << npc->name << " said: " << (npc->isDead() ? npc->sayBye : npc->sayHi) << std::endl;
+      std::ostringstream oss;
+      oss << npc->name << " said: " << (npc->isDead() ? npc->sayBye : npc->sayHi) << std::endl;
+      convos.emplace_back(oss.str());
       break;
     }
 
