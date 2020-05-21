@@ -49,7 +49,7 @@ std::ostream &operator<<(std::ostream &os, const Character &character) {
 std::ostream &operator<<(std::ostream &os, const Room &room) {
   os << room.description << std::endl;
   for (const auto &npc : room.npcs) {
-    os << *npc.get() << std::endl;
+    os << npc << std::endl;
   }
   return os;
 }

@@ -20,7 +20,7 @@ public:
   Room(const std::string &name, const std::string &description) : name(name), description(description) {
   }
 
-  Room &add(const std::shared_ptr<Character> &npc) {
+  Room &add(const Character &npc) {
     npcs.emplace_back(npc);
     return *this;
   }
@@ -41,5 +41,5 @@ public:
   std::string description;
   Inventory inventory;
   std::set<uint> adjacentRooms;
-  std::vector<std::shared_ptr<Character>> npcs;
+  std::vector<Character> npcs;
 };

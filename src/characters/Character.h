@@ -43,7 +43,7 @@ public:
     return *this;
   }
 
-  bool isDead() {
+  const bool isDead() const {
     return properties.currentHealthPoints == 0;
   };
 

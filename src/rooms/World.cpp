@@ -19,7 +19,7 @@ void World::goToNextRoom(uint option) {
 
 bool World::isAnyNpcAliveInThisRoom() {
   for (auto &npc : rooms.at(currentRoom)->npcs) {
-    if (!npc->isDead()) {
+    if (!npc.isDead()) {
       return true;
     }
   }
@@ -28,7 +28,7 @@ bool World::isAnyNpcAliveInThisRoom() {
 
 bool World::isAnyNpcHostileInThisRoom() {
   for (auto &npc : rooms.at(currentRoom)->npcs) {
-    if (CharacterRelation::hostile == npc->relation && !npc->isDead()) {
+    if (CharacterRelation::hostile == npc.relation && !npc.isDead()) {
       return true;
     }
   }

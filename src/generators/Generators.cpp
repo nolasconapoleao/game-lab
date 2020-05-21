@@ -47,7 +47,7 @@ Room createRoom(uint roomsInWorld, uint roomIndex) {
   }
 
   for (uint it = 0; it < 2u; ++it) {
-    room.add(std::make_shared<Character>(createNPC()));
+    room.add(createNPC());
   }
 
   return room;

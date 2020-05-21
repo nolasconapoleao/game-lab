@@ -97,9 +97,9 @@ void Game::updateGameState() {
 }
 
 void Game::updatePlayer() {
-  for (const auto &npc : world.rooms.at(world.currentRoom)->npcs) {
-    if (!npc->isDead() && CharacterRelation::hostile == npc->relation) {
-      player.receiveAttack(npc->properties.attackPoints);
+  for (const auto npc : world.rooms.at(world.currentRoom)->npcs) {
+    if (!npc.isDead() && CharacterRelation::hostile == npc.relation) {
+      player.receiveAttack(npc.properties.attackPoints);
     }
   }
 }
@@ -152,13 +152,13 @@ void Game::handleInput() {
     case GameState::Talk: {
       const auto npc = world.rooms.at(world.currentRoom)->npcs.at(userInput - 1);
       std::ostringstream oss;
-      oss << npc->name << " said: " << (npc->isDead() ? npc->sayBye : npc->sayHi) << std::endl;
+      oss << npc.name << " said: " << (npc.isDead() ? npc.sayBye : npc.sayHi) << std::endl;
       convos.emplace_back(oss.str());
       break;
     }
 
     case GameState::Attack:
-      world.rooms.at(world.currentRoom)->npcs.at(userInput - 1)->receiveAttack(player.properties.attackPoints);
+      world.rooms.at(world.currentRoom)->npcs.at(userInput - 1).receiveAttack(player.properties.attackPoints);
       break;
 
     case GameState::Inventory: {
@@ -213,7 +213,7 @@ void Game::updateOptions() {
       for (const auto &npc : world.rooms.at(world.currentRoom)->npcs) {
         it++;
         std::ostringstream oss;
-        oss << "" << it << ": Speak to " << npc->name;
+        oss << "" << it << ": Speak to " << npc.name;
         options.emplace_back(oss.str());
       }
       break;
@@ -224,7 +224,7 @@ void Game::updateOptions() {
       for (const auto &npc : world.rooms.at(world.currentRoom)->npcs) {
         it++;
         std::ostringstream oss;
-        oss << "" << it << ": Attack " << npc->name;
+        oss << "" << it << ": Attack " << npc.name;
         options.emplace_back(oss.str());
       }
       break;
