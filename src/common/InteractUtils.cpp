@@ -2,11 +2,16 @@
 // Created by nolasco on 13/05/20.
 //
 
-#include "InteractUtils.h"
-
+#include "characters/BaseCharacter.h"
+#include "items/BaseItem.h"
 #include "utils/MathUtils.h"
 
-void entityUseItem(BaseCharacter &character, const std::shared_ptr<BaseItem> &item) {
+/**
+ * @brief Use or equip item on a character.
+ * @param character that gets equipped/ consumes item
+ * @param item that is consumed/ eqquiped
+ */
+inline void entityUseItem(BaseCharacter &character, const std::shared_ptr<BaseItem> &item) {
   switch (item->modifier) {
     case CharacterProperty::currentHealth:
       character.properties.currentHealthPoints = MathUtils::clamp_add(
@@ -23,7 +28,13 @@ void entityUseItem(BaseCharacter &character, const std::shared_ptr<BaseItem> &it
   }
 }
 
-void exchangeItem(Inventory &origin, Inventory &destination, uint itemId) {
+/**
+ * @brief Send item with itemId from origin to destination inventories.
+ * @param origin inventory
+ * @param destination inventory
+ * @param itemId that identifies the item
+ */
+inline void exchangeItem(Inventory &origin, Inventory &destination, uint itemId, uint quantity = 1) {
   auto consumableEntry = std::find_if(origin.consumables.begin(), origin.consumables.end(),
                                       [itemId](ConsumableEntry entry) { return itemId == entry.itemId; });
   if (consumableEntry != origin.consumables.end()) {

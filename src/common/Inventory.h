@@ -44,7 +44,7 @@ public:
    * @param destination inventory
    * @param itemId for item to be displaced
    */
-  friend void exchangeItem(Inventory &origin, Inventory &destination, uint itemId);
+  friend void exchangeItem(Inventory &origin, Inventory &destination, uint itemId, uint quantity);
 
 private:
   bool consumeItem(uint itemId);

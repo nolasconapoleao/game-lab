@@ -16,6 +16,7 @@ struct CharacterProperties {
   uint currentHealthPoints;
   uint maxHealthPoints;
   uint attackPoints;
+  uint defensePoints = 0;
   uint money = 0;
   uint experience = 0;
 };
@@ -59,7 +60,7 @@ public:
     }
   }
 
-  void getPayed(uint value) {
+  void getPayment(uint value) {
     properties.money += value;
   }
 

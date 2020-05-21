@@ -7,7 +7,7 @@
 #include <iostream>
 #include <sstream>
 
-#include "common/InteractUtils.h"
+#include "common/InteractUtils.cpp"
 #include "items/Potion.h"
 
 Game::Game() : userInput(0) {

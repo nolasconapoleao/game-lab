@@ -11,17 +11,17 @@ World::World() {
   s1.addLink(2u)
       .addLink(1u)
       .add(std::make_shared<Potion>(), 5)
+      .add(std::make_shared<Sword>())
       .add(std::make_shared<Enemy>())
       .add(std::make_shared<Enemy>());
   d1.addLink(2u)
       .addLink(3u)
       .add(std::make_shared<Potion>(), 9)
-      .add(std::make_shared<Sword>())
       .add(std::make_shared<Goblin>())
       .add(std::make_shared<Goblin>())
       .add(std::make_shared<Goblin>());
   s2.addLink(0u).add(std::make_shared<Enemy>()).add(std::make_shared<Enemy>());
-  sh.addLink(1u).add(std::make_shared<Shopkeeper>());
+  sh.addLink(1u).add(std::make_shared<Shopkeeper>()).add(std::make_shared<Sword>());
 
   add(std::make_shared<Saloon>(s1));
   add(std::make_shared<Dungeon>(d1));
