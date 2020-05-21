@@ -13,7 +13,7 @@ class World {
 public:
   World();
 
-  World add(const std::shared_ptr<Room> room) {
+  World add(const Room &room) {
     rooms.emplace_back(room);
     return *this;
   }
@@ -22,6 +22,6 @@ public:
   bool isAnyNpcAliveInThisRoom();
   void goToNextRoom(uint option);
 
-  std::vector<std::shared_ptr<Room>> rooms;
+  std::vector<Room> rooms;
   uint currentRoom;
 };

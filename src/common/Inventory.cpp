@@ -10,10 +10,10 @@ Inventory::Inventory() {
   lastItemId = 1;
 }
 
-void Inventory::addItem(std::shared_ptr<BaseItem> item, uint quantity) {
-  if (UseType::consumable == item->useType) {
+void Inventory::addItem(BaseItem item, uint quantity) {
+  if (UseType::consumable == item.useType) {
     const auto &it = std::find_if(consumables.begin(), consumables.end(),
-                                  [item](ConsumableEntry entry) { return item->name == entry.item->name; });
+                                  [item](ConsumableEntry entry) { return item.name == entry.item.name; });
 
     if (it == consumables.end()) {
       consumables.emplace_back(ConsumableEntry{lastItemId, item, quantity});
@@ -21,7 +21,7 @@ void Inventory::addItem(std::shared_ptr<BaseItem> item, uint quantity) {
     } else {
       it->quantity += quantity;
     }
-  } else if (UseType::equipable == item->useType) {
+  } else if (UseType::equipable == item.useType) {
     equipables.emplace_back(EquipableEntry{lastItemId, item, false});
     lastItemId++;
   }
@@ -77,7 +77,7 @@ bool Inventory::equipItem(uint itemId) {
   }
 
   const auto itemAlreadyEquipped = std::find_if(equipables.begin(), equipables.end(), [it](EquipableEntry entry) {
-    return (it->item->modifier == entry.item->modifier && entry.equipped);
+    return (it->item.modifier == entry.item.modifier && entry.equipped);
   });
 
   it->equipped = (itemAlreadyEquipped == equipables.end());
@@ -99,9 +99,9 @@ bool Inventory::unequipItem(uint itemId) {
 
 bool Inventory::useItem(uint itemId) {
   const auto item = getItem(itemId);
-  if (item->useType == UseType::consumable) {
+  if (item.useType == UseType::consumable) {
     consumeItem(itemId);
-  } else if (item->useType == UseType::equipable) {
+  } else if (item.useType == UseType::equipable) {
     toggleEquip(itemId);
   }
 }
@@ -112,7 +112,7 @@ bool Inventory::toggleEquip(uint itemId) {
   return entry->equipped ? unequipItem(itemId) : equipItem(itemId);
 }
 
-std::shared_ptr<BaseItem> Inventory::getItem(uint itemId) {
+BaseItem &Inventory::getItem(uint itemId) {
   const auto consumableEntry = std::find_if(consumables.begin(), consumables.end(),
                                             [itemId](ConsumableEntry entry) { return itemId == entry.itemId; });
   if (consumableEntry != consumables.end()) {
@@ -124,9 +124,8 @@ std::shared_ptr<BaseItem> Inventory::getItem(uint itemId) {
   if (equipableEntry != equipables.end()) {
     return equipableEntry->item;
   }
-
-  return nullptr;
 }
+
 uint Inventory::totalItems() {
   return consumables.size() + equipables.size();
 }

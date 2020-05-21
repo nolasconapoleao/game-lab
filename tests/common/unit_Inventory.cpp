@@ -33,13 +33,10 @@ SCENARIO("Operations in consumables", "[Inventory]") {
   GIVEN("An inventory with potions") {
     Inventory inventory;
 
-    inventory.addItem(std::make_shared<BaseItem>("Potion", "Is a potion", CharacterProperty::currentHealth,
-                                                 UseType::consumable, 3u, 1u));
-    inventory.addItem(std::make_shared<BaseItem>("Potion", "Is a potion", CharacterProperty::currentHealth,
-                                                 UseType::consumable, 3u, 1u));
-    inventory.addItem(std::make_shared<BaseItem>("Potion", "Is a potion", CharacterProperty::currentHealth,
-                                                 UseType::consumable, 3u, 1u));
-    REQUIRE(inventory.consumables[0].item->name == "Potion");
+    inventory.addItem(BaseItem("Potion", "Is a potion", CharacterProperty::currentHealth, UseType::consumable, 3u, 1u));
+    inventory.addItem(BaseItem("Potion", "Is a potion", CharacterProperty::currentHealth, UseType::consumable, 3u, 1u));
+    inventory.addItem(BaseItem("Potion", "Is a potion", CharacterProperty::currentHealth, UseType::consumable, 3u, 1u));
+    REQUIRE(inventory.consumables[0].item.name == "Potion");
     REQUIRE(inventory.consumables[0].quantity == 3);
 
     WHEN("a potion is consumed") {
@@ -68,14 +65,12 @@ SCENARIO("Operations in equipables", "[Inventory]") {
   GIVEN("An inventory with swords") {
     Inventory inventory;
 
-    inventory.addItem(
-        std::make_shared<BaseItem>("Sword", "Is a sword", CharacterProperty::attack, UseType::equipable, 2u, 1u));
-    REQUIRE(inventory.equipables[0].item->name == "Sword");
+    inventory.addItem(BaseItem("Sword", "Is a sword", CharacterProperty::attack, UseType::equipable, 2u, 1u));
+    REQUIRE(inventory.equipables[0].item.name == "Sword");
     REQUIRE(inventory.equipables[0].equipped == false);
 
-    inventory.addItem(
-        std::make_shared<BaseItem>("Sword", "Is a sword", CharacterProperty::attack, UseType::equipable, 2u, 1u));
-    REQUIRE(inventory.equipables[1].item->name == "Sword");
+    inventory.addItem(BaseItem("Sword", "Is a sword", CharacterProperty::attack, UseType::equipable, 2u, 1u));
+    REQUIRE(inventory.equipables[1].item.name == "Sword");
     REQUIRE(inventory.equipables[1].equipped == false);
 
     WHEN("a series of equips and unequips is requested") {

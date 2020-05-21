@@ -58,7 +58,7 @@ Room createRoom(uint roomsInWorld, uint roomIndex) {
 
   for (uint it = 0; it < 2u; ++it) {
     room.add(createNPC());
-    room.add(std::make_shared<BaseItem>(createItem()));
+    room.add(createItem());
   }
 
   return room;
@@ -72,7 +72,7 @@ World createWorld(uint dificulty) {
   uint roomsInWorld = 4 * dificulty + 1;
 
   for (uint id = 0; id < roomsInWorld; ++id) {
-    world.add(std::make_shared<Room>(createRoom(roomsInWorld, id)));
+    world.add(createRoom(roomsInWorld, id));
   }
 
   return world;

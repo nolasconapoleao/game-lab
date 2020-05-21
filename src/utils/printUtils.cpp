@@ -24,18 +24,18 @@ std::ostream &operator<<(std::ostream &os, const CharacterProperty &property) {
 }
 
 std::ostream &operator<<(std::ostream &os, const BaseItem &item) {
-  os << item.name << "affects " << item.modifier << " by " << item.modifierValue << std::endl;
+  os << item.name << " affects " << item.modifier << " by " << item.modifierValue;
   return os;
 }
 
 std::ostream &operator<<(std::ostream &os, const Inventory &inventory) {
   for (const auto &consumableEntry : inventory.consumables) {
-    os << consumableEntry.itemId << " (" << consumableEntry.quantity << "): " << consumableEntry.item->name
-       << std::endl;
+    os << "(" << consumableEntry.quantity << "): " << consumableEntry.item.name << " - "
+       << consumableEntry.item.description << std::endl;
   }
   for (const auto &equipableEntry : inventory.equipables) {
-    os << equipableEntry.itemId << " (" << (equipableEntry.equipped ? "e" : "u") << "): " << equipableEntry.item->name
-       << std::endl;
+    os << "(" << (equipableEntry.equipped ? "e" : "u") << "): " << equipableEntry.item.name << " - "
+       << equipableEntry.item.description << std::endl;
   }
   return os;
 }

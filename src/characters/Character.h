@@ -38,7 +38,7 @@ public:
         properties(CharacterProperties{maxHealthPoints, maxHealthPoints, attackPoints}), relation(relation) {
   }
 
-  Character add(const std::shared_ptr<BaseItem> &item, uint quantity = 1) {
+  Character add(const BaseItem &item, uint quantity = 1) {
     inventory.addItem(item, quantity);
     return *this;
   }

@@ -26,11 +26,9 @@ Game::~Game() {
 void Game::initGame() {
   gameState = GameState::Menu;
   world = generator::createWorld(1);
-  player.add(std::make_shared<BaseItem>("Potion", "Is a potion", CharacterProperty::currentHealth, UseType::consumable,
-                                        3u, 1u),
-             12);
+  player.add(BaseItem("Potion", "Is a potion", CharacterProperty::currentHealth, UseType::consumable, 3u, 1u), 12);
   for (uint it = 0; it < 2u; ++it) {
-    player.add(std::make_shared<BaseItem>(generator::createItem()));
+    player.add(generator::createItem());
   }
 }
 
@@ -102,7 +100,7 @@ void Game::updateGameState() {
 }
 
 void Game::updatePlayer() {
-  for (const auto npc : world.rooms.at(world.currentRoom)->npcs) {
+  for (const auto npc : world.rooms.at(world.currentRoom).npcs) {
     if (!npc.isDead() && CharacterRelation::hostile == npc.relation) {
       player.receiveAttack(npc.properties.attackPoints);
     }
@@ -136,7 +134,7 @@ void Game::paintHUD() {
 }
 
 void Game::paintRoom() {
-  std::cout << *world.rooms.at(world.currentRoom).get();
+  std::cout << world.rooms.at(world.currentRoom);
 }
 
 void Game::paintOptions() {
@@ -155,7 +153,7 @@ void Game::handleInput() {
       break;
 
     case GameState::Talk: {
-      const auto npc = world.rooms.at(world.currentRoom)->npcs.at(userInput - 1);
+      const auto npc = world.rooms.at(world.currentRoom).npcs.at(userInput - 1);
       std::ostringstream oss;
       oss << npc.name << " said: " << (npc.isDead() ? npc.sayBye : npc.sayHi) << std::endl;
       convos.emplace_back(oss.str());
@@ -163,7 +161,7 @@ void Game::handleInput() {
     }
 
     case GameState::Attack:
-      world.rooms.at(world.currentRoom)->npcs.at(userInput - 1).receiveAttack(player.properties.attackPoints);
+      world.rooms.at(world.currentRoom).npcs.at(userInput - 1).receiveAttack(player.properties.attackPoints);
       break;
 
     case GameState::Inventory: {
@@ -177,7 +175,7 @@ void Game::handleInput() {
 
     case GameState::Pickup: {
       {
-        exchangeItem(world.rooms.at(world.currentRoom)->inventory, player.inventory, userInput);
+        exchangeItem(world.rooms.at(world.currentRoom).inventory, player.inventory, userInput);
       }
       break;
     }
@@ -188,8 +186,8 @@ void Game::handleInput() {
 
     case GameState::Shop:
       const auto item = player.inventory.getItem(userInput);
-      exchangeItem(world.rooms.at(world.currentRoom)->inventory, player.inventory, userInput);
-      player.pay(item->price);
+      exchangeItem(world.rooms.at(world.currentRoom).inventory, player.inventory, userInput);
+      player.pay(item.price);
       break;
   }
 }
@@ -207,7 +205,7 @@ void Game::updateOptions() {
         options.emplace_back("1: Walk");
         options.emplace_back("2: Pickup");
         options.emplace_back("3: Inventory");
-        if ("Shop" == world.rooms.at(world.currentRoom)->name) {
+        if ("Shop" == world.rooms.at(world.currentRoom).name) {
           options.emplace_back("4: Shop");
         }
       }
@@ -215,7 +213,7 @@ void Game::updateOptions() {
 
     case GameState::Talk: {
       uint it = 0;
-      for (const auto &npc : world.rooms.at(world.currentRoom)->npcs) {
+      for (const auto &npc : world.rooms.at(world.currentRoom).npcs) {
         it++;
         std::ostringstream oss;
         oss << "" << it << ": Speak to " << npc.name;
@@ -226,7 +224,7 @@ void Game::updateOptions() {
 
     case GameState::Attack: {
       uint it = 0;
-      for (const auto &npc : world.rooms.at(world.currentRoom)->npcs) {
+      for (const auto &npc : world.rooms.at(world.currentRoom).npcs) {
         it++;
         std::ostringstream oss;
         oss << "" << it << ": Attack " << npc.name;
@@ -249,9 +247,9 @@ void Game::updateOptions() {
 
     case GameState::Walk: {
       uint it = 1;
-      for (const auto &room : world.rooms.at(world.currentRoom)->adjacentRooms) {
+      for (const auto &room : world.rooms.at(world.currentRoom).adjacentRooms) {
         std::ostringstream oss;
-        oss << "" << it << ": Go to room " << world.rooms.at(room)->name;
+        oss << "" << it << ": Go to room " << world.rooms.at(room).name;
         options.emplace_back(oss.str());
         it++;
       }
@@ -260,7 +258,7 @@ void Game::updateOptions() {
 
     case GameState::Pickup: {
       std::ostringstream oss;
-      oss << world.rooms.at(world.currentRoom)->inventory;
+      oss << world.rooms.at(world.currentRoom).inventory;
       std::istringstream ss(oss.str());
       std::string option;
 
@@ -272,10 +270,10 @@ void Game::updateOptions() {
 
     case GameState::Shop: {
 
-      for (uint it = 1; it <= world.rooms.at(world.currentRoom)->inventory.totalItems(); it++) {
-        auto item = world.rooms.at(world.currentRoom)->inventory.getItem(it);
+      for (uint it = 1; it <= world.rooms.at(world.currentRoom).inventory.totalItems(); it++) {
+        auto item = world.rooms.at(world.currentRoom).inventory.getItem(it);
         std::ostringstream oss;
-        oss << "" << it << ": Buy " << item->name << "(" << item->price << ")";
+        oss << "" << it << ": Buy " << item.name << "(" << item.price << ")";
         options.emplace_back(oss.str());
       }
       break;

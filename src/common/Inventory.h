@@ -12,13 +12,13 @@
 
 struct ConsumableEntry {
   uint itemId;
-  std::shared_ptr<BaseItem> item;
+  BaseItem item;
   uint quantity;
 };
 
 struct EquipableEntry {
   uint itemId;
-  std::shared_ptr<BaseItem> item;
+  BaseItem item;
   bool equipped;
 };
 
@@ -29,10 +29,10 @@ class Inventory {
 public:
   Inventory();
 
-  void addItem(std::shared_ptr<BaseItem> item, uint quantity = 1u);
+  void addItem(BaseItem item, uint quantity = 1u);
   bool dropItem(uint itemId, uint quantity = 1u);
 
-  std::shared_ptr<BaseItem> getItem(uint itemId);
+  BaseItem &getItem(uint itemId);
   uint totalItems();
   bool useItem(uint itemId);
 
