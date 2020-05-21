@@ -1,7 +1,7 @@
-#Room name, Room description
-Shop,Shop has a shopkeeper
-Dungeon,A maze of dark hallways scattered light and the smell of sulfur
-Saloon,Saloon with dark oak doors no windows and smoke in the air
-Exposition,A small pub with a huge boulder
-Abandoned,An abandoned room with a cold breeze
-Cauldron,A room with a furnace blasting hot air
+#Room name; Room description
+Shop;Shop has a shopkeeper
+Dungeon;A maze of dark hallways scattered light and the smell of sulfur
+Saloon;Saloon with dark oak doors no windows and smoke in the air
+Exposition;A small pub with a huge boulder
+Abandoned;An abandoned room with a cold breeze
+Cauldron;A room with a furnace blasting hot air

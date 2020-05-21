@@ -18,7 +18,7 @@ class CSVReader {
   std::string delimeter;
 
 public:
-  CSVReader(std::string filename, std::string delm = ",") : fileName(filename), delimeter(delm) {
+  CSVReader(std::string filename, std::string delm = ";") : fileName(filename), delimeter(delm) {
   }
 
   // Function to fetch data from a CSV File
