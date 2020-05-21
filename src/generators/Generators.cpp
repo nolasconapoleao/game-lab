@@ -12,7 +12,7 @@ std::vector<std::vector<std::string>> names = CSVReader("../databases/names.csv"
 std::vector<std::vector<std::string>> npcs = CSVReader("../databases/npcs.csv").getData();
 std::vector<std::vector<std::string>> items = CSVReader("../databases/items.csv").getData();
 
-BaseItem createItem() {
+Item createItem() {
   uint itemsAvailable = items.size();
   uint itemSeed = MathUtils::random(1, itemsAvailable - 1);
 
@@ -23,7 +23,7 @@ BaseItem createItem() {
   UseType useType = UseType::consumable;
   CharacterProperty characterProperty = CharacterProperty::attack;
 
-  BaseItem item = BaseItem(items[itemSeed][0], items[itemSeed][1], characterProperty, useType, modifierValue, price);
+  Item item = Item(items[itemSeed][0], items[itemSeed][1], characterProperty, useType, modifierValue, price);
   return item;
 }
 

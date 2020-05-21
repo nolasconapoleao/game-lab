@@ -3,5 +3,5 @@ target_sources(${PROJECT_NAME}
         # Sources
     PUBLIC
         # Headers
-        ${CMAKE_CURRENT_SOURCE_DIR}/BaseItem.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/Item.h
 )

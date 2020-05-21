@@ -6,7 +6,7 @@
 #include <rooms/Room.h>
 
 #include "common/Inventory.h"
-#include "items/BaseItem.h"
+#include "items/Item.h"
 
 std::ostream &operator<<(std::ostream &os, const CharacterProperty &property) {
   switch (property) {
@@ -23,7 +23,7 @@ std::ostream &operator<<(std::ostream &os, const CharacterProperty &property) {
   return os;
 }
 
-std::ostream &operator<<(std::ostream &os, const BaseItem &item) {
+std::ostream &operator<<(std::ostream &os, const Item &item) {
   os << item.name << " affects " << item.modifier << " by " << item.modifierValue;
   return os;
 }

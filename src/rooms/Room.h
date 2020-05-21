@@ -4,7 +4,6 @@
 
 #pragma once
 
-#include <memory>
 #include <ostream>
 #include <set>
 #include <string>
@@ -25,7 +24,7 @@ public:
     return *this;
   }
 
-  Room &add(const BaseItem &item, uint quantity = 1) {
+  Room &add(const Item &item, uint quantity = 1) {
     inventory.addItem(item, quantity);
     return *this;
   }

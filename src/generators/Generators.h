@@ -10,7 +10,7 @@ namespace generator {
 /**
  * @brief Generate item.
  */
-BaseItem createItem();
+Item createItem();
 
 /**
  * @brief Generate character with items.

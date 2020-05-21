@@ -3,7 +3,7 @@
 //
 
 #include "characters/Character.h"
-#include "items/BaseItem.h"
+#include "items/Item.h"
 #include "utils/MathUtils.h"
 
 /**
@@ -11,7 +11,7 @@
  * @param character that gets equipped/ consumes item
  * @param item that is consumed/ eqquiped
  */
-inline void entityUseItem(Character &character, const BaseItem &item) {
+inline void entityUseItem(Character &character, const Item &item) {
   switch (item.modifier) {
     case CharacterProperty::currentHealth:
       character.properties.currentHealthPoints = MathUtils::clamp_add(

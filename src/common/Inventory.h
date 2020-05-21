@@ -4,21 +4,20 @@
 
 #pragma once
 
-#include <memory>
 #include <ostream>
 #include <vector>
 
-#include "items/BaseItem.h"
+#include "items/Item.h"
 
 struct ConsumableEntry {
   uint itemId;
-  BaseItem item;
+  Item item;
   uint quantity;
 };
 
 struct EquipableEntry {
   uint itemId;
-  BaseItem item;
+  Item item;
   bool equipped;
 };
 
@@ -29,10 +28,10 @@ class Inventory {
 public:
   Inventory();
 
-  void addItem(BaseItem item, uint quantity = 1u);
+  void addItem(Item item, uint quantity = 1u);
   bool dropItem(uint itemId, uint quantity = 1u);
 
-  BaseItem &getItem(uint itemId);
+  Item &getItem(uint itemId);
   uint totalItems();
   bool useItem(uint itemId);
 

@@ -10,7 +10,7 @@ Inventory::Inventory() {
   lastItemId = 1;
 }
 
-void Inventory::addItem(BaseItem item, uint quantity) {
+void Inventory::addItem(Item item, uint quantity) {
   if (UseType::consumable == item.useType) {
     const auto &it = std::find_if(consumables.begin(), consumables.end(),
                                   [item](ConsumableEntry entry) { return item.name == entry.item.name; });
@@ -112,7 +112,7 @@ bool Inventory::toggleEquip(uint itemId) {
   return entry->equipped ? unequipItem(itemId) : equipItem(itemId);
 }
 
-BaseItem &Inventory::getItem(uint itemId) {
+Item &Inventory::getItem(uint itemId) {
   const auto consumableEntry = std::find_if(consumables.begin(), consumables.end(),
                                             [itemId](ConsumableEntry entry) { return itemId == entry.itemId; });
   if (consumableEntry != consumables.end()) {
