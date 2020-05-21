@@ -6,13 +6,14 @@
 
 #include <memory>
 #include <ostream>
+#include <set>
 #include <string>
 #include <vector>
 
 #include "characters/BaseCharacter.h"
 
 /**
- * @brief Base room, all derived rooms have an inventory of "dropped" items, a list of npcs and linked rooms.
+ * @brief Room has an inventory of "dropped" items, a list of npcs and linked rooms.
  */
 class Room {
 public:
@@ -30,7 +31,7 @@ public:
   }
 
   Room &addLink(const uint &adjacentRoom) {
-    adjacentRooms.emplace_back(adjacentRoom);
+    adjacentRooms.insert(adjacentRoom);
     return *this;
   }
 
@@ -39,6 +40,6 @@ public:
   std::string name;
   std::string description;
   Inventory inventory;
-  std::vector<uint> adjacentRooms;
+  std::set<uint> adjacentRooms;
   std::vector<std::shared_ptr<BaseCharacter>> npcs;
 };

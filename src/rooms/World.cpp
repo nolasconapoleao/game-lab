@@ -12,7 +12,9 @@ World::World() {
 }
 
 void World::goToNextRoom(uint option) {
-  currentRoom = rooms.at(currentRoom)->adjacentRooms.at(option);
+  auto it = rooms.at(currentRoom)->adjacentRooms.begin();
+  std::advance(it, option);
+  currentRoom = *it;
 }
 
 bool World::isAnyNpcAliveInThisRoom() {
