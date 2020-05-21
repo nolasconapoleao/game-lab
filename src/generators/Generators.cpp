@@ -14,7 +14,7 @@ std::vector<std::vector<std::string>> npcs = CSVReader("../databases/npcs.csv").
 /**
  * @brief Generate character with items.
  */
-BaseCharacter createNPC() {
+Character createNPC() {
   uint npcsAvailable = npcs.size();
   uint characterSeed = MathUtils::random(1, npcsAvailable - 1);
 
@@ -24,8 +24,8 @@ BaseCharacter createNPC() {
   // TODO: diplomacy should be calculated based on class
   CharacterRelation diplomacy = CharacterRelation::hostile;
 
-  BaseCharacter character = BaseCharacter(names[characterSeed][0], npcs[characterSeed][1], npcs[characterSeed][2],
-                                          health, attack, diplomacy);
+  Character character
+      = Character(names[characterSeed][0], npcs[characterSeed][1], npcs[characterSeed][2], health, attack, diplomacy);
   return character;
 }
 
@@ -47,7 +47,7 @@ Room createRoom(uint roomsInWorld, uint roomIndex) {
   }
 
   for (uint it = 0; it < 2u; ++it) {
-    room.add(std::make_shared<BaseCharacter>(createNPC()));
+    room.add(std::make_shared<Character>(createNPC()));
   }
 
   return room;

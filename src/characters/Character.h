@@ -30,15 +30,15 @@ enum class CharacterRelation {
 /**
  * @brief Base character, all derived characters have an inventory and are battle ready.
  */
-class BaseCharacter {
+class Character {
 public:
-  BaseCharacter(std::string name, std::string sayHi, std::string sayBye, uint maxHealthPoints, uint attackPoints,
-                CharacterRelation relation)
+  Character(std::string name, std::string sayHi, std::string sayBye, uint maxHealthPoints, uint attackPoints,
+            CharacterRelation relation)
       : name(name), sayHi(sayHi), sayBye(sayBye),
         properties(CharacterProperties{maxHealthPoints, maxHealthPoints, attackPoints}), relation(relation) {
   }
 
-  BaseCharacter add(const std::shared_ptr<BaseItem> &item, uint quantity = 1) {
+  Character add(const std::shared_ptr<BaseItem> &item, uint quantity = 1) {
     inventory.addItem(item, quantity);
     return *this;
   }
@@ -64,7 +64,7 @@ public:
     properties.money += value;
   }
 
-  friend std::ostream &operator<<(std::ostream &os, const BaseCharacter &character);
+  friend std::ostream &operator<<(std::ostream &os, const Character &character);
 
   Inventory inventory;
   CharacterProperties properties;

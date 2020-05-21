@@ -2,7 +2,7 @@
 // Created by nolasco on 16/05/20.
 //
 
-#include <characters/BaseCharacter.h>
+#include <characters/Character.h>
 #include <rooms/Room.h>
 
 #include "common/Inventory.h"
@@ -40,7 +40,7 @@ std::ostream &operator<<(std::ostream &os, const Inventory &inventory) {
   return os;
 }
 
-std::ostream &operator<<(std::ostream &os, const BaseCharacter &character) {
+std::ostream &operator<<(std::ostream &os, const Character &character) {
   os << character.name << " HP: " << character.properties.currentHealthPoints << "/"
      << character.properties.maxHealthPoints;
   return os;

@@ -6,12 +6,12 @@
 
 #include <ostream>
 
-#include "BaseCharacter.h"
+#include "Character.h"
 
 /**
  * @brief Player class, 20 health and 3 attack points.
  */
-class Player : public BaseCharacter {
+class Player : public Character {
 public:
   Player();
 };

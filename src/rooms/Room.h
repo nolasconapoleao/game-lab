@@ -10,7 +10,7 @@
 #include <string>
 #include <vector>
 
-#include "characters/BaseCharacter.h"
+#include "characters/Character.h"
 
 /**
  * @brief Room has an inventory of "dropped" items, a list of npcs and linked rooms.
@@ -20,7 +20,7 @@ public:
   Room(const std::string &name, const std::string &description) : name(name), description(description) {
   }
 
-  Room &add(const std::shared_ptr<BaseCharacter> &npc) {
+  Room &add(const std::shared_ptr<Character> &npc) {
     npcs.emplace_back(npc);
     return *this;
   }
@@ -41,5 +41,5 @@ public:
   std::string description;
   Inventory inventory;
   std::set<uint> adjacentRooms;
-  std::vector<std::shared_ptr<BaseCharacter>> npcs;
+  std::vector<std::shared_ptr<Character>> npcs;
 };

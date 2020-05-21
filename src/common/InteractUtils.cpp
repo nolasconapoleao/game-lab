@@ -2,7 +2,7 @@
 // Created by nolasco on 13/05/20.
 //
 
-#include "characters/BaseCharacter.h"
+#include "characters/Character.h"
 #include "items/BaseItem.h"
 #include "utils/MathUtils.h"
 
@@ -11,7 +11,7 @@
  * @param character that gets equipped/ consumes item
  * @param item that is consumed/ eqquiped
  */
-inline void entityUseItem(BaseCharacter &character, const std::shared_ptr<BaseItem> &item) {
+inline void entityUseItem(Character &character, const std::shared_ptr<BaseItem> &item) {
   switch (item->modifier) {
     case CharacterProperty::currentHealth:
       character.properties.currentHealthPoints = MathUtils::clamp_add(

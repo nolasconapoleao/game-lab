@@ -2,7 +2,7 @@
 // Created by nolasco on 21/05/20.
 //
 
-#include "characters/BaseCharacter.h"
+#include "characters/Character.h"
 //#include "items/BaseItem.h"
 #include "rooms/World.h"
 #include "utils/FileUtils.h"
