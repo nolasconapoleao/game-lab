@@ -13,7 +13,7 @@
 #include "characters/Character.h"
 
 /**
- * @brief Room has an inventory of "dropped" items, a list of npcs and linked rooms.
+ * @brief Room has an inventory of "dropped" items.csv, a list of npcs and linked rooms.
  */
 class Room {
 public:

@@ -8,7 +8,7 @@
 
 #include "common/InteractUtils.cpp"
 #include "generators/Generators.h"
-#include "items/Potion.h"
+#include "items/BaseItem.h"
 
 Game::Game() : userInput(0) {
   std::cout << "Begin game!" << std::endl;
@@ -26,7 +26,12 @@ Game::~Game() {
 void Game::initGame() {
   gameState = GameState::Menu;
   world = generator::createWorld(1);
-  player.add(std::make_shared<BaseItem>(Potion{}), 12);
+  player.add(std::make_shared<BaseItem>("Potion", "Is a potion", CharacterProperty::currentHealth, UseType::consumable,
+                                        3u, 1u),
+             12);
+  for (uint it = 0; it < 2u; ++it) {
+    player.add(std::make_shared<BaseItem>(generator::createItem()));
+  }
 }
 
 void Game::loop() {

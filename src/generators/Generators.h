@@ -3,16 +3,19 @@
 //
 
 #include "characters/Character.h"
-//#include "items/BaseItem.h"
 #include "rooms/World.h"
 #include "utils/FileUtils.h"
 
 namespace generator {
+/**
+ * @brief Generate item.
+ */
+BaseItem createItem();
 
-///**
-// * @brief Generate character with items.
-// */
-// void createNPC();
+/**
+ * @brief Generate character with items.
+ */
+Character createNPC();
 
 /**
  * @brief Generate room with npcs.

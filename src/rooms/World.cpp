@@ -4,9 +4,6 @@
 
 #include "World.h"
 
-#include "items/Potion.h"
-#include "items/Sword.h"
-
 World::World() {
   currentRoom = 0;
 }

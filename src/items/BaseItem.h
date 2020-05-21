@@ -26,10 +26,13 @@ enum class UseType { equipable, consumable };
  */
 class BaseItem {
 public:
-  BaseItem(const std::string &name, CharacterProperty modifier, UseType useType, uint modifierValue, uint price)
-      : name(name), modifier(modifier), useType(useType), modifierValue(modifierValue), price(price){};
+  BaseItem(const std::string &name, const std::string &description, CharacterProperty modifier, UseType useType,
+           uint modifierValue, uint price)
+      : name(name), description(description), modifier(modifier), useType(useType), modifierValue(modifierValue),
+        price(price){};
 
   std::string name;
+  std::string description;
   CharacterProperty modifier;
   UseType useType;
   uint modifierValue;

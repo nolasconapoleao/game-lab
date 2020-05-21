@@ -10,10 +10,23 @@ namespace generator {
 std::vector<std::vector<std::string>> rooms = CSVReader("../databases/rooms.csv").getData();
 std::vector<std::vector<std::string>> names = CSVReader("../databases/names.csv").getData();
 std::vector<std::vector<std::string>> npcs = CSVReader("../databases/npcs.csv").getData();
+std::vector<std::vector<std::string>> items = CSVReader("../databases/items.csv").getData();
 
-/**
- * @brief Generate character with items.
- */
+BaseItem createItem() {
+  uint itemsAvailable = items.size();
+  uint itemSeed = MathUtils::random(1, itemsAvailable - 1);
+
+  uint modifierValue = MathUtils::random(1, 3);
+  uint price = MathUtils::random(1, 10);
+
+  // TODO: use type and character property should defined in the csv file
+  UseType useType = UseType::consumable;
+  CharacterProperty characterProperty = CharacterProperty::attack;
+
+  BaseItem item = BaseItem(items[itemSeed][0], items[itemSeed][1], characterProperty, useType, modifierValue, price);
+  return item;
+}
+
 Character createNPC() {
   uint npcsAvailable = npcs.size();
   uint characterSeed = MathUtils::random(1, npcsAvailable - 1);
@@ -29,16 +42,13 @@ Character createNPC() {
   return character;
 }
 
-/**
- * @brief Generate room with npcs.
- */
 Room createRoom(uint roomsInWorld, uint roomIndex) {
   uint availableRoms = rooms.size();
   uint roomSeed = MathUtils::random(1, availableRoms - 1);
 
   Room room = Room(rooms[roomSeed][0], rooms[roomSeed][1]);
   for (uint id = 0; id < 3u; ++id) {
-    uint adjacentRoomSeed = MathUtils::random(0, roomsInWorld);
+    uint adjacentRoomSeed = MathUtils::random(0, roomsInWorld - 1);
 
     // Room should not link to itself
     if (adjacentRoomSeed != roomIndex) {
@@ -48,13 +58,14 @@ Room createRoom(uint roomsInWorld, uint roomIndex) {
 
   for (uint it = 0; it < 2u; ++it) {
     room.add(createNPC());
+    room.add(std::make_shared<BaseItem>(createItem()));
   }
 
   return room;
 }
 
 /**
- * @brief Generate world with connections of rooms, npcs and items.
+ * @brief Generate world with connections of rooms, npcs and items.csv.
  */
 World createWorld(uint dificulty) {
   World world;
