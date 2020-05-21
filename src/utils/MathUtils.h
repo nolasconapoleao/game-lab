@@ -41,6 +41,6 @@ uint clamp(uint num, uint lowerBound, uint upperBound);
  * @param upperBound for generation
  * @return random number
  */
-uint random(uint lowerBound, uint upperBound);
+[[nodiscard]] uint random(uint lowerBound, uint upperBound);
 
 }; // namespace MathUtils

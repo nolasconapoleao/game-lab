@@ -5,9 +5,9 @@
 #include "Game.h"
 
 #include <iostream>
-#include <sstream>
 
 #include "common/InteractUtils.cpp"
+#include "generators/Generators.h"
 #include "items/Potion.h"
 
 Game::Game() : userInput(0) {
@@ -25,6 +25,7 @@ Game::~Game() {
 
 void Game::initGame() {
   gameState = GameState::Menu;
+  world = generator::createWorld(1);
   player.add(std::make_shared<BaseItem>(Potion{}), 12);
 }
 

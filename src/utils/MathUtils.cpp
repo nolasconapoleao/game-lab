@@ -4,8 +4,7 @@
 
 #include "MathUtils.h"
 
-#include <cstdlib>
-#include <time.h>
+#include <random>
 
 uint MathUtils::clamp_sub(uint minuend, uint subtrahend, uint lowerBound) {
   if (minuend >= (subtrahend + lowerBound)) {
@@ -34,7 +33,13 @@ uint MathUtils::clamp(uint num, uint lowerBound, uint upperBound) {
 }
 
 uint MathUtils::random(uint lowerBound, uint upperBound) {
-  srand(time(NULL));
-  return rand() % upperBound + lowerBound;
-  ;
+  std::random_device rd;
+
+  // Initialize Mersenne Twister pseudo-random number generator
+  std::mt19937 gen(rd());
+
+  // Generate pseudo-random numbers uniformly distributed in range (1, 100)
+  std::uniform_int_distribution<> dis(lowerBound, upperBound);
+
+  return dis(gen);
 }

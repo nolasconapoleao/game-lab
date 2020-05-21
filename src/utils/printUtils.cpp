@@ -3,7 +3,7 @@
 //
 
 #include <characters/BaseCharacter.h>
-#include <rooms/BaseRoom.h>
+#include <rooms/Room.h>
 
 #include "common/Inventory.h"
 #include "items/BaseItem.h"
@@ -46,7 +46,7 @@ std::ostream &operator<<(std::ostream &os, const BaseCharacter &character) {
   return os;
 }
 
-std::ostream &operator<<(std::ostream &os, const BaseRoom &room) {
+std::ostream &operator<<(std::ostream &os, const Room &room) {
   os << room.description << std::endl;
   for (const auto &npc : room.npcs) {
     os << *npc.get() << std::endl;
