@@ -2,11 +2,9 @@
 // Created by nolasco on 16/05/20.
 //
 
-#include <characters/Character.h>
-#include <rooms/Room.h>
+#pragma once
 
-#include "common/Inventory.h"
-#include "items/Item.h"
+#include "PrintUtils.h"
 
 std::ostream &operator<<(std::ostream &os, const uint8_t &number) {
   return os << std::to_string(number);

@@ -6,7 +6,7 @@
 
 #include <iostream>
 
-#include "common/InteractUtils.cpp"
+#include "common/InteractUtils.h"
 #include "generators/Generators.h"
 #include "items/Item.h"
 
