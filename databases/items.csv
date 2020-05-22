@@ -1,9 +1,9 @@
-#Name; Description
-Armor;Equip to increase defense
-Bow;Equip to allow long distance attack
-Coat;Equip to increase defense
-Dagger;Equip to increase speed
-Elixir;Consume to temporarily increase attack
-Potion;Consume to recover health
-Shield;Equip to increase defense
-Sword;Equip to increase attack
+#Name; Description; Use type; Property
+Armor;Equip to increase defense;equip;defense
+Bow;Equip to allow long distance attack;equip;attack
+Coat;Equip to increase defense;equip;defense
+Dagger;Equip to increase speed;equip;attack
+Elixir;Consume to temporarily increase attack;consume;attack
+Potion;Consume to recover health;consume;health
+Shield;Equip to increase defense;equip;defense
+Sword;Equip to increase attack;equip;attack

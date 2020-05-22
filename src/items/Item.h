@@ -14,6 +14,7 @@ enum class CharacterProperty {
   maxHealth,
   currentHealth,
   attack,
+  defense,
 };
 
 /**

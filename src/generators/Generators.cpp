@@ -19,9 +19,8 @@ Item createItem() {
   uint modifierValue = MathUtils::random(1, 3);
   uint price = MathUtils::random(1, 10);
 
-  // TODO: use type and character property should defined in the csv file
-  UseType useType = UseType::consumable;
-  CharacterProperty characterProperty = CharacterProperty::attack;
+  UseType useType = toUseType(items[itemSeed][2]);
+  CharacterProperty characterProperty = toCharacterProperty(items[itemSeed][3]);
 
   Item item = Item(items[itemSeed][0], items[itemSeed][1], characterProperty, useType, modifierValue, price);
   return item;
@@ -31,14 +30,16 @@ Character createNPC() {
   uint npcsAvailable = npcs.size();
   uint characterSeed = MathUtils::random(1, npcsAvailable - 1);
 
+  uint namesAvailable = names.size();
+  uint nameSeed = MathUtils::random(1, namesAvailable - 1);
+
   uint attack = MathUtils::random(1, 3);
   uint health = MathUtils::random(1, 10);
 
-  // TODO: diplomacy should be calculated based on class
-  CharacterRelation diplomacy = CharacterRelation::hostile;
+  CharacterRelation diplomacy = toCharacterRelation(npcs[characterSeed][3]);
 
   Character character
-      = Character(names[characterSeed][0], npcs[characterSeed][1], npcs[characterSeed][2], health, attack, diplomacy);
+      = Character(names[nameSeed][0], npcs[characterSeed][1], npcs[characterSeed][2], health, attack, diplomacy);
   return character;
 }
 
@@ -76,6 +77,36 @@ World createWorld(uint dificulty) {
   }
 
   return world;
+}
+
+CharacterProperty toCharacterProperty(std::string fromFile) {
+  if ("attack" == fromFile) {
+    return CharacterProperty::attack;
+  } else if ("health" == fromFile) {
+    return CharacterProperty::currentHealth;
+  } else if ("maxHealth" == fromFile) {
+    return CharacterProperty::maxHealth;
+  } else if ("defense" == fromFile) {
+    return CharacterProperty::defense;
+  }
+}
+
+UseType toUseType(std::string fromFile) {
+  if ("consume" == fromFile) {
+    return UseType::consumable;
+  } else if ("equip" == fromFile) {
+    return UseType::equipable;
+  }
+}
+
+CharacterRelation toCharacterRelation(std::string fromFile) {
+  if ("hostile" == fromFile) {
+    return CharacterRelation::hostile;
+  } else if ("neutral" == fromFile) {
+    return CharacterRelation::neutral;
+  } else if ("friend" == fromFile) {
+    return CharacterRelation::friendly;
+  }
 }
 
 } // namespace generator
