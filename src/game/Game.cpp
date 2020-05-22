@@ -26,7 +26,7 @@ Game::~Game() {
 void Game::initGame() {
   gameState = GameState::Menu;
   world = generator::createWorld(1);
-  player.add(Item("Potion", "Is a potion", CharacterProperty::currentHealth, UseType::consumable, 3u, 1u), 12);
+  player.add(Item("Potion", "Is a potion", Effect::health, UseType::consumable, 3u, 1u), 12);
   for (uint it = 0; it < 2u; ++it) {
     player.add(generator::createItem());
   }
@@ -101,8 +101,8 @@ void Game::updateGameState() {
 
 void Game::updatePlayer() {
   for (const auto npc : world.rooms.at(world.currentRoom).npcs) {
-    if (!npc.isDead() && CharacterRelation::hostile == npc.relation) {
-      player.receiveAttack(npc.properties.attackPoints);
+    if (!npc.isDead() && Diplomacy::hostile == npc.relation) {
+      player.receiveAttack(npc.properties.attack);
     }
   }
 }
@@ -161,7 +161,7 @@ void Game::handleInput() {
     }
 
     case GameState::Attack:
-      world.rooms.at(world.currentRoom).npcs.at(userInput - 1).receiveAttack(player.properties.attackPoints);
+      world.rooms.at(world.currentRoom).npcs.at(userInput - 1).receiveAttack(player.properties.attack);
       break;
 
     case GameState::Inventory: {

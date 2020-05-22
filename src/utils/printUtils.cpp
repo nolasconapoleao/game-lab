@@ -8,15 +8,15 @@
 #include "common/Inventory.h"
 #include "items/Item.h"
 
-std::ostream &operator<<(std::ostream &os, const CharacterProperty &property) {
+std::ostream &operator<<(std::ostream &os, const Effect &property) {
   switch (property) {
-    case CharacterProperty::maxHealth:
+    case Effect::maxHealth:
       os << "Max health";
       break;
-    case CharacterProperty::currentHealth:
+    case Effect::health:
       os << "Current health";
       break;
-    case CharacterProperty::attack:
+    case Effect::attack:
       os << "Attack";
       break;
   }
@@ -41,8 +41,7 @@ std::ostream &operator<<(std::ostream &os, const Inventory &inventory) {
 }
 
 std::ostream &operator<<(std::ostream &os, const Character &character) {
-  os << character.name << " HP: " << character.properties.currentHealthPoints << "/"
-     << character.properties.maxHealthPoints;
+  os << character.name << " HP: " << character.properties.health << "/" << character.properties.maxHealth;
   return os;
 }
 

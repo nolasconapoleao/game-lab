@@ -20,7 +20,7 @@ Item createItem() {
   uint price = MathUtils::random(1, 10);
 
   UseType useType = toUseType(items[itemSeed][2]);
-  CharacterProperty characterProperty = toCharacterProperty(items[itemSeed][3]);
+  Effect characterProperty = toCharacterProperty(items[itemSeed][3]);
 
   Item item = Item(items[itemSeed][0], items[itemSeed][1], characterProperty, useType, modifierValue, price);
   return item;
@@ -36,7 +36,7 @@ Character createNPC() {
   uint attack = MathUtils::random(1, 3);
   uint health = MathUtils::random(1, 10);
 
-  CharacterRelation diplomacy = toCharacterRelation(npcs[characterSeed][3]);
+  Diplomacy diplomacy = toCharacterRelation(npcs[characterSeed][3]);
 
   Character character
       = Character(names[nameSeed][0], npcs[characterSeed][1], npcs[characterSeed][2], health, attack, diplomacy);
@@ -79,15 +79,15 @@ World createWorld(uint dificulty) {
   return world;
 }
 
-CharacterProperty toCharacterProperty(std::string fromFile) {
+Effect toCharacterProperty(std::string fromFile) {
   if ("attack" == fromFile) {
-    return CharacterProperty::attack;
+    return Effect::attack;
   } else if ("health" == fromFile) {
-    return CharacterProperty::currentHealth;
+    return Effect::health;
   } else if ("maxHealth" == fromFile) {
-    return CharacterProperty::maxHealth;
+    return Effect::maxHealth;
   } else if ("defense" == fromFile) {
-    return CharacterProperty::defense;
+    return Effect::defense;
   }
 }
 
@@ -99,13 +99,13 @@ UseType toUseType(std::string fromFile) {
   }
 }
 
-CharacterRelation toCharacterRelation(std::string fromFile) {
+Diplomacy toCharacterRelation(std::string fromFile) {
   if ("hostile" == fromFile) {
-    return CharacterRelation::hostile;
+    return Diplomacy::hostile;
   } else if ("neutral" == fromFile) {
-    return CharacterRelation::neutral;
+    return Diplomacy::neutral;
   } else if ("friend" == fromFile) {
-    return CharacterRelation::friendly;
+    return Diplomacy::friendly;
   }
 }
 

@@ -25,7 +25,7 @@ bool World::isAnyNpcAliveInThisRoom() {
 
 bool World::isAnyNpcHostileInThisRoom() {
   for (auto &npc : rooms.at(currentRoom).npcs) {
-    if (CharacterRelation::hostile == npc.relation && !npc.isDead()) {
+    if (Diplomacy::hostile == npc.relation && !npc.isDead()) {
       return true;
     }
   }

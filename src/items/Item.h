@@ -10,9 +10,9 @@
 /**
  * @brief Character property that is affected by the item.
  */
-enum class CharacterProperty {
+enum class Effect {
   maxHealth,
-  currentHealth,
+  health,
   attack,
   defense,
 };
@@ -27,14 +27,14 @@ enum class UseType { equipable, consumable };
  */
 class Item {
 public:
-  Item(const std::string &name, const std::string &description, CharacterProperty modifier, UseType useType,
-       uint modifierValue, uint price)
+  Item(const std::string &name, const std::string &description, Effect modifier, UseType useType, uint modifierValue,
+       uint price)
       : name(name), description(description), modifier(modifier), useType(useType), modifierValue(modifierValue),
         price(price){};
 
   std::string name;
   std::string description;
-  CharacterProperty modifier;
+  Effect modifier;
   UseType useType;
   uint modifierValue;
   uint price;

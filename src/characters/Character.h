@@ -12,16 +12,16 @@
 #include "common/Inventory.h"
 #include "utils/MathUtils.h"
 
-struct CharacterProperties {
-  uint currentHealthPoints;
-  uint maxHealthPoints;
-  uint attackPoints;
-  uint defensePoints = 0;
+struct Properties {
+  uint health;
+  uint maxHealth;
+  uint attack;
+  uint defense = 0;
   uint money = 0;
   uint experience = 0;
 };
 
-enum class CharacterRelation {
+enum class Diplomacy {
   friendly,
   hostile,
   neutral,
@@ -33,9 +33,9 @@ enum class CharacterRelation {
 class Character {
 public:
   Character(std::string name, std::string sayHi, std::string sayBye, uint maxHealthPoints, uint attackPoints,
-            CharacterRelation relation)
+            Diplomacy relation)
       : name(name), sayHi(sayHi), sayBye(sayBye),
-        properties(CharacterProperties{maxHealthPoints, maxHealthPoints, attackPoints}), relation(relation) {
+        properties(Properties{maxHealthPoints, maxHealthPoints, attackPoints}), relation(relation) {
   }
 
   Character add(const Item &item, uint quantity = 1) {
@@ -44,11 +44,11 @@ public:
   }
 
   const bool isDead() const {
-    return properties.currentHealthPoints == 0;
+    return properties.health == 0;
   };
 
   void receiveAttack(uint attackPoints) {
-    properties.currentHealthPoints = MathUtils::clamp_sub(properties.currentHealthPoints, attackPoints, 0);
+    properties.health = MathUtils::clamp_sub(properties.health, attackPoints, 0);
   };
 
   bool pay(uint value) {
@@ -67,8 +67,8 @@ public:
   friend std::ostream &operator<<(std::ostream &os, const Character &character);
 
   Inventory inventory;
-  CharacterProperties properties;
-  CharacterRelation relation;
+  Properties properties;
+  Diplomacy relation;
   std::string name;
   std::string sayHi;
   std::string sayBye;

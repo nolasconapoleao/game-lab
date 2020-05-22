@@ -13,17 +13,15 @@
  */
 inline void entityUseItem(Character &character, const Item &item) {
   switch (item.modifier) {
-    case CharacterProperty::currentHealth:
-      character.properties.currentHealthPoints = MathUtils::clamp_add(
-          character.properties.currentHealthPoints, item.modifierValue, character.properties.maxHealthPoints);
+    case Effect::health:
+      character.properties.health
+          = MathUtils::clamp_add(character.properties.health, item.modifierValue, character.properties.maxHealth);
       break;
-    case CharacterProperty::attack:
-      character.properties.attackPoints
-          = MathUtils::clamp_add(character.properties.attackPoints, item.modifierValue, 1e3);
+    case Effect::attack:
+      character.properties.attack = MathUtils::clamp_add(character.properties.attack, item.modifierValue, 1e3);
       break;
-    case CharacterProperty::maxHealth:
-      character.properties.maxHealthPoints
-          = MathUtils::clamp_add(character.properties.maxHealthPoints, item.modifierValue, 1e3);
+    case Effect::maxHealth:
+      character.properties.maxHealth = MathUtils::clamp_add(character.properties.maxHealth, item.modifierValue, 1e3);
       break;
   }
 }

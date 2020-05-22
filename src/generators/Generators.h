@@ -27,8 +27,8 @@ Room createRoom(uint roomsInWorld, uint roomIndex);
  */
 World createWorld(uint dificulty = 1);
 
-CharacterProperty toCharacterProperty(std::string fromFile);
+Effect toCharacterProperty(std::string fromFile);
 UseType toUseType(std::string fromFile);
-CharacterRelation toCharacterRelation(std::string fromFile);
+Diplomacy toCharacterRelation(std::string fromFile);
 
 } // namespace generator

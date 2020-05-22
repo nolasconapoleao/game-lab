@@ -33,9 +33,9 @@ SCENARIO("Operations in consumables", "[Inventory]") {
   GIVEN("An inventory with potions") {
     Inventory inventory;
 
-    inventory.addItem(Item("Potion", "Is a potion", CharacterProperty::currentHealth, UseType::consumable, 3u, 1u));
-    inventory.addItem(Item("Potion", "Is a potion", CharacterProperty::currentHealth, UseType::consumable, 3u, 1u));
-    inventory.addItem(Item("Potion", "Is a potion", CharacterProperty::currentHealth, UseType::consumable, 3u, 1u));
+    inventory.addItem(Item("Potion", "Is a potion", Effect::health, UseType::consumable, 3u, 1u));
+    inventory.addItem(Item("Potion", "Is a potion", Effect::health, UseType::consumable, 3u, 1u));
+    inventory.addItem(Item("Potion", "Is a potion", Effect::health, UseType::consumable, 3u, 1u));
     REQUIRE(inventory.consumables[0].item.name == "Potion");
     REQUIRE(inventory.consumables[0].quantity == 3);
 
@@ -65,11 +65,11 @@ SCENARIO("Operations in equipables", "[Inventory]") {
   GIVEN("An inventory with swords") {
     Inventory inventory;
 
-    inventory.addItem(Item("Sword", "Is a sword", CharacterProperty::attack, UseType::equipable, 2u, 1u));
+    inventory.addItem(Item("Sword", "Is a sword", Effect::attack, UseType::equipable, 2u, 1u));
     REQUIRE(inventory.equipables[0].item.name == "Sword");
     REQUIRE(inventory.equipables[0].equipped == false);
 
-    inventory.addItem(Item("Sword", "Is a sword", CharacterProperty::attack, UseType::equipable, 2u, 1u));
+    inventory.addItem(Item("Sword", "Is a sword", Effect::attack, UseType::equipable, 2u, 1u));
     REQUIRE(inventory.equipables[1].item.name == "Sword");
     REQUIRE(inventory.equipables[1].equipped == false);
 
