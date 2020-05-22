@@ -8,7 +8,7 @@
 
 #include "common/InteractUtils.h"
 #include "generators/Generators.h"
-#include "items/Item.h"
+#include "utils/PrintUtils.h"
 
 Game::Game() : userInput(0) {
   std::cout << "Begin game!" << std::endl;
@@ -119,7 +119,12 @@ void Game::paintScreen() {
 }
 
 void Game::clearScreen() {
-  std::cout << "\033[2J\033[1;1H";
+  #ifdef _WIN32
+    std::system("cls");
+  #else
+    // Assume POSIX
+    std::system ("clear");
+  #endif
 };
 
 void Game::paintConvos() {
