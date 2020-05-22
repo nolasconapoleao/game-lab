@@ -34,6 +34,12 @@ public:
     return *this;
   }
 
+  bool hasNpc(const std::string npcType) {
+    const auto res = std::find_if(npcs.begin(), npcs.end(), [npcType](Character npc) { return npcType == npc.name; });
+
+    return (res != npcs.end());
+  }
+
   friend std::ostream &operator<<(std::ostream &os, const Room &room);
 
   std::string name;

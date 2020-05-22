@@ -205,7 +205,7 @@ void Game::updateOptions() {
         options.emplace_back("1: Walk");
         options.emplace_back("2: Pickup");
         options.emplace_back("3: Inventory");
-        if ("Shop" == world.rooms.at(world.currentRoom).name) {
+        if (world.rooms.at(world.currentRoom).hasNpc("Shopkeeper")) {
           options.emplace_back("4: Shop");
         }
       }
