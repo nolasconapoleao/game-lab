@@ -27,8 +27,8 @@ enum class UseType { equipable, consumable };
  */
 class Item {
 public:
-  Item(const std::string &name, const std::string &description, Effect modifier, UseType useType, uint modifierValue,
-       uint price)
+  Item(const std::string &name, const std::string &description, Effect modifier, UseType useType, uint8_t modifierValue,
+       uint8_t price)
       : name(name), description(description), modifier(modifier), useType(useType), modifierValue(modifierValue),
         price(price){};
 
@@ -36,6 +36,6 @@ public:
   std::string description;
   Effect modifier;
   UseType useType;
-  uint modifierValue;
-  uint price;
+  uint8_t modifierValue;
+  uint8_t price;
 };

@@ -24,12 +24,12 @@ public:
     return *this;
   }
 
-  Room &add(const Item &item, uint quantity = 1) {
+  Room &add(const Item &item, uint8_t quantity = 1) {
     inventory.addItem(item, quantity);
     return *this;
   }
 
-  Room &addLink(const uint &adjacentRoom) {
+  Room &addLink(const uint8_t &adjacentRoom) {
     adjacentRooms.insert(adjacentRoom);
     return *this;
   }
@@ -45,6 +45,6 @@ public:
   std::string name;
   std::string description;
   Inventory inventory;
-  std::set<uint> adjacentRooms;
+  std::set<uint8_t> adjacentRooms;
   std::vector<Character> npcs;
 };

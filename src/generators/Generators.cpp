@@ -13,11 +13,11 @@ std::vector<std::vector<std::string>> npcs = CSVReader("../databases/npcs.csv").
 std::vector<std::vector<std::string>> items = CSVReader("../databases/items.csv").getData();
 
 Item createItem() {
-  uint itemsAvailable = items.size();
-  uint itemSeed = MathUtils::random(1, itemsAvailable - 1);
+  uint8_t itemsAvailable = items.size();
+  uint8_t itemSeed = MathUtils::random(1, itemsAvailable - 1);
 
-  uint modifierValue = MathUtils::random(1, 3);
-  uint price = MathUtils::random(1, 10);
+  uint8_t modifierValue = MathUtils::random(1, 3);
+  uint8_t price = MathUtils::random(1, 10);
 
   UseType useType = toUseType(items[itemSeed][2]);
   Effect characterProperty = toCharacterProperty(items[itemSeed][3]);
@@ -27,14 +27,14 @@ Item createItem() {
 }
 
 Character createNPC() {
-  uint npcsAvailable = npcs.size();
-  uint characterSeed = MathUtils::random(1, npcsAvailable - 1);
+  uint8_t npcsAvailable = npcs.size();
+  uint8_t characterSeed = MathUtils::random(1, npcsAvailable - 1);
 
-  uint namesAvailable = names.size();
-  uint nameSeed = MathUtils::random(1, namesAvailable - 1);
+  uint8_t namesAvailable = names.size();
+  uint8_t nameSeed = MathUtils::random(1, namesAvailable - 1);
 
-  uint attack = MathUtils::random(1, 3);
-  uint health = MathUtils::random(1, 10);
+  uint8_t attack = MathUtils::random(1, 3);
+  uint8_t health = MathUtils::random(1, 10);
 
   Diplomacy diplomacy = toCharacterRelation(npcs[characterSeed][3]);
 
@@ -43,13 +43,13 @@ Character createNPC() {
   return character;
 }
 
-Room createRoom(uint roomsInWorld, uint roomIndex) {
-  uint availableRoms = rooms.size();
-  uint roomSeed = MathUtils::random(1, availableRoms - 1);
+Room createRoom(uint8_t roomsInWorld, uint8_t roomIndex) {
+  uint8_t availableRoms = rooms.size();
+  uint8_t roomSeed = MathUtils::random(1, availableRoms - 1);
 
   Room room = Room(rooms[roomSeed][0], rooms[roomSeed][1]);
-  for (uint id = 0; id < 3u; ++id) {
-    uint adjacentRoomSeed = MathUtils::random(0, roomsInWorld - 1);
+  for (uint8_t id = 0; id < 3u; ++id) {
+    uint8_t adjacentRoomSeed = MathUtils::random(0, roomsInWorld - 1);
 
     // Room should not link to itself
     if (adjacentRoomSeed != roomIndex) {
@@ -57,7 +57,7 @@ Room createRoom(uint roomsInWorld, uint roomIndex) {
     }
   }
 
-  for (uint it = 0; it < 2u; ++it) {
+  for (uint8_t it = 0; it < 2u; ++it) {
     room.add(createNPC());
     room.add(createItem());
   }
@@ -68,11 +68,11 @@ Room createRoom(uint roomsInWorld, uint roomIndex) {
 /**
  * @brief Generate world with connections of rooms, npcs and items.csv.
  */
-World createWorld(uint dificulty) {
+World createWorld(uint8_t dificulty) {
   World world;
-  uint roomsInWorld = 4 * dificulty + 1;
+  uint8_t roomsInWorld = 4 * dificulty + 1;
 
-  for (uint id = 0; id < roomsInWorld; ++id) {
+  for (uint8_t id = 0; id < roomsInWorld; ++id) {
     world.add(createRoom(roomsInWorld, id));
   }
 

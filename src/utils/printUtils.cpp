@@ -8,6 +8,10 @@
 #include "common/Inventory.h"
 #include "items/Item.h"
 
+std::ostream &operator<<(std::ostream &os, const uint8_t &number) {
+  return os << std::to_string(number);
+}
+
 std::ostream &operator<<(std::ostream &os, const Effect &property) {
   switch (property) {
     case Effect::maxHealth:

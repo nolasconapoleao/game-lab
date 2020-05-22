@@ -32,7 +32,7 @@ inline void entityUseItem(Character &character, const Item &item) {
  * @param destination inventory
  * @param itemId that identifies the item
  */
-inline void exchangeItem(Inventory &origin, Inventory &destination, uint itemId, uint quantity = 1) {
+inline void exchangeItem(Inventory &origin, Inventory &destination, uint8_t itemId, uint8_t quantity = 1) {
   auto consumableEntry = std::find_if(origin.consumables.begin(), origin.consumables.end(),
                                       [itemId](ConsumableEntry entry) { return itemId == entry.itemId; });
   if (consumableEntry != origin.consumables.end()) {

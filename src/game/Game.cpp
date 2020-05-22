@@ -27,7 +27,7 @@ void Game::initGame() {
   gameState = GameState::Menu;
   world = generator::createWorld(1);
   player.add(Item("Potion", "Is a potion", Effect::health, UseType::consumable, 3u, 1u), 12);
-  for (uint it = 0; it < 2u; ++it) {
+  for (uint8_t it = 0; it < 2u; ++it) {
     player.add(generator::createItem());
   }
 }
@@ -212,7 +212,7 @@ void Game::updateOptions() {
       break;
 
     case GameState::Talk: {
-      uint it = 0;
+      uint8_t it = 0;
       for (const auto &npc : world.rooms.at(world.currentRoom).npcs) {
         it++;
         std::ostringstream oss;
@@ -223,7 +223,7 @@ void Game::updateOptions() {
     }
 
     case GameState::Attack: {
-      uint it = 0;
+      uint8_t it = 0;
       for (const auto &npc : world.rooms.at(world.currentRoom).npcs) {
         it++;
         std::ostringstream oss;
@@ -246,7 +246,7 @@ void Game::updateOptions() {
     }
 
     case GameState::Walk: {
-      uint it = 1;
+      uint8_t it = 1;
       for (const auto &room : world.rooms.at(world.currentRoom).adjacentRooms) {
         std::ostringstream oss;
         oss << "" << it << ": Go to room " << world.rooms.at(room).name;
@@ -270,7 +270,7 @@ void Game::updateOptions() {
 
     case GameState::Shop: {
 
-      for (uint it = 1; it <= world.rooms.at(world.currentRoom).inventory.totalItems(); it++) {
+      for (uint8_t it = 1; it <= world.rooms.at(world.currentRoom).inventory.totalItems(); it++) {
         auto item = world.rooms.at(world.currentRoom).inventory.getItem(it);
         std::ostringstream oss;
         oss << "" << it << ": Buy " << item.name << "(" << item.price << ")";

@@ -6,7 +6,7 @@
 
 #include <random>
 
-uint MathUtils::clamp_sub(uint minuend, uint subtrahend, uint lowerBound) {
+uint8_t MathUtils::clamp_sub(uint8_t minuend, uint8_t subtrahend, uint8_t lowerBound) {
   if (minuend >= (subtrahend + lowerBound)) {
     return (minuend - subtrahend);
   } else {
@@ -14,7 +14,7 @@ uint MathUtils::clamp_sub(uint minuend, uint subtrahend, uint lowerBound) {
   };
 }
 
-uint MathUtils::clamp_add(uint augend, uint addend, uint upperBound) {
+uint8_t MathUtils::clamp_add(uint8_t augend, uint8_t addend, uint8_t upperBound) {
   if ((augend + addend) > upperBound) {
     return upperBound;
   } else {
@@ -22,7 +22,7 @@ uint MathUtils::clamp_add(uint augend, uint addend, uint upperBound) {
   };
 }
 
-uint MathUtils::clamp(uint num, uint lowerBound, uint upperBound) {
+uint8_t MathUtils::clamp(uint8_t num, uint8_t lowerBound, uint8_t upperBound) {
   if (num > upperBound) {
     return upperBound;
   } else if (num < lowerBound) {
@@ -32,7 +32,7 @@ uint MathUtils::clamp(uint num, uint lowerBound, uint upperBound) {
   };
 }
 
-uint MathUtils::random(uint lowerBound, uint upperBound) {
+uint8_t MathUtils::random(uint8_t lowerBound, uint8_t upperBound) {
   std::random_device rd;
 
   // Initialize Mersenne Twister pseudo-random number generator

@@ -20,8 +20,8 @@ public:
 
   bool isAnyNpcHostileInThisRoom();
   bool isAnyNpcAliveInThisRoom();
-  void goToNextRoom(uint option);
+  void goToNextRoom(uint8_t option);
 
   std::vector<Room> rooms;
-  uint currentRoom;
+  uint8_t currentRoom;
 };

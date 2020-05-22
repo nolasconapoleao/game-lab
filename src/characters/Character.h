@@ -13,12 +13,12 @@
 #include "utils/MathUtils.h"
 
 struct Properties {
-  uint health;
-  uint maxHealth;
-  uint attack;
-  uint defense = 0;
-  uint money = 0;
-  uint experience = 0;
+  uint8_t health = 2;
+  uint8_t maxHealth = 2;
+  uint8_t attack = 2;
+  uint8_t defense = 0;
+  uint8_t money = 0;
+  uint8_t experience = 0;
 };
 
 enum class Diplomacy {
@@ -32,13 +32,13 @@ enum class Diplomacy {
  */
 class Character {
 public:
-  Character(std::string name, std::string sayHi, std::string sayBye, uint maxHealthPoints, uint attackPoints,
+  Character(std::string name, std::string sayHi, std::string sayBye, uint8_t maxHealthPoints, uint8_t attackPoints,
             Diplomacy relation)
       : name(name), sayHi(sayHi), sayBye(sayBye),
         properties(Properties{maxHealthPoints, maxHealthPoints, attackPoints}), relation(relation) {
   }
 
-  Character add(const Item &item, uint quantity = 1) {
+  Character add(const Item &item, uint8_t quantity = 1) {
     inventory.addItem(item, quantity);
     return *this;
   }
@@ -47,11 +47,11 @@ public:
     return properties.health == 0;
   };
 
-  void receiveAttack(uint attackPoints) {
+  void receiveAttack(uint8_t attackPoints) {
     properties.health = MathUtils::clamp_sub(properties.health, attackPoints, 0);
   };
 
-  bool pay(uint value) {
+  bool pay(uint8_t value) {
     if (properties.money > value) {
       properties.money -= value;
       return true;
@@ -60,7 +60,7 @@ public:
     }
   }
 
-  void getPayment(uint value) {
+  void getPayment(uint8_t value) {
     properties.money += value;
   }
 

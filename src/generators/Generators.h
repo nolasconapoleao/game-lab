@@ -20,12 +20,12 @@ Character createNPC();
 /**
  * @brief Generate room with npcs.
  */
-Room createRoom(uint roomsInWorld, uint roomIndex);
+Room createRoom(uint8_t roomsInWorld, uint8_t roomIndex);
 
 /**
  * @brief Generate world with connections of rooms, npcs and items.
  */
-World createWorld(uint dificulty = 1);
+World createWorld(uint8_t dificulty = 1);
 
 Effect toCharacterProperty(std::string fromFile);
 UseType toUseType(std::string fromFile);

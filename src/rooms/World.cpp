@@ -8,7 +8,7 @@ World::World() {
   currentRoom = 0;
 }
 
-void World::goToNextRoom(uint option) {
+void World::goToNextRoom(uint8_t option) {
   auto it = rooms.at(currentRoom).adjacentRooms.begin();
   std::advance(it, option);
   currentRoom = *it;
