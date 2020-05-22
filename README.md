@@ -1,9 +1,11 @@
-#Game Laboratory
+# Game Laboratory
 
 Game source code using C++ and Cmake for testing ideas and experimenting with game development.
 
-At the moment the game does not support graphics, it's only a text game, check this picture:
-![Game_v1](/demo/game.png)
+At the moment the game does not support graphics, it's only a text game, check these pictures:
+![Game_v1-menu](/demo/Demo1.png)
+![Game_v1-inventory](/demo/Demo2.png)
+![Game_v1-talk](/demo/Demo3.png)
 
 ## Getting Started
 
