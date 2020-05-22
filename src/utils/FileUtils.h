@@ -1,8 +1,4 @@
-// Code found here:
-// https://thispointer.com/how-to-read-data-from-a-csv-file-in-c/
-
 #include <algorithm>
-#include <boost/algorithm/string.hpp>
 #include <fstream>
 #include <iostream>
 #include <iterator>
@@ -15,10 +11,10 @@
  */
 class CSVReader {
   std::string fileName;
-  std::string delimeter;
+  char delimeter;
 
 public:
-  CSVReader(std::string filename, std::string delm = ";") : fileName(filename), delimeter(delm) {
+  CSVReader(std::string filename, char delm = ';') : fileName(filename), delimeter(delm) {
   }
 
   // Function to fetch data from a CSV File

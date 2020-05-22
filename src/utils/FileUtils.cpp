@@ -1,6 +1,3 @@
-// Code found here:
-// https://thispointer.com/how-to-read-data-from-a-csv-file-in-c/
-
 #include "FileUtils.h"
 
 /*
@@ -11,12 +8,20 @@ std::vector<std::vector<std::string>> CSVReader::getData() {
   std::ifstream file(fileName);
   std::vector<std::vector<std::string>> dataList;
   std::string line = "";
+  std::string subline = "";
+
   // Iterate through each line and split the content using delimeter
   while (getline(file, line)) {
     std::vector<std::string> vec;
-    boost::algorithm::split(vec, line, boost::is_any_of(delimeter));
-    dataList.push_back(vec);
+
+    std::istringstream linestream(line);
+    while (getline(linestream, subline, delimeter)) {
+      vec.push_back(subline);
+    }
+
+    dataList.emplace_back(vec);
   }
+
   // Close the File
   file.close();
   return dataList;
