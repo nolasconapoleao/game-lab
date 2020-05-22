@@ -23,7 +23,7 @@ gcov
 lcov
 ```
 
-### Building
+### Building and running
 
 1. Run the cmake project and output the make recipe in the build folder
 ```
@@ -41,6 +41,15 @@ make all
 ```
 ./Game_v1
 ```
+
+### Building and running in windows
+In order to compile this game as an exe, use MinGW.
+
+1. Install MinGW (Instructions in): 
+http://www.mingw.org/wiki/getting_started
+
+2. Set the compile flags to statically link the  libgcc dll files (already enabled for Windows):
+set(CMAKE_CXX_FLAGS_RELEASE  "${CMAKE_CXX_FLAGS_DEBUG} -static-libgcc -static-libstdc++")
 
 ### Contributing
 To contribute feel free to clone or fork the repository and check the board to see what needs doing.

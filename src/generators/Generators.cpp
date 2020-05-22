@@ -7,10 +7,10 @@
 #include "utils/MathUtils.h"
 
 namespace generator {
-std::vector<std::vector<std::string>> rooms = CSVReader("../databases/rooms.csv").getData();
-std::vector<std::vector<std::string>> names = CSVReader("../databases/names.csv").getData();
-std::vector<std::vector<std::string>> npcs = CSVReader("../databases/npcs.csv").getData();
-std::vector<std::vector<std::string>> items = CSVReader("../databases/items.csv").getData();
+std::vector<std::vector<std::string>> rooms = CSVReader("res/rooms.csv").getData();
+std::vector<std::vector<std::string>> names = CSVReader("res/names.csv").getData();
+std::vector<std::vector<std::string>> npcs = CSVReader("res/npcs.csv").getData();
+std::vector<std::vector<std::string>> items = CSVReader("res/items.csv").getData();
 
 Item createItem() {
   uint8_t itemsAvailable = items.size();

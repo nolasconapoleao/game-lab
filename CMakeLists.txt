@@ -4,6 +4,9 @@ project(Game_v1)
 # Defining compilation flags
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wall")
+if (WIN32)
+    set(CMAKE_CXX_FLAGS_RELEASE  "${CMAKE_CXX_FLAGS_DEBUG} -static-libgcc -static-libstdc++")
+endif (WIN32)
 set(CMAKE_CXX_FLAGS "-g -O0 -Wall -fprofile-arcs -ftest-coverage")
 
 # Defining output folders
@@ -16,6 +19,23 @@ include(cmake/utils.cmake)
 add_executable(
     ${PROJECT_NAME}
         ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
+)
+
+## Copy resources databases to binary folder
+add_custom_command(
+    TARGET ${PROJECT_NAME} PRE_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+    ${CMAKE_SOURCE_DIR}/databases
+    ${CMAKE_CURRENT_BINARY_DIR}/res
+)
+
+# Create zip as a standalone
+add_custom_command(
+    TARGET ${PROJECT_NAME} POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E tar "cf" "game.zip" --format=zip
+    "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}.exe"
+    "${CMAKE_CURRENT_BINARY_DIR}/res"
+    COMMAND echo Game standalone in ${CMAKE_CURRENT_BINARY_DIR}/game.zip
 )
 
 add_subdirectory(src)
