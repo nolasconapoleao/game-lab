@@ -6,6 +6,8 @@
 
 #include "PrintUtils.h"
 
+#include <game/OptionList.h>
+
 std::ostream &operator<<(std::ostream &os, const uint8_t &number) {
   return os << std::to_string(number);
 }
@@ -51,6 +53,13 @@ std::ostream &operator<<(std::ostream &os, const Room &room) {
   os << room.description << std::endl;
   for (const auto &npc : room.npcs) {
     os << npc << std::endl;
+  }
+  return os;
+}
+
+std::ostream &operator<<(std::ostream &os, const OptionList &list) {
+  for (uint8_t i = 0; i < list.options.size(); i++) {
+    os << char(list.options[i].first) << ": " << list.options[i].second << std::endl;
   }
   return os;
 }

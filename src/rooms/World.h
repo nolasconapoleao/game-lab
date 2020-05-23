@@ -4,6 +4,7 @@
 
 #pragma once
 
+#include "characters/Player.h"
 #include "rooms/Room.h"
 
 /**
@@ -23,5 +24,6 @@ public:
   void goToNextRoom(uint8_t option);
 
   std::vector<Room> rooms;
+  Player player;
   uint8_t currentRoom;
 };

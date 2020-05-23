@@ -45,6 +45,7 @@ add_custom_command(
     COMMAND echo Game standalone in ${CMAKE_CURRENT_BINARY_DIR}/game.zip
 )
 
+add_subdirectory(3rdparty)
 add_subdirectory(src)
 # To disable tests, comment these two lines
 enable_testing()

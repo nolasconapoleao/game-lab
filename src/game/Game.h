@@ -1,7 +1,7 @@
 //
 // Created by nolasco on 09/05/20.
 //
-#include "characters/Player.h"
+#include "OptionList.h"
 #include "input/Input.h"
 #include "rooms/World.h"
 
@@ -39,13 +39,12 @@ private:
   void handleInput();
   void updateOptions();
 
-  std::vector<std::string> options;
   std::vector<std::string> convos;
-  uint8_t userInput;
   GameState gameState;
+  OptionList optionList;
   World world;
   Input input;
-  Player player;
+  uint8_t lastInput;
 
   std::string sepatator = "=====================================================================";
   std::string sepatator2 = "---------------------------------------------------------------------";

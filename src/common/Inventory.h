@@ -22,7 +22,7 @@ struct EquipableEntry {
 };
 
 /**
- * @brief Inventory class has a list of consumable and equipable items.csv.
+ * @brief Inventory class has a list of consume and equip items.csv.
  */
 class Inventory {
 public:

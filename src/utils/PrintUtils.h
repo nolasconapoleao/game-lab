@@ -6,6 +6,7 @@
 
 #include "characters/Character.h"
 #include "common/Inventory.h"
+#include "game/OptionList.h"
 #include "items/Item.h"
 #include "rooms/Room.h"
 

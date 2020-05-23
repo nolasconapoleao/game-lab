@@ -5,13 +5,14 @@
 #include "Game.h"
 
 #include <iostream>
+#include <magic_enum.hpp>
 
 #include "common/InteractUtils.h"
 #include "config/cmakeconfig.h"
 #include "generators/Generators.h"
 #include "utils/PrintUtils.h"
 
-Game::Game() : userInput(0) {
+Game::Game() : lastInput(0) {
   std::cout << "Begin game!" << std::endl;
   std::cout << sepatator << std::endl;
   std::cout << sepatator << std::endl;
@@ -27,16 +28,12 @@ Game::~Game() {
 void Game::initGame() {
   gameState = GameState::Menu;
   world = generator::createWorld(1);
-  player.add(Item("Potion", "Is a potion", Effect::health, UseType::consumable, 3u, 1u), 12);
-  for (uint8_t it = 0; it < 2u; ++it) {
-    player.add(generator::createItem());
-  }
 }
 
 void Game::loop() {
   updateOptions();
   paintScreen();
-  userInput = input.readInput(options.size() - 3);
+  lastInput = input.readInput(optionList.numOptions());
   handleInput();
   updateGameState();
 }
@@ -45,67 +42,48 @@ void Game::closeGame() {
 }
 
 bool Game::isGameOver() {
-  if (player.isDead()) {
+  if (world.player.isDead()) {
     std::cout << std::endl;
-    std::cout << "Player said: " << player.sayBye << std::endl;
-  } else if ('e' == userInput) {
+    std::cout << "Player said: " << world.player.sayBye << std::endl;
+  } else if ('e' == lastInput) {
     std::cout << "Game terminated by user." << std::endl;
   }
-  return ('e' == userInput || player.isDead());
+  return ('e' == lastInput || world.player.isDead());
 }
 
 void Game::updateGameState() {
   switch (gameState) {
     case GameState::Menu:
-      if (world.isAnyNpcHostileInThisRoom()) {
-        if (userInput == 1) {
-          gameState = GameState::Attack;
-        } else if (userInput == 2) {
-          gameState = GameState::Talk;
-        } else if (userInput == 3) {
-          gameState = GameState::Inventory;
-        }
-      } else {
-        if (userInput == 1) {
-          gameState = GameState::Walk;
-        } else if (userInput == 2) {
-          gameState = GameState::Talk;
-        } else if (userInput == 3) {
-          gameState = GameState::Pickup;
-        } else if (userInput == 4) {
-          gameState = GameState::Inventory;
-        } else if (userInput == 5) {
-          gameState = GameState::Shop;
-        }
+      if ('b' != lastInput && 'e' != lastInput) {
+        gameState = magic_enum::enum_cast<GameState>(optionList.options[lastInput - 1].second).value();
       }
       break;
-    case GameState::Talk:
-      // Talking does not advance the round
-      break;
+
     case GameState::Attack:
-      gameState = GameState::Menu;
-      updatePlayer();
-      break;
+      [[fallthrough]];
     case GameState::Inventory:
-      gameState = GameState::Menu;
       updatePlayer();
+      gameState = GameState::Menu;
       break;
+
     case GameState::Walk:
-      gameState = GameState::Menu;
-      break;
+      [[fallthrough]];
     case GameState::Pickup:
-      gameState = GameState::Menu;
-      break;
+      [[fallthrough]];
     case GameState::Shop:
       gameState = GameState::Menu;
+      break;
+
+    case GameState::Talk:
+      // Talking does not advance the round
       break;
   }
 }
 
 void Game::updatePlayer() {
-  for (const auto npc : world.rooms.at(world.currentRoom).npcs) {
+  for (const auto npc : world.rooms[world.currentRoom].npcs) {
     if (!npc.isDead() && Diplomacy::hostile == npc.relation) {
-      player.receiveAttack(npc.properties.attack);
+      world.player.receiveAttack(npc.properties.attack - npc.properties.defense);
     }
   }
 }
@@ -137,21 +115,19 @@ void Game::paintConvos() {
 }
 
 void Game::paintHUD() {
-  std::cout << player << std::endl;
+  std::cout << world.player << std::endl;
 }
 
 void Game::paintRoom() {
-  std::cout << world.rooms.at(world.currentRoom);
+  std::cout << "You are at: " << world.rooms[world.currentRoom];
 }
 
 void Game::paintOptions() {
-  for (const auto &option : options) {
-    std::cout << option << std::endl;
-  }
+  std::cout << optionList;
 }
 
 void Game::handleInput() {
-  if (userInput == 0) {
+  if ('b' == lastInput || 'e' == lastInput) {
     gameState = GameState::Menu;
   }
 
@@ -160,7 +136,7 @@ void Game::handleInput() {
       break;
 
     case GameState::Talk: {
-      const auto npc = world.rooms.at(world.currentRoom).npcs.at(userInput - 1);
+      const auto npc = world.rooms[world.currentRoom].npcs[lastInput - 1];
       std::ostringstream oss;
       oss << npc.name << " said: " << (npc.isDead() ? npc.sayBye : npc.sayHi) << std::endl;
       convos.emplace_back(oss.str());
@@ -168,125 +144,118 @@ void Game::handleInput() {
     }
 
     case GameState::Attack:
-      world.rooms.at(world.currentRoom).npcs.at(userInput - 1).receiveAttack(player.properties.attack);
+      world.rooms[world.currentRoom].npcs[lastInput - 1].receiveAttack(world.player.properties.attack
+                                                                       - world.player.properties.defense);
       break;
 
     case GameState::Inventory: {
       {
-        const auto item = player.inventory.getItem(userInput);
-        entityUseItem(player, item);
-        player.inventory.useItem(userInput);
+        const auto item = world.player.inventory.getItem(lastInput);
+        entityUseItem(world.player, item);
+        world.player.inventory.useItem(lastInput);
       }
       break;
     }
 
     case GameState::Pickup: {
       {
-        exchangeItem(world.rooms.at(world.currentRoom).inventory, player.inventory, userInput);
+        exchangeItem(world.rooms[world.currentRoom].inventory, world.player.inventory, lastInput);
       }
       break;
     }
 
     case GameState::Walk:
-      world.goToNextRoom(userInput - 1);
+      world.goToNextRoom(lastInput - 1);
       break;
 
     case GameState::Shop:
-      const auto item = player.inventory.getItem(userInput);
-      exchangeItem(world.rooms.at(world.currentRoom).inventory, player.inventory, userInput);
-      player.pay(item.price);
+      const auto item = world.player.inventory.getItem(lastInput);
+      exchangeItem(world.rooms[world.currentRoom].inventory, world.player.inventory, lastInput);
+      world.player.pay(item.price);
       break;
   }
 }
 
 void Game::updateOptions() {
-  options.clear();
+  optionList.clearOptions();
 
   switch (gameState) {
     case GameState::Menu:
-      if (world.isAnyNpcHostileInThisRoom()) {
-        options.emplace_back("1: Attack");
-        options.emplace_back("2: Talk");
-        options.emplace_back("3: Inventory");
-      } else {
-        options.emplace_back("1: Walk");
-        options.emplace_back("2: Talk");
-        options.emplace_back("3: Pickup");
-        options.emplace_back("4: Inventory");
-        if (world.rooms.at(world.currentRoom).hasNpc("Shopkeeper")) {
-          options.emplace_back("5: Shop");
-        }
+      if (world.isAnyNpcAliveInThisRoom()) {
+        optionList.addOption(magic_enum::enum_name(GameState::Attack).data());
+      }
+      optionList.addOption(magic_enum::enum_name(GameState::Talk).data());
+      optionList.addOption(magic_enum::enum_name(GameState::Inventory).data());
+      if (!world.isAnyNpcHostileInThisRoom()) {
+        optionList.addOption(magic_enum::enum_name(GameState::Pickup).data());
+        optionList.addOption(magic_enum::enum_name(GameState::Walk).data());
+      }
+
+      if (world.rooms[world.currentRoom].hasNpc("Shopkeeper")) {
+        optionList.addOption(magic_enum::enum_name(GameState::Shop).data());
       }
       break;
 
     case GameState::Talk: {
-      uint8_t it = 0;
-      for (const auto &npc : world.rooms.at(world.currentRoom).npcs) {
-        it++;
+      for (const auto &npc : world.rooms[world.currentRoom].npcs) {
         std::ostringstream oss;
-        oss << "" << it << ": Speak to " << npc.name;
-        options.emplace_back(oss.str());
+        oss << "Speak to " << npc.name;
+        optionList.addOption(oss.str());
       }
       break;
     }
 
     case GameState::Attack: {
-      uint8_t it = 0;
-      for (const auto &npc : world.rooms.at(world.currentRoom).npcs) {
-        it++;
+      for (const auto &npc : world.rooms[world.currentRoom].npcs) {
         std::ostringstream oss;
-        oss << "" << it << ": Attack " << npc.name;
-        options.emplace_back(oss.str());
+        oss << "Attack " << npc.name;
+        optionList.addOption(oss.str());
       }
       break;
     }
 
     case GameState::Inventory: {
       std::ostringstream oss;
-      oss << player.inventory;
+      oss << world.player.inventory;
       std::istringstream ss(oss.str());
       std::string option;
 
       while (std::getline(ss, option, '\n')) {
-        options.emplace_back(option);
+        optionList.addOption(option);
       }
       break;
     }
 
     case GameState::Walk: {
-      uint8_t it = 1;
-      for (const auto &room : world.rooms.at(world.currentRoom).adjacentRooms) {
+      for (const auto &room : world.rooms[world.currentRoom].adjacentRooms) {
         std::ostringstream oss;
-        oss << "" << it << ": Go to room " << world.rooms.at(room).name;
-        options.emplace_back(oss.str());
-        it++;
+        oss << "Go to " << world.rooms[room].name;
+        optionList.addOption(oss.str());
       }
       break;
     }
 
     case GameState::Pickup: {
       std::ostringstream oss;
-      oss << world.rooms.at(world.currentRoom).inventory;
+      oss << world.rooms[world.currentRoom].inventory;
       std::istringstream ss(oss.str());
       std::string option;
 
       while (std::getline(ss, option, '\n')) {
-        options.emplace_back(option);
+        optionList.addOption(option);
       }
       break;
     }
 
     case GameState::Shop: {
-
-      for (uint8_t it = 1; it <= world.rooms.at(world.currentRoom).inventory.totalItems(); it++) {
-        auto item = world.rooms.at(world.currentRoom).inventory.getItem(it);
+      for (uint8_t it = 1; it <= world.rooms[world.currentRoom].inventory.totalItems(); it++) {
+        auto item = world.rooms[world.currentRoom].inventory.getItem(it);
         std::ostringstream oss;
-        oss << "" << it << ": Buy " << item.name << "(" << item.price << ")";
-        options.emplace_back(oss.str());
+        oss << "Buy " << item.name << "(" << item.price << ")";
+        optionList.addOption(oss.str());
       }
       break;
     }
   }
-  options.emplace_back("0: Back");
-  options.emplace_back("e: Exit");
+  optionList.addFooter();
 }

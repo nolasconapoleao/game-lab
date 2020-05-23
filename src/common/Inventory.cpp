@@ -11,7 +11,7 @@ Inventory::Inventory() {
 }
 
 void Inventory::addItem(Item item, uint8_t quantity) {
-  if (UseType::consumable == item.useType) {
+  if (UseType::consume == item.useType) {
     const auto &it = std::find_if(consumables.begin(), consumables.end(),
                                   [item](ConsumableEntry entry) { return item.name == entry.item.name; });
 
@@ -21,7 +21,7 @@ void Inventory::addItem(Item item, uint8_t quantity) {
     } else {
       it->quantity += quantity;
     }
-  } else if (UseType::equipable == item.useType) {
+  } else if (UseType::equip == item.useType) {
     equipables.emplace_back(EquipableEntry{lastItemId, item, false});
     lastItemId++;
   }
@@ -99,9 +99,9 @@ bool Inventory::unequipItem(uint8_t itemId) {
 
 bool Inventory::useItem(uint8_t itemId) {
   const auto item = getItem(itemId);
-  if (item.useType == UseType::consumable) {
+  if (item.useType == UseType::consume) {
     consumeItem(itemId);
-  } else if (item.useType == UseType::equipable) {
+  } else if (item.useType == UseType::equip) {
     toggleEquip(itemId);
   }
 }

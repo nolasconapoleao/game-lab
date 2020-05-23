@@ -10,5 +10,5 @@ Samurai;Prepare to fight!;Dude chill out, we should be friends!;hostile
 Shopkeeper;Hey, sup traveller what can I get you?; Thank you for your business.;neutral
 Soldier;Is there a world for machiavellian altruism?; A worthy oponent at last!;hostile
 Swordsfighter; You live by the sword...;... you die by the sword.;hostile
-Spawn;My lord what is your biding?;I am sorry to disapoint.;friend
-Conjured;Why has thou created me?;Oh, nevermind I actually wanted to live.;friend
+Spawn;My lord what is your biding?;I am sorry to disapoint.;friendly
+Conjured;Why has thou created me?;Oh, nevermind I actually wanted to live.;friendly

@@ -20,7 +20,7 @@ enum class Effect {
 /**
  * @brief Item use type.
  */
-enum class UseType { equipable, consumable };
+enum class UseType { equip, consume };
 
 /**
  * @brief Base Item.

@@ -66,11 +66,11 @@ public:
 
   friend std::ostream &operator<<(std::ostream &os, const Character &character);
 
-  Inventory inventory;
-  Properties properties;
-  Diplomacy relation;
   std::string name;
   std::string charClass;
   std::string sayHi;
   std::string sayBye;
+  Properties properties;
+  Diplomacy relation;
+  Inventory inventory;
 };

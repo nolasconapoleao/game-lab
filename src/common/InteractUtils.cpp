@@ -4,6 +4,8 @@
 
 #include "InteractUtils.h"
 
+constexpr uint8_t c_maxValue = 255;
+
 void entityUseItem(Character &character, const Item &item) {
   switch (item.modifier) {
     case Effect::health:
@@ -11,10 +13,14 @@ void entityUseItem(Character &character, const Item &item) {
           = MathUtils::clamp_add(character.properties.health, item.modifierValue, character.properties.maxHealth);
       break;
     case Effect::attack:
-      character.properties.attack = MathUtils::clamp_add(character.properties.attack, item.modifierValue, 1e3);
+      character.properties.attack = MathUtils::clamp_add(character.properties.attack, item.modifierValue, c_maxValue);
       break;
     case Effect::maxHealth:
-      character.properties.maxHealth = MathUtils::clamp_add(character.properties.maxHealth, item.modifierValue, 1e3);
+      character.properties.maxHealth
+          = MathUtils::clamp_add(character.properties.maxHealth, item.modifierValue, c_maxValue);
+      break;
+    case Effect::defense:
+      character.properties.defense = MathUtils::clamp_add(character.properties.defense, item.modifierValue, c_maxValue);
       break;
   }
 }

@@ -4,6 +4,8 @@
 
 #include "Generators.h"
 
+#include <magic_enum.hpp>
+
 #include "utils/MathUtils.h"
 
 namespace generator {
@@ -20,7 +22,7 @@ Item createItem() {
   uint8_t price = MathUtils::random(1, 10);
 
   UseType useType = toUseType(items[itemSeed][2]);
-  Effect characterProperty = toCharacterProperty(items[itemSeed][3]);
+  Effect characterProperty = toEffect(items[itemSeed][3]);
 
   Item item = Item(items[itemSeed][0], items[itemSeed][1], characterProperty, useType, modifierValue, price);
   return item;
@@ -36,7 +38,7 @@ Character createNPC() {
   uint8_t attack = MathUtils::random(1, 3);
   uint8_t health = MathUtils::random(1, 10);
 
-  Diplomacy diplomacy = toCharacterRelation(npcs[characterSeed][3]);
+  Diplomacy diplomacy = toDiplomacy(npcs[characterSeed][3]);
 
   Character character = Character(names[nameSeed][0], npcs[characterSeed][0], npcs[characterSeed][1],
                                   npcs[characterSeed][2], health, attack, diplomacy);
@@ -76,35 +78,39 @@ World createWorld(uint8_t dificulty) {
     world.add(createRoom(roomsInWorld, id));
   }
 
+  for (uint8_t it = 0; it < 3u; ++it) {
+    world.player.add(generator::createItem());
+  }
+
   return world;
 }
 
-Effect toCharacterProperty(std::string fromFile) {
-  if ("attack" == fromFile) {
+Effect toEffect(std::string fromFile) {
+  const auto effect = magic_enum::enum_cast<Effect>(fromFile);
+  if (effect.has_value()) {
+    return effect.value();
+  } else {
+    std::cerr << "Invalid effect " << fromFile << ". Using default attack" << std::endl;
     return Effect::attack;
-  } else if ("health" == fromFile) {
-    return Effect::health;
-  } else if ("maxHealth" == fromFile) {
-    return Effect::maxHealth;
-  } else if ("defense" == fromFile) {
-    return Effect::defense;
   }
 }
 
 UseType toUseType(std::string fromFile) {
-  if ("consume" == fromFile) {
-    return UseType::consumable;
-  } else if ("equip" == fromFile) {
-    return UseType::equipable;
+  const auto useType = magic_enum::enum_cast<UseType>(fromFile);
+  if (useType.has_value()) {
+    return useType.value();
+  } else {
+    std::cerr << "Invalid use type " << fromFile << ". Using default consume" << std::endl;
+    return UseType::consume;
   }
 }
 
-Diplomacy toCharacterRelation(std::string fromFile) {
-  if ("hostile" == fromFile) {
-    return Diplomacy::hostile;
-  } else if ("neutral" == fromFile) {
-    return Diplomacy::neutral;
-  } else if ("friend" == fromFile) {
+Diplomacy toDiplomacy(std::string fromFile) {
+  const auto diplomacy = magic_enum::enum_cast<Diplomacy>(fromFile);
+  if (diplomacy.has_value()) {
+    return diplomacy.value();
+  } else {
+    std::cerr << "Invalid diplomacy " << fromFile << ". Using default friendly" << std::endl;
     return Diplomacy::friendly;
   }
 }
