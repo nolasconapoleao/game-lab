@@ -38,8 +38,8 @@ Character createNPC() {
 
   Diplomacy diplomacy = toCharacterRelation(npcs[characterSeed][3]);
 
-  Character character
-      = Character(names[nameSeed][0], npcs[characterSeed][1], npcs[characterSeed][2], health, attack, diplomacy);
+  Character character = Character(names[nameSeed][0], npcs[characterSeed][0], npcs[characterSeed][1],
+                                  npcs[characterSeed][2], health, attack, diplomacy);
   return character;
 }
 

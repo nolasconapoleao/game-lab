@@ -35,7 +35,8 @@ public:
   }
 
   bool hasNpc(const std::string npcType) {
-    const auto res = std::find_if(npcs.begin(), npcs.end(), [npcType](Character npc) { return npcType == npc.name; });
+    const auto res
+        = std::find_if(npcs.begin(), npcs.end(), [npcType](Character npc) { return npcType == npc.charClass; });
 
     return (res != npcs.end());
   }

@@ -69,10 +69,12 @@ void Game::updateGameState() {
         if (userInput == 1) {
           gameState = GameState::Walk;
         } else if (userInput == 2) {
-          gameState = GameState::Pickup;
+          gameState = GameState::Talk;
         } else if (userInput == 3) {
-          gameState = GameState::Inventory;
+          gameState = GameState::Pickup;
         } else if (userInput == 4) {
+          gameState = GameState::Inventory;
+        } else if (userInput == 5) {
           gameState = GameState::Shop;
         }
       }
@@ -208,10 +210,11 @@ void Game::updateOptions() {
         options.emplace_back("3: Inventory");
       } else {
         options.emplace_back("1: Walk");
-        options.emplace_back("2: Pickup");
-        options.emplace_back("3: Inventory");
+        options.emplace_back("2: Talk");
+        options.emplace_back("3: Pickup");
+        options.emplace_back("4: Inventory");
         if (world.rooms.at(world.currentRoom).hasNpc("Shopkeeper")) {
-          options.emplace_back("4: Shop");
+          options.emplace_back("5: Shop");
         }
       }
       break;

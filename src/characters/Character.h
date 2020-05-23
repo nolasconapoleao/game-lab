@@ -32,9 +32,9 @@ enum class Diplomacy {
  */
 class Character {
 public:
-  Character(std::string name, std::string sayHi, std::string sayBye, uint8_t maxHealthPoints, uint8_t attackPoints,
-            Diplomacy relation)
-      : name(name), sayHi(sayHi), sayBye(sayBye),
+  Character(std::string name, std::string charClass, std::string sayHi, std::string sayBye, uint8_t maxHealthPoints,
+            uint8_t attackPoints, Diplomacy relation)
+      : name(name), charClass(charClass), sayHi(sayHi), sayBye(sayBye),
         properties(Properties{maxHealthPoints, maxHealthPoints, attackPoints}), relation(relation) {
   }
 
@@ -70,6 +70,7 @@ public:
   Properties properties;
   Diplomacy relation;
   std::string name;
+  std::string charClass;
   std::string sayHi;
   std::string sayBye;
 };
