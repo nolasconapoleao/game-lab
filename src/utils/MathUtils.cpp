@@ -4,6 +4,7 @@
 
 #include "MathUtils.h"
 
+#include <chrono>
 #include <random>
 
 uint8_t MathUtils::clamp_sub(uint8_t minuend, uint8_t subtrahend, uint8_t lowerBound) {
@@ -33,13 +34,11 @@ uint8_t MathUtils::clamp(uint8_t num, uint8_t lowerBound, uint8_t upperBound) {
 }
 
 uint8_t MathUtils::random(uint8_t lowerBound, uint8_t upperBound) {
-  std::random_device rd;
+  auto t = std::chrono::high_resolution_clock::now().time_since_epoch().count();
+  std::mt19937 e;
 
-  // Initialize Mersenne Twister pseudo-random number generator
-  std::mt19937 gen(rd());
+  e.seed(static_cast<unsigned int>(t)); //Seed engine with timed value.
+  std::uniform_int_distribution<uint8_t> dis(lowerBound, upperBound);
 
-  // Generate pseudo-random numbers uniformly distributed in range (1, 100)
-  std::uniform_int_distribution<> dis(lowerBound, upperBound);
-
-  return dis(gen);
+  return dis(e);
 }
