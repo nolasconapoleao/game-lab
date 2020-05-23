@@ -4,13 +4,20 @@ project(Game_v1)
 # Defining compilation flags
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wall")
-if (WIN32)
-    set(CMAKE_CXX_FLAGS_RELEASE  "${CMAKE_CXX_FLAGS_DEBUG} -static-libgcc -static-libstdc++")
-endif (WIN32)
-set(CMAKE_CXX_FLAGS "-g -O0 -Wall -fprofile-arcs -ftest-coverage")
 
-# Defining output folders
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_HOME_DIRECTORY}/build)
+option(COMPILE_FOR_NON_UNIX "Compile For Non Unix" OFF)
+if(COMPILE_FOR_NON_UNIX)
+    # Set the compile flags to statically link the  libgcc dll files, this make a standalone exe
+    set(CMAKE_CXX_FLAGS_RELEASE  "${CMAKE_CXX_FLAGS_DEBUG} -static-libgcc -static-libstdc++")
+    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_HOME_DIRECTORY}/build/windows)
+    set(BINARY_PATH ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}.exe)
+else ()
+    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_HOME_DIRECTORY}/build/linux)
+    set(BINARY_PATH ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME})
+endif()
+
+## Compile flags for coverage target
+set(CMAKE_CXX_FLAGS "-g -O0 -Wall -fprofile-arcs -ftest-coverage")
 
 # Add cmake scripts
 include(cmake/utils.cmake)
@@ -33,7 +40,7 @@ add_custom_command(
 add_custom_command(
     TARGET ${PROJECT_NAME} POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E tar "cf" "game.zip" --format=zip
-    "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}.exe"
+    "${BINARY_PATH}"
     "${CMAKE_CURRENT_BINARY_DIR}/res"
     COMMAND echo Game standalone in ${CMAKE_CURRENT_BINARY_DIR}/game.zip
 )
@@ -48,6 +55,7 @@ target_include_directories(
     ${PROJECT_NAME}
     PRIVATE
         ${CMAKE_SOURCE_DIR}/src
+        ${CMAKE_CURRENT_BINARY_DIR}/src
 )
 
 ## Unit tests target

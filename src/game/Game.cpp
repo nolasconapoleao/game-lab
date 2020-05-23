@@ -7,6 +7,7 @@
 #include <iostream>
 
 #include "common/InteractUtils.h"
+#include "config/cmakeconfig.h"
 #include "generators/Generators.h"
 #include "utils/PrintUtils.h"
 
@@ -119,12 +120,11 @@ void Game::paintScreen() {
 }
 
 void Game::clearScreen() {
-  #ifdef _WIN32
-    std::system("cls");
-  #else
-    // Assume POSIX
-    std::system ("clear");
-  #endif
+#ifdef COMPILE_FOR_NON_UNIX
+  std::system("cls");
+#else
+  std::system("clear");
+#endif
 };
 
 void Game::paintConvos() {

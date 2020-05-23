@@ -1,5 +1,6 @@
 add_subdirectory(characters)
 add_subdirectory(common)
+add_subdirectory(config)
 add_subdirectory(game)
 add_subdirectory(generators)
 add_subdirectory(input)
