@@ -1,6 +1,8 @@
 add_subdirectory(characters)
 add_subdirectory(common)
 add_subdirectory(game)
+add_subdirectory(generators)
+add_subdirectory(input)
 add_subdirectory(items)
 add_subdirectory(rooms)
 add_subdirectory(utils)

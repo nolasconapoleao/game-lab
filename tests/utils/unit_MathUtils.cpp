@@ -12,10 +12,10 @@ using namespace MathUtils;
 SCENARIO("Clamped addition", "[MathUtils]") {
 
   GIVEN("Some addition operators and some upper bound") {
-    uint augend = 1u;
-    uint addend = 2u;
-    uint upperBound = 1u;
-    uint upperBound_2nd = 4u;
+    int augend = 1u;
+    int addend = 2u;
+    int upperBound = 1u;
+    int upperBound_2nd = 4u;
 
     WHEN("the result is higher than the upper bound the return value equals the upper bound") {
       THEN("the fields return the correct values") {
@@ -29,10 +29,10 @@ SCENARIO("Clamped addition", "[MathUtils]") {
 SCENARIO("Clamped subtraction", "[MathUtils]") {
 
   GIVEN("Some subtraction operators and some lower bound") {
-    uint minuend = 3u;
-    uint subtrahend = 2u;
-    uint lowerBound = 0u;
-    uint lowerBound_2nd = 2u;
+    int minuend = 3u;
+    int subtrahend = 2u;
+    int lowerBound = 0u;
+    int lowerBound_2nd = 2u;
 
     WHEN("the result is higher than the lower bound the return value equals the lower bound") {
       THEN("the fields return the correct values") {
@@ -46,11 +46,11 @@ SCENARIO("Clamped subtraction", "[MathUtils]") {
 SCENARIO("Clamped number", "[MathUtils]") {
 
   GIVEN("Some number and some upper and lower bounds") {
-    uint num = 1u;
-    uint num_2nd = 3u;
-    uint num_3nd = 6u;
-    uint lowerBound = 2u;
-    uint upperBound = 4u;
+    int num = 1u;
+    int num_2nd = 3u;
+    int num_3nd = 6u;
+    int lowerBound = 2u;
+    int upperBound = 4u;
 
     WHEN("the number is higher than the upper bound the return value equals the upper bound") {
       THEN("the fields return the correct values") {

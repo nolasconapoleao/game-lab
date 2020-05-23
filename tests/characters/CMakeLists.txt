@@ -14,6 +14,7 @@ target_sources(
     PRIVATE
         ${PROJECT_SOURCE_DIR}/src/characters/Player.cpp
         ${PROJECT_SOURCE_DIR}/src/utils/MathUtils.cpp
+        ${PROJECT_SOURCE_DIR}/src/common/Inventory.cpp
 )
 
 create_test(${EXECUTABLE_NAME})

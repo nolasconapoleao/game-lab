@@ -13,8 +13,7 @@ target_sources(
     ${EXECUTABLE_NAME}
     PRIVATE
         ${PROJECT_SOURCE_DIR}/src/common/Inventory.cpp
-        ${PROJECT_SOURCE_DIR}/src/items/Potion.cpp
-        ${PROJECT_SOURCE_DIR}/src/items/Sword.cpp
+        ${PROJECT_SOURCE_DIR}/src/items/Item.h
 )
 
 create_test(${EXECUTABLE_NAME})

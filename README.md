@@ -1,9 +1,11 @@
-#Game Laboratory
+# Game Laboratory
 
 Game source code using C++ and Cmake for testing ideas and experimenting with game development.
 
-At the moment the game does not support graphics, it's only a text game, check this picture:
-![Game_v1](/demo/game.png)
+At the moment the game does not support graphics, it's only a text game, check these pictures:
+![Game_v1-menu](/demo/Demo1.png)
+![Game_v1-inventory](/demo/Demo2.png)
+![Game_v1-talk](/demo/Demo3.png)
 
 ## Getting Started
 
@@ -16,9 +18,12 @@ What things you need to install the software and how to install them
 ```
 clang-format
 cmake
+doxygen
+gcov
+lcov
 ```
 
-### Building
+### Building and running
 
 1. Run the cmake project and output the make recipe in the build folder
 ```
@@ -36,6 +41,15 @@ make all
 ```
 ./Game_v1
 ```
+
+### Building and running in windows
+In order to compile this game as an exe, use MinGW.
+
+1. Install MinGW (Instructions in): 
+http://www.mingw.org/wiki/getting_started
+
+2. Set the compile flags to statically link the  libgcc dll files (already enabled for Windows):
+set(CMAKE_CXX_FLAGS_RELEASE  "${CMAKE_CXX_FLAGS_DEBUG} -static-libgcc -static-libstdc++")
 
 ### Contributing
 To contribute feel free to clone or fork the repository and check the board to see what needs doing.

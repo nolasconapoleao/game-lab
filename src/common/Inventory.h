@@ -4,40 +4,53 @@
 
 #pragma once
 
-#include <memory>
 #include <ostream>
 #include <vector>
 
-#include "items/BaseItem.h"
+#include "items/Item.h"
 
 struct ConsumableEntry {
-  uint itemId;
-  std::shared_ptr<BaseItem> item;
-  uint quantity;
+  uint8_t itemId;
+  Item item;
+  uint8_t quantity;
 };
 
 struct EquipableEntry {
-  uint itemId;
-  std::shared_ptr<BaseItem> item;
+  uint8_t itemId;
+  Item item;
   bool equipped;
 };
 
+/**
+ * @brief Inventory class has a list of consumable and equipable items.csv.
+ */
 class Inventory {
 public:
   Inventory();
 
-  void addItem(std::shared_ptr<BaseItem> item);
-  bool dropItem(uint itemId);
+  void addItem(Item item, uint8_t quantity = 1u);
+  bool dropItem(uint8_t itemId, uint8_t quantity = 1u);
 
-  bool consumeItem(uint itemId);
-
-  bool equipItem(uint itemId);
-  bool unequipItem(uint itemId);
+  Item &getItem(uint8_t itemId);
+  uint8_t totalItems();
+  bool useItem(uint8_t itemId);
 
   friend std::ostream &operator<<(std::ostream &os, const Inventory &inventory);
 
+  /**
+   * All items.csv in origin inventory with itemId are sent to destination inventory.
+   * @param origin inventory
+   * @param destination inventory
+   * @param itemId for item to be displaced
+   */
+  friend void exchangeItem(Inventory &origin, Inventory &destination, uint8_t itemId, uint8_t quantity);
+
 private:
+  bool consumeItem(uint8_t itemId);
+  bool equipItem(uint8_t itemId);
+  bool unequipItem(uint8_t itemId);
+  bool toggleEquip(uint8_t itemId);
   std::vector<ConsumableEntry> consumables;
   std::vector<EquipableEntry> equipables;
-  uint lastItemId;
+  uint8_t lastItemId;
 };

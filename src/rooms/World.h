@@ -4,20 +4,24 @@
 
 #pragma once
 
-#include "Dungeon.h"
-#include "Saloon.h"
+#include "rooms/Room.h"
 
+/**
+ * @brief World class defines a static room structure for the adventure.
+ */
 class World {
 public:
   World();
 
+  World add(const Room &room) {
+    rooms.emplace_back(room);
+    return *this;
+  }
+
+  bool isAnyNpcHostileInThisRoom();
   bool isAnyNpcAliveInThisRoom();
-  void goToNextRoom(uint option);
+  void goToNextRoom(uint8_t option);
 
-  Saloon s1;
-  Saloon s2;
-  Dungeon d1;
-
-  std::shared_ptr<BaseRoom> currentRoom;
-  uint roomIndex;
+  std::vector<Room> rooms;
+  uint8_t currentRoom;
 };

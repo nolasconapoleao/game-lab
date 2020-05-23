@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include <zconf.h>
+#include <cstdint>
 
 namespace MathUtils {
 
@@ -15,7 +15,7 @@ namespace MathUtils {
  * @param lowerBound min allowed for result
  * @return clamped result for subtraction
  */
-uint clamp_sub(uint minuend, uint subtrahend, uint lowerBound);
+uint8_t clamp_sub(uint8_t minuend, uint8_t subtrahend, uint8_t lowerBound);
 
 /**
  * @brief Ceils the result of an addition.
@@ -24,7 +24,7 @@ uint clamp_sub(uint minuend, uint subtrahend, uint lowerBound);
  * @param upperBound max allowed for result
  * @return clamped result of an addition
  */
-uint clamp_add(uint augend, uint addend, uint upperBound);
+uint8_t clamp_add(uint8_t augend, uint8_t addend, uint8_t upperBound);
 
 /**
  * @brief Clamps the result of a sum.
@@ -33,6 +33,14 @@ uint clamp_add(uint augend, uint addend, uint upperBound);
  * @param upperBound max allowed for num
  * @return clamped number
  */
-uint clamp(uint num, uint lowerBound, uint upperBound);
+uint8_t clamp(uint8_t num, uint8_t lowerBound, uint8_t upperBound);
+
+/**
+ * @brief Generates a random number between lowerBound and upperBound.
+ * @param lowerBound for generation
+ * @param upperBound for generation
+ * @return random number
+ */
+[[nodiscard]] uint8_t random(uint8_t lowerBound, uint8_t upperBound);
 
 }; // namespace MathUtils
