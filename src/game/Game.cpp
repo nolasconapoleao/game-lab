@@ -56,7 +56,7 @@ void Game::updateGameState() {
   switch (gameState) {
     case GameState::Menu:
       if ('b' != lastInput && 'e' != lastInput) {
-        gameState = magic_enum::enum_cast<GameState>(optionList.options[lastInput - 1].second).value();
+        gameState = magic_enum::enum_cast<GameState>(optionList.options[lastInput].second).value();
       }
       break;
 
@@ -138,7 +138,7 @@ void Game::handleInput() {
       break;
 
     case GameState::Talk: {
-      const auto npc = world.rooms[world.currentRoom].npcs[lastInput - 1];
+      const auto npc = world.rooms[world.currentRoom].npcs[lastInput];
       std::ostringstream oss;
       oss << npc.name << " said: " << (npc.isDead() ? npc.sayBye : npc.sayHi) << std::endl;
       convos.emplace_back(oss.str());
@@ -146,14 +146,14 @@ void Game::handleInput() {
     }
 
     case GameState::Attack: {
-      const auto result = Match::match(world.rooms[world.currentRoom].npcs[lastInput - 1], world.player);
-      updateConvos(result, world.rooms[world.currentRoom].npcs[lastInput - 1], world.player);
+      const auto result = Match::match(world.rooms[world.currentRoom].npcs[lastInput], world.player);
+      updateConvos(result, world.rooms[world.currentRoom].npcs[lastInput], world.player);
       break;
     }
 
     case GameState::Inventory: {
       {
-        const auto item = world.player.pocket.getItem(lastInput - 1);
+        const auto item = world.player.pocket.getItem(lastInput);
         entityUseItem(world.player, item);
         world.player.pocket.useItem(lastInput);
       }
@@ -161,19 +161,18 @@ void Game::handleInput() {
     }
 
     case GameState::Pickup: {
-      {
-        exchangeItem(world.rooms[world.currentRoom].floor, world.player.pocket, lastInput);
-      }
+      uint8_t quantity = world.rooms[world.currentRoom].floor.entries[lastInput].quantity;
+      exchangeItem(world.rooms[world.currentRoom].floor, world.player.pocket, lastInput, quantity);
       break;
     }
 
     case GameState::Walk:
-      world.goToNextRoom(lastInput - 1);
+      world.goToNextRoom(lastInput);
       break;
 
     case GameState::Shop:
-      const auto item = world.player.pocket.getItem(lastInput);
       exchangeItem(world.rooms[world.currentRoom].floor, world.player.pocket, lastInput);
+      const auto item = world.rooms[world.currentRoom].floor.getItem(lastInput);
       world.player.pay(item.price);
       break;
   }
@@ -218,13 +217,8 @@ void Game::updateOptions() {
     }
 
     case GameState::Inventory: {
-      std::ostringstream oss;
-      oss << world.player.pocket;
-      std::istringstream ss(oss.str());
-      std::string option;
-
-      while (std::getline(ss, option, '\n')) {
-        optionList.addOption(option);
+      for (const auto &entry : world.player.pocket.entries) {
+        optionList.addOption(printPocket(entry));
       }
       break;
     }
@@ -239,23 +233,15 @@ void Game::updateOptions() {
     }
 
     case GameState::Pickup: {
-      std::ostringstream oss;
-      oss << world.rooms[world.currentRoom].floor;
-      std::istringstream ss(oss.str());
-      std::string option;
-
-      while (std::getline(ss, option, '\n')) {
-        optionList.addOption(option);
+      for (const auto &entry : world.rooms[world.currentRoom].floor.entries) {
+        optionList.addOption(printFloor(entry));
       }
       break;
     }
 
     case GameState::Shop: {
-      for (uint8_t it = 1; it <= world.rooms[world.currentRoom].floor.totalItems(); it++) {
-        auto item = world.rooms[world.currentRoom].floor.getItem(it);
-        std::ostringstream oss;
-        oss << "Buy " << item.name << "(" << item.price << ")";
-        optionList.addOption(oss.str());
+      for (const auto &entry : world.rooms[world.currentRoom].floor.entries) {
+        optionList.addOption(printShop(entry));
       }
       break;
     }

@@ -13,28 +13,28 @@ Inventory::Inventory() {
 void Inventory::addItem(Item item, uint8_t quantity) {
   if (UseType::consume == item.useType) {
     const auto &it
-        = std::find_if(items.begin(), items.end(), [item](Entry entry) { return item.name == entry.item.name; });
+        = std::find_if(entries.begin(), entries.end(), [item](Entry entry) { return item.name == entry.item.name; });
 
-    if (it == items.end()) {
-      items.emplace_back(Entry{item, false, quantity});
+    if (it == entries.end()) {
+      entries.emplace_back(Entry{item, false, quantity});
     } else {
       it->quantity += quantity;
     }
   } else if (UseType::equip == item.useType) {
-    items.emplace_back(Entry{item, false, quantity});
+    entries.emplace_back(Entry{item, false, quantity});
   }
 }
 
 void Inventory::dropItem(uint8_t itemId, uint8_t subtrahend) {
-  auto entry = items.begin() + itemId;
+  auto entry = entries.begin() + itemId;
   entry->quantity = MathUtils::clamp_sub(entry->quantity, subtrahend, 0);
   if (entry->quantity == 0) {
-    items.erase(items.begin() + itemId);
+    entries.erase(entries.begin() + itemId);
   }
 }
 
 void Inventory::useItem(uint8_t itemId) {
-  const auto entry = items.begin() + itemId;
+  const auto entry = entries.begin() + itemId;
   if (entry->item.useType == UseType::consume) {
     dropItem(itemId, 1);
   } else if (entry->item.useType == UseType::equip) {
@@ -43,23 +43,19 @@ void Inventory::useItem(uint8_t itemId) {
 }
 
 bool Inventory::toggleEquip(uint8_t itemId) {
-  const auto entryInList = items.begin() + itemId;
+  const auto entryInList = entries.begin() + itemId;
 
   if (entryInList->inUse) {
     entryInList->inUse = false;
   } else {
-    const auto findItem = std::find_if(items.begin(), items.end(), [entryInList](Entry entry) {
+    const auto findItem = std::find_if(entries.begin(), entries.end(), [entryInList](Entry entry) {
       return (entryInList->item.effect == entry.item.effect && entry.inUse);
     });
 
-    entryInList->inUse = (findItem != items.end());
+    entryInList->inUse = (findItem == entries.end());
   }
 }
 
 Item &Inventory::getItem(uint8_t itemId) {
-  return (items.begin() + itemId)->item;
-}
-
-uint8_t Inventory::totalItems() {
-  return items.size();
+  return (entries.begin() + itemId)->item;
 }

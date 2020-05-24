@@ -36,14 +36,14 @@ SCENARIO("Operations in items", "[Inventory]") {
     inventory.addItem(Item("Potion", "Is a potion", Effect::health, UseType::consume, false, 0, 3u, 1u));
     inventory.addItem(Item("Potion", "Is a potion", Effect::health, UseType::consume, false, 0, 3u, 1u));
     inventory.addItem(Item("Potion", "Is a potion", Effect::health, UseType::consume, false, 0, 3u, 1u));
-    REQUIRE(inventory.items[0].item.name == "Potion");
-    REQUIRE(inventory.items[0].quantity == 3);
+    REQUIRE(inventory.entries[0].item.name == "Potion");
+    REQUIRE(inventory.entries[0].quantity == 3);
 
     WHEN("a potion is consumed") {
       REQUIRE(inventory.consumeItem(1));
 
       THEN("the quantity of potions decreases correctly") {
-        REQUIRE(inventory.items[0].quantity == 2);
+        REQUIRE(inventory.entries[0].quantity == 2);
       }
     }
 
@@ -53,7 +53,7 @@ SCENARIO("Operations in items", "[Inventory]") {
       REQUIRE(inventory.consumeItem(1));
 
       THEN("Access to an item that no longer exists, yields false") {
-        REQUIRE(inventory.items[0].quantity == 0);
+        REQUIRE(inventory.entries[0].quantity == 0);
         REQUIRE_FALSE(inventory.consumeItem(1));
       }
     }

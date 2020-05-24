@@ -34,6 +34,6 @@ uint8_t Input::parseInput(uint8_t input) {
   if (isValidLetter(input)) {
     return input;
   } else {
-    return (input - '0');
+    return (input - '1');
   }
 }

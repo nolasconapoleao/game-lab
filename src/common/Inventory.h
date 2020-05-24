@@ -26,10 +26,11 @@ public:
   void dropItem(uint8_t itemId, uint8_t subtrahend = 1u);
 
   Item &getItem(uint8_t itemId);
-  uint8_t totalItems();
   void useItem(uint8_t itemId);
 
-  friend std::ostream &operator<<(std::ostream &os, const Inventory &inventory);
+  friend std::string printFloor(const Entry &entry);
+  friend std::string printPocket(const Entry &entry);
+  friend std::string printShop(const Entry &entry);
 
   /**
    * All items in origin inventory with itemId are sent to destination inventory.
@@ -39,7 +40,8 @@ public:
    */
   friend void exchangeItem(Inventory &origin, Inventory &destination, uint8_t itemId, uint8_t quantity);
 
+  std::vector<Entry> entries;
+
 private:
   bool toggleEquip(uint8_t itemId);
-  std::vector<Entry> items;
 };

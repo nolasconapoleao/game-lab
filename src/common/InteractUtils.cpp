@@ -26,8 +26,8 @@ void entityUseItem(Character &character, const Item &item) {
 }
 
 void exchangeItem(Inventory &origin, Inventory &destination, uint8_t itemId, uint8_t quantity) {
-  auto entry = origin.items.begin() + itemId;
-  if (entry != origin.items.end()) {
+  auto entry = origin.entries.begin() + itemId;
+  if (entry != origin.entries.end()) {
     destination.addItem(entry->item, entry->quantity);
     origin.dropItem(itemId, quantity);
   }
