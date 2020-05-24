@@ -10,9 +10,9 @@ Character::Character() {
 }
 
 Character::Character(std::string name, std::string charClass, std::string sayHi, std::string sayBye,
-                     uint8_t maxHealthPoints, uint8_t attackPoints, Diplomacy relation)
+                     uint8_t maxHealthPoints, uint8_t attackPoints, Diplomacy diplomacy)
     : name(name), charClass(charClass), sayHi(sayHi), sayBye(sayBye),
-      properties(Properties{maxHealthPoints, maxHealthPoints, attackPoints}), relation(relation) {
+      properties(Properties{maxHealthPoints, maxHealthPoints, attackPoints}), relation(diplomacy) {
 }
 
 Character Character::add(const Item &item, uint8_t quantity) {
@@ -22,21 +22,6 @@ Character Character::add(const Item &item, uint8_t quantity) {
 
 const bool Character::isDead() const {
   return properties.health == 0;
-};
-
-bool Character::attackedBy(const Character &attacker) {
-  uint8_t attackPoints = attacker.properties.attack - attacker.properties.defense;
-  const auto attackProbability = MathUtils::random(0, attacker.properties.attack);
-
-  if (attackProbability > properties.defense) {
-    properties.health = MathUtils::clamp_sub(properties.health, attackPoints, 0);
-    return true;
-  }
-
-  if ("Player" == attacker.name && Diplomacy::neutral == relation) {
-    relation = Diplomacy::hostile;
-  }
-  return false;
 };
 
 bool Character::pay(uint8_t value) {

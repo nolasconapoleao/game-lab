@@ -8,6 +8,7 @@
 #include <magic_enum.hpp>
 
 #include "common/InteractUtils.h"
+#include "common/Match.h"
 #include "config/cmakeconfig.h"
 #include "generators/Generators.h"
 #include "utils/PrintUtils.h"
@@ -81,9 +82,10 @@ void Game::updateGameState() {
 }
 
 void Game::updatePlayer() {
-  for (const auto npc : world.rooms[world.currentRoom].npcs) {
+  for (auto &npc : world.rooms[world.currentRoom].npcs) {
     if (!npc.isDead() && Diplomacy::hostile == npc.relation) {
-      const bool attackSuccess = world.player.attackedBy(npc);
+      const auto result = Match::match(world.player, npc);
+      updateConvos(result, world.player, npc);
     }
   }
 }
@@ -144,12 +146,8 @@ void Game::handleInput() {
     }
 
     case GameState::Attack: {
-      const bool attackSuccess = world.rooms[world.currentRoom].npcs[lastInput - 1].attackedBy(world.player);
-      if (!attackSuccess) {
-        std::ostringstream oss;
-        oss << "You missed!" << std::endl;
-        convos.emplace_back(oss.str());
-      }
+      const auto result = Match::match(world.rooms[world.currentRoom].npcs[lastInput - 1], world.player);
+      updateConvos(result, world.rooms[world.currentRoom].npcs[lastInput - 1], world.player);
       break;
     }
 
@@ -263,4 +261,18 @@ void Game::updateOptions() {
     }
   }
   optionList.addFooter();
+}
+
+void Game::updateConvos(MatchResult result, const Character attacked, const Character attacker) {
+  std::ostringstream oss;
+  if (result.diplomacyUpdate) {
+    oss << attacker.name << " made a new enemy." << std::endl;
+  }
+
+  oss << attacker.name << " attack: " << result.attacker << std::endl;
+
+  if (result.attackedDied) {
+    oss << attacked.name << "'s last words: " << attacked.sayBye << std::endl;
+  }
+  convos.emplace_back(oss.str());
 }

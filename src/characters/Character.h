@@ -31,11 +31,10 @@ class Character {
 public:
   Character();
   Character(std::string name, std::string charClass, std::string sayHi, std::string sayBye, uint8_t maxHealthPoints,
-            uint8_t attackPoints, Diplomacy relation);
+            uint8_t attackPoints, Diplomacy diplomacy);
 
   Character add(const Item &item, uint8_t quantity = 1);
   const bool isDead() const;
-  [[nodiscard]] bool attackedBy(const Character &attacker);
   bool pay(uint8_t value);
   void getPayment(uint8_t value);
 

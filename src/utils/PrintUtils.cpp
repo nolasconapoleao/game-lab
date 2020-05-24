@@ -56,6 +56,11 @@ std::ostream &operator<<(std::ostream &os, const Diplomacy &diplomacy) {
   return os;
 }
 
+std::ostream &operator<<(std::ostream &os, const AttackResult &room) {
+  os << magic_enum::enum_name(room);
+  return os;
+}
+
 std::ostream &operator<<(std::ostream &os, const OptionList &list) {
   for (uint8_t i = 0; i < list.options.size(); i++) {
     os << char(list.options[i].first) << ": " << list.options[i].second << std::endl;

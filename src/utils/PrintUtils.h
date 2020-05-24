@@ -6,6 +6,7 @@
 
 #include "characters/Character.h"
 #include "common/Inventory.h"
+#include "common/Match.h"
 #include "game/OptionList.h"
 #include "items/Item.h"
 #include "rooms/Room.h"
@@ -22,3 +23,5 @@ std::ostream &operator<<(std::ostream &os, const Diplomacy &diplomacy);
 std::ostream &operator<<(std::ostream &os, const Character &character);
 
 std::ostream &operator<<(std::ostream &os, const Room &room);
+
+std::ostream &operator<<(std::ostream &os, const AttackResult &room);
