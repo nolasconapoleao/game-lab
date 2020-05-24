@@ -21,8 +21,7 @@ struct MatchResult {
 
 class Match {
 public:
-  [[nodiscard]] static const MatchResult match(Character &attacked, Character &attacker,
-                                               const bool attackedRetaliates = false);
+  [[nodiscard]] static const MatchResult match(Character &attacked, Character &attacker);
 
 private:
   [[nodiscard]] const static AttackResult attack(Character &attacked, const Character &attacker);

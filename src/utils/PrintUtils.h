@@ -21,6 +21,8 @@ std::string printFloor(const Entry &entry);
 std::string printPocket(const Entry &entry);
 std::string printShop(const Entry &entry);
 
+std::string printPlayer(const Character &player);
+
 std::ostream &operator<<(std::ostream &os, const Diplomacy &diplomacy);
 std::ostream &operator<<(std::ostream &os, const Character &character);
 

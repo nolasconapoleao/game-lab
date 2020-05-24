@@ -117,7 +117,7 @@ void Game::paintConvos() {
 }
 
 void Game::paintHUD() {
-  std::cout << world.player << std::endl;
+  std::cout << printPlayer(world.player);
 }
 
 void Game::paintRoom() {

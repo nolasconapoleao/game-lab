@@ -23,7 +23,7 @@ void entityUseItem(Character &character, const Item &item) {
       character.properties.defense = MathUtils::clamp_add(character.properties.defense, item.modifierValue, c_maxValue);
       break;
     case Effect::speed:
-      character.properties.speed = MathUtils::clamp_add(character.properties.speed, item.modifierValue, MAXVALUE);
+      character.properties.speed = MathUtils::clamp_add(character.properties.speed, item.modifierValue, c_maxValue);
       break;
   }
 }

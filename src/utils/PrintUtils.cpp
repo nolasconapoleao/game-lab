@@ -50,7 +50,7 @@ std::string printShop(const Entry &entry) {
 }
 
 std::ostream &operator<<(std::ostream &os, const Character &character) {
-  os << character.name << " HP: " << character.properties.health << "/" << character.properties.maxHealth;
+  os << character.name << "\tHP: " << character.properties.health << "/" << character.properties.maxHealth;
   return os;
 }
 
@@ -75,6 +75,18 @@ std::ostream &operator<<(std::ostream &os, const Diplomacy &diplomacy) {
 std::ostream &operator<<(std::ostream &os, const AttackResult &room) {
   os << magic_enum::enum_name(room);
   return os;
+}
+
+std::string printPlayer(const Character &player) {
+  std::ostringstream os;
+  os << player;
+  os << "\tAtk: " << player.properties.attack;
+  os << "\tDef: " << player.properties.defense;
+  os << "\tSpeed: " << player.properties.speed << std::endl;
+  os << "\t\tMoney: " << player.properties.money;
+  os << "\tLvl: " << player.properties.level;
+  os << "\tXp: " << player.properties.experience << std::endl;
+  return os.str();
 }
 
 std::ostream &operator<<(std::ostream &os, const OptionList &list) {

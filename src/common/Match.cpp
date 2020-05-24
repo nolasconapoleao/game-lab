@@ -6,7 +6,7 @@
 
 #include <utils/MathUtils.h>
 
-const MatchResult Match::match(Character &attacked, Character &attacker, const bool attackedRetaliates) {
+const MatchResult Match::match(Character &attacked, Character &attacker) {
   MatchResult result;
 
   // Change of diplomacy
@@ -20,7 +20,7 @@ const MatchResult Match::match(Character &attacked, Character &attacker, const b
 
   // Retaliation
   if (!attacked.isDead()) {
-    if (attackedRetaliates) {
+    if (attacked.properties.speed > 2 * attacker.properties.speed) {
       result.attacked = attack(attacker, attacked);
       result.attackerDied = attacked.isDead();
     }

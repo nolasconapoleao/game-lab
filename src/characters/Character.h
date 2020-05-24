@@ -17,6 +17,7 @@ struct Properties {
   uint8_t speed = 0;
   uint8_t money = 0;
   uint8_t experience = 0;
+  uint8_t level = 0;
 };
 
 enum class Diplomacy {
