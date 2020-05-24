@@ -22,9 +22,15 @@ Item createItem() {
   uint8_t price = MathUtils::random(1, 10);
 
   UseType useType = toUseType(items[itemSeed][2]);
+  uint8_t duration;
+  if (UseType::consume == useType) {
+    duration = MathUtils::random(1, 10);
+  } else if (UseType::equip == useType) {
+    duration = MathUtils::random(20, 50);
+  }
   Effect characterProperty = toEffect(items[itemSeed][3]);
 
-  Item item = Item(items[itemSeed][0], items[itemSeed][1], characterProperty, useType, modifierValue, price);
+  Item item = Item(items[itemSeed][0], items[itemSeed][1], characterProperty, useType, duration, modifierValue, price);
   return item;
 }
 

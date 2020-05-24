@@ -4,7 +4,7 @@
 
 #include "Item.h"
 
-Item::Item(const std::string &name, const std::string &description, Effect modifier, UseType useType,
+Item::Item(const std::string &name, const std::string &description, Effect modifier, UseType useType, uint8_t uses,
            uint8_t modifierValue, uint8_t price)
-    : name(name), description(description), modifier(modifier), useType(useType), modifierValue(modifierValue),
-      price(price){};
+    : name(name), description(description), effect(modifier), useType(useType), modifierValue(modifierValue),
+      price(price), duration(uses){};

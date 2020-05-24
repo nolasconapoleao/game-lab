@@ -7,7 +7,7 @@
 constexpr uint8_t c_maxValue = 255;
 
 void entityUseItem(Character &character, const Item &item) {
-  switch (item.modifier) {
+  switch (item.effect) {
     case Effect::health:
       character.properties.health
           = MathUtils::clamp_add(character.properties.health, item.modifierValue, character.properties.maxHealth);
@@ -26,17 +26,9 @@ void entityUseItem(Character &character, const Item &item) {
 }
 
 void exchangeItem(Inventory &origin, Inventory &destination, uint8_t itemId, uint8_t quantity) {
-  auto consumableEntry = std::find_if(origin.consumables.begin(), origin.consumables.end(),
-                                      [itemId](ConsumableEntry entry) { return itemId == entry.itemId; });
-  if (consumableEntry != origin.consumables.end()) {
-    destination.addItem(consumableEntry->item, consumableEntry->quantity);
-    origin.consumeItem(itemId);
-  }
-
-  auto equipableEntry = std::find_if(origin.equipables.begin(), origin.equipables.end(),
-                                     [itemId](EquipableEntry entry) { return itemId == entry.itemId; });
-  if (equipableEntry != origin.equipables.end()) {
-    destination.addItem(equipableEntry->item);
-    origin.dropItem(itemId);
+  auto entry = origin.items.begin() + itemId;
+  if (entry != origin.items.end()) {
+    destination.addItem(entry->item, entry->quantity);
+    origin.dropItem(itemId, quantity);
   }
 }

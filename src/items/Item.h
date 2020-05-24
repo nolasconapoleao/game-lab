@@ -27,13 +27,14 @@ enum class UseType { equip, consume };
  */
 class Item {
 public:
-  Item(const std::string &name, const std::string &description, Effect modifier, UseType useType, uint8_t modifierValue,
-       uint8_t price);
+  Item(const std::string &name, const std::string &description, Effect modifier, UseType useType, uint8_t uses,
+       uint8_t modifierValue, uint8_t price);
 
   std::string name;
   std::string description;
-  Effect modifier;
+  Effect effect;
   UseType useType;
+  uint8_t duration;
   uint8_t modifierValue;
   uint8_t price;
 };

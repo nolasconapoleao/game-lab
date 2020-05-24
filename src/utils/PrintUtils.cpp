@@ -17,18 +17,13 @@ std::ostream &operator<<(std::ostream &os, const Effect &effect) {
 }
 
 std::ostream &operator<<(std::ostream &os, const Item &item) {
-  os << item.name << " affects " << item.modifier << " by " << item.modifierValue;
+  os << item.name << " affects " << item.effect << " by " << item.modifierValue;
   return os;
 }
 
 std::ostream &operator<<(std::ostream &os, const Inventory &inventory) {
-  for (const auto &consumableEntry : inventory.consumables) {
-    os << "(" << consumableEntry.quantity << "): " << consumableEntry.item.name << " - "
-       << consumableEntry.item.description << std::endl;
-  }
-  for (const auto &equipableEntry : inventory.equipables) {
-    os << "(" << (equipableEntry.equipped ? "e" : "u") << "): " << equipableEntry.item.name << " - "
-       << equipableEntry.item.description << std::endl;
+  for (const auto &entry : inventory.items) {
+    os << "(" << entry.quantity << "): " << entry.item.name << " - " << entry.item.description << std::endl;
   }
   return os;
 }

@@ -28,22 +28,22 @@ SCENARIO("Sanity check", "[Inventory]") {
   }
 }
 
-SCENARIO("Operations in consumables", "[Inventory]") {
+SCENARIO("Operations in items", "[Inventory]") {
 
   GIVEN("An floor with potions") {
     Inventory inventory;
 
-    inventory.addItem(Item("Potion", "Is a potion", Effect::health, UseType::consume, 3u, 1u));
-    inventory.addItem(Item("Potion", "Is a potion", Effect::health, UseType::consume, 3u, 1u));
-    inventory.addItem(Item("Potion", "Is a potion", Effect::health, UseType::consume, 3u, 1u));
-    REQUIRE(inventory.consumables[0].item.name == "Potion");
-    REQUIRE(inventory.consumables[0].quantity == 3);
+    inventory.addItem(Item("Potion", "Is a potion", Effect::health, UseType::consume, false, 0, 3u, 1u));
+    inventory.addItem(Item("Potion", "Is a potion", Effect::health, UseType::consume, false, 0, 3u, 1u));
+    inventory.addItem(Item("Potion", "Is a potion", Effect::health, UseType::consume, false, 0, 3u, 1u));
+    REQUIRE(inventory.items[0].item.name == "Potion");
+    REQUIRE(inventory.items[0].quantity == 3);
 
     WHEN("a potion is consumed") {
       REQUIRE(inventory.consumeItem(1));
 
       THEN("the quantity of potions decreases correctly") {
-        REQUIRE(inventory.consumables[0].quantity == 2);
+        REQUIRE(inventory.items[0].quantity == 2);
       }
     }
 
@@ -53,7 +53,7 @@ SCENARIO("Operations in consumables", "[Inventory]") {
       REQUIRE(inventory.consumeItem(1));
 
       THEN("Access to an item that no longer exists, yields false") {
-        REQUIRE(inventory.consumables[0].quantity == 0);
+        REQUIRE(inventory.items[0].quantity == 0);
         REQUIRE_FALSE(inventory.consumeItem(1));
       }
     }
@@ -65,11 +65,11 @@ SCENARIO("Operations in equipables", "[Inventory]") {
   GIVEN("An floor with swords") {
     Inventory inventory;
 
-    inventory.addItem(Item("Sword", "Is a sword", Effect::attack, UseType::equip, 2u, 1u));
+    inventory.addItem(Item("Sword", "Is a sword", Effect::attack, UseType::equip, false, 0, 2u, 1u));
     REQUIRE(inventory.equipables[0].item.name == "Sword");
     REQUIRE(inventory.equipables[0].equipped == false);
 
-    inventory.addItem(Item("Sword", "Is a sword", Effect::attack, UseType::equip, 2u, 1u));
+    inventory.addItem(Item("Sword", "Is a sword", Effect::attack, UseType::equip, false, 0, 2u, 1u));
     REQUIRE(inventory.equipables[1].item.name == "Sword");
     REQUIRE(inventory.equipables[1].equipped == false);
 
