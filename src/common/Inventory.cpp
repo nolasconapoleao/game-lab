@@ -100,10 +100,11 @@ bool Inventory::unequipItem(uint8_t itemId) {
 bool Inventory::useItem(uint8_t itemId) {
   const auto item = getItem(itemId);
   if (item.useType == UseType::consume) {
-    consumeItem(itemId);
+    return consumeItem(itemId);
   } else if (item.useType == UseType::equip) {
-    toggleEquip(itemId);
+    return toggleEquip(itemId);
   }
+  return false;
 }
 
 bool Inventory::toggleEquip(uint8_t itemId) {

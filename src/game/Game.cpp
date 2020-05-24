@@ -150,7 +150,7 @@ void Game::handleInput() {
 
     case GameState::Inventory: {
       {
-        const auto item = world.player.inventory.getItem(lastInput);
+        const auto item = world.player.inventory.getItem(lastInput - 1);
         entityUseItem(world.player, item);
         world.player.inventory.useItem(lastInput);
       }

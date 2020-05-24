@@ -9,7 +9,7 @@
 
 #include "common/Inventory.h"
 #include "items/Item.h"
-#include "utils/PrintUtils.cpp"
+#include "utils/PrintUtils.h"
 
 SCENARIO("Sanity check", "[Inventory]") {
 

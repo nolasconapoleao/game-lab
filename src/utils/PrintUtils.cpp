@@ -2,28 +2,17 @@
 // Created by nolasco on 16/05/20.
 //
 
-#pragma once
-
 #include "PrintUtils.h"
 
 #include <game/OptionList.h>
+#include <magic_enum.hpp>
 
 std::ostream &operator<<(std::ostream &os, const uint8_t &number) {
   return os << std::to_string(number);
 }
 
-std::ostream &operator<<(std::ostream &os, const Effect &property) {
-  switch (property) {
-    case Effect::maxHealth:
-      os << "Max health";
-      break;
-    case Effect::health:
-      os << "Current health";
-      break;
-    case Effect::attack:
-      os << "Attack";
-      break;
-  }
+std::ostream &operator<<(std::ostream &os, const Effect &effect) {
+  os << magic_enum::enum_name(effect);
   return os;
 }
 
@@ -54,6 +43,16 @@ std::ostream &operator<<(std::ostream &os, const Room &room) {
   for (const auto &npc : room.npcs) {
     os << npc << std::endl;
   }
+  return os;
+}
+
+std::ostream &operator<<(std::ostream &os, const UseType &useType) {
+  os << magic_enum::enum_name(useType);
+  return os;
+}
+
+std::ostream &operator<<(std::ostream &os, const Diplomacy &diplomacy) {
+  os << magic_enum::enum_name(diplomacy);
   return os;
 }
 

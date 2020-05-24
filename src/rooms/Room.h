@@ -16,32 +16,11 @@
  */
 class Room {
 public:
-  Room(const std::string &name, const std::string &description) : name(name), description(description) {
-  }
-
-  Room &add(const Character &npc) {
-    npcs.emplace_back(npc);
-    return *this;
-  }
-
-  Room &add(const Item &item, uint8_t quantity = 1) {
-    inventory.addItem(item, quantity);
-    return *this;
-  }
-
-  Room &addLink(const uint8_t &adjacentRoom) {
-    adjacentRooms.insert(adjacentRoom);
-    return *this;
-  }
-
-  bool hasNpc(const std::string npcType) {
-    const auto res
-        = std::find_if(npcs.begin(), npcs.end(), [npcType](Character npc) { return npcType == npc.charClass; });
-
-    return (res != npcs.end());
-  }
-
-  friend std::ostream &operator<<(std::ostream &os, const Room &room);
+  Room(const std::string &name, const std::string &description);
+  Room &add(const Character &npc);
+  Room &add(const Item &item, uint8_t quantity = 1);
+  Room &addLink(const uint8_t &adjacentRoom);
+  bool hasNpc(const std::string npcClass);
 
   std::string name;
   std::string description;
