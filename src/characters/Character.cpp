@@ -6,6 +6,9 @@
 
 #include "utils/MathUtils.h"
 
+Character::Character() {
+}
+
 Character::Character(std::string name, std::string charClass, std::string sayHi, std::string sayBye,
                      uint8_t maxHealthPoints, uint8_t attackPoints, Diplomacy relation)
     : name(name), charClass(charClass), sayHi(sayHi), sayBye(sayBye),
@@ -21,8 +24,19 @@ const bool Character::isDead() const {
   return properties.health == 0;
 };
 
-void Character::receiveAttack(uint8_t attackPoints) {
-  properties.health = MathUtils::clamp_sub(properties.health, attackPoints, 0);
+bool Character::attackedBy(const Character &attacker) {
+  uint8_t attackPoints = attacker.properties.attack - attacker.properties.defense;
+  const auto attackProbability = MathUtils::random(0, attacker.properties.attack);
+
+  if (attackProbability > properties.defense) {
+    properties.health = MathUtils::clamp_sub(properties.health, attackPoints, 0);
+    return true;
+  }
+
+  if ("Player" == attacker.name && Diplomacy::neutral == relation) {
+    relation = Diplomacy::hostile;
+  }
+  return false;
 };
 
 bool Character::pay(uint8_t value) {

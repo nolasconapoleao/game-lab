@@ -78,6 +78,8 @@ World createWorld(uint8_t dificulty) {
     world.add(createRoom(roomsInWorld, id));
   }
 
+  world.player = Character{
+      "Player", "No idea", "Help me, get to the end of the maze!", "You've failed me!", 20, 3, Diplomacy::friendly};
   for (uint8_t it = 0; it < 3u; ++it) {
     world.player.add(generator::createItem());
   }

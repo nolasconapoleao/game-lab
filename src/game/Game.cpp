@@ -83,7 +83,7 @@ void Game::updateGameState() {
 void Game::updatePlayer() {
   for (const auto npc : world.rooms[world.currentRoom].npcs) {
     if (!npc.isDead() && Diplomacy::hostile == npc.relation) {
-      world.player.receiveAttack(npc.properties.attack - npc.properties.defense);
+      const bool attackSuccess = world.player.attackedBy(npc);
     }
   }
 }
@@ -143,10 +143,15 @@ void Game::handleInput() {
       break;
     }
 
-    case GameState::Attack:
-      world.rooms[world.currentRoom].npcs[lastInput - 1].receiveAttack(world.player.properties.attack
-                                                                       - world.player.properties.defense);
+    case GameState::Attack: {
+      const bool attackSuccess = world.rooms[world.currentRoom].npcs[lastInput - 1].attackedBy(world.player);
+      if (!attackSuccess) {
+        std::ostringstream oss;
+        oss << "You missed!" << std::endl;
+        convos.emplace_back(oss.str());
+      }
       break;
+    }
 
     case GameState::Inventory: {
       {
