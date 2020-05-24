@@ -13,7 +13,7 @@
 
 SCENARIO("Sanity check", "[Inventory]") {
 
-  GIVEN("An inventory with no items.csv") {
+  GIVEN("An floor with no items") {
     Inventory inventory;
 
     WHEN("any operation is called") {
@@ -30,7 +30,7 @@ SCENARIO("Sanity check", "[Inventory]") {
 
 SCENARIO("Operations in consumables", "[Inventory]") {
 
-  GIVEN("An inventory with potions") {
+  GIVEN("An floor with potions") {
     Inventory inventory;
 
     inventory.addItem(Item("Potion", "Is a potion", Effect::health, UseType::consume, 3u, 1u));
@@ -62,7 +62,7 @@ SCENARIO("Operations in consumables", "[Inventory]") {
 
 SCENARIO("Operations in equipables", "[Inventory]") {
 
-  GIVEN("An inventory with swords") {
+  GIVEN("An floor with swords") {
     Inventory inventory;
 
     inventory.addItem(Item("Sword", "Is a sword", Effect::attack, UseType::equip, 2u, 1u));

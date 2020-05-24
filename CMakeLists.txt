@@ -22,7 +22,7 @@ set(CMAKE_CXX_FLAGS "-g -O0 -Wall -fprofile-arcs -ftest-coverage")
 # Add cmake scripts
 include(cmake/utils.cmake)
 
-## Game executable
+## Renderer executable
 add_executable(
     ${PROJECT_NAME}
         ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp

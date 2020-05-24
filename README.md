@@ -4,7 +4,7 @@ Game source code using C++ and Cmake for testing ideas and experimenting with ga
 
 At the moment the game does not support graphics, it's only a text game, check these pictures:
 ![Game_v1-menu](/demo/Demo1.png)
-![Game_v1-inventory](/demo/Demo2.png)
+![Game_v1-floor](/demo/Demo2.png)
 ![Game_v1-talk](/demo/Demo3.png)
 
 ## Getting Started

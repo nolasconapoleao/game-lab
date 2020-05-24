@@ -23,7 +23,7 @@ enum class Effect {
 enum class UseType { equip, consume };
 
 /**
- * @brief Base Item.
+ * @brief Item.
  */
 class Item {
 public:

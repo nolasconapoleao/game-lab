@@ -22,7 +22,7 @@ struct EquipableEntry {
 };
 
 /**
- * @brief Inventory class has a list of consume and equip items.csv.
+ * @brief Inventory class has a list of consume and equip items.
  */
 class Inventory {
 public:
@@ -38,7 +38,7 @@ public:
   friend std::ostream &operator<<(std::ostream &os, const Inventory &inventory);
 
   /**
-   * All items.csv in origin inventory with itemId are sent to destination inventory.
+   * All items in origin inventory with itemId are sent to destination inventory.
    * @param origin inventory
    * @param destination inventory
    * @param itemId for item to be displaced

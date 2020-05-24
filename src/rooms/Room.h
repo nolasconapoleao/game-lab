@@ -12,7 +12,7 @@
 #include "characters/Character.h"
 
 /**
- * @brief Room has an inventory of "dropped" items.csv, a list of npcs and linked rooms.
+ * @brief Room has a floor with spoils, a list of npcs and linked rooms.
  */
 class Room {
 public:
@@ -24,7 +24,7 @@ public:
 
   std::string name;
   std::string description;
-  Inventory inventory;
+  Inventory floor;
   std::set<uint8_t> adjacentRooms;
   std::vector<Character> npcs;
 };

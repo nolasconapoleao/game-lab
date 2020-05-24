@@ -25,7 +25,7 @@ enum class Diplomacy {
 };
 
 /**
- * @brief Base character, all derived characters have an inventory and are battle ready.
+ * @brief Characters have a pocket.
  */
 class Character {
 public:
@@ -44,5 +44,5 @@ public:
   std::string sayBye;
   Properties properties;
   Diplomacy relation;
-  Inventory inventory;
+  Inventory pocket;
 };

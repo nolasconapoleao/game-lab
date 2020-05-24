@@ -1,7 +1,7 @@
-#include "game/Game.h"
+#include "game/Renderer.h"
 
 int main() {
-  Game game = Game();
+  Renderer game = Renderer();
   game.initGame();
 
   while (!game.isGameOver()) {

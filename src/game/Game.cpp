@@ -153,16 +153,16 @@ void Game::handleInput() {
 
     case GameState::Inventory: {
       {
-        const auto item = world.player.inventory.getItem(lastInput - 1);
+        const auto item = world.player.pocket.getItem(lastInput - 1);
         entityUseItem(world.player, item);
-        world.player.inventory.useItem(lastInput);
+        world.player.pocket.useItem(lastInput);
       }
       break;
     }
 
     case GameState::Pickup: {
       {
-        exchangeItem(world.rooms[world.currentRoom].inventory, world.player.inventory, lastInput);
+        exchangeItem(world.rooms[world.currentRoom].floor, world.player.pocket, lastInput);
       }
       break;
     }
@@ -172,8 +172,8 @@ void Game::handleInput() {
       break;
 
     case GameState::Shop:
-      const auto item = world.player.inventory.getItem(lastInput);
-      exchangeItem(world.rooms[world.currentRoom].inventory, world.player.inventory, lastInput);
+      const auto item = world.player.pocket.getItem(lastInput);
+      exchangeItem(world.rooms[world.currentRoom].floor, world.player.pocket, lastInput);
       world.player.pay(item.price);
       break;
   }
@@ -219,7 +219,7 @@ void Game::updateOptions() {
 
     case GameState::Inventory: {
       std::ostringstream oss;
-      oss << world.player.inventory;
+      oss << world.player.pocket;
       std::istringstream ss(oss.str());
       std::string option;
 
@@ -240,7 +240,7 @@ void Game::updateOptions() {
 
     case GameState::Pickup: {
       std::ostringstream oss;
-      oss << world.rooms[world.currentRoom].inventory;
+      oss << world.rooms[world.currentRoom].floor;
       std::istringstream ss(oss.str());
       std::string option;
 
@@ -251,8 +251,8 @@ void Game::updateOptions() {
     }
 
     case GameState::Shop: {
-      for (uint8_t it = 1; it <= world.rooms[world.currentRoom].inventory.totalItems(); it++) {
-        auto item = world.rooms[world.currentRoom].inventory.getItem(it);
+      for (uint8_t it = 1; it <= world.rooms[world.currentRoom].floor.totalItems(); it++) {
+        auto item = world.rooms[world.currentRoom].floor.getItem(it);
         std::ostringstream oss;
         oss << "Buy " << item.name << "(" << item.price << ")";
         optionList.addOption(oss.str());

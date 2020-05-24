@@ -16,7 +16,7 @@ Character::Character(std::string name, std::string charClass, std::string sayHi,
 }
 
 Character Character::add(const Item &item, uint8_t quantity) {
-  inventory.addItem(item, quantity);
+  pocket.addItem(item, quantity);
   return *this;
 }
 

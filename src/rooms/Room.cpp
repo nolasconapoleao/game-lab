@@ -13,7 +13,7 @@ Room &Room::add(const Character &npc) {
 }
 
 Room &Room::add(const Item &item, uint8_t quantity) {
-  inventory.addItem(item, quantity);
+  floor.addItem(item, quantity);
   return *this;
 }
 
