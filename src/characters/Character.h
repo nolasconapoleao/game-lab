@@ -14,6 +14,7 @@ struct Properties {
   uint8_t maxHealth = 2;
   uint8_t attack = 2;
   uint8_t defense = 0;
+  uint8_t speed = 0;
   uint8_t money = 0;
   uint8_t experience = 0;
 };
@@ -30,8 +31,8 @@ enum class Diplomacy {
 class Character {
 public:
   Character();
-  Character(std::string name, std::string charClass, std::string sayHi, std::string sayBye, uint8_t maxHealthPoints,
-            uint8_t attackPoints, Diplomacy diplomacy);
+  Character(std::string name, std::string charClass, std::string sayHi, std::string sayBye, Properties properties,
+            Diplomacy diplomacy);
 
   Character add(const Item &item, uint8_t quantity = 1);
   const bool isDead() const;

@@ -41,13 +41,21 @@ Character createNPC() {
   uint8_t namesAvailable = names.size();
   uint8_t nameSeed = MathUtils::random(1, namesAvailable - 1);
 
-  uint8_t attack = MathUtils::random(1, 3);
   uint8_t health = MathUtils::random(1, 10);
+  uint8_t attack = MathUtils::random(1, 3);
+  uint8_t defense = MathUtils::random(1, 5);
+  uint8_t speed = MathUtils::random(1, 3);
 
   Diplomacy diplomacy = toDiplomacy(npcs[characterSeed][3]);
 
+  Properties properties{health, health, attack, defense, speed, 0u, 0u};
   Character character = Character(names[nameSeed][0], npcs[characterSeed][0], npcs[characterSeed][1],
-                                  npcs[characterSeed][2], health, attack, diplomacy);
+                                  npcs[characterSeed][2], properties, diplomacy);
+
+  for (uint8_t it = 0; it < 2u; ++it) {
+    character.add(createItem());
+  }
+
   return character;
 }
 
@@ -84,8 +92,9 @@ World createWorld(uint8_t dificulty) {
     world.add(createRoom(roomsInWorld, id));
   }
 
-  world.player = Character{
-      "Player", "No idea", "Help me, get to the end of the maze!", "You've failed me!", 20, 3, Diplomacy::friendly};
+  Properties properties{20u, 20u, 3u, 2u, 2u, 0u, 0u};
+  world.player = Character{"Player",   "No idea",          "Help me, get to the end of the maze!", "You've failed me!",
+                           properties, Diplomacy::friendly};
   for (uint8_t it = 0; it < 3u; ++it) {
     world.player.add(generator::createItem());
   }

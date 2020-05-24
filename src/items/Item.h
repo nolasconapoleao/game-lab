@@ -15,6 +15,7 @@ enum class Effect {
   health,
   attack,
   defense,
+  speed,
 };
 
 /**

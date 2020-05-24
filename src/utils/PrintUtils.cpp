@@ -27,6 +27,9 @@ std::string printPocket(const Entry &entry) {
   os << "Use (";
   os << ((UseType::consume == entry.item.useType) ? std::to_string(entry.quantity) : (entry.inUse ? "e" : "u"));
   os << "): " << entry.item;
+  if (UseType::equip == entry.item.useType) {
+    os << " - (" << entry.item.duration << " uses left)";
+  }
   return os.str().data();
 }
 
