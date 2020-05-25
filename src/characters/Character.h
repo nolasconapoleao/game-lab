@@ -40,6 +40,7 @@ public:
   bool pay(uint8_t value);
   void getPayment(uint8_t value);
   const std::string talk() const;
+  bool levelUp(uint8_t xp);
 
   std::string name;
   std::string charClass;

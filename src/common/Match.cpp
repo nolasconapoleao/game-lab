@@ -37,13 +37,17 @@ void Match::match(Room &ring, Character &attacked, Character &attacker, std::vec
         oss << attacker.name << "'s last words: " << attacker.sayBye << std::endl;
         oss << attacked.name << " got " << attacker.properties.money << "$" << std::endl;
         attacked.getPayment(attacker.properties.money);
+        oss << attacked.name << " got " << attacker.properties.experience << "xp" << std::endl;
+        attacked.levelUp(attacker.properties.experience);
         dropAll(ring, attacker);
       }
     }
   } else {
     oss << attacked.name << "'s last words: " << attacked.sayBye << std::endl;
-    attacker.getPayment(attacked.properties.money);
     oss << attacker.name << " got " << attacked.properties.money << "$" << std::endl;
+    attacker.getPayment(attacked.properties.money);
+    oss << attacker.name << " got " << attacked.properties.experience << "xp" << std::endl;
+    attacker.levelUp(attacked.properties.experience);
     dropAll(ring, attacked);
   }
 

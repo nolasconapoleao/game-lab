@@ -46,10 +46,11 @@ Character createNPC() {
   uint8_t defense = MathUtils::random(1, 5);
   uint8_t speed = MathUtils::random(1, 3);
   uint8_t money = MathUtils::random(1, 3);
+  uint8_t experience = MathUtils::random(5, 13);
 
   Diplomacy diplomacy = toDiplomacy(npcs[characterSeed][3]);
 
-  Properties properties{health, health, attack, defense, speed, money, 0u};
+  Properties properties{health, health, attack, defense, speed, money, experience};
   Character character = Character(names[nameSeed][0], npcs[characterSeed][0], npcs[characterSeed][1],
                                   npcs[characterSeed][2], properties, diplomacy);
 

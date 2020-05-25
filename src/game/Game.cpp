@@ -33,7 +33,6 @@ void Game::loop() {
   renderer.paintScreen();
   lastInput = input.readInput(renderer.options.numOptions());
   handleInput();
-  updateItems();
   updateGameState();
 }
 
@@ -65,6 +64,9 @@ void Game::updateGameState() {
       [[fallthrough]];
     case GameState::Inventory:
       updateNpcs();
+      if (world.isAnyNpcHostileInThisRoom()) {
+        updateItems();
+      }
       gameState = GameState::Menu;
       break;
 

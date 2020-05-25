@@ -44,3 +44,18 @@ const std::string Character::talk() const {
   os << name << " said: " << (isDead() ? sayBye : sayHi);
   return os.str();
 }
+
+bool Character::levelUp(uint8_t xp) {
+  do {
+    uint8_t xpToNextLvl = properties.level - properties.experience;
+
+    if (xp > xpToNextLvl) {
+      properties.level++;
+      xp = xp - xpToNextLvl;
+      properties.experience = 0;
+    } else {
+      properties.experience = xp;
+      break;
+    }
+  } while (true);
+}
