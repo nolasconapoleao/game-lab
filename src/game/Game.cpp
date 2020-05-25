@@ -84,7 +84,7 @@ void Game::updateGameState() {
 void Game::updatePlayer() {
   for (auto &npc : world.rooms[world.currentRoom].npcs) {
     if (!npc.isDead() && Diplomacy::hostile == npc.relation) {
-      const auto result = Match::match(world.player, npc);
+      const auto result = Match::match(world.rooms[world.currentRoom], world.player, npc);
       updateConvos(result, world.player, npc);
     }
   }
@@ -146,7 +146,8 @@ void Game::handleInput() {
     }
 
     case GameState::Attack: {
-      const auto result = Match::match(world.rooms[world.currentRoom].npcs[lastInput], world.player);
+      const auto result
+          = Match::match(world.rooms[world.currentRoom], world.rooms[world.currentRoom].npcs[lastInput], world.player);
       updateConvos(result, world.rooms[world.currentRoom].npcs[lastInput], world.player);
       break;
     }

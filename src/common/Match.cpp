@@ -6,7 +6,9 @@
 
 #include <utils/MathUtils.h>
 
-const MatchResult Match::match(Character &attacked, Character &attacker) {
+#include "InteractUtils.h"
+
+const MatchResult Match::match(Room &ring, Character &attacked, Character &attacker) {
   MatchResult result;
 
   // Change of diplomacy
@@ -22,10 +24,17 @@ const MatchResult Match::match(Character &attacked, Character &attacker) {
   if (!attacked.isDead()) {
     if (attacked.properties.speed > 2 * attacker.properties.speed) {
       result.attacked = attack(attacker, attacked);
-      result.attackerDied = attacked.isDead();
+
+      if (attacker.isDead()) {
+        result.attackerDied = true;
+        attacked.getPayment(attacker.properties.money);
+        dropAll(ring, attacker);
+      }
     }
   } else {
     result.attackedDied = true;
+    attacker.getPayment(attacked.properties.money);
+    dropAll(ring, attacked);
   }
 
   return result;
@@ -35,15 +44,23 @@ const AttackResult Match::attack(Character &attacked, const Character &attacker)
   AttackResult result;
   uint8_t attackPoints = attacker.properties.attack - attacker.properties.defense;
   const auto attackProbability = MathUtils::random(0, attacker.properties.attack);
+  const auto defenseProbability = MathUtils::random(1, attacked.properties.defense);
 
-  if (attackProbability > (2 * attacked.properties.defense)) {
+  if (attackProbability > (2 * defenseProbability)) {
     attacked.properties.health = MathUtils::clamp_sub(attacked.properties.health, 2 * attackPoints, 0);
     result = AttackResult::Critical;
-  } else if (attackProbability > attacked.properties.defense) {
+  } else if (attackProbability > defenseProbability) {
     attacked.properties.health = MathUtils::clamp_sub(attacked.properties.health, attackPoints, 0);
     result = AttackResult::Hit;
   } else {
     result = AttackResult::Fail;
   }
   return result;
+}
+
+void Match::dropAll(Room &ring, Character &deadCharacter) {
+  for (uint8_t itemId = 0; itemId < deadCharacter.pocket.entries.size(); itemId++) {
+    uint8_t quantity = deadCharacter.pocket.entries[itemId].quantity;
+    exchangeItem(deadCharacter.pocket, ring.floor, itemId, quantity);
+  }
 }

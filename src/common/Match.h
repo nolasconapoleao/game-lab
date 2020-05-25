@@ -4,6 +4,7 @@
 
 #pragma once
 #include <characters/Character.h>
+#include <rooms/Room.h>
 
 enum class AttackResult {
   Fail,
@@ -21,8 +22,9 @@ struct MatchResult {
 
 class Match {
 public:
-  [[nodiscard]] static const MatchResult match(Character &attacked, Character &attacker);
+  [[nodiscard]] static const MatchResult match(Room &ring, Character &attacked, Character &attacker);
 
 private:
   [[nodiscard]] const static AttackResult attack(Character &attacked, const Character &attacker);
+  static void dropAll(Room &ring, Character &deadCharacter);
 };
