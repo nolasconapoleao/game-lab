@@ -7,9 +7,16 @@
 #include "characters/Character.h"
 #include "common/Inventory.h"
 #include "common/Match.h"
-#include "game/OptionList.h"
+#include "graphics/OptionList.h"
 #include "items/Item.h"
 #include "rooms/Room.h"
+
+template <class T> std::ostream &operator<<(std::ostream &os, const std::vector<T> &v) {
+  for (const auto ii : v) {
+    os << std::endl << ii;
+  }
+  return os;
+}
 
 std::ostream &operator<<(std::ostream &os, const uint8_t &number);
 

@@ -3,7 +3,7 @@
 //
 #include <common/Match.h>
 
-#include "OptionList.h"
+#include "graphics/Renderer.h"
 #include "input/Input.h"
 #include "rooms/World.h"
 
@@ -32,23 +32,15 @@ public:
 private:
   void updateGameState();
   void updatePlayer();
-  void paintScreen();
-  void clearScreen();
-  void paintHUD();
-  void paintConvos();
-  void paintRoom();
-  void paintOptions();
   void handleInput();
+  void updateHUD();
+  void updateRoom();
   void updateConvos(const MatchResult result, const Character attacked, const Character attacker);
   void updateOptions();
 
-  std::vector<std::string> convos;
   GameState gameState;
-  OptionList optionList;
+  Renderer renderer;
   World world;
   Input input;
   uint8_t lastInput;
-
-  std::string sepatator = "=====================================================================";
-  std::string sepatator2 = "---------------------------------------------------------------------";
 };
