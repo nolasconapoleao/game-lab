@@ -18,6 +18,10 @@ void Match::match(Room &ring, Character &attacked, Character &attacker, std::vec
     attacked.relation = Diplomacy::hostile;
     oss << attacker.name << " made a new enemy in " << attacked.name << std::endl;
   }
+  if ("Player" != attacker.name && Diplomacy::hostile != attacker.relation) {
+    attacker.relation = Diplomacy::hostile;
+    oss << attacker.name << " made a new enemy in " << attacked.name << std::endl;
+  }
 
   // Combat
   AttackResult attackerR = attack(attacked, attacker);
