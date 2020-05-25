@@ -22,12 +22,16 @@ void Match::match(Room &ring, Character &attacked, Character &attacker, std::vec
   // Combat
   AttackResult attackerR = attack(attacked, attacker);
   oss << attacker.name << " attack: " << attackerR << std::endl;
+  attacker.pocket.spendEquipped(Effect::attack);
+  attacked.pocket.spendEquipped(Effect::defense);
 
   // Retaliations
   if (!attacked.isDead()) {
     if (attacked.properties.speed > 2 * attacker.properties.speed) {
       AttackResult attackedR = attack(attacker, attacked);
       oss << attacked.name << " retaliation: " << attackedR << std::endl;
+      attacked.pocket.spendEquipped(Effect::attack);
+      attacker.pocket.spendEquipped(Effect::defense);
 
       if (attacker.isDead()) {
         oss << attacker.name << "'s last words: " << attacker.sayBye << std::endl;

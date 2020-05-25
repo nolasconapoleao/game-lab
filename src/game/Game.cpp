@@ -33,6 +33,7 @@ void Game::loop() {
   renderer.paintScreen();
   lastInput = input.readInput(renderer.options.numOptions());
   handleInput();
+  updateItems();
   updateGameState();
 }
 
@@ -218,4 +219,11 @@ void Game::updateOptions() {
     }
   }
   renderer.options.addFooter();
+}
+
+void Game::updateItems() {
+  world.player.pocket.spendEquipped(Effect::speed);
+  for (auto npc : world.rooms[world.currentRoom].npcs) {
+    npc.pocket.spendEquipped(Effect::speed);
+  }
 }
