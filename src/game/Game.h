@@ -31,11 +31,11 @@ public:
 
 private:
   void updateGameState();
-  void updatePlayer();
+  void updateNpcs();
+  void updateItems();
   void handleInput();
   void updateHUD();
   void updateRoom();
-  void updateConvos(const MatchResult result, const Character attacked, const Character attacker);
   void updateOptions();
 
   GameState gameState;

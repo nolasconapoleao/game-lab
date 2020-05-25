@@ -12,17 +12,9 @@ enum class AttackResult {
   Critical,
 };
 
-struct MatchResult {
-  AttackResult attacker = AttackResult::Fail;
-  AttackResult attacked = AttackResult::Fail;
-  bool attackerDied = false;
-  bool attackedDied = false;
-  bool diplomacyUpdate = false;
-};
-
 class Match {
 public:
-  [[nodiscard]] static const MatchResult match(Room &ring, Character &attacked, Character &attacker);
+  static void match(Room &ring, Character &attacked, Character &attacker, std::vector<std::string> &convos);
 
 private:
   [[nodiscard]] const static AttackResult attack(Character &attacked, const Character &attacker);

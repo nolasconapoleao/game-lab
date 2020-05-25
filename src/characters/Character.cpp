@@ -4,6 +4,8 @@
 
 #include "Character.h"
 
+#include <sstream>
+
 #include "utils/MathUtils.h"
 
 Character::Character() {
@@ -35,4 +37,10 @@ bool Character::pay(uint8_t value) {
 
 void Character::getPayment(uint8_t value) {
   properties.money += value;
+}
+
+const std::string Character::talk() const {
+  std::ostringstream os;
+  os << name << " said: " << (isDead() ? sayBye : sayHi);
+  return os.str();
 }

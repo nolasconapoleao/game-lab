@@ -10,6 +10,7 @@
 #include "common/InteractUtils.h"
 #include "common/Match.h"
 #include "generators/Generators.h"
+#include "inteligence/Inteligence.h"
 #include "utils/PrintUtils.h"
 
 Game::Game() : lastInput(0) {
@@ -62,7 +63,7 @@ void Game::updateGameState() {
     case GameState::Attack:
       [[fallthrough]];
     case GameState::Inventory:
-      updatePlayer();
+      updateNpcs();
       gameState = GameState::Menu;
       break;
 
@@ -80,11 +81,10 @@ void Game::updateGameState() {
   }
 }
 
-void Game::updatePlayer() {
+void Game::updateNpcs() {
   for (auto &npc : world.rooms[world.currentRoom].npcs) {
-    if (!npc.isDead() && Diplomacy::hostile == npc.relation) {
-      const auto result = Match::match(world.rooms[world.currentRoom], world.player, npc);
-      updateConvos(result, world.player, npc);
+    if (!npc.isDead()) {
+      Inteligence::smallBrain(npc, world, renderer.convos);
     }
   }
 }
@@ -111,15 +111,14 @@ void Game::handleInput() {
     case GameState::Talk: {
       const auto npc = world.rooms[world.currentRoom].npcs[lastInput];
       std::ostringstream oss;
-      oss << npc.name << " said: " << (npc.isDead() ? npc.sayBye : npc.sayHi) << std::endl;
+      oss << npc.talk() << std::endl;
       renderer.convos.emplace_back(oss.str());
       break;
     }
 
     case GameState::Attack: {
-      const auto result
-          = Match::match(world.rooms[world.currentRoom], world.rooms[world.currentRoom].npcs[lastInput], world.player);
-      updateConvos(result, world.rooms[world.currentRoom].npcs[lastInput], world.player);
+      Match::match(world.rooms[world.currentRoom], world.rooms[world.currentRoom].npcs[lastInput], world.player,
+                   renderer.convos);
       break;
     }
 
@@ -219,18 +218,4 @@ void Game::updateOptions() {
     }
   }
   renderer.options.addFooter();
-}
-
-void Game::updateConvos(MatchResult result, const Character attacked, const Character attacker) {
-  std::ostringstream oss;
-  if (result.diplomacyUpdate) {
-    oss << attacker.name << " made a new enemy." << std::endl;
-  }
-
-  oss << attacker.name << " attack: " << result.attacker << std::endl;
-
-  if (result.attackedDied) {
-    oss << attacked.name << "'s last words: " << attacked.sayBye << std::endl;
-  }
-  renderer.convos.emplace_back(oss.str());
 }
