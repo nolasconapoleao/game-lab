@@ -1,6 +1,8 @@
 //
 // Created by nolasco on 09/05/20.
 //
+#include <common/Match.h>
+
 #include "OptionList.h"
 #include "input/Input.h"
 #include "rooms/World.h"
@@ -37,6 +39,7 @@ private:
   void paintRoom();
   void paintOptions();
   void handleInput();
+  void updateConvos(const MatchResult result, const Character attacked, const Character attacker);
   void updateOptions();
 
   std::vector<std::string> convos;

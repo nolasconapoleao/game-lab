@@ -8,6 +8,7 @@
 #include <magic_enum.hpp>
 
 #include "common/InteractUtils.h"
+#include "common/Match.h"
 #include "config/cmakeconfig.h"
 #include "generators/Generators.h"
 #include "utils/PrintUtils.h"
@@ -55,7 +56,7 @@ void Game::updateGameState() {
   switch (gameState) {
     case GameState::Menu:
       if ('b' != lastInput && 'e' != lastInput) {
-        gameState = magic_enum::enum_cast<GameState>(optionList.options[lastInput - 1].second).value();
+        gameState = magic_enum::enum_cast<GameState>(optionList.options[lastInput].second).value();
       }
       break;
 
@@ -81,9 +82,10 @@ void Game::updateGameState() {
 }
 
 void Game::updatePlayer() {
-  for (const auto npc : world.rooms[world.currentRoom].npcs) {
+  for (auto &npc : world.rooms[world.currentRoom].npcs) {
     if (!npc.isDead() && Diplomacy::hostile == npc.relation) {
-      world.player.receiveAttack(npc.properties.attack - npc.properties.defense);
+      const auto result = Match::match(world.player, npc);
+      updateConvos(result, world.player, npc);
     }
   }
 }
@@ -115,7 +117,7 @@ void Game::paintConvos() {
 }
 
 void Game::paintHUD() {
-  std::cout << world.player << std::endl;
+  std::cout << printPlayer(world.player);
 }
 
 void Game::paintRoom() {
@@ -136,41 +138,41 @@ void Game::handleInput() {
       break;
 
     case GameState::Talk: {
-      const auto npc = world.rooms[world.currentRoom].npcs[lastInput - 1];
+      const auto npc = world.rooms[world.currentRoom].npcs[lastInput];
       std::ostringstream oss;
       oss << npc.name << " said: " << (npc.isDead() ? npc.sayBye : npc.sayHi) << std::endl;
       convos.emplace_back(oss.str());
       break;
     }
 
-    case GameState::Attack:
-      world.rooms[world.currentRoom].npcs[lastInput - 1].receiveAttack(world.player.properties.attack
-                                                                       - world.player.properties.defense);
+    case GameState::Attack: {
+      const auto result = Match::match(world.rooms[world.currentRoom].npcs[lastInput], world.player);
+      updateConvos(result, world.rooms[world.currentRoom].npcs[lastInput], world.player);
       break;
+    }
 
     case GameState::Inventory: {
       {
-        const auto item = world.player.inventory.getItem(lastInput);
+        const auto item = world.player.pocket.getItem(lastInput);
         entityUseItem(world.player, item);
-        world.player.inventory.useItem(lastInput);
+        world.player.pocket.useItem(lastInput);
       }
       break;
     }
 
     case GameState::Pickup: {
-      {
-        exchangeItem(world.rooms[world.currentRoom].inventory, world.player.inventory, lastInput);
-      }
+      uint8_t quantity = world.rooms[world.currentRoom].floor.entries[lastInput].quantity;
+      exchangeItem(world.rooms[world.currentRoom].floor, world.player.pocket, lastInput, quantity);
       break;
     }
 
     case GameState::Walk:
-      world.goToNextRoom(lastInput - 1);
+      world.goToNextRoom(lastInput);
       break;
 
     case GameState::Shop:
-      const auto item = world.player.inventory.getItem(lastInput);
-      exchangeItem(world.rooms[world.currentRoom].inventory, world.player.inventory, lastInput);
+      exchangeItem(world.rooms[world.currentRoom].floor, world.player.pocket, lastInput);
+      const auto item = world.rooms[world.currentRoom].floor.getItem(lastInput);
       world.player.pay(item.price);
       break;
   }
@@ -215,13 +217,8 @@ void Game::updateOptions() {
     }
 
     case GameState::Inventory: {
-      std::ostringstream oss;
-      oss << world.player.inventory;
-      std::istringstream ss(oss.str());
-      std::string option;
-
-      while (std::getline(ss, option, '\n')) {
-        optionList.addOption(option);
+      for (const auto &entry : world.player.pocket.entries) {
+        optionList.addOption(printPocket(entry));
       }
       break;
     }
@@ -236,26 +233,32 @@ void Game::updateOptions() {
     }
 
     case GameState::Pickup: {
-      std::ostringstream oss;
-      oss << world.rooms[world.currentRoom].inventory;
-      std::istringstream ss(oss.str());
-      std::string option;
-
-      while (std::getline(ss, option, '\n')) {
-        optionList.addOption(option);
+      for (const auto &entry : world.rooms[world.currentRoom].floor.entries) {
+        optionList.addOption(printFloor(entry));
       }
       break;
     }
 
     case GameState::Shop: {
-      for (uint8_t it = 1; it <= world.rooms[world.currentRoom].inventory.totalItems(); it++) {
-        auto item = world.rooms[world.currentRoom].inventory.getItem(it);
-        std::ostringstream oss;
-        oss << "Buy " << item.name << "(" << item.price << ")";
-        optionList.addOption(oss.str());
+      for (const auto &entry : world.rooms[world.currentRoom].floor.entries) {
+        optionList.addOption(printShop(entry));
       }
       break;
     }
   }
   optionList.addFooter();
+}
+
+void Game::updateConvos(MatchResult result, const Character attacked, const Character attacker) {
+  std::ostringstream oss;
+  if (result.diplomacyUpdate) {
+    oss << attacker.name << " made a new enemy." << std::endl;
+  }
+
+  oss << attacker.name << " attack: " << result.attacker << std::endl;
+
+  if (result.attackedDied) {
+    oss << attacked.name << "'s last words: " << attacked.sayBye << std::endl;
+  }
+  convos.emplace_back(oss.str());
 }
