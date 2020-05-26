@@ -5,42 +5,41 @@
 #define CATCH_CONFIG_MAIN
 #include <catch.hpp>
 
-#define private public
-
 #include "common/Inventory.h"
 #include "items/Item.h"
-#include "utils/PrintUtils.h"
 
 SCENARIO("Sanity check", "[Inventory]") {
 
-  GIVEN("An floor with no items") {
+  GIVEN("An inventory") {
     Inventory inventory;
 
-    WHEN("any operation is called") {
-      THEN("all operation return false") {
-        REQUIRE_FALSE(inventory.consumeItem(1));
-        REQUIRE_FALSE(inventory.dropItem(1));
+    WHEN("an item is added to that inventory") {
+      Item potion{"potion", "description", Effect::speed, UseType::equip, 2u, 2u, 2u};
+      inventory.addItem(potion, 2);
 
-        REQUIRE_FALSE(inventory.equipItem(1));
-        REQUIRE_FALSE(inventory.unequipItem(1));
+      THEN("the item in the first position is the inserted item") {
+        const auto itemRetrieved = inventory.getItem(0);
+        REQUIRE(itemRetrieved.name == "potion");
+        REQUIRE(itemRetrieved.description == "description");
       }
     }
   }
 }
 
-SCENARIO("Operations in items", "[Inventory]") {
+SCENARIO("Operations in inventory", "[Inventory]") {
 
-  GIVEN("An floor with potions") {
+  GIVEN("An inventory with potions and a sword, swords don't stack") {
     Inventory inventory;
 
-    inventory.addItem(Item("Potion", "Is a potion", Effect::health, UseType::consume, false, 0, 3u, 1u));
-    inventory.addItem(Item("Potion", "Is a potion", Effect::health, UseType::consume, false, 0, 3u, 1u));
-    inventory.addItem(Item("Potion", "Is a potion", Effect::health, UseType::consume, false, 0, 3u, 1u));
+    inventory.addItem(Item("Potion", "Is a potion", Effect::health, UseType::consume, 1u, 3u, 1u), 3);
+    inventory.addItem(Item("Sword", "Is a sword", Effect::attack, UseType::equip, 10u, 3u, 1u));
+    inventory.addItem(Item("Sword", "Is a sword", Effect::attack, UseType::equip, 10u, 3u, 1u));
     REQUIRE(inventory.entries[0].item.name == "Potion");
     REQUIRE(inventory.entries[0].quantity == 3);
+    REQUIRE(inventory.entries.size() == 3);
 
     WHEN("a potion is consumed") {
-      REQUIRE(inventory.consumeItem(1));
+      inventory.useItem(0);
 
       THEN("the quantity of potions decreases correctly") {
         REQUIRE(inventory.entries[0].quantity == 2);
@@ -48,42 +47,12 @@ SCENARIO("Operations in items", "[Inventory]") {
     }
 
     AND_WHEN("all potions are consumed") {
-      REQUIRE(inventory.consumeItem(1));
-      REQUIRE(inventory.consumeItem(1));
-      REQUIRE(inventory.consumeItem(1));
+      inventory.useItem(0);
+      inventory.useItem(0);
+      inventory.useItem(0);
 
-      THEN("Access to an item that no longer exists, yields false") {
-        REQUIRE(inventory.entries[0].quantity == 0);
-        REQUIRE_FALSE(inventory.consumeItem(1));
-      }
-    }
-  }
-}
-
-SCENARIO("Operations in equipables", "[Inventory]") {
-
-  GIVEN("An floor with swords") {
-    Inventory inventory;
-
-    inventory.addItem(Item("Sword", "Is a sword", Effect::attack, UseType::equip, false, 0, 2u, 1u));
-    REQUIRE(inventory.equipables[0].item.name == "Sword");
-    REQUIRE(inventory.equipables[0].equipped == false);
-
-    inventory.addItem(Item("Sword", "Is a sword", Effect::attack, UseType::equip, false, 0, 2u, 1u));
-    REQUIRE(inventory.equipables[1].item.name == "Sword");
-    REQUIRE(inventory.equipables[1].equipped == false);
-
-    WHEN("a series of equips and unequips is requested") {
-
-      THEN("the operations happen correctly") {
-        REQUIRE(inventory.equipItem(1));
-        REQUIRE(inventory.equipables[0].equipped == true);
-
-        REQUIRE_FALSE(inventory.equipItem(2));
-        REQUIRE(inventory.equipables[1].equipped == false);
-
-        REQUIRE(inventory.unequipItem(1));
-        REQUIRE(inventory.equipables[0].equipped == false);
+      THEN("the item is dropped item that no longer exists") {
+        REQUIRE(inventory.entries.size() == 2);
       }
     }
   }
