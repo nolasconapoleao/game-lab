@@ -4,7 +4,7 @@ Game source code using C++ and Cmake for testing ideas and experimenting with ga
 
 At the moment the game does not support graphics, it's only a text game, check these pictures:
 ![Game_v1-menu](/demo/Demo1.png)
-![Game_v1-inventory](/demo/Demo2.png)
+![Game_v1-floor](/demo/Demo2.png)
 ![Game_v1-talk](/demo/Demo3.png)
 
 ## Getting Started
@@ -27,14 +27,14 @@ lcov
 
 1. Run the cmake project and output the make recipe in the build folder
 ```
-mkdir build
-cd build
-cmake ..
+mkdir -p build/linux
+cd build/linux
+cmake -DCOMPILE_FOR_NON_UNIX:BOOL=OFF ../..
 ```
 
 2. Build the library and all the executables defined in the Cmake 
 ```
-make all
+make Game_v1
 ```
 
 3. Run the game in the console
@@ -48,8 +48,22 @@ In order to compile this game as an exe, use MinGW.
 1. Install MinGW (Instructions in): 
 http://www.mingw.org/wiki/getting_started
 
-2. Set the compile flags to statically link the  libgcc dll files (already enabled for Windows):
-set(CMAKE_CXX_FLAGS_RELEASE  "${CMAKE_CXX_FLAGS_DEBUG} -static-libgcc -static-libstdc++")
+```
+mkdir -p build/windows
+cd build/windows
+cmake -DCOMPILE_FOR_NON_UNIX:BOOL=ON -DCMAKE_BUILD_TYPE=Release ../..
+```
+
+2. Build the library and all the executables defined in the Cmake
+```
+make Game_v1
+```
+
+3. Run the game in the console
+```
+wine64 Game_v1.exe
+OR double click it if you are in windows
+```
 
 ### Contributing
 To contribute feel free to clone or fork the repository and check the board to see what needs doing.

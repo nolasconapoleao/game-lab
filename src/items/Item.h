@@ -15,27 +15,27 @@ enum class Effect {
   health,
   attack,
   defense,
+  speed,
 };
 
 /**
  * @brief Item use type.
  */
-enum class UseType { equipable, consumable };
+enum class UseType { equip, consume };
 
 /**
- * @brief Base Item.
+ * @brief Item.
  */
 class Item {
 public:
-  Item(const std::string &name, const std::string &description, Effect modifier, UseType useType, uint8_t modifierValue,
-       uint8_t price)
-      : name(name), description(description), modifier(modifier), useType(useType), modifierValue(modifierValue),
-        price(price){};
+  Item(const std::string &name, const std::string &description, Effect modifier, UseType useType, uint8_t uses,
+       uint8_t modifierValue, uint8_t price);
 
   std::string name;
   std::string description;
-  Effect modifier;
+  Effect effect;
   UseType useType;
+  uint8_t duration;
   uint8_t modifierValue;
   uint8_t price;
 };
