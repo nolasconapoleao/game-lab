@@ -46,7 +46,7 @@ Character createNPC() {
   uint8_t defense = MathUtils::random(1, 5);
   uint8_t speed = MathUtils::random(1, 3);
   uint8_t money = MathUtils::random(1, 3);
-  uint8_t experience = MathUtils::random(5, 13);
+  uint8_t experience = health + attack + defense + speed;
 
   Diplomacy diplomacy = toDiplomacy(npcs[characterSeed][3]);
 
@@ -94,7 +94,7 @@ World createWorld(uint8_t dificulty) {
     world.add(createRoom(roomsInWorld, id));
   }
 
-  Properties properties{20u, 20u, 3u, 2u, 2u, 0u, 0u};
+  Properties properties{20u, 20u, 2u, 2u, 2u, 0u, 0u};
   world.player = Character{"Player",   "No idea",          "Help me, get to the end of the maze!", "You've failed me!",
                            properties, Diplomacy::friendly};
   for (uint8_t it = 0; it < 3u; ++it) {

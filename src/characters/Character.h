@@ -49,4 +49,7 @@ public:
   Properties properties;
   Diplomacy relation;
   Inventory pocket;
+
+private:
+  void updateProperties();
 };

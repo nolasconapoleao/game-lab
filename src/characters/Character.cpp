@@ -53,9 +53,18 @@ bool Character::levelUp(uint8_t xp) {
       properties.level++;
       xp = xp - xpToNextLvl;
       properties.experience = 0;
+      updateProperties();
     } else {
       properties.experience = xp;
       break;
     }
   } while (true);
+}
+
+void Character::updateProperties() {
+  properties.maxHealth += MathUtils::random(1, 2);
+  properties.health = properties.maxHealth;
+  properties.attack += MathUtils::random(0, 2);
+  properties.defense += MathUtils::random(0, 2);
+  properties.speed += MathUtils::random(0, 2);
 }

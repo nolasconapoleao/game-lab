@@ -25,7 +25,7 @@ void Match::match(Room &ring, Character &attacked, Character &attacker, std::vec
 
   // Combat
   AttackResult attackerR = attack(attacked, attacker);
-  oss << attacker.name << " attack: " << attackerR << std::endl;
+  oss << attacker.name << " attack to " << attacked.name << ": " << attackerR << std::endl;
   attacker.pocket.spendEquipped(Effect::attack);
   attacked.pocket.spendEquipped(Effect::defense);
 
@@ -33,7 +33,7 @@ void Match::match(Room &ring, Character &attacked, Character &attacker, std::vec
   if (!attacked.isDead()) {
     if (attacked.properties.speed > 2 * attacker.properties.speed) {
       AttackResult attackedR = attack(attacker, attacked);
-      oss << attacked.name << " retaliation: " << attackedR << std::endl;
+      oss << attacked.name << " retaliation to " << attacker.name << ": " << attackedR << std::endl;
       attacked.pocket.spendEquipped(Effect::attack);
       attacker.pocket.spendEquipped(Effect::defense);
 
@@ -60,7 +60,7 @@ void Match::match(Room &ring, Character &attacked, Character &attacker, std::vec
 
 const AttackResult Match::attack(Character &attacked, const Character &attacker) {
   AttackResult result;
-  uint8_t attackPoints = attacker.properties.attack - attacker.properties.defense;
+  uint8_t attackPoints = MathUtils::clamp_sub(attacker.properties.attack, attacked.properties.defense, 0);
   const auto attackProbability = MathUtils::random(0, attacker.properties.attack);
   const auto defenseProbability = MathUtils::random(1, attacked.properties.defense);
 
