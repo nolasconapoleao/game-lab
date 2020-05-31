@@ -65,6 +65,10 @@ wine64 Game_v1.exe
 OR double click it if you are in windows
 ```
 
+### Play the game
+To get the latest compiled binary go to (windows and linux included):
+https://drive.google.com/open?id=1iK_VdFg1ob-4Bx3KE7HWeN77skZRrG-y
+
 ### Contributing
 To contribute feel free to clone or fork the repository and check the board to see what needs doing.
 Help is needed in code architecture and definition of game concept.
@@ -85,5 +89,4 @@ chmod +x .git/hooks/pre-commit
 ```
 
 ## Authors
-
 * **Nolasco Napoleao** - *Initial work* - [nolasconapoleao](https://github.com/nolasconapoleao)

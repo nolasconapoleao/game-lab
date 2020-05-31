@@ -4,6 +4,8 @@
 
 #include "Character.h"
 
+#include <sstream>
+
 #include "utils/MathUtils.h"
 
 Character::Character() {
@@ -35,4 +37,34 @@ bool Character::pay(uint8_t value) {
 
 void Character::getPayment(uint8_t value) {
   properties.money += value;
+}
+
+const std::string Character::talk() const {
+  std::ostringstream os;
+  os << name << " said: " << (isDead() ? sayBye : sayHi);
+  return os.str();
+}
+
+bool Character::levelUp(uint8_t xp) {
+  do {
+    uint8_t xpToNextLvl = properties.level - properties.experience;
+
+    if (xp > xpToNextLvl) {
+      properties.level++;
+      xp = xp - xpToNextLvl;
+      properties.experience = 0;
+      updateProperties();
+    } else {
+      properties.experience = xp;
+      break;
+    }
+  } while (true);
+}
+
+void Character::updateProperties() {
+  properties.maxHealth += MathUtils::random(1, 2);
+  properties.health = properties.maxHealth;
+  properties.attack += MathUtils::random(0, 2);
+  properties.defense += MathUtils::random(0, 2);
+  properties.speed += MathUtils::random(0, 2);
 }

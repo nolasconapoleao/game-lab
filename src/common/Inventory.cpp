@@ -59,3 +59,15 @@ bool Inventory::toggleEquip(uint8_t itemId) {
 Item &Inventory::getItem(uint8_t itemId) {
   return (entries.begin() + itemId)->item;
 }
+
+void Inventory::spendEquipped(Effect effect) {
+  for (uint8_t it = 0; it < entries.size(); it++) {
+    if (entries[it].inUse && entries[it].item.effect == effect) {
+      entries[it].item.duration--;
+
+      if (entries[it].item.duration == 0) {
+        dropItem(it);
+      }
+    }
+  }
+}

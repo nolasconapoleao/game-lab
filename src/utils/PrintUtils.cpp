@@ -4,7 +4,6 @@
 
 #include "PrintUtils.h"
 
-#include <game/OptionList.h>
 #include <magic_enum.hpp>
 #include <sstream>
 
@@ -56,8 +55,9 @@ std::ostream &operator<<(std::ostream &os, const Character &character) {
 
 std::ostream &operator<<(std::ostream &os, const Room &room) {
   os << room.description << std::endl;
+  os << "\tNpcs:";
   for (const auto &npc : room.npcs) {
-    os << npc << std::endl;
+    os << std::endl << "\t" << npc;
   }
   return os;
 }

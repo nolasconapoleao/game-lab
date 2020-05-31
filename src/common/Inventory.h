@@ -27,6 +27,7 @@ public:
 
   Item &getItem(uint8_t itemId);
   void useItem(uint8_t itemId);
+  void spendEquipped(Effect effect);
 
   friend std::string printFloor(const Entry &entry);
   friend std::string printPocket(const Entry &entry);

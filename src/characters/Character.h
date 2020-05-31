@@ -10,9 +10,9 @@
 #include "common/Inventory.h"
 
 struct Properties {
-  uint8_t health = 2;
-  uint8_t maxHealth = 2;
-  uint8_t attack = 2;
+  uint8_t health = 0;
+  uint8_t maxHealth = 0;
+  uint8_t attack = 0;
   uint8_t defense = 0;
   uint8_t speed = 0;
   uint8_t money = 0;
@@ -39,6 +39,8 @@ public:
   const bool isDead() const;
   bool pay(uint8_t value);
   void getPayment(uint8_t value);
+  const std::string talk() const;
+  bool levelUp(uint8_t xp);
 
   std::string name;
   std::string charClass;
@@ -47,4 +49,7 @@ public:
   Properties properties;
   Diplomacy relation;
   Inventory pocket;
+
+private:
+  void updateProperties();
 };
