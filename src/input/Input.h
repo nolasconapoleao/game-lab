@@ -13,5 +13,10 @@ public:
    * @param numOptions maximum allowed value for input
    * @return char with the input given by player
    */
-  uint8_t readInput(uint8_t numOptions);
+  const uint8_t readInput(const uint8_t numOptions);
+
+private:
+  const bool isValidLetter(const char input);
+  const bool isValidNumber(const char input, const uint8_t options);
+  uint8_t parseInput(const uint8_t input);
 };

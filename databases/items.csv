@@ -5,5 +5,6 @@ Coat;Equip to increase defense;equip;defense
 Dagger;Equip to increase speed;equip;attack
 Elixir;Consume to temporarily increase attack;consume;attack
 Potion;Consume to recover health;consume;health
+Rollerblades;Equip to increase speed;equip;speed
 Shield;Equip to increase defense;equip;defense
 Sword;Equip to increase attack;equip;attack

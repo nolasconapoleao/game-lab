@@ -5,37 +5,33 @@
 #include "Game.h"
 
 #include <iostream>
+#include <magic_enum.hpp>
 
 #include "common/InteractUtils.h"
+#include "common/Match.h"
 #include "generators/Generators.h"
+#include "inteligence/Inteligence.h"
 #include "utils/PrintUtils.h"
 
-Game::Game() : userInput(0) {
-  std::cout << "Begin game!" << std::endl;
-  std::cout << sepatator << std::endl;
-  std::cout << sepatator << std::endl;
+Game::Game() : lastInput(0) {
+  renderer.start();
 }
 
 Game::~Game() {
-  std::cout << std::endl;
-  std::cout << sepatator << std::endl;
-  std::cout << sepatator << std::endl;
-  std::cout << "Game ended!" << std::endl;
+  renderer.end();
 }
 
 void Game::initGame() {
   gameState = GameState::Menu;
   world = generator::createWorld(1);
-  player.add(Item("Potion", "Is a potion", Effect::health, UseType::consumable, 3u, 1u), 12);
-  for (uint8_t it = 0; it < 2u; ++it) {
-    player.add(generator::createItem());
-  }
 }
 
 void Game::loop() {
   updateOptions();
-  paintScreen();
-  userInput = input.readInput(options.size() - 3);
+  updateHUD();
+  updateRoom();
+  renderer.paintScreen();
+  lastInput = input.readInput(renderer.options.numOptions());
   handleInput();
   updateGameState();
 }
@@ -44,112 +40,70 @@ void Game::closeGame() {
 }
 
 bool Game::isGameOver() {
-  if (player.isDead()) {
-    std::cout << std::endl;
-    std::cout << "Player said: " << player.sayBye << std::endl;
-  } else if ('e' == userInput) {
-    std::cout << "Game terminated by user." << std::endl;
+  std::ostringstream oss;
+  if (world.player.isDead()) {
+    oss << std::endl;
+    oss << "Player said: " << world.player.sayBye << std::endl;
+  } else if ('e' == lastInput) {
+    oss << "Game terminated by user." << std::endl;
   }
-  return ('e' == userInput || player.isDead());
+  renderer.convos.emplace_back(oss.str());
+
+  return ('e' == lastInput || world.player.isDead());
 }
 
 void Game::updateGameState() {
   switch (gameState) {
     case GameState::Menu:
-      if (world.isAnyNpcHostileInThisRoom()) {
-        if (userInput == 1) {
-          gameState = GameState::Attack;
-        } else if (userInput == 2) {
-          gameState = GameState::Talk;
-        } else if (userInput == 3) {
-          gameState = GameState::Inventory;
-        }
-      } else {
-        if (userInput == 1) {
-          gameState = GameState::Walk;
-        } else if (userInput == 2) {
-          gameState = GameState::Pickup;
-        } else if (userInput == 3) {
-          gameState = GameState::Inventory;
-        } else if (userInput == 4) {
-          gameState = GameState::Shop;
-        }
+      if ('b' != lastInput && 'e' != lastInput) {
+        gameState = magic_enum::enum_cast<GameState>(renderer.options.options[lastInput].second).value();
       }
       break;
-    case GameState::Talk:
-      // Talking does not advance the round
-      break;
+
     case GameState::Attack:
-      gameState = GameState::Menu;
-      updatePlayer();
-      break;
+      [[fallthrough]];
     case GameState::Inventory:
+      updateNpcs();
+      if (world.isAnyNpcHostileInThisRoom()) {
+        updateItems();
+      }
       gameState = GameState::Menu;
-      updatePlayer();
       break;
+
     case GameState::Walk:
-      gameState = GameState::Menu;
-      break;
+      [[fallthrough]];
     case GameState::Pickup:
-      gameState = GameState::Menu;
-      break;
+      [[fallthrough]];
     case GameState::Shop:
       gameState = GameState::Menu;
+      break;
+
+    case GameState::Talk:
+      // Talking does not advance the round
       break;
   }
 }
 
-void Game::updatePlayer() {
-  for (const auto npc : world.rooms.at(world.currentRoom).npcs) {
-    if (!npc.isDead() && Diplomacy::hostile == npc.relation) {
-      player.receiveAttack(npc.properties.attack);
+void Game::updateNpcs() {
+  for (auto &npc : world.rooms[world.currentRoom].npcs) {
+    if (!npc.isDead()) {
+      Inteligence::smallBrain(npc, world, renderer.convos);
     }
   }
 }
 
-void Game::paintScreen() {
-  clearScreen();
-  paintConvos();
-  std::cout << sepatator << std::endl;
-  paintRoom();
-  paintHUD();
-  std::cout << sepatator2 << std::endl;
-  paintOptions();
-  std::cout << "What do you wanna do? ";
+void Game::updateHUD() {
+  renderer.hud.emplace_back(printPlayer(world.player));
 }
 
-void Game::clearScreen() {
-  #ifdef _WIN32
-    std::system("cls");
-  #else
-    // Assume POSIX
-    std::system ("clear");
-  #endif
-};
-
-void Game::paintConvos() {
-  for (const auto &talk : convos) {
-    std::cout << talk;
-  }
-  convos.clear();
-}
-
-void Game::paintHUD() {
-  std::cout << player << std::endl;
-}
-
-void Game::paintRoom() {
-  std::cout << world.rooms.at(world.currentRoom);
-}
-
-void Game::paintOptions() {
-  for (const auto &option : options) {
-    std::cout << option << std::endl;
-  }
+void Game::updateRoom() {
+  std::ostringstream oss;
+  oss << world.rooms[world.currentRoom];
+  renderer.room.emplace_back(oss.str());
 }
 
 void Game::handleInput() {
-  if (userInput == 0) {
+  if ('b' == lastInput || 'e' == lastInput) {
     gameState = GameState::Menu;
   }
 
@@ -158,132 +112,120 @@ void Game::handleInput() {
       break;
 
     case GameState::Talk: {
-      const auto npc = world.rooms.at(world.currentRoom).npcs.at(userInput - 1);
+      const auto npc = world.rooms[world.currentRoom].npcs[lastInput];
       std::ostringstream oss;
-      oss << npc.name << " said: " << (npc.isDead() ? npc.sayBye : npc.sayHi) << std::endl;
-      convos.emplace_back(oss.str());
+      oss << npc.talk() << std::endl;
+      renderer.convos.emplace_back(oss.str());
       break;
     }
 
-    case GameState::Attack:
-      world.rooms.at(world.currentRoom).npcs.at(userInput - 1).receiveAttack(player.properties.attack);
+    case GameState::Attack: {
+      Match::match(world.rooms[world.currentRoom], world.rooms[world.currentRoom].npcs[lastInput], world.player,
+                   renderer.convos);
       break;
+    }
 
     case GameState::Inventory: {
       {
-        const auto item = player.inventory.getItem(userInput);
-        entityUseItem(player, item);
-        player.inventory.useItem(userInput);
+        const auto item = world.player.pocket.getItem(lastInput);
+        entityUseItem(world.player, item);
+        world.player.pocket.useItem(lastInput);
       }
       break;
     }
 
     case GameState::Pickup: {
-      {
-        exchangeItem(world.rooms.at(world.currentRoom).inventory, player.inventory, userInput);
-      }
+      uint8_t quantity = world.rooms[world.currentRoom].floor.entries[lastInput].quantity;
+      exchangeItem(world.rooms[world.currentRoom].floor, world.player.pocket, lastInput, quantity);
       break;
     }
 
     case GameState::Walk:
-      world.goToNextRoom(userInput - 1);
+      world.goToNextRoom(lastInput);
       break;
 
     case GameState::Shop:
-      const auto item = player.inventory.getItem(userInput);
-      exchangeItem(world.rooms.at(world.currentRoom).inventory, player.inventory, userInput);
-      player.pay(item.price);
+      exchangeItem(world.rooms[world.currentRoom].floor, world.player.pocket, lastInput);
+      const auto item = world.rooms[world.currentRoom].floor.getItem(lastInput);
+      world.player.pay(item.price);
       break;
   }
 }
 
 void Game::updateOptions() {
-  options.clear();
+  renderer.options.clearOptions();
 
   switch (gameState) {
     case GameState::Menu:
-      if (world.isAnyNpcHostileInThisRoom()) {
-        options.emplace_back("1: Attack");
-        options.emplace_back("2: Talk");
-        options.emplace_back("3: Inventory");
-      } else {
-        options.emplace_back("1: Walk");
-        options.emplace_back("2: Pickup");
-        options.emplace_back("3: Inventory");
-        if (world.rooms.at(world.currentRoom).hasNpc("Shopkeeper")) {
-          options.emplace_back("4: Shop");
-        }
+      if (world.isAnyNpcAliveInThisRoom()) {
+        renderer.options.addOption(magic_enum::enum_name(GameState::Attack).data());
+      }
+      renderer.options.addOption(magic_enum::enum_name(GameState::Talk).data());
+      renderer.options.addOption(magic_enum::enum_name(GameState::Inventory).data());
+      if (!world.isAnyNpcHostileInThisRoom()) {
+        renderer.options.addOption(magic_enum::enum_name(GameState::Pickup).data());
+        renderer.options.addOption(magic_enum::enum_name(GameState::Walk).data());
+      }
+
+      if (world.rooms[world.currentRoom].hasNpc("Shopkeeper")) {
+        renderer.options.addOption(magic_enum::enum_name(GameState::Shop).data());
       }
       break;
 
     case GameState::Talk: {
-      uint8_t it = 0;
-      for (const auto &npc : world.rooms.at(world.currentRoom).npcs) {
-        it++;
+      for (const auto &npc : world.rooms[world.currentRoom].npcs) {
         std::ostringstream oss;
-        oss << "" << it << ": Speak to " << npc.name;
-        options.emplace_back(oss.str());
+        oss << "Speak to " << npc.name;
+        renderer.options.addOption(oss.str());
       }
       break;
     }
 
     case GameState::Attack: {
-      uint8_t it = 0;
-      for (const auto &npc : world.rooms.at(world.currentRoom).npcs) {
-        it++;
+      for (const auto &npc : world.rooms[world.currentRoom].npcs) {
         std::ostringstream oss;
-        oss << "" << it << ": Attack " << npc.name;
-        options.emplace_back(oss.str());
+        oss << "Attack " << npc.name;
+        renderer.options.addOption(oss.str());
       }
       break;
     }
 
     case GameState::Inventory: {
-      std::ostringstream oss;
-      oss << player.inventory;
-      std::istringstream ss(oss.str());
-      std::string option;
-
-      while (std::getline(ss, option, '\n')) {
-        options.emplace_back(option);
+      for (const auto &entry : world.player.pocket.entries) {
+        renderer.options.addOption(printPocket(entry));
       }
       break;
     }
 
     case GameState::Walk: {
-      uint8_t it = 1;
-      for (const auto &room : world.rooms.at(world.currentRoom).adjacentRooms) {
+      for (const auto &room : world.rooms[world.currentRoom].adjacentRooms) {
         std::ostringstream oss;
-        oss << "" << it << ": Go to room " << world.rooms.at(room).name;
-        options.emplace_back(oss.str());
-        it++;
+        oss << "Go to " << world.rooms[room].name;
+        renderer.options.addOption(oss.str());
       }
       break;
     }
 
     case GameState::Pickup: {
-      std::ostringstream oss;
-      oss << world.rooms.at(world.currentRoom).inventory;
-      std::istringstream ss(oss.str());
-      std::string option;
-
-      while (std::getline(ss, option, '\n')) {
-        options.emplace_back(option);
+      for (const auto &entry : world.rooms[world.currentRoom].floor.entries) {
+        renderer.options.addOption(printFloor(entry));
       }
       break;
     }
 
     case GameState::Shop: {
-
-      for (uint8_t it = 1; it <= world.rooms.at(world.currentRoom).inventory.totalItems(); it++) {
-        auto item = world.rooms.at(world.currentRoom).inventory.getItem(it);
-        std::ostringstream oss;
-        oss << "" << it << ": Buy " << item.name << "(" << item.price << ")";
-        options.emplace_back(oss.str());
+      for (const auto &entry : world.rooms[world.currentRoom].floor.entries) {
+        renderer.options.addOption(printShop(entry));
       }
       break;
     }
   }
-  options.emplace_back("0: Back");
-  options.emplace_back("e: Exit");
+  renderer.options.addFooter();
+}
+
+void Game::updateItems() {
+  world.player.pocket.spendEquipped(Effect::speed);
+  for (auto npc : world.rooms[world.currentRoom].npcs) {
+    npc.pocket.spendEquipped(Effect::speed);
+  }
 }

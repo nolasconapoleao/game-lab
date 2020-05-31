@@ -1,7 +1,9 @@
 //
 // Created by nolasco on 09/05/20.
 //
-#include "characters/Player.h"
+#include <common/Match.h>
+
+#include "graphics/Renderer.h"
 #include "input/Input.h"
 #include "rooms/World.h"
 
@@ -29,24 +31,16 @@ public:
 
 private:
   void updateGameState();
-  void updatePlayer();
-  void paintScreen();
-  void clearScreen();
-  void paintHUD();
-  void paintConvos();
-  void paintRoom();
-  void paintOptions();
+  void updateNpcs();
+  void updateItems();
   void handleInput();
+  void updateHUD();
+  void updateRoom();
   void updateOptions();
 
-  std::vector<std::string> options;
-  std::vector<std::string> convos;
-  uint8_t userInput;
   GameState gameState;
+  Renderer renderer;
   World world;
   Input input;
-  Player player;
-
-  std::string sepatator = "=====================================================================";
-  std::string sepatator2 = "---------------------------------------------------------------------";
+  uint8_t lastInput;
 };

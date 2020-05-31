@@ -1,0 +1,3 @@
+[submodule "3rdparty/magic_enum"]
+	path = 3rdparty/magic_enum
+	url = git@github.com:Neargye/magic_enum.git

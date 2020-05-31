@@ -23,5 +23,6 @@ public:
   void goToNextRoom(uint8_t option);
 
   std::vector<Room> rooms;
+  Character player;
   uint8_t currentRoom;
 };

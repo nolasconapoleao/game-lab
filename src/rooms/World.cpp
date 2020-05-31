@@ -9,13 +9,13 @@ World::World() {
 }
 
 void World::goToNextRoom(uint8_t option) {
-  auto it = rooms.at(currentRoom).adjacentRooms.begin();
+  auto it = rooms[currentRoom].adjacentRooms.begin();
   std::advance(it, option);
   currentRoom = *it;
 }
 
 bool World::isAnyNpcAliveInThisRoom() {
-  for (auto &npc : rooms.at(currentRoom).npcs) {
+  for (auto &npc : rooms[currentRoom].npcs) {
     if (!npc.isDead()) {
       return true;
     }
@@ -24,7 +24,7 @@ bool World::isAnyNpcAliveInThisRoom() {
 }
 
 bool World::isAnyNpcHostileInThisRoom() {
-  for (auto &npc : rooms.at(currentRoom).npcs) {
+  for (auto &npc : rooms[currentRoom].npcs) {
     if (Diplomacy::hostile == npc.relation && !npc.isDead()) {
       return true;
     }
