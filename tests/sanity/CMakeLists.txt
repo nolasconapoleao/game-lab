@@ -1,7 +1,7 @@
-set(EXECUTABLE_NAME unit_MathUtils)
+set(EXECUTABLE_NAME unit_SanityChecks)
 
 set(UT_SOURCES
-    unit_MathUtils.cpp
+    unit_SanityChecks.cpp
 )
 
 add_executable(
@@ -12,7 +12,6 @@ add_executable(
 target_sources(
     ${EXECUTABLE_NAME}
     PRIVATE
-        ${PROJECT_SOURCE_DIR}/src/utils/MathUtils.cpp
 )
 
 create_test(${EXECUTABLE_NAME})
