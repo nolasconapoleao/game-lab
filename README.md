@@ -1,11 +1,6 @@
-# Game Laboratory
+# Game-v2
 
-Game source code using C++ and Cmake for testing ideas and experimenting with game development.
-
-At the moment the game does not support graphics, it's only a text game, check these pictures:
-![Game_v1-menu](/demo/Demo1.png)
-![Game_v1-floor](/demo/Demo2.png)
-![Game_v1-talk](/demo/Demo3.png)
+Simple game to train design patterns in.
 
 ## Getting Started
 
@@ -34,12 +29,12 @@ cmake -DCOMPILE_FOR_NON_UNIX:BOOL=OFF ../..
 
 2. Build the library and all the executables defined in the Cmake 
 ```
-make Game_v1
+make ${Project}
 ```
 
 3. Run the game in the console
 ```
-./Game_v1
+./${Project}
 ```
 
 ### Building and running in windows
@@ -56,23 +51,14 @@ cmake -DCOMPILE_FOR_NON_UNIX:BOOL=ON -DCMAKE_BUILD_TYPE=Release ../..
 
 2. Build the library and all the executables defined in the Cmake
 ```
-make Game_v1
+make ${Project}
 ```
 
 3. Run the game in the console
 ```
-wine64 Game_v1.exe
+wine64 ${Project}.exe
 OR double click it if you are in windows
 ```
-
-### Play the game
-To get the latest compiled binary go to (windows and linux included):
-https://drive.google.com/open?id=1iK_VdFg1ob-4Bx3KE7HWeN77skZRrG-y
-
-### Contributing
-To contribute feel free to clone or fork the repository and check the board to see what needs doing.
-Help is needed in code architecture and definition of game concept.
-https://trello.com/b/CERrFOYJ/text-game
 
 ### And coding style tests
 
@@ -89,4 +75,4 @@ chmod +x .git/hooks/pre-commit
 ```
 
 ## Authors
-* **Nolasco Napoleao** - *Initial work* - [nolasconapoleao](https://github.com/nolasconapoleao)
+* **Nolasco Napoleao** - *Initial work* - [nolasconapoleao](nolascoamadonapoleao@gmail.com)

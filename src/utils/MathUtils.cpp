@@ -7,7 +7,7 @@
 #include <chrono>
 #include <random>
 
-uint8_t MathUtils::clamp_sub(uint8_t minuend, uint8_t subtrahend, uint8_t lowerBound) {
+int MathUtils::clamp_sub(int minuend, int subtrahend, int lowerBound) {
   if (minuend >= (subtrahend + lowerBound)) {
     return (minuend - subtrahend);
   } else {
@@ -15,7 +15,7 @@ uint8_t MathUtils::clamp_sub(uint8_t minuend, uint8_t subtrahend, uint8_t lowerB
   };
 }
 
-uint8_t MathUtils::clamp_add(uint8_t augend, uint8_t addend, uint8_t upperBound) {
+int MathUtils::clamp_add(int augend, int addend, int upperBound) {
   if ((augend + addend) > upperBound) {
     return upperBound;
   } else {
@@ -23,7 +23,7 @@ uint8_t MathUtils::clamp_add(uint8_t augend, uint8_t addend, uint8_t upperBound)
   };
 }
 
-uint8_t MathUtils::clamp(uint8_t num, uint8_t lowerBound, uint8_t upperBound) {
+int MathUtils::clamp(int num, int lowerBound, int upperBound) {
   if (num > upperBound) {
     return upperBound;
   } else if (num < lowerBound) {
@@ -33,12 +33,12 @@ uint8_t MathUtils::clamp(uint8_t num, uint8_t lowerBound, uint8_t upperBound) {
   };
 }
 
-uint8_t MathUtils::random(uint8_t lowerBound, uint8_t upperBound) {
+int MathUtils::random(int lowerBound, int upperBound) {
   auto t = std::chrono::high_resolution_clock::now().time_since_epoch().count();
   std::mt19937 e;
 
   e.seed(static_cast<unsigned int>(t)); //Seed engine with timed value.
-  std::uniform_int_distribution<uint8_t> dis(lowerBound, upperBound);
+  std::uniform_int_distribution<int> dis(lowerBound, upperBound);
 
   return dis(e);
 }

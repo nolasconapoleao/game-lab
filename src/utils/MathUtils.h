@@ -15,7 +15,7 @@ namespace MathUtils {
  * @param lowerBound min allowed for result
  * @return clamped result for subtraction
  */
-uint8_t clamp_sub(uint8_t minuend, uint8_t subtrahend, uint8_t lowerBound);
+int clamp_sub(int minuend, int subtrahend, int lowerBound);
 
 /**
  * @brief Ceils the result of an addition.
@@ -24,7 +24,7 @@ uint8_t clamp_sub(uint8_t minuend, uint8_t subtrahend, uint8_t lowerBound);
  * @param upperBound max allowed for result
  * @return clamped result of an addition
  */
-uint8_t clamp_add(uint8_t augend, uint8_t addend, uint8_t upperBound);
+int clamp_add(int augend, int addend, int upperBound);
 
 /**
  * @brief Clamps the result of a sum.
@@ -33,7 +33,7 @@ uint8_t clamp_add(uint8_t augend, uint8_t addend, uint8_t upperBound);
  * @param upperBound max allowed for num
  * @return clamped number
  */
-uint8_t clamp(uint8_t num, uint8_t lowerBound, uint8_t upperBound);
+int clamp(int num, int lowerBound, int upperBound);
 
 /**
  * @brief Generates a random number between lowerBound and upperBound.
@@ -41,6 +41,6 @@ uint8_t clamp(uint8_t num, uint8_t lowerBound, uint8_t upperBound);
  * @param upperBound for generation
  * @return random number
  */
-[[nodiscard]] uint8_t random(uint8_t lowerBound, uint8_t upperBound);
+[[nodiscard]] int random(int lowerBound, int upperBound);
 
 }; // namespace MathUtils

@@ -1,13 +1,9 @@
-#include "game/Game.h"
+#include <iostream>
+
+#include "utils/MathUtils.h"
 
 int main() {
-  Game game = Game();
-  game.initGame();
-
-  while (!game.isGameOver()) {
-    game.loop();
-  }
-  game.closeGame();
+  std::cout << MathUtils::random(0, 33);
 
   return 0;
 }

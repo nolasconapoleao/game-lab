@@ -1,21 +1,32 @@
-Checks: '\
-cppcoreguidelines-*,\
-performance-*,\
--performance-unnecessary-value-param,\
-modernize-*,\
--modernize-use-trailing-return-type,\
-google-*,\
--google-runtime-references,\
-misc-*,\
--misc-non-private-member-variables-in-classes,\
-cert-*,\
-readability-*,\
-clang-analyzer-*'
+Checks:
+'*,
+-cert-err60-cpp,
+-clang-analyzer-alpha.clone.CloneChecker,
+-clang-analyzer-alpha.deadcode.UnreachableCode,
+-cppcoreguidelines-pro-bounds-array-to-pointer-decay,
+-cppcoreguidelines-pro-type-vararg,
+-fuchsia-default-arguments-*,
+-fuchsia-overloaded-operator,
+-cert-dcl16-c,
+-fuchsia-trailing-return,
+-google-build-using-namespace,
+-google-runtime-int,
+-google-runtime-references,
+-llvm-header-guard,
+-llvm-header-guard,
+-misc-use-after-move,
+-modernize-use-trailing-return-type,
+-readability-else-after-return,
+-readability-non-const-parameter,
+-readability-avoid-const-params-in-decls,
+-hicpp-uppercase-literal-suffix,
+-readability-uppercase-literal-suffix'
 
 WarningsAsErrors: ''
-HeaderFilterRegex: '*spdlog/[^f].*'
-AnalyzeTemporaryDtors: false
-FormatStyle:     none
+HeaderFilterRegex: ''
+FormatStyle: none
+InheritParentConfig: true
+User: user
 
 CheckOptions:
   - key:             google-readability-braces-around-statements.ShortStatementLines

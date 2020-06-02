@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.12)
-project(Game_v1)
+project(text-game)
 
 # Defining compilation flags
 set(CMAKE_CXX_STANDARD 20)
@@ -28,24 +28,6 @@ add_executable(
         ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
 )
 
-## Copy resources databases to binary folder
-add_custom_command(
-    TARGET ${PROJECT_NAME} PRE_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy_directory
-    ${CMAKE_SOURCE_DIR}/databases
-    ${CMAKE_CURRENT_BINARY_DIR}/res
-)
-
-# Create zip as a standalone
-add_custom_command(
-    TARGET ${PROJECT_NAME} POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E tar "cf" "game.zip" --format=zip
-    "${BINARY_PATH}"
-    "${CMAKE_CURRENT_BINARY_DIR}/res"
-    COMMAND echo Game standalone in ${CMAKE_CURRENT_BINARY_DIR}/game.zip
-)
-
-add_subdirectory(3rdparty)
 add_subdirectory(src)
 # To disable tests, comment these two lines
 enable_testing()
@@ -74,7 +56,7 @@ ADD_CUSTOM_TARGET(Doxygen
 )
 
 ## Code coverage
-set(OBJECT_DIR ${CMAKE_BINARY_DIR}/CMakeFiles/Game_v1.dir/src)
+set(OBJECT_DIR ${CMAKE_BINARY_DIR}/CMakeFiles/${PROJECT_NAME}.dir/src)
 add_custom_target(CodeCoverage
     COMMAND mkdir -p coverage
     WORKING_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
@@ -108,7 +90,7 @@ add_dependencies(CodeCoverage ${PROJECT_NAME})
 # Make sure to clean up the coverage folder
 set_property(DIRECTORY APPEND PROPERTY ADDITIONAL_MAKE_CLEAN_FILES coverage)
 
-# Resets counters for porject object
+# Resets counters for project object
 add_custom_target(ClearUsages
     COMMAND ${CMAKE_MAKE_PROGRAM} clean
     COMMAND rm -f ${OBJECT_DIR}/*.gcno
