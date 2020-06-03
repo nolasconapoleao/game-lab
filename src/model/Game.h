@@ -2,6 +2,8 @@
 // Created by nolasco on 02/06/20.
 //
 
+#include "view/Printer.h"
+
 #pragma once
 
 namespace model {
@@ -16,6 +18,7 @@ public:
 private:
   void init();
 
+  view::Printer mPrinter;
   bool mTerminateGame;
 };
 
