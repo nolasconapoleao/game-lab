@@ -1,16 +1,14 @@
-#include <controller/Controller.h>
 #include <iostream>
 
+#include "model/Game.h"
+
 int main() {
-  controller::Controller ctrl;
 
-  std::cout << "What is your name?\n";
-  const auto name = ctrl.readSentence();
-  std::cout << "Hey " << name << "\n";
+  model::Game game;
 
-  std::cout << "Enter a value between 1 and 5, or a base option (x,m):\n";
-  const auto alphaNum = ctrl.readAlphaNumeric(5);
-  std::cout << "Read " << alphaNum << "\n";
+  while(!game.isOver()) {
+    game.loop();
+  }
 
   return 0;
 }

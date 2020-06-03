@@ -4,4 +4,19 @@
 
 #pragma once
 
-class Game {};
+namespace model {
+
+class Game {
+
+public:
+  Game();
+  const bool isOver();
+  void loop();
+
+private:
+  void init();
+
+  bool mTerminateGame;
+};
+
+} // namespace model
