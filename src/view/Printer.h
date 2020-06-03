@@ -4,4 +4,18 @@
 
 #pragma once
 
-class Printer {};
+#include "Verbose.h"
+
+namespace view {
+
+class Printer {
+public:
+  Printer(const Verbose verbose = Verbose::INFO);
+
+  void setVerboseLevel(Verbose verbose);
+
+private:
+  Verbose verbose;
+};
+
+} // namespace view
