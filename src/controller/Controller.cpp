@@ -12,7 +12,7 @@ namespace controller {
 
 const std::string Controller::readSentence() {
   std::string readFromConsole;
-  std::cin >> readFromConsole;
+  std::getline( std::cin, readFromConsole);
   return readFromConsole;
 }
 

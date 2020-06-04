@@ -14,9 +14,13 @@ public:
   Game();
   const bool isOver();
   void loop();
+  virtual ~Game();
 
 private:
   void init();
+  void playerInfo();
+  void gameTutorial();
+  void shutdown();
 
   view::Printer mPrinter;
   bool mTerminateGame;

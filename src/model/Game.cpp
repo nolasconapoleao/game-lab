@@ -12,6 +12,10 @@ Game::Game() : mTerminateGame(false) {
   init();
 }
 
+Game::~Game() {
+  shutdown();
+}
+
 const bool Game::isOver() {
   return mTerminateGame;
 }
@@ -27,24 +31,51 @@ void Game::loop() {
   const auto alphaNum = controller::Controller::readAlphaNumeric(5);
   mPrinter.addToRoundReport(Verbose::INFO, "Very well");
 
-  mPrinter.clearScreen();
-
   if ('x' == alphaNum) {
     mTerminateGame = true;
+    return;
   }
+
+  mPrinter.clearScreen();
 }
 
 void Game::init() {
+  playerInfo();
+  gameTutorial();
+}
+
+void Game::playerInfo() {
   mPrinter.addToHud(Verbose::INFO, "What is your name?");
   mPrinter.printHud();
 
   const auto name = controller::Controller::readSentence();
+  mPrinter.clearScreen();
   mPrinter.addToRoundReport(Verbose::INFO, "Hey " + name);
   mPrinter.printRoundReport();
+}
+
+void Game::gameTutorial() {
   mPrinter.addToHud(Verbose::INFO, "Enter any key to start ..");
   mPrinter.printHud();
-  const auto key = controller::Controller::readSentence();
+  auto key = controller::Controller::readSentence();
+
+  if ("any key" == key) {
+    return;
+  }
+
   mPrinter.addToRoundReport(Verbose::INFO, "Wrong!!");
+  mPrinter.addToRoundReport(Verbose::INFO, "Enter 'any key' to start ..");
+  mPrinter.printRoundReport();
+  key = controller::Controller::readSentence();
+
+  mPrinter.clearScreen();
+  mPrinter.addToRoundReport(Verbose::INFO, "any key" == key ? "Good!" : "Whatever.");
+  mPrinter.printRoundReport();
+}
+
+void Game::shutdown() {
+  mPrinter.addToRoundReport(Verbose::INFO, "Game over.");
+  mPrinter.printRoundReport();
 }
 
 } // namespace model
