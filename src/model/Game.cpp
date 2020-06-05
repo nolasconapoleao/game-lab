@@ -28,7 +28,7 @@ void Game::loop() {
   mPrinter.printHud();
   mPrinter.printOptions();
 
-  const auto alphaNum = controller::Controller::readAlphaNumeric(5);
+  const auto alphaNum = controller::readAlphaNumeric(5);
   mPrinter.addToRoundReport(Verbose::INFO, "Very well");
 
   if ('x' == alphaNum) {
@@ -48,7 +48,7 @@ void Game::playerInfo() {
   mPrinter.addToHud(Verbose::INFO, "What is your name?");
   mPrinter.printHud();
 
-  const auto name = controller::Controller::readSentence();
+  const auto name = controller::readSentence();
   mPrinter.clearScreen();
   mPrinter.addToRoundReport(Verbose::INFO, "Hey " + name);
   mPrinter.printRoundReport();
@@ -57,7 +57,7 @@ void Game::playerInfo() {
 void Game::gameTutorial() {
   mPrinter.addToHud(Verbose::INFO, "Enter any key to start ..");
   mPrinter.printHud();
-  auto key = controller::Controller::readSentence();
+  auto key = controller::readSentence();
 
   if ("any key" == key) {
     return;
@@ -66,7 +66,7 @@ void Game::gameTutorial() {
   mPrinter.addToRoundReport(Verbose::INFO, "Wrong!!");
   mPrinter.addToRoundReport(Verbose::INFO, "Enter 'any key' to start ..");
   mPrinter.printRoundReport();
-  key = controller::Controller::readSentence();
+  key = controller::readSentence();
 
   mPrinter.clearScreen();
   mPrinter.addToRoundReport(Verbose::INFO, "any key" == key ? "Good!" : "Whatever.");
