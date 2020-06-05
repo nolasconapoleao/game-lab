@@ -20,7 +20,7 @@ public:
     auto nodeSearched = std::find_if(nodes.begin(), nodes.end(), findNode);
 
     if (nodeSearched != nodes.end()) {
-      std::cerr << "Node id already in used.";
+      std::cerr << "Node id already in used.\n";
       return false;
     }
 
@@ -31,7 +31,7 @@ public:
   void removeNode(const NodeId nodeId) {
     const auto findNode = [nodeId](const auto node) { return node.first == nodeId; };
     const auto findEdgeConnectedToNode
-        = [nodeId](const auto edge) { return std::get<0>(edge) == nodeId && std::get<1>(edge) == nodeId; };
+        = [nodeId](const auto edge) { return std::get<0>(edge) == nodeId || std::get<1>(edge) == nodeId; };
 
     edges.erase(std::remove_if(edges.begin(), edges.end(), findEdgeConnectedToNode), edges.end());
     nodes.erase(std::remove_if(nodes.begin(), nodes.end(), findNode), nodes.end());
@@ -43,7 +43,7 @@ public:
     auto node = std::find_if(nodes.begin(), nodes.end(), findNode);
 
     if (node == nodes.end()) {
-      std::cerr << "Invalid graph node.";
+      std::cerr << "Invalid graph node.\n";
       throw std::out_of_range("Invalid node");
     }
     return node->second;
@@ -52,7 +52,7 @@ public:
   virtual EdgeInfo getEdge(const EdgeId &edgeId) = 0;
   virtual std::vector<NodeId> neighbours(const NodeId nodeId) = 0;
 
-  virtual void addEdge(const EdgeId edgeId, const EdgeInfo &edgeInfo) = 0;
+  virtual bool addEdge(const EdgeId edgeId, const EdgeInfo &edgeInfo) = 0;
   virtual void removeEdge(const EdgeId &edgeId) = 0;
 
 protected:
