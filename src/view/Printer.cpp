@@ -4,8 +4,8 @@
 
 #include "Printer.h"
 
-#include "iostream"
 #include "PrintConstants.h"
+#include "iostream"
 
 namespace view {
 
@@ -30,6 +30,10 @@ void Printer::addToOptions(Verbose verbose, std::string option) {
 
 void Printer::addToRoundReport(Verbose verbose, std::string reportEntry) {
   roundReport.emplace_back(verbose, reportEntry);
+}
+
+void Printer::directPrint(const std::string &message) {
+  std::cout << message << "\n";
 }
 
 void Printer::printScene() {
@@ -57,8 +61,8 @@ void Printer::clearScreen() {
 }
 
 void Printer::printAndClear(PrintList &printList) {
-  for(const auto entry : printList) {
-    if(entry.first >= printerVerbose)
+  for (const auto entry : printList) {
+    if (entry.first >= printerVerbose)
       std::cout << entry.second << "\n";
   }
 

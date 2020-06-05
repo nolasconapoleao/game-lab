@@ -45,37 +45,31 @@ void Game::init() {
 }
 
 void Game::playerInfo() {
-  mPrinter.addToHud(Verbose::INFO, "What is your name?");
-  mPrinter.printHud();
+  mPrinter.directPrint("What is your name?");
 
   const auto name = controller::readSentence();
   mPrinter.clearScreen();
-  mPrinter.addToRoundReport(Verbose::INFO, "Hey " + name);
-  mPrinter.printRoundReport();
+  mPrinter.directPrint( "Hey " + name);
 }
 
 void Game::gameTutorial() {
-  mPrinter.addToHud(Verbose::INFO, "Enter any key to start ..");
-  mPrinter.printHud();
+  mPrinter.directPrint("Enter any key to start ..");
   auto key = controller::readSentence();
 
   if ("any key" == key) {
     return;
   }
 
-  mPrinter.addToRoundReport(Verbose::INFO, "Wrong!!");
-  mPrinter.addToRoundReport(Verbose::INFO, "Enter 'any key' to start ..");
-  mPrinter.printRoundReport();
+  mPrinter.directPrint("Wrong!!");
+  mPrinter.directPrint("Enter 'any key' to start ..");
   key = controller::readSentence();
 
   mPrinter.clearScreen();
-  mPrinter.addToRoundReport(Verbose::INFO, "any key" == key ? "Good!" : "Whatever.");
-  mPrinter.printRoundReport();
+  mPrinter.directPrint( "any key" == key ? "Good!" : "Whatever.");
 }
 
 void Game::shutdown() {
-  mPrinter.addToRoundReport(Verbose::INFO, "Game over.");
-  mPrinter.printRoundReport();
+  mPrinter.directPrint( "Game over.");
 }
 
 } // namespace model

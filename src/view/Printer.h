@@ -25,6 +25,7 @@ public:
   void addToRoundReport(const Verbose verbose, const std::string reportEntry);
 
   // Print methods
+  void directPrint(const std::string& message);
   void printScene();
   void printHud();
   void printOptions();
