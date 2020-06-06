@@ -1,0 +1,64 @@
+//
+// Created by nolasco on 05/06/20.
+//
+
+#include "Random.h"
+
+#include <chrono>
+#include <iostream>
+#include <random>
+
+namespace Random {
+
+Number fromTo(Number lowerBound, Number upperBound) {
+
+  if (lowerBound > upperBound) {
+    std::cerr << "Lower bound has to be smaller than upper bound.\n";
+    throw std::runtime_error("Invalid bounds for random generation");
+  }
+
+  auto t = std::chrono::high_resolution_clock::now().time_since_epoch().count();
+  std::mt19937 generator;
+
+  generator.seed(static_cast<unsigned int>(t));
+  std::uniform_int_distribution<Number> distribution(lowerBound, upperBound);
+
+  return distribution(generator);
+}
+
+Number fromVec(const std::vector<Number> &valuePool) {
+
+  const auto upperBound = valuePool.size();
+  const auto index = fromTo(0, upperBound);
+
+  return valuePool[index];
+}
+
+std::unordered_set<Number> multipleNonRepeated(Number quantity, Number lowerBound, Number upperBound) {
+
+  if (lowerBound > upperBound) {
+    std::cerr << "Lower bound has to be smaller than upper bound.\n";
+    throw std::runtime_error("Invalid bounds for random generation");
+  }
+
+  Number range = upperBound - lowerBound;
+  if (range < quantity) {
+    std::cerr << "Cannot generate n distinct numbers from a pool with size less than n.\n";
+    throw std::runtime_error("Invalid random generation");
+  }
+
+  auto t = std::chrono::high_resolution_clock::now().time_since_epoch().count();
+  std::mt19937 generator;
+
+  generator.seed(static_cast<unsigned int>(t));
+  std::uniform_int_distribution<Number> distribution(lowerBound, upperBound);
+
+  std::unordered_set<Number> generated;
+  while (generated.size() < quantity) {
+    generated.insert(distribution(generator));
+  }
+
+  return generated;
+}
+
+} // namespace Random
