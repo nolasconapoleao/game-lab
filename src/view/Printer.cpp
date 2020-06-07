@@ -5,7 +5,9 @@
 #include "Printer.h"
 
 #include "PrintConstants.h"
-#include "iostream"
+#include "config/cmakeconfig.h"
+
+#include <iostream>
 
 namespace view {
 
@@ -57,7 +59,11 @@ void Printer::printRoundReport() {
 }
 
 void Printer::clearScreen() {
-  system("clear");
+#ifdef COMPILE_FOR_NON_UNIX
+  std::system("cls");
+#else
+  std::system("clear");
+#endif
 }
 
 void Printer::printAndClear(PrintList &printList) {
