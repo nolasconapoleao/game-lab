@@ -15,7 +15,7 @@ public:
   using Edge = std::tuple<NodeId, NodeId, EdgeInfo>;
 
   // Node operations
-  [[maybe_unused]] [[maybe_unused]] bool addNode(const NodeId nodeId, const NodeInfo &node);
+  [[maybe_unused]] bool addNode(const NodeId nodeId, const NodeInfo &node);
   void removeNode(const NodeId nodeId);
   NodeInfo getNode(const NodeId nodeId);
 
@@ -32,7 +32,7 @@ protected:
 
 // Method definition
 template <class NodeId, class NodeInfo, class EdgeInfo>
-[[maybe_unused]] bool IGraph<NodeId, NodeInfo, EdgeInfo>::addNode(const NodeId nodeId, const NodeInfo &node) {
+bool IGraph<NodeId, NodeInfo, EdgeInfo>::addNode(const NodeId nodeId, const NodeInfo &node) {
 
   const auto findNode = [nodeId](const auto node) { return node.first == nodeId; };
   auto nodeSearched = std::find_if(nodes.begin(), nodes.end(), findNode);
