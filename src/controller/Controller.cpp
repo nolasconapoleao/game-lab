@@ -10,27 +10,28 @@
 
 namespace controller {
 
-inline const bool isInputValid(const char input, const uint8_t numberOfOptions) {
-  if (input > '0' && input <= (numberOfOptions + '0')) {
+inline const bool isInputValid(const char input, const std::string options) {
+
+  if (options.find(input) != std::string::npos) {
     return true;
   }
 
-  return (menuOption == input || closeOption == input);
+  return (closeOption == input);
 }
 
 const std::string readSentence() {
   std::string readFromConsole;
-  std::getline( std::cin, readFromConsole);
+  std::getline(std::cin, readFromConsole);
   return readFromConsole;
 }
 
-const char readAlphaNumeric(const uint8_t numberOfOptions) {
+const char readAlphaNum(const std::string options) {
   char input;
 
   do {
     std::cin >> input;
     input = tolower(input);
-  } while (!isInputValid(input, numberOfOptions));
+  } while (!isInputValid(input, options));
 
   return input;
 }

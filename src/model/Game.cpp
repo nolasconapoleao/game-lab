@@ -28,7 +28,8 @@ void Game::loop() {
   mPrinter.printHud();
   mPrinter.printOptions();
 
-  const auto alphaNum = controller::readAlphaNumeric(5);
+  std::string options = "12345";
+  const auto alphaNum = controller::readAlphaNum(options);
   mPrinter.addToRoundReport(Verbose::INFO, "Very well");
 
   if ('x' == alphaNum) {
@@ -49,7 +50,7 @@ void Game::playerInfo() {
 
   const auto name = controller::readSentence();
   mPrinter.clearScreen();
-  mPrinter.directPrint( "Hey " + name);
+  mPrinter.directPrint("Hey " + name);
 }
 
 void Game::gameTutorial() {
@@ -65,11 +66,11 @@ void Game::gameTutorial() {
   key = controller::readSentence();
 
   mPrinter.clearScreen();
-  mPrinter.directPrint( "any key" == key ? "Good!" : "Whatever.");
+  mPrinter.directPrint("any key" == key ? "Good!" : "Whatever.");
 }
 
 void Game::shutdown() {
-  mPrinter.directPrint( "Game over.");
+  mPrinter.directPrint("Game over.");
 }
 
 } // namespace model

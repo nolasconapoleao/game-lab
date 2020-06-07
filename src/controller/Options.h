@@ -6,7 +6,6 @@
 
 namespace controller {
 
-constexpr char menuOption = 'm';
 constexpr char closeOption = 'x';
 
 } // namespace controller

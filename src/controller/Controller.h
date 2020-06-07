@@ -9,7 +9,13 @@
 
 namespace controller {
 
-  [[nodiscard]] const std::string readSentence();
-  [[nodiscard]] const char readAlphaNumeric(const uint8_t numberOfOptions);
+[[nodiscard]] const std::string readSentence();
+
+/**
+ *  Reads input from the console, reading must exist in the allowed options
+ * @param options allowed options
+ * @return consoleInput
+ */
+[[nodiscard]] const char readAlphaNum(const std::string options);
 
 } // namespace controller
