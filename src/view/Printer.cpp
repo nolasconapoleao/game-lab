@@ -4,12 +4,17 @@
 
 #include "Printer.h"
 
+#include <iostream>
+
 #include "PrintConstants.h"
 #include "config/cmakeconfig.h"
 
-#include <iostream>
-
 namespace view {
+
+PrintList Printer::scene;
+PrintList Printer::hud;
+PrintList Printer::options;
+PrintList Printer::roundReport;
 
 Printer::Printer(const Verbose verbose) : printerVerbose(verbose) {
 }

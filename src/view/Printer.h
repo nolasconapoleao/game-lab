@@ -25,7 +25,7 @@ public:
   void addToRoundReport(const Verbose verbose, const std::string reportEntry);
 
   // Print methods
-  void directPrint(const std::string& message);
+  void directPrint(const std::string &message);
   void printScene();
   void printHud();
   void printOptions();
@@ -36,10 +36,10 @@ private:
   void printAndClear(PrintList &printList);
 
   Verbose printerVerbose;
-  PrintList scene;
-  PrintList hud;
-  PrintList options;
-  PrintList roundReport;
+  static PrintList scene;
+  static PrintList hud;
+  static PrintList options;
+  static PrintList roundReport;
 };
 
 } // namespace view
