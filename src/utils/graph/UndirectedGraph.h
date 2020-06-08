@@ -9,11 +9,11 @@
 template <class NodeId, class NodeInfo, class EdgeInfo>
 class UndirectedGraph : public IGraph<NodeId, NodeInfo, EdgeInfo> {
 
+public:
   using Node = typename IGraph<NodeId, NodeInfo, EdgeInfo>::Node;
   using EdgeId = typename IGraph<NodeId, NodeInfo, EdgeInfo>::EdgeId;
   using Edge = typename IGraph<NodeId, NodeInfo, EdgeInfo>::Edge;
 
-public:
   // Edge operations
   bool addEdge(const EdgeId edgeId, const EdgeInfo &edgeInfo) override;
   void removeEdge(const EdgeId &edgeId) override;
@@ -35,6 +35,11 @@ bool UndirectedGraph<NodeId, NodeInfo, EdgeInfo>::addEdge(const EdgeId edgeId, c
 
   if (edgeExists(edgeId)) {
     std::cerr << "Graph already has this connection.\n";
+    return false;
+  }
+
+  if (!this->nodeExists(edgeId.first) || !this->nodeExists(edgeId.second)) {
+    std::cerr << "Graph cannot connect non existing node.\n";
     return false;
   }
 

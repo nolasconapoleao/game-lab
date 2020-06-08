@@ -22,7 +22,6 @@ SCENARIO("Addition of edge directed graph", "[UndirectedGraph]") {
       THEN("the operation fails due to looping connection") {
         REQUIRE_FALSE(invalidInsertion);
       }
-
     }
 
     WHEN("a second edge with the same id is added") {
@@ -30,26 +29,31 @@ SCENARIO("Addition of edge directed graph", "[UndirectedGraph]") {
       THEN("the operation fails due to repeated id") {
         REQUIRE_FALSE(insertionWithSameId);
       }
+    }
 
+    WHEN("an edge is added with an invalid origin or destination") {
+      const auto insertionWithInvalidId = friendNetwork.addEdge(constants::validLink14, constants::acquaintance);
+      const auto insertionWithInvalidId2 = friendNetwork.addEdge(constants::validLink41, constants::acquaintance);
+      THEN("the operations fail due to the non existing nodes") {
+        REQUIRE_FALSE(insertionWithInvalidId);
+        REQUIRE_FALSE(insertionWithInvalidId2);
+      }
     }
 
     WHEN("a second edge with a different id is added") {
-      const auto insertionWithDifferentId = friendNetwork.addEdge(constants::validLink13, constants::brotherhood);;
+      const auto insertionWithDifferentId = friendNetwork.addEdge(constants::validLink13, constants::brotherhood);
       THEN("the operation is successful") {
         REQUIRE(insertionWithDifferentId);
       }
-
     }
 
     WHEN("a second edge with a the inverted direction is added") {
-      const auto insertionWithInverseDirection = friendNetwork.addEdge(constants::validLink21, constants::brotherhood);;
+      const auto insertionWithInverseDirection = friendNetwork.addEdge(constants::validLink21, constants::brotherhood);
       THEN("the operation is fails since it repeats the connection") {
         REQUIRE_FALSE(insertionWithInverseDirection);
       }
-
     }
   }
-
 }
 
 SCENARIO("Access to edge by Id", "[UndirectedGraph]") {
@@ -67,7 +71,6 @@ SCENARIO("Access to edge by Id", "[UndirectedGraph]") {
       THEN("that info matches the one on the insertion") {
         REQUIRE(edgeInfo == constants::brotherhood);
       }
-
     }
 
     WHEN("the info for an non existing connection is accessed") {
@@ -75,7 +78,6 @@ SCENARIO("Access to edge by Id", "[UndirectedGraph]") {
         // Here be dragons
         CHECK_THROWS(friendNetwork.getEdge(constants::validLink13));
       }
-
     }
   }
 }

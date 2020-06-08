@@ -26,6 +26,7 @@ public:
   virtual std::vector<NodeId> neighbours(const NodeId nodeId) = 0;
 
 protected:
+  bool nodeExists(const NodeId nodeId);
   std::vector<Node> nodes;
   std::vector<Edge> edges;
 };
@@ -34,10 +35,7 @@ protected:
 template <class NodeId, class NodeInfo, class EdgeInfo>
 bool IGraph<NodeId, NodeInfo, EdgeInfo>::addNode(const NodeId nodeId, const NodeInfo &node) {
 
-  const auto findNode = [nodeId](const auto node) { return node.first == nodeId; };
-  auto nodeSearched = std::find_if(nodes.begin(), nodes.end(), findNode);
-
-  if (nodeSearched != nodes.end()) {
+  if (nodeExists(nodeId)) {
     std::cerr << "Node id already in used.\n";
     return false;
   }
@@ -69,4 +67,13 @@ NodeInfo IGraph<NodeId, NodeInfo, EdgeInfo>::getNode(const NodeId nodeId) {
     throw std::out_of_range("Invalid node");
   }
   return node->second;
+}
+
+template <class NodeId, class NodeInfo, class EdgeInfo>
+bool IGraph<NodeId, NodeInfo, EdgeInfo>::nodeExists(const NodeId nodeId) {
+
+  const auto findNode = [nodeId](const auto node) { return node.first == nodeId; };
+  auto nodeSearched = std::find_if(nodes.begin(), nodes.end(), findNode);
+
+  return nodeSearched != nodes.end();
 }

@@ -22,7 +22,6 @@ SCENARIO("Addition of edge directed graph", "[DirectedGraph]") {
       THEN("the operation fails due to looping connection") {
         REQUIRE_FALSE(invalidInsertion);
       }
-
     }
 
     WHEN("a second edge with the same id is added") {
@@ -30,26 +29,31 @@ SCENARIO("Addition of edge directed graph", "[DirectedGraph]") {
       THEN("the operation fails due to repeated id") {
         REQUIRE_FALSE(insertionWithSameId);
       }
+    }
 
+    WHEN("an edge is added with an invalid origin or destination") {
+      const auto insertionWithInvalidId = stalkerNetwork.addEdge(constants::validLink14, constants::acquaintance);
+      const auto insertionWithInvalidId2 = stalkerNetwork.addEdge(constants::validLink41, constants::acquaintance);
+      THEN("the operations fail due to the non existing nodes") {
+        REQUIRE_FALSE(insertionWithInvalidId);
+        REQUIRE_FALSE(insertionWithInvalidId2);
+      }
     }
 
     WHEN("a second edge with a different id is added") {
-      const auto insertionWithDifferentId = stalkerNetwork.addEdge(constants::validLink13, constants::brotherhood);;
+      const auto insertionWithDifferentId = stalkerNetwork.addEdge(constants::validLink13, constants::brotherhood);
       THEN("the operation is successful") {
         REQUIRE(insertionWithDifferentId);
       }
-
     }
 
     WHEN("a second edge with a the inverted direction is added") {
-      const auto insertionWithInverseDirection = stalkerNetwork.addEdge(constants::validLink21, constants::brotherhood);;
+      const auto insertionWithInverseDirection = stalkerNetwork.addEdge(constants::validLink21, constants::brotherhood);
       THEN("the operation is successful") {
         REQUIRE(insertionWithInverseDirection);
       }
-
     }
   }
-
 }
 
 SCENARIO("Access to edge by Id", "[DirectedGraph]") {
@@ -67,7 +71,6 @@ SCENARIO("Access to edge by Id", "[DirectedGraph]") {
       THEN("that info matches the one on the insertion") {
         REQUIRE(edgeInfo == constants::brotherhood);
       }
-
     }
 
     WHEN("the info for an non existing connection is accessed") {
@@ -75,7 +78,6 @@ SCENARIO("Access to edge by Id", "[DirectedGraph]") {
         // Here be dragons
         CHECK_THROWS(stalkerNetwork.getEdge(constants::validLink13));
       }
-
     }
   }
 }
