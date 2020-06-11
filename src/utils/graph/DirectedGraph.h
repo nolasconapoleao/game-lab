@@ -10,6 +10,7 @@ template <class NodeId, class NodeInfo, class EdgeInfo>
 class DirectedGraph : public IGraph<NodeId, NodeInfo, EdgeInfo> {
 
 public:
+  // Auxiliary types definition
   using Node = typename IGraph<NodeId, NodeInfo, EdgeInfo>::Node;
   using EdgeId = typename IGraph<NodeId, NodeInfo, EdgeInfo>::EdgeId;
   using Edge = typename IGraph<NodeId, NodeInfo, EdgeInfo>::Edge;

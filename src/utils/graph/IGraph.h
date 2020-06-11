@@ -5,11 +5,13 @@
 #pragma once
 
 #include <iostream>
+#include <tuple>
 #include <vector>
 
 template <class NodeId, class NodeInfo, class EdgeInfo> class IGraph {
 
 public:
+  // Auxiliary types definition
   using Node = std::pair<NodeId, NodeInfo>;
   using EdgeId = std::pair<NodeId, NodeId>;
   using Edge = std::tuple<NodeId, NodeId, EdgeInfo>;
