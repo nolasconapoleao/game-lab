@@ -21,52 +21,10 @@ const bool Game::isOver() {
 }
 
 void Game::loop() {
-  mPrinter.addToOptions(Verbose::INFO, "Enter a value between 1 and 5, or a base option (x,m):");
-
-  mPrinter.printRoundReport();
-  mPrinter.printScene();
-  mPrinter.printHud();
-  mPrinter.printOptions();
-
-  std::string options = "12345";
-  const auto alphaNum = controller::readAlphaNum(options);
-  mPrinter.addToRoundReport(Verbose::INFO, "Very well");
-
-  if ('x' == alphaNum) {
-    mTerminateGame = true;
-    return;
-  }
-
-  mPrinter.clearScreen();
+  gameEngine.whatsUp();
 }
 
 void Game::init() {
-  playerInfo();
-  gameTutorial();
-}
-
-void Game::playerInfo() {
-  mPrinter.directPrint("What is your name?");
-
-  const auto name = controller::readSentence();
-  mPrinter.clearScreen();
-  mPrinter.directPrint("Hey " + name);
-}
-
-void Game::gameTutorial() {
-  mPrinter.directPrint("Enter any key to start ..");
-  auto key = controller::readSentence();
-
-  if ("any key" == key) {
-    return;
-  }
-
-  mPrinter.directPrint("Wrong!!");
-  mPrinter.directPrint("Enter 'any key' to start ..");
-  key = controller::readSentence();
-
-  mPrinter.clearScreen();
-  mPrinter.directPrint("any key" == key ? "Good!" : "Whatever.");
 }
 
 void Game::shutdown() {

@@ -2,9 +2,10 @@
 // Created by nolasco on 02/06/20.
 //
 
-#include "view/Printer.h"
-
 #pragma once
+
+#include "GameEngine.h"
+#include "view/Printer.h"
 
 namespace model {
 
@@ -18,11 +19,10 @@ public:
 
 private:
   void init();
-  void playerInfo();
-  void gameTutorial();
   void shutdown();
 
   view::Printer mPrinter;
+  model::state::GameEngine gameEngine;
   bool mTerminateGame;
 };
 

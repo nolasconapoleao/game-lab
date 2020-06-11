@@ -21,20 +21,22 @@ public:
   // Insert entries to printed structures
   void addToScene(const Verbose verbose, const std::string sceneEntry);
   void addToHud(const Verbose verbose, const std::string hudEntry);
-  void addToOptions(const Verbose verbose, const std::string option);
+  void addToOptions(Verbose verbose, char option, std::string optionDescription);
   void addToRoundReport(const Verbose verbose, const std::string reportEntry);
 
   // Print methods
   void directPrint(const std::string &message);
+  void printScreen();
+  void clearScreen();
+
+private:
   void printScene();
   void printHud();
   void printOptions();
   void printRoundReport();
-  void clearScreen();
-
-private:
   void printAndClear(PrintList &printList);
 
+  // TODO: [nn] add option header
   Verbose printerVerbose;
   static PrintList scene;
   static PrintList hud;

@@ -5,6 +5,7 @@
 #include "Printer.h"
 
 #include <iostream>
+#include <sstream>
 
 #include "PrintConstants.h"
 #include "config/cmakeconfig.h"
@@ -31,8 +32,10 @@ void Printer::addToHud(Verbose verbose, std::string hudEntry) {
   hud.emplace_back(verbose, hudEntry);
 }
 
-void Printer::addToOptions(Verbose verbose, std::string option) {
-  options.emplace_back(verbose, option);
+void Printer::addToOptions(Verbose verbose, char option, std::string optionDescription) {
+  std::ostringstream os;
+  os << option << ": " << optionDescription;
+  options.emplace_back(verbose, os.str());
 }
 
 void Printer::addToRoundReport(Verbose verbose, std::string reportEntry) {
@@ -41,6 +44,14 @@ void Printer::addToRoundReport(Verbose verbose, std::string reportEntry) {
 
 void Printer::directPrint(const std::string &message) {
   std::cout << message << "\n";
+}
+
+void Printer::printScreen() {
+  clearScreen();
+  printScene();
+  printHud();
+  printOptions();
+  printRoundReport();
 }
 
 void Printer::printScene() {
@@ -70,7 +81,6 @@ void Printer::clearScreen() {
   std::system("clear");
 #endif
 }
-
 void Printer::printAndClear(PrintList &printList) {
   for (const auto entry : printList) {
     if (entry.first >= printerVerbose)
