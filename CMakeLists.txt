@@ -39,6 +39,7 @@ target_include_directories(
     PRIVATE
         ${CMAKE_SOURCE_DIR}/src
         ${CMAKE_BINARY_DIR}/src
+        ${CMAKE_SOURCE_DIR}/3rd-party
 )
 
 ## Unit tests target

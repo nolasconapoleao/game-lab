@@ -4,24 +4,26 @@
 
 #include "GameEngine.h"
 
+#include <magic_enum/include/magic_enum.hpp>
+
 #include "controller/Controller.h"
 #include "model/state/Example.h"
 #include "model/state/Tutorial.h"
 
 enum MACRO_STATES : MacroStateId {
-  TUTORIAL = 1,
-  EXAMPLE,
+  tutorial = 1,
+  example,
 };
 
 namespace model::state {
 GameEngine::GameEngine() {
-  activeMacroState = TUTORIAL;
+  activeMacroState = tutorial;
 
-  addMacroState(TUTORIAL, std::make_shared<Tutorial>());
-  addMacroState(EXAMPLE, std::make_shared<Example>());
+  addMacroState(tutorial, std::make_shared<Tutorial>());
+  addMacroState(example, std::make_shared<Example>());
 
-  addTransition(TUTORIAL, EXAMPLE, 'e');
-  addTransition(EXAMPLE, TUTORIAL, 't');
+  addTransition(tutorial, example, 'e');
+  addTransition(example, tutorial, 't');
 
   std::shared_ptr<MacroState> currentMachine = macroStateNetwork.getNode(activeMacroState);
   currentMachine->start();
@@ -43,9 +45,10 @@ void GameEngine::whatsUp() {
     options += edgeInfo;
 
     auto nodeInfo = macroStateNetwork.getNode(neighbour);
-    // TODO: [nn] magic enum for neighbour
-    mPrinter.addToOptions(Verbose::INFO, edgeInfo, "neighbour");
+    auto stateName = magic_enum::enum_name(MACRO_STATES{neighbour}).data();
+    mPrinter.addToOptions(Verbose::INFO, edgeInfo, stateName);
   }
+  // TODO: [nn] Add option header
   mPrinter.addToHud(Verbose::INFO, "Select option ..");
   mPrinter.printScreen();
   auto input = controller::readAlphaNum(options);

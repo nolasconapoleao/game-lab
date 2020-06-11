@@ -25,6 +25,7 @@ SCENARIO("Create entry in shopping list", "[Database]") {
 
       THEN("the shopping list size increases") {
         REQUIRE(shoppingList.size() == 2);
+        REQUIRE(entryId != entry2Id);
       }
     }
   }

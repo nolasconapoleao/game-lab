@@ -3,6 +3,7 @@ macro (create_test target)
     ## To allow absolute header paths in includes
     include_directories(
         ${PROJECT_SOURCE_DIR}/src
+        ${PROJECT_SOURCE_DIR}/3rd-party
         ${CMAKE_BINARY_DIR}/src
     )
 
