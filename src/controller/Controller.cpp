@@ -21,6 +21,7 @@ inline const bool isInputValid(const char input, const std::string options) {
 
 const std::string readSentence() {
   std::string readFromConsole;
+  // TODO: [nn] ignore newline form previous input
   std::getline(std::cin, readFromConsole);
   return readFromConsole;
 }
