@@ -17,7 +17,7 @@ Game::~Game() {
 }
 
 const bool Game::isOver() {
-  return mTerminateGame;
+  return gameEngine.isTerminated();
 }
 
 void Game::loop() {

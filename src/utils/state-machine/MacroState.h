@@ -23,9 +23,10 @@ public:
   MacroState();
   void addState(const StateId stateId, const StateInfo stateInfo);
   void addTransition(StateId origin, StateId destination, const Transition transition);
-  virtual void start() = 0;
+  void startState();
   virtual void whatsUp() = 0;
   void triggerTransition(const Transition transition);
+  void endState();
   bool isStandingBye();
 
 private:

@@ -7,10 +7,12 @@
 #include <magic_enum/include/magic_enum.hpp>
 
 #include "controller/Controller.h"
+#include "controller/Options.h"
 #include "model/state/Example.h"
 #include "model/state/Tutorial.h"
 
 enum MACRO_STATES : MacroStateId {
+  terminate = 0,
   tutorial = 1,
   example,
 };
@@ -26,7 +28,7 @@ GameEngine::GameEngine() {
   addTransition(example, tutorial, 't');
 
   std::shared_ptr<MacroState> currentMachine = macroStateNetwork.getNode(activeMacroState);
-  currentMachine->start();
+  currentMachine->startState();
 }
 
 void GameEngine::whatsUp() {
@@ -37,25 +39,62 @@ void GameEngine::whatsUp() {
     return;
   }
 
-  auto neighbours = macroStateNetwork.neighbours(activeMacroState);
+  mNeighbours = macroStateNetwork.neighbours(activeMacroState);
 
-  std::string options = "";
-  for (auto neighbour : neighbours) {
+//   TODO: [nn] enable when there is a advance round state
+//    if (mNeighbours.size() == 1) {
+//      continueToNext();
+//      return;
+//    }
+
+  fillOptions();
+  handleUserInput();
+}
+
+void GameEngine::continueToNext() {
+  auto transition = macroStateNetwork.getEdge(LinkId{activeMacroState, mNeighbours[0]});
+  triggerTransition(transition);
+
+  startNextMacroState();
+}
+
+void GameEngine::fillOptions() {
+  mOptions = "";
+  for (auto neighbour : mNeighbours) {
     auto edgeInfo = macroStateNetwork.getEdge(LinkId{activeMacroState, neighbour});
-    options += edgeInfo;
+    mOptions += edgeInfo;
 
     auto nodeInfo = macroStateNetwork.getNode(neighbour);
     auto stateName = magic_enum::enum_name(MACRO_STATES{neighbour}).data();
     mPrinter.addToOptions(Verbose::INFO, edgeInfo, stateName);
   }
+  mOptions += controller::closeOption;
+  mPrinter.addToOptions(Verbose::INFO, controller::closeOption, controller::closeOptionStr);
+}
+
+void GameEngine::handleUserInput() {
   // TODO: [nn] Add option header
-  mPrinter.addToHud(Verbose::INFO, "Select option ..");
+  mPrinter.addToHud(Verbose::INFO, "Select menu option ..");
   mPrinter.printScreen();
-  auto input = controller::readAlphaNum(options);
+  auto input = controller::readAlphaNum(mOptions);
   triggerTransition(input);
 
+  startNextMacroState();
+
+  if (controller::closeOption == input) {
+    activeMacroState = TERMINATE;
+    return;
+  }
+  triggerTransition(input);
+}
+
+bool GameEngine::isTerminated() {
+  return activeMacroState == TERMINATE;
+}
+
+void GameEngine::startNextMacroState() {
   std::shared_ptr<MacroState> newMachine = macroStateNetwork.getNode(activeMacroState);
-  newMachine->start();
+  newMachine->startState();
 }
 
 } // namespace model::state

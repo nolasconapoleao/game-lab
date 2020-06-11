@@ -10,18 +10,13 @@
 
 namespace controller {
 
-inline const bool isInputValid(const char input, const std::string options) {
-
-  if (options.find(input) != std::string::npos) {
-    return true;
-  }
-
-  return (closeOption == input);
+const bool isInputValid(const char input, const std::string options) {
+  return options.find(input) != std::string::npos;
 }
 
 const std::string readSentence() {
   std::string readFromConsole;
-  // TODO: [nn] ignore newline form previous input
+  // TODO: [nn] ignore newline from previous input
   std::getline(std::cin, readFromConsole);
   return readFromConsole;
 }

@@ -15,7 +15,6 @@ class Tutorial : public MacroState {
 
 public:
   Tutorial();
-  void start();
   void whatsUp();
 
 private:

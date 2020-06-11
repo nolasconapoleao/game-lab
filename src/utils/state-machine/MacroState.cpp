@@ -2,8 +2,6 @@
 // Created by nolasco on 07/06/20.
 //
 
-#include <string>
-
 #include "MacroState.h"
 
 MacroState::MacroState() : activeState(STATE_STANDBYE) {
@@ -19,6 +17,10 @@ void MacroState::addTransition(StateId origin, StateId destination, Transition t
   stateNetwork.addEdge(link, transition);
 }
 
+void MacroState::startState() {
+  triggerTransition('s');
+}
+
 void MacroState::triggerTransition(Transition transition) {
   const auto neighbourStates = stateNetwork.neighbours(activeState);
 
@@ -31,6 +33,10 @@ void MacroState::triggerTransition(Transition transition) {
   }
 
   return;
+}
+
+void MacroState::endState() {
+  activeState = STATE_STANDBYE;
 }
 
 void MacroState::advanceToState(StateId newState) {

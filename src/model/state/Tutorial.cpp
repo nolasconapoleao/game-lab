@@ -16,7 +16,7 @@ namespace model::state {
 
 Tutorial::Tutorial() : attempts(0) {
   failOutput.emplace_back("Let's start over. Say it with me 'any key'");
-  failOutput.emplace_back("Enter 'any key' to start ..");
+  failOutput.emplace_back("I mean 'any key'");
   failOutput.emplace_back("You truly are a rebel, but this is not the time.");
   failOutput.emplace_back("I can do this all day..");
 
@@ -29,10 +29,6 @@ Tutorial::Tutorial() : attempts(0) {
   addTransition(INPUT_ANYKEY, WRONG_ANSWER, 'c');
   addTransition(WRONG_ANSWER, INPUT_ANYKEY, 'd');
   addTransition(INPUT_ANYKEY, STATE_STANDBYE, 'e');
-}
-
-void Tutorial::start() {
-  triggerTransition('s');
 }
 
 void Tutorial::whatsUp() {

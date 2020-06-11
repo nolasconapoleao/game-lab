@@ -5,6 +5,7 @@
 #include "Example.h"
 
 #include "controller/Controller.h"
+#include "controller/Options.h"
 
 enum STATES : StateId {
   ENTER_1 = 1,
@@ -25,38 +26,54 @@ Example::Example() {
   addTransition(ENTER_1, ENTER_2, '1');
   addTransition(ENTER_1, WRONG, '2');
 
-  addTransition(ENTER_2, DONE, '2');
   addTransition(ENTER_2, WRONG, '1');
+  addTransition(ENTER_2, DONE, '2');
 
   addTransition(WRONG, ENTER_1, '0');
-
-  addTransition(WRONG, STATE_STANDBYE, 'b');
-  addTransition(ENTER_1, STATE_STANDBYE, 'b');
-
   addTransition(DONE, STATE_STANDBYE, 'b');
 }
 
 void Example::whatsUp() {
   mPrinter.directPrint(stateNetwork.getNode(activeState));
-  auto neighbours = stateNetwork.neighbours(activeState);
+  mNeighbours = stateNetwork.neighbours(activeState);
 
-  std::string options = "";
-  for (auto neighbour : neighbours) {
-    auto edgeInfo = stateNetwork.getEdge(LinkId{activeState, neighbour});
-    options += edgeInfo;
-
-    auto nodeInfo = stateNetwork.getNode(neighbour);
-
-    mPrinter.addToOptions(Verbose::INFO, edgeInfo, std::string(1, edgeInfo));
+  if (mNeighbours.size() == 1) {
+    continueToNext();
+    return;
   }
 
-  mPrinter.printScreen();
-  auto input = controller::readAlphaNum(options);
-  triggerTransition(input);
+  fillOptions();
+  handleUserInput();
 }
 
-void Example::start() {
-  triggerTransition('s');
+void Example::continueToNext() {
+  auto transition = stateNetwork.getEdge(LinkId{activeState, mNeighbours[0]});
+  triggerTransition(transition);
+}
+
+void Example::fillOptions() {
+  mOptions = "";
+  for (auto neighbour : mNeighbours) {
+    auto edgeInfo = stateNetwork.getEdge(LinkId{activeState, neighbour});
+    mOptions += edgeInfo;
+
+    auto nodeInfo = stateNetwork.getNode(neighbour);
+    mPrinter.addToOptions(Verbose::INFO, edgeInfo, std::string(1, edgeInfo));
+  }
+  mOptions += controller::backOption;
+  mPrinter.addToOptions(Verbose::INFO, controller::backOption, controller::backOptionStr);
+}
+
+void Example::handleUserInput() {
+  mPrinter.printScreen();
+  auto input = controller::readAlphaNum(mOptions);
+
+  if (controller::backOption == input) {
+    endState();
+    return;
+  }
+
+  triggerTransition(input);
 }
 
 } // namespace model::state

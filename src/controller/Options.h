@@ -7,5 +7,9 @@
 namespace controller {
 
 constexpr char closeOption = 'x';
+constexpr char backOption = 'b';
+
+constexpr auto closeOptionStr = "close";
+constexpr auto backOptionStr = "back";
 
 } // namespace controller

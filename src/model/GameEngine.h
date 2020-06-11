@@ -7,6 +7,8 @@
 #include "utils/state-machine/StateMachine.h"
 #include "view/Printer.h"
 
+constexpr StateId TERMINATE = 0;
+
 namespace model::state {
 
 class GameEngine : StateMachine {
@@ -15,9 +17,17 @@ public:
 
   GameEngine();
   void whatsUp() override;
+  bool isTerminated();
 
 private:
+  void continueToNext();
+  void fillOptions();
+  void handleUserInput();
+  void startNextMacroState();
+
   view::Printer mPrinter;
+  std::vector<StateId> mNeighbours;
+  std::string mOptions;
 };
 
 } // namespace model::state

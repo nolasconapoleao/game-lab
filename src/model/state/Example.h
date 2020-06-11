@@ -14,11 +14,16 @@ class Example : public MacroState {
 
 public:
   Example();
-  void start() override;
   void whatsUp() override;
 
 protected:
+  void continueToNext();
+  void fillOptions();
+  void handleUserInput();
+
   view::Printer mPrinter;
+  std::vector<StateId> mNeighbours;
+  std::string mOptions;
 };
 
 } // namespace model::state
