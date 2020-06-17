@@ -9,23 +9,31 @@
 #include "controller/Controller.h"
 #include "controller/Options.h"
 #include "model/state/Example.h"
+#include "model/state/RunWorld.h"
 #include "model/state/Tutorial.h"
 
 enum MACRO_STATES : MacroStateId {
   terminate = 0,
-  tutorial = 1,
+  tutorial,
   example,
+  attack,
+  runWorld,
+  playerInput,
+  wait,
 };
 
 namespace model::state {
 GameEngine::GameEngine() {
-  activeMacroState = tutorial;
+  activeMacroState = runWorld;
 
   addMacroState(tutorial, std::make_shared<Tutorial>());
   addMacroState(example, std::make_shared<Example>());
+  addMacroState(runWorld, std::make_shared<RunWorld>());
 
-  addTransition(tutorial, example, 'e');
-  addTransition(example, tutorial, 't');
+  addTransition(runWorld, example, 'e');
+  addTransition(runWorld, tutorial, 't');
+  addTransition(tutorial, runWorld, 'c');
+  addTransition(example, runWorld, 'c');
 
   std::shared_ptr<MacroState> currentMachine = macroStateNetwork.getNode(activeMacroState);
   currentMachine->startState();
@@ -41,11 +49,10 @@ void GameEngine::whatsUp() {
 
   mNeighbours = macroStateNetwork.neighbours(activeMacroState);
 
-//   TODO: [nn] enable when there is a advance round state
-//    if (mNeighbours.size() == 1) {
-//      continueToNext();
-//      return;
-//    }
+  if (mNeighbours.size() == 1) {
+    continueToNext();
+    return;
+  }
 
   fillOptions();
   handleUserInput();
