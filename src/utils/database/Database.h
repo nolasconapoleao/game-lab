@@ -6,6 +6,7 @@
 
 #include <iostream>
 #include <vector>
+#include <functional>
 
 using Id = id_t;
 
