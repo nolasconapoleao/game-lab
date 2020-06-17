@@ -4,5 +4,15 @@
 
 #pragma once
 
-//TODO: nolasconapoleao
-class Location {};
+#include <string>
+
+#include "LocationType.h"
+#include "common/GameTypes.h"
+
+class Location {
+public:
+private:
+  LocationType type;
+  std::string name;
+  Size size;
+};

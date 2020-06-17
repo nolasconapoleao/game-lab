@@ -6,5 +6,6 @@ target_sources(${PROJECT_NAME}
     PUBLIC
         # Headers
         ${CMAKE_CURRENT_SOURCE_DIR}/Location.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/LocationType.h
         ${CMAKE_CURRENT_SOURCE_DIR}/World.h
 )
