@@ -52,8 +52,8 @@ template <class NodeId, class NodeInfo, class EdgeInfo>
 void UndirectedGraph<NodeId, NodeInfo, EdgeInfo>::removeEdge(const EdgeId &edgeId) {
 
   const auto findEdge = [edgeId](const auto edge) {
-    return std::get<0>(edge) == edgeId.first && std::get<1>(edge) == edgeId.second
-           || std::get<0>(edge) == edgeId.second && std::get<1>(edge) == edgeId.first;
+    return (std::get<0>(edge) == edgeId.first && std::get<1>(edge) == edgeId.second)
+           || (std::get<0>(edge) == edgeId.second && std::get<1>(edge) == edgeId.first);
   };
   this->edges.erase(std::remove_if(this->edges.begin(), this->edges.end(), findEdge), this->edges.end());
 }
@@ -62,8 +62,8 @@ template <class NodeId, class NodeInfo, class EdgeInfo>
 EdgeInfo UndirectedGraph<NodeId, NodeInfo, EdgeInfo>::getEdge(const EdgeId &edgeId) {
 
   const auto findEdge = [edgeId](const auto edge) {
-    return std::get<0>(edge) == edgeId.first && std::get<1>(edge) == edgeId.second
-           || std::get<0>(edge) == edgeId.second && std::get<1>(edge) == edgeId.first;
+    return (std::get<0>(edge) == edgeId.first && std::get<1>(edge) == edgeId.second)
+           || (std::get<0>(edge) == edgeId.second && std::get<1>(edge) == edgeId.first);
   };
 
   auto edgeFound = std::find_if(this->edges.begin(), this->edges.end(), findEdge);
@@ -95,8 +95,8 @@ template <class NodeId, class NodeInfo, class EdgeInfo>
 bool UndirectedGraph<NodeId, NodeInfo, EdgeInfo>::edgeExists(const EdgeId edgeId) {
 
   const auto findEdge = [edgeId](const auto edge) {
-    return std::get<0>(edge) == edgeId.first && std::get<1>(edge) == edgeId.second
-           || std::get<0>(edge) == edgeId.second && std::get<1>(edge) == edgeId.first;
+    return (std::get<0>(edge) == edgeId.first && std::get<1>(edge) == edgeId.second)
+           || (std::get<0>(edge) == edgeId.second && std::get<1>(edge) == edgeId.first);
   };
 
   auto edge = std::find_if(this->edges.begin(), this->edges.end(), findEdge);

@@ -9,12 +9,13 @@ entity::Character CharacterFactory::generateCharacter() {
 }
 
 entity::Character CharacterFactory::createCharacter(CharacterType type) {
+  // TODO: replace by random generation based on class
   entity::Property stats {1, 2, 3, 8, 8};
 
   switch (type) {
     case CharacterType::PLAYER:
-      return entity::Character(entity::Property(), GhostInTheShell::Player, "Player");
+      return entity::Character(stats, GhostInTheShell::Player, "Player");
     case CharacterType::ENEMY:
-      return entity::Character(entity::Property(), GhostInTheShell::AI, "Enemy");
+      return entity::Character(stats, GhostInTheShell::AI, "Enemy");
   }
 }
