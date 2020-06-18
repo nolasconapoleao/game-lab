@@ -14,9 +14,11 @@ const bool isInputValid(const char input, const std::string options) {
   return options.find(input) != std::string::npos;
 }
 
-const std::string readSentence() {
+const std::string readSentence(bool flushFirst) {
+  if (flushFirst) {
+    std::cin.ignore();
+  }
   std::string readFromConsole;
-  // TODO: [nn] ignore newline from previous input
   std::getline(std::cin, readFromConsole);
   return readFromConsole;
 }

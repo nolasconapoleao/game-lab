@@ -37,7 +37,8 @@ void Tutorial::whatsUp() {
 
     case ENTER_NAME: {
       mPrinter.directPrint("What is your name?");
-      name = controller::readSentence();
+      bool flush = true;
+      name = controller::readSentence(flush);
       mPrinter.clearScreen();
       mPrinter.directPrint("Hey there, " + name);
 

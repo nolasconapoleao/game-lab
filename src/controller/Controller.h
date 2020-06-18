@@ -9,7 +9,7 @@
 
 namespace controller {
 
-[[nodiscard]] const std::string readSentence();
+[[nodiscard]] const std::string readSentence(bool flushFirst = false);
 
 /**
  *  Reads input from the console, reading must exist in the allowed options
