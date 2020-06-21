@@ -3,7 +3,7 @@ project(text-game)
 
 # Defining compilation flags
 set(CMAKE_CXX_STANDARD 20)
-set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wall")
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wall -Wextra")
 
 option(COMPILE_FOR_NON_UNIX "Compile For Non Unix" OFF)
 if(COMPILE_FOR_NON_UNIX)
@@ -25,7 +25,7 @@ include(cmake/utils.cmake)
 ## Renderer executable
 add_executable(
     ${PROJECT_NAME}
-        ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp
 )
 
 add_subdirectory(src)
