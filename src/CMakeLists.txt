@@ -1,8 +1,6 @@
 add_subdirectory(common)
 add_subdirectory(config)
 add_subdirectory(controller)
-add_subdirectory(factory)
-add_subdirectory(handler)
 add_subdirectory(model)
 add_subdirectory(utils)
 add_subdirectory(view)

@@ -7,6 +7,7 @@
 #include <string>
 #include <vector>
 
+// TODO: [nn] Change namespace by input
 namespace controller {
 
 [[nodiscard]] const std::string readSentence(bool flushFirst = false);
