@@ -29,7 +29,7 @@ Number fromTo(Number lowerBound, Number upperBound) {
 Number fromVec(const std::vector<Number> &valuePool) {
 
   const auto upperBound = valuePool.size();
-  const auto index = fromTo(0, upperBound);
+  const auto index = fromTo(0, upperBound - 1);
 
   return valuePool[index];
 }

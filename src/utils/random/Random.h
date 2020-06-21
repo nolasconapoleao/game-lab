@@ -19,6 +19,7 @@ using Number = uint8_t;
  */
 [[nodiscard]] Number fromTo(Number lowerBound, Number upperBound);
 
+// TODO: Refactor to allow call for vector of any type
 /**
  * @brief Generates a random number from the vector of given options.
  * @param valuePool for generation
