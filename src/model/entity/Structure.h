@@ -17,6 +17,11 @@ public:
 private:
   std::string name;
   Size size;
+  LocationId location;
+
+public:
+  LocationId getLocation() const;
+  void setLocation(LocationId location);
 };
 
 } // namespace entity

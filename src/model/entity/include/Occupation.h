@@ -5,7 +5,6 @@
 #pragma once
 
 enum class Occupation {
-  PLAYER, // FIXME: this is not a valid occupation
   BEGGAR,
   SHOPKEEPER,
   BLACKSMITH,

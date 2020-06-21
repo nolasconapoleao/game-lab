@@ -10,9 +10,11 @@
 
 class EntityHandler {
 public:
+  void attack(entity::Character &attacker, entity::Character &attacked);
+
 private:
   std::vector<entity::Item> itemsOfCharacter(CharacterId characterId);
-  std::vector<entity::Item> itemsInLocation(const CharacterId characterId);
+  std::vector<entity::Item> itemsInLocation(LocationId locationId);
   std::vector<entity::Character> charactersInLocation(const LocationId locationId);
   std::vector<entity::Structure> structuresInLocation(const LocationId locationId);
   std::vector<entity::Location> adjcentLocations(const LocationId locationId);

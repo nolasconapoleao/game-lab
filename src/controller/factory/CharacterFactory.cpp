@@ -7,7 +7,7 @@
 #include "utils/random/Random.h"
 
 CharacterFactory::CharacterFactory() {
-  occupationPool.emplace_back(Occupation::PLAYER);
+  occupationPool.emplace_back(Occupation::BLACKSMITH);
   occupationPool.emplace_back(Occupation::BEGGAR);
 }
 
@@ -18,14 +18,15 @@ entity::Character CharacterFactory::generateCharacter() {
   return createCharacter(*type);
 }
 
-entity::Character CharacterFactory::createCharacter(Occupation type) {
+entity::Character CharacterFactory::createCharacter(const Occupation type) {
   // TODO: replace by random generation based on class
   entity::Stats stats{1, 2, 3, 8, 8};
+  entity::Passport passport{"a", "b", Occupation::BEGGAR, Race::HUMAN, CharacterAttack::PHYSICAL};
 
   switch (type) {
-    case Occupation::PLAYER:
-      return entity::Character("Player", stats, GhostInTheShell::Player);
+    case Occupation::BLACKSMITH:
+      return entity::Character("BlackSmith", stats, passport, GhostInTheShell::AI);
     case Occupation::BEGGAR:
-      return entity::Character("Beggar", stats, GhostInTheShell::AI);
+      return entity::Character("Beggar", stats, passport, GhostInTheShell::AI);
   }
 }

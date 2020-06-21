@@ -37,7 +37,7 @@ void StartWorld::whatsUp() {
     }
 
     case CREATE_PLAYER: {
-      factory.createCharacter(Occupation::PLAYER);
+      factory.createPlayer();
     }
   }
   continueToNext();

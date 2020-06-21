@@ -15,20 +15,23 @@ namespace entity {
 
 class Character {
 public:
-  Character(const std::string &name, const Stats &baseStats, GhostInTheShell ghost);
-
-  void addXp(Quantity addedXp);
-  bool levelMaxedOut();
-
-  const ItemEffect &getBaseStats() const;
-  const Passport &getPass() const;
+  Character(const std::string &name, const Stats &baseStats, Passport passport, GhostInTheShell ghost);
   const std::string &getName() const;
+  void setName(const std::string &name);
+  const Stats &getBaseStats() const;
+  void setBaseStats(const Stats &baseStats);
+  const ItemEffect &getTempStats() const;
+  void setTempStats(const ItemEffect &tempStats);
   GhostInTheShell getGhost() const;
+  void setGhost(GhostInTheShell ghost);
+  const Passport &getPassport() const;
+  void setPassport(const Passport &passport);
+  bool isMaxLevelReached() const;
+  void setMaxLevelReached(bool maxLevelReached);
+  LocationId getLocation() const;
+  void setLocation(LocationId location);
 
 private:
-  static Number totalXp(Quantity lvl, Quantity xp);
-  void evolve(Quantity levelIncrease);
-
   std::string name;
   Stats baseStats;
   ItemEffect tempStats;

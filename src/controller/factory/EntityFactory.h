@@ -15,6 +15,7 @@ class EntityFactory {
 public:
   void generateCharacter();
   void createCharacter(const Occupation type);
+  void createPlayer();
   void generateItem(const UseType type);
   void createItem(const ItemPrototype type);
   void generateLocation(const LocationCategory type);

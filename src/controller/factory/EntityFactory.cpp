@@ -16,6 +16,13 @@ void EntityFactory::createCharacter(const Occupation type) {
   addCharacter(creation);
 }
 
+void EntityFactory::createPlayer() {
+  auto creation = characterFactory.generateCharacter();
+  // TODO: [nn] change to random creation
+  creation.setGhost(GhostInTheShell::Player);
+  addCharacter(creation);
+}
+
 void EntityFactory::generateItem(const UseType type) {
   auto creation = itemFactory.generateItem(type);
   addItem(creation);
