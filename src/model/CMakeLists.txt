@@ -3,7 +3,7 @@ add_subdirectory(factory)
 add_subdirectory(handler)
 add_subdirectory(map)
 add_subdirectory(quest)
-add_subdirectory(strategy)
+add_subdirectory(state)
 
 target_sources(${PROJECT_NAME}
     PRIVATE

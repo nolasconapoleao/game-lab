@@ -25,7 +25,6 @@ RunWorld::RunWorld() {
 
 void RunWorld::whatsUp() {
   //  TODO: Loop through characters in current room
-  // characters controlled by user have a think() that calls change to STATE_STANDBYE
   // TODO: Make characters think
   auto activeCharacter = mWorld.character(mWorld.activeCharacter);
 

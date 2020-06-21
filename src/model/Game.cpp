@@ -24,10 +24,10 @@ void Game::loop() {
 
 void Game::init() {
   // FIXME: This generation should be handled in the creation of the world
-  factory.createCharacter(CharacterType::ENEMY);
-  factory.createCharacter(CharacterType::ENEMY);
-  factory.createCharacter(CharacterType::ENEMY);
-  factory.createCharacter(CharacterType::PLAYER);
+  factory.generateCharacter();
+  factory.createCharacter(Occupation::BEGGAR);
+  factory.createCharacter(Occupation::PLAYER);
+  factory.createItem(ItemPrototype::SHIELD);
 }
 
 void Game::shutdown() {

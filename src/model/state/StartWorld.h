@@ -4,6 +4,8 @@
 
 #pragma once
 
+#include <model/factory/EntityFactory.h>
+
 #include "common/GameTypes.h"
 #include "model/World.h"
 #include "utils/state-machine/MacroState.h"
@@ -11,19 +13,18 @@
 
 namespace model::state {
 
-// TODO: Rename to IdleWorld
-class RunWorld : public MacroState {
+class StartWorld : public MacroState {
   using LinkId = typename MacroState::LinkId;
 
 public:
-  RunWorld();
+  StartWorld();
   void whatsUp() override;
 
 protected:
   void continueToNext();
 
   view::Printer mPrinter;
-  World mWorld;
+  EntityFactory factory;
 };
 
 } // namespace model::state
