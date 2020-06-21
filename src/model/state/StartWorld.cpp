@@ -13,9 +13,9 @@ enum STATES : StateId {
 namespace model::state {
 
 StartWorld::StartWorld() {
-  addState(CREATE_WORLD, "Load next character from list");
-  addState(POPULATE_LOCATIONS, "Handle character action");
-  addState(CREATE_PLAYER, "Get next character");
+  addState(CREATE_WORLD, "Create world map");
+  addState(POPULATE_LOCATIONS, "Add characters to map locations");
+  addState(CREATE_PLAYER, "Create player character");
 
   addTransition(STATE_STANDBYE, CREATE_WORLD, 's');
   addTransition(CREATE_WORLD, POPULATE_LOCATIONS, '1');

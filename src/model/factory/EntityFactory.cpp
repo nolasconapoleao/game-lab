@@ -32,7 +32,6 @@ void EntityFactory::generateLocation(LocationCategory type) {
 }
 
 void EntityFactory::createLocation(LocationPrototype type) {
-  // TODO: locations should have a location or character owner
   auto creation = locationFactory.createLocation(type);
   addLocation(creation);
 }

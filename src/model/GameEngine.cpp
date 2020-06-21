@@ -5,6 +5,7 @@
 #include "GameEngine.h"
 
 #include <magic_enum/include/magic_enum.hpp>
+#include <model/state/Shutdown.h>
 #include <model/state/StartWorld.h>
 
 #include "input/Input.h"
@@ -14,12 +15,12 @@
 #include "model/state/Tutorial.h"
 
 enum MACRO_STATES : MacroStateId {
-  terminate = 0,
-  tutorial,
+  tutorial = 0,
   example,
   attack,
   idleWorld,
   startWorld,
+  shutdown,
   playerInput,
   wait,
 };
@@ -32,41 +33,51 @@ GameEngine::GameEngine() {
   addMacroState(tutorial, std::make_shared<Tutorial>());
   addMacroState(example, std::make_shared<Example>());
   addMacroState(idleWorld, std::make_shared<IdleWorld>());
+  addMacroState(shutdown, std::make_shared<Shutdown>());
 
-  addTransition(startWorld, idleWorld, 's');
+  addTransition(startWorld, idleWorld, ' ');
   addTransition(idleWorld, example, 'e');
   addTransition(idleWorld, tutorial, 't');
-  addTransition(tutorial, idleWorld, 'c');
-  addTransition(example, idleWorld, 'c');
+  addTransition(tutorial, idleWorld, ' ');
+  addTransition(example, idleWorld, ' ');
 
   std::shared_ptr<MacroState> currentMachine = macroStateNetwork.getNode(activeMacroState);
   currentMachine->startState();
 }
 
 void GameEngine::whatsUp() {
-  std::shared_ptr<MacroState> currentMachine = macroStateNetwork.getNode(activeMacroState);
-  currentMachine->whatsUp();
+  auto currentState = getMacroState(activeMacroState);
+  currentState->whatsUp();
 
-  if (!currentMachine->isStandingBye()) {
-    return;
+  if (!isTerminated() && currentState->isStandingBye()) {
+    loadAnotherMacroState();
   }
-
-  mNeighbours = macroStateNetwork.neighbours(activeMacroState);
-
-  if (mNeighbours.size() == 1) {
-    continueToNext();
-    return;
-  }
-
-  fillOptions();
-  handleUserInput();
 }
 
-void GameEngine::continueToNext() {
-  auto transition = macroStateNetwork.getEdge(LinkId{activeMacroState, mNeighbours[0]});
-  triggerTransition(transition);
+bool GameEngine::isTerminated() {
+  auto currentMachine = getMacroState(activeMacroState);
+  return (activeMacroState == shutdown) && (currentMachine->isStandingBye());
+}
 
-  startNextMacroState();
+void GameEngine::loadAnotherMacroState() {
+  mNeighbours = macroStateNetwork.neighbours(activeMacroState);
+  if (mNeighbours.size() == 1) {
+    automaticTransition();
+  } else {
+    manualTransition();
+  }
+}
+
+void GameEngine::automaticTransition() {
+  auto transition = macroStateNetwork.getEdge(LinkId{activeMacroState, mNeighbours[0]});
+  // Handle change of Macro State
+  triggerTransition(transition);
+  getMacroState(activeMacroState)->startState();
+}
+
+void GameEngine::manualTransition() {
+  fillOptions();
+  handleUserInput();
 }
 
 void GameEngine::fillOptions() {
@@ -88,24 +99,21 @@ void GameEngine::handleUserInput() {
   mPrinter.addToHud(Verbose::INFO, "Select menu option ..");
   mPrinter.printScreen();
   auto input = input::readAlphaNum(mOptions);
-  triggerTransition(input);
 
-  startNextMacroState();
+  // Handle change of Macro State
+  triggerTransition(input);
+  getMacroState(activeMacroState)->startState();
 
   if (input::closeOption == input) {
-    activeMacroState = TERMINATE;
+    activeMacroState = shutdown;
+    getMacroState(activeMacroState)->startState();
     return;
   }
   triggerTransition(input);
 }
 
-bool GameEngine::isTerminated() {
-  return activeMacroState == TERMINATE;
-}
-
-void GameEngine::startNextMacroState() {
-  std::shared_ptr<MacroState> newMachine = macroStateNetwork.getNode(activeMacroState);
-  newMachine->startState();
+std::shared_ptr<MacroState> GameEngine::getMacroState(const MacroStateId macroStateId) {
+  return macroStateNetwork.getNode(macroStateId);
 }
 
 } // namespace model::state
