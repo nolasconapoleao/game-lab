@@ -4,8 +4,8 @@
 
 #include "Example.h"
 
-#include "controller/Controller.h"
-#include "controller/Options.h"
+#include "input/Input.h"
+#include "input/Options.h"
 
 enum STATES : StateId {
   ENTER_1 = 1,
@@ -60,15 +60,15 @@ void Example::fillOptions() {
     auto nodeInfo = stateNetwork.getNode(neighbour);
     mPrinter.addToOptions(Verbose::INFO, edgeInfo, std::string(1, edgeInfo));
   }
-  mOptions += controller::backOption;
-  mPrinter.addToOptions(Verbose::INFO, controller::backOption, controller::backOptionStr);
+  mOptions += input::backOption;
+  mPrinter.addToOptions(Verbose::INFO, input::backOption, input::backOptionStr);
 }
 
 void Example::handleUserInput() {
   mPrinter.printScreen();
-  auto input = controller::readAlphaNum(mOptions);
+  auto input = input::readAlphaNum(mOptions);
 
-  if (controller::backOption == input) {
+  if (input::backOption == input) {
     endState();
     return;
   }

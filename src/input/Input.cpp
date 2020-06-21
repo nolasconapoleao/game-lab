@@ -2,13 +2,13 @@
 // Created by nolasco on 02/06/20.
 //
 
-#include "Controller.h"
+#include "Input.h"
 
 #include <iostream>
 
 #include "Options.h"
 
-namespace controller {
+namespace input {
 
 const bool isInputValid(const char input, const std::string options) {
   return options.find(input) != std::string::npos;
@@ -34,4 +34,4 @@ const char readAlphaNum(const std::string options) {
   return input;
 }
 
-} // namespace controller
+} // namespace input

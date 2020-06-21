@@ -7,8 +7,7 @@
 #include <string>
 #include <vector>
 
-// TODO: [nn] Change namespace by input
-namespace controller {
+namespace input {
 
 [[nodiscard]] const std::string readSentence(bool flushFirst = false);
 
@@ -19,4 +18,4 @@ namespace controller {
  */
 [[nodiscard]] const char readAlphaNum(const std::string options);
 
-} // namespace controller
+} // namespace input

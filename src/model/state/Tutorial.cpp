@@ -4,7 +4,7 @@
 
 #include "Tutorial.h"
 
-#include "controller/Controller.h"
+#include "input/Input.h"
 
 enum STATES : StateId {
   ENTER_NAME = 1,
@@ -38,7 +38,7 @@ void Tutorial::whatsUp() {
     case ENTER_NAME: {
       mPrinter.directPrint("What is your name?");
       bool flush = true;
-      name = controller::readSentence(flush);
+      name = input::readSentence(flush);
       mPrinter.clearScreen();
       mPrinter.directPrint("Hey there, " + name);
 
@@ -49,7 +49,7 @@ void Tutorial::whatsUp() {
     case INPUT_ANYKEY: {
       mPrinter.directPrint("Enter any key to start ..");
 
-      std::string input = controller::readSentence();
+      std::string input = input::readSentence();
 
       if ("any key" == input) {
         triggerTransition('e');

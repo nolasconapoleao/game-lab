@@ -6,8 +6,8 @@
 
 #include <magic_enum/include/magic_enum.hpp>
 
-#include "controller/Controller.h"
-#include "controller/Options.h"
+#include "input/Input.h"
+#include "input/Options.h"
 #include "model/state/Example.h"
 #include "model/state/RunWorld.h"
 #include "model/state/Tutorial.h"
@@ -75,20 +75,20 @@ void GameEngine::fillOptions() {
     auto stateName = magic_enum::enum_name(MACRO_STATES{neighbour}).data();
     mPrinter.addToOptions(Verbose::INFO, edgeInfo, stateName);
   }
-  mOptions += controller::closeOption;
-  mPrinter.addToOptions(Verbose::INFO, controller::closeOption, controller::closeOptionStr);
+  mOptions += input::closeOption;
+  mPrinter.addToOptions(Verbose::INFO, input::closeOption, input::closeOptionStr);
 }
 
 void GameEngine::handleUserInput() {
   // TODO: [nn] Add option header
   mPrinter.addToHud(Verbose::INFO, "Select menu option ..");
   mPrinter.printScreen();
-  auto input = controller::readAlphaNum(mOptions);
+  auto input = input::readAlphaNum(mOptions);
   triggerTransition(input);
 
   startNextMacroState();
 
-  if (controller::closeOption == input) {
+  if (input::closeOption == input) {
     activeMacroState = TERMINATE;
     return;
   }

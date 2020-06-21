@@ -4,7 +4,7 @@
 
 #pragma once
 
-namespace controller {
+namespace input {
 
 constexpr char closeOption = 'x';
 constexpr char backOption = 'b';
@@ -12,4 +12,4 @@ constexpr char backOption = 'b';
 constexpr auto closeOptionStr = "close";
 constexpr auto backOptionStr = "back";
 
-} // namespace controller
+} // namespace input
