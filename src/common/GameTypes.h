@@ -9,11 +9,12 @@
 // Entity
 using Number = uint16_t;
 using Quantity = uint8_t;
-using Size = uint8_t;
+struct Size { uint8_t width; uint8_t height;};
 using Distance = uint8_t;
 
 // Database
-using CharacterId = id_t;
-using ItemId = id_t;
-using ResourceId = id_t;
-using LocationId = id_t;
+using CharacterId = uint8_t;
+using ItemId = uint8_t;
+using StructureId = uint8_t;
+using ResourceId = uint8_t;
+using LocationId = uint8_t;
