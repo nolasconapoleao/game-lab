@@ -10,12 +10,12 @@ constexpr Number MAXLEVEL = 100;
 
 namespace entity {
 
-Character::Character(const Property &baseStats, GhostInTheShell ghost, const std::string &name)
+Character::Character(const std::string &name, const Stats &baseStats, GhostInTheShell ghost)
     : baseStats(baseStats), ghost(ghost), maxLevelReached(false), name(name) {
 }
 
 void Character::addXp(Quantity addedXp) {
-  Number currentTotal = totalXp(pass.lvl, pass.xp);
+  Number currentTotal = totalXp(baseStats.lvl, baseStats.xp);
   Number finalTotal = currentTotal + addedXp;
   Quantity finalLvl = std::floor((std::sqrt(8 * finalTotal + 1) - 1) / 2);
   Number truncatedFinalTotal = totalXp(finalLvl, 0);
@@ -24,15 +24,15 @@ void Character::addXp(Quantity addedXp) {
   // Update level variables
   if (finalLvl >= MAXLEVEL) {
     maxLevelReached = true;
-    pass.lvl = MAXLEVEL;
-    pass.xp = 0;
+    baseStats.lvl = MAXLEVEL;
+    baseStats.xp = 0;
   } else {
-    pass.lvl = finalLvl;
-    pass.xp = finalXp;
+    baseStats.lvl = finalLvl;
+    baseStats.xp = finalXp;
   }
 
   // Evolve character
-  Quantity lvlIncrease = finalLvl - pass.lvl;
+  Quantity lvlIncrease = finalLvl - baseStats.lvl;
   evolve(lvlIncrease);
 }
 
@@ -45,12 +45,12 @@ bool Character::levelMaxedOut() {
   return maxLevelReached;
 }
 
-const Property &Character::getBaseStats() const {
+const ItemEffect &Character::getBaseStats() const {
   return baseStats;
 }
 
-const Wallet &Character::getPass() const {
-  return pass;
+const Passport &Character::getPass() const {
+  return passport;
 }
 
 const std::string &Character::getName() const {
@@ -66,8 +66,8 @@ void Character::evolve(Quantity levelIncrease) {
 }
 
 // TODO: move this method somewhere apropriate
-// Property &operator+(Property &first, Property &second) {
-//  Property result{static_cast<Quantity>(first.atk + second.atk), static_cast<Quantity>(first.def + second.def),
+// ItemEffect &operator+(ItemEffect &first, ItemEffect &second) {
+//  ItemEffect result{static_cast<Quantity>(first.atk + second.atk), static_cast<Quantity>(first.def + second.def),
 //                  static_cast<Quantity>(first.spd + second.spd), static_cast<Quantity>(first.hp + second.hp),
 //                  static_cast<Quantity>(first.mhp + second.mhp)};
 //}

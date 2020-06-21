@@ -6,22 +6,22 @@
 
 #include <string>
 
-#include "GhostInTheShell.h"
-#include "Property.h"
-#include "Wallet.h"
+#include "model/entity/include/GhostInTheShell.h"
+#include "model/entity/include/ItemEffect.h"
+#include "model/entity/include/Passport.h"
+#include "model/entity/include/Stats.h"
 
 namespace entity {
 
 class Character {
 public:
-  Character(const Property &baseStats, GhostInTheShell ghost, const std::string &name);
+  Character(const std::string &name, const Stats &baseStats, GhostInTheShell ghost);
 
-  void think();
   void addXp(Quantity addedXp);
   bool levelMaxedOut();
 
-  const Property &getBaseStats() const;
-  const Wallet &getPass() const;
+  const ItemEffect &getBaseStats() const;
+  const Passport &getPass() const;
   const std::string &getName() const;
   GhostInTheShell getGhost() const;
 
@@ -29,13 +29,12 @@ private:
   static Number totalXp(Quantity lvl, Quantity xp);
   void evolve(Quantity levelIncrease);
 
-  Property baseStats;
-  Property tempStats;
-  GhostInTheShell ghost;
-  Wallet pass;
-  bool maxLevelReached;
   std::string name;
+  Stats baseStats;
+  ItemEffect tempStats;
+  GhostInTheShell ghost;
+  Passport passport;
+  bool maxLevelReached;
   LocationId location;
-  // TODO: add strategy
 };
 } // namespace entity
