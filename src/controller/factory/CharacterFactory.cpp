@@ -14,7 +14,7 @@ CharacterFactory::CharacterFactory() {
 entity::Character CharacterFactory::generateCharacter() {
   // TODO: [nn] Change access to random element of vector
   auto type = occupationPool.begin();
-  std::advance(type, Random::fromTo(0, occupationPool.size()-1));
+  std::advance(type, Random::fromTo(0, occupationPool.size() - 1));
   return createCharacter(*type);
 }
 

@@ -4,9 +4,8 @@
 
 #pragma once
 
-#include <model/factory/EntityFactory.h>
-
 #include "common/GameTypes.h"
+#include "controller/factory/EntityFactory.h"
 #include "utils/state-machine/MacroState.h"
 #include "view/Printer.h"
 

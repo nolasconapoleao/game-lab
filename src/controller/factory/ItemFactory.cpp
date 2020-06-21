@@ -22,11 +22,11 @@ entity::Item ItemFactory::generateItem(UseType useType) {
   switch (useType) {
     case UseType::equip:
       itemType = equipPool.begin();
-      std::advance(itemType, Random::fromTo(0,equipPool.size()-1));
+      std::advance(itemType, Random::fromTo(0, equipPool.size() - 1));
       break;
     case UseType::singleUse:
       itemType = singleUsePool.begin();
-      std::advance(itemType, Random::fromTo(0,singleUsePool.size()-1));
+      std::advance(itemType, Random::fromTo(0, singleUsePool.size() - 1));
       break;
   }
   return createItem(*itemType);

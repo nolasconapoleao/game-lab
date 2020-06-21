@@ -4,8 +4,9 @@
 
 #pragma once
 
-#include <common/GameTypes.h>
 #include <string>
+
+#include "common/GameTypes.h"
 
 namespace entity {
 

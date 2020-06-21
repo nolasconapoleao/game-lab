@@ -6,8 +6,8 @@
 
 #include <vector>
 
+#include "controller/factory/include/LocationPrototype.h"
 #include "model/entity/Location.h"
-#include "model/factory/include/LocationPrototype.h"
 
 class LocationFactory {
 public:

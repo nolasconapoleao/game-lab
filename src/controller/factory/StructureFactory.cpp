@@ -4,9 +4,8 @@
 
 #include "StructureFactory.h"
 
-#include <utils/random/Random.h>
-
-#include "model/factory/include/StructurePrototype.h"
+#include "controller/factory/include/StructurePrototype.h"
+#include "utils/random/Random.h"
 
 StructureFactory::StructureFactory() {
   structurePool.emplace_back(StructurePrototype::MAILBOX);
@@ -14,8 +13,8 @@ StructureFactory::StructureFactory() {
 
 entity::Structure StructureFactory::generateStructure() {
   // TODO: [nn] Change access to random element of vector
-  auto type= structurePool.begin();
-  std::advance(type, Random::fromTo(0, structurePool.size()-1));
+  auto type = structurePool.begin();
+  std::advance(type, Random::fromTo(0, structurePool.size() - 1));
   return createStructure(*type);
 }
 

@@ -4,9 +4,8 @@
 
 #include "LocationFactory.h"
 
-#include <utils/random/Random.h>
-
-#include "model/factory/include/LocationPrototype.h"
+#include "controller/factory/include/LocationPrototype.h"
+#include "utils/random/Random.h"
 
 LocationFactory::LocationFactory() {
   // Exterior
@@ -26,15 +25,15 @@ entity::Location LocationFactory::generateLocation(const LocationCategory type) 
   switch (type) {
     case LocationCategory::Interior:
       locationType = interiorPool.begin();
-      std::advance(locationType, Random::fromTo(0,interiorPool.size()-1));
+      std::advance(locationType, Random::fromTo(0, interiorPool.size() - 1));
       break;
     case LocationCategory::Connector:
       locationType = connectorPool.begin();
-      std::advance(locationType, Random::fromTo(0,connectorPool.size()-1));
+      std::advance(locationType, Random::fromTo(0, connectorPool.size() - 1));
       break;
     case LocationCategory::Exterior:
       locationType = exteriorPool.begin();
-      std::advance(locationType, Random::fromTo(0,exteriorPool.size()-1));
+      std::advance(locationType, Random::fromTo(0, exteriorPool.size() - 1));
       break;
   }
   return createLocation(*locationType);

@@ -1,6 +1,4 @@
 add_subdirectory(entity)
-add_subdirectory(factory)
-add_subdirectory(handler)
 add_subdirectory(map)
 add_subdirectory(quest)
 add_subdirectory(state)

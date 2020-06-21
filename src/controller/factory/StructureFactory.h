@@ -6,8 +6,8 @@
 
 #include <vector>
 
+#include "controller/factory/include/StructurePrototype.h"
 #include "model/entity/Structure.h"
-#include "model/factory/include/StructurePrototype.h"
 
 class StructureFactory {
 public:

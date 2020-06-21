@@ -5,13 +5,13 @@
 #include "GameEngine.h"
 
 #include <magic_enum/include/magic_enum.hpp>
-#include <model/state/Shutdown.h>
-#include <model/state/StartWorld.h>
 
 #include "input/Input.h"
 #include "input/Options.h"
 #include "model/state/Example.h"
 #include "model/state/IdleWorld.h"
+#include "model/state/Shutdown.h"
+#include "model/state/StartWorld.h"
 #include "model/state/Tutorial.h"
 
 enum MACRO_STATES : MacroStateId {

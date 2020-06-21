@@ -3,6 +3,7 @@
 //
 
 #include "EntityFactory.h"
+
 #include "common/GameTypes.h"
 
 void EntityFactory::generateCharacter() {
@@ -47,6 +48,6 @@ void EntityFactory::addItem(entity::Item item) {
 void EntityFactory::addLocation(entity::Location location) {
   // TODO: handle connections to cities
   // TODO: locationId should be calculated based on how many locations already exist
-  LocationId locationId {1};
+  LocationId locationId{1};
   world.addLocation(locationId, location);
 }

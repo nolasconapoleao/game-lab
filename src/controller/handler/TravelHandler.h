@@ -6,4 +6,3 @@
 
 // TODO: [nn] Implementation of use cases missing
 class TravelHandler {};
-

@@ -6,8 +6,8 @@
 
 #include <vector>
 
+#include "controller/factory/include/ItemPrototype.h"
 #include "model/entity/Item.h"
-#include "model/factory/include/ItemPrototype.h"
 
 class ItemFactory {
 public:

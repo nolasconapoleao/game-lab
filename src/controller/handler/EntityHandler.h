@@ -10,7 +10,6 @@
 
 class EntityHandler {
 public:
-
 private:
   std::vector<entity::Item> itemsOfCharacter(CharacterId characterId);
   std::vector<entity::Item> itemsInLocation(const CharacterId characterId);

@@ -5,7 +5,7 @@
 #pragma once
 
 enum class ItemPrototype {
-  //Weapon
+  // Weapon
   AXE,
   BOW,
   DAGGER,
@@ -13,22 +13,22 @@ enum class ItemPrototype {
   LONGBOW,
   SWORD,
 
-  //Staff
+  // Staff
   CONJURING,
   SUPPORT,
   DARK,
 
-  //Element
+  // Element
   FIRESTONE,
   WATERSTONE,
   EARTHSTONE,
 
-  //Equipment
+  // Equipment
   COAT,
   SHIELD,
   SKATE,
 
-  //Consume
+  // Consume
   ELIXIR,
   POISON,
   POTION,

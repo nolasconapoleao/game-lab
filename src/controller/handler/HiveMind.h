@@ -4,9 +4,8 @@
 
 #pragma once
 
-#include <model/entity/Character.h>
-
 #include "EntityHandler.h"
+#include "model/entity/Character.h"
 
 class HiveMind {
 public:
