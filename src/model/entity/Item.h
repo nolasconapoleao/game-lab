@@ -4,22 +4,30 @@
 
 #pragma once
 
-#include "Property.h"
-#include "UseType.h"
+#include "model/entity/include/ItemEffect.h"
+#include "model/entity/include/ItemOwnerType.h"
+#include "model/entity/include/ItemOwnership.h"
+#include "model/entity/include/UseType.h"
 
 namespace entity {
 
 class Item {
 public:
-  void spend(Quantity depletedAmount = 1);
-  void addUses(Quantity addedAmount = 1);
-  void addToStack(Quantity addedAmount = 1);
+  Item(UseType useType, Number weight, const ItemEffect &effect);
+  Number getQuantity() const;
+  void setQuantity(Number quantity);
+  const ItemOwnership &getOwnership() const;
+  void setOwnership(const ItemOwnership &ownership);
+  UseType getUseType() const;
+  Number getWeight() const;
+  const ItemEffect &getEffect() const;
 
 private:
-  Quantity quantity;
   UseType useType;
-  Property effect;
-  ResourceId owner;
+  Number weight;
+  Number quantity;
+  ItemEffect effect;
+  ItemOwnership ownership;
 };
 
 } // namespace entity
