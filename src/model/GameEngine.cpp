@@ -9,7 +9,7 @@
 #include "input/Input.h"
 #include "input/Options.h"
 #include "model/state/Example.h"
-#include "model/state/RunWorld.h"
+#include "model/state/IdleWorld.h"
 #include "model/state/Tutorial.h"
 
 enum MACRO_STATES : MacroStateId {
@@ -17,23 +17,23 @@ enum MACRO_STATES : MacroStateId {
   tutorial,
   example,
   attack,
-  runWorld,
+  idleWorld,
   playerInput,
   wait,
 };
 
 namespace model::state {
 GameEngine::GameEngine() {
-  activeMacroState = runWorld;
+  activeMacroState = idleWorld;
 
   addMacroState(tutorial, std::make_shared<Tutorial>());
   addMacroState(example, std::make_shared<Example>());
-  addMacroState(runWorld, std::make_shared<RunWorld>());
+  addMacroState(idleWorld, std::make_shared<IdleWorld>());
 
-  addTransition(runWorld, example, 'e');
-  addTransition(runWorld, tutorial, 't');
-  addTransition(tutorial, runWorld, 'c');
-  addTransition(example, runWorld, 'c');
+  addTransition(idleWorld, example, 'e');
+  addTransition(idleWorld, tutorial, 't');
+  addTransition(tutorial, idleWorld, 'c');
+  addTransition(example, idleWorld, 'c');
 
   std::shared_ptr<MacroState> currentMachine = macroStateNetwork.getNode(activeMacroState);
   currentMachine->startState();

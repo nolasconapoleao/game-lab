@@ -2,7 +2,7 @@
 // Created by nolasco on 11/06/20.
 //
 
-#include "RunWorld.h"
+#include "IdleWorld.h"
 
 enum STATES : StateId {
   SETUP = 1,
@@ -12,7 +12,7 @@ enum STATES : StateId {
 
 namespace model::state {
 
-RunWorld::RunWorld() {
+IdleWorld::IdleWorld() {
   addState(SETUP, "Load next character from list");
   addState(EXECUTION, "Handle character action");
   addState(CLEANUP, "Get next character");
@@ -23,7 +23,7 @@ RunWorld::RunWorld() {
   addTransition(CLEANUP, SETUP, '3');
 }
 
-void RunWorld::whatsUp() {
+void IdleWorld::whatsUp() {
   //  TODO: Loop through characters in current room
   // TODO: Make characters think
   auto activeCharacter = mWorld.character(mWorld.activeCharacter);
@@ -38,7 +38,7 @@ void RunWorld::whatsUp() {
   }
 }
 
-void RunWorld::continueToNext() {
+void IdleWorld::continueToNext() {
   auto neighbours = stateNetwork.neighbours(activeState);
   auto transition = stateNetwork.getEdge(LinkId{activeState, neighbours[0]});
   triggerTransition(transition);

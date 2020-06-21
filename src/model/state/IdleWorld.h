@@ -11,12 +11,11 @@
 
 namespace model::state {
 
-// TODO: Rename to IdleWorld
-class RunWorld : public MacroState {
+class IdleWorld : public MacroState {
   using LinkId = typename MacroState::LinkId;
 
 public:
-  RunWorld();
+  IdleWorld();
   void whatsUp() override;
 
 protected:
