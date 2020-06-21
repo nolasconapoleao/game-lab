@@ -4,6 +4,17 @@
 
 #include "EntityHandler.h"
 
+#include "view/include/StreamConverter.h"
+
+void EntityHandler::updateViewVariables() {
+  mPrinter.resetLists();
+
+  const auto characters = charactersInLocation(0);
+  for (const auto character : characters) {
+    mPrinter.addToHud(Verbose::INFO, view::toString(character));
+  }
+}
+
 void EntityHandler::attack(entity::Character &attacker, entity::Character &attacked) {
   combatHandler.handleAttack(attacker, attacked);
 }

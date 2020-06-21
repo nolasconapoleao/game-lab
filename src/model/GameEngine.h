@@ -4,6 +4,7 @@
 
 #pragma once
 
+#include "controller/handler/EntityHandler.h"
 #include "utils/state-machine/StateMachine.h"
 #include "view/Printer.h"
 
@@ -26,6 +27,7 @@ private:
   std::shared_ptr<MacroState> getMacroState(const MacroStateId macroStateId);
 
   view::Printer mPrinter;
+  EntityHandler entityHandler;
   std::vector<StateId> mNeighbours;
   std::string mOptions;
 };

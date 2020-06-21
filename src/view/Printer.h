@@ -24,6 +24,7 @@ public:
   void addToOptionHeader(const Verbose verbose, const std::string header);
   void addToOptions(Verbose verbose, char option, std::string optionDescription);
   void addToRoundReport(const Verbose verbose, const std::string reportEntry);
+  void resetLists();
 
   // Print methods
   void directPrint(const std::string &message);

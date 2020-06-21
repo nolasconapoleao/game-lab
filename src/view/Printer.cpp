@@ -47,6 +47,14 @@ void Printer::addToRoundReport(Verbose verbose, std::string reportEntry) {
   roundReport.emplace_back(verbose, reportEntry);
 }
 
+void Printer::resetLists() {
+  scene.clear();
+  hud.clear();
+  optionHeader.clear();
+  options.clear();
+  roundReport.clear();
+}
+
 void Printer::directPrint(const std::string &message) {
   std::cout << message << "\n";
 }

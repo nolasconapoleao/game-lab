@@ -46,6 +46,7 @@ GameEngine::GameEngine() {
 }
 
 void GameEngine::whatsUp() {
+  entityHandler.updateViewVariables();
   auto currentState = getMacroState(activeMacroState);
   currentState->whatsUp();
 

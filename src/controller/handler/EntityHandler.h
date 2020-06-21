@@ -7,9 +7,11 @@
 #include "CombatHandler.h"
 #include "ItemHandler.h"
 #include "TravelHandler.h"
+#include "view/Printer.h"
 
 class EntityHandler {
 public:
+  void updateViewVariables();
   void attack(entity::Character &attacker, entity::Character &attacked);
 
 private:
@@ -23,4 +25,5 @@ private:
   CombatHandler combatHandler;
   TravelHandler travelHandler;
   World world;
+  view::Printer mPrinter;
 };
