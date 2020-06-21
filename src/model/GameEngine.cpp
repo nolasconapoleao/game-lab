@@ -95,8 +95,7 @@ void GameEngine::fillOptions() {
 }
 
 void GameEngine::handleUserInput() {
-  // TODO: [nn] Add option header
-  mPrinter.addToHud(Verbose::INFO, "Select menu option ..");
+  mPrinter.addToOptionHeader(Verbose::INFO, "Select menu option ..");
   mPrinter.printScreen();
   auto input = input::readAlphaNum(mOptions);
 

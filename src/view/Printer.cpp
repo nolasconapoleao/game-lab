@@ -15,6 +15,7 @@ namespace view {
 PrintList Printer::scene;
 PrintList Printer::hud;
 PrintList Printer::options;
+PrintList Printer::optionHeader;
 PrintList Printer::roundReport;
 
 Printer::Printer(const Verbose verbose) : printerVerbose(verbose) {
@@ -30,6 +31,10 @@ void Printer::addToScene(Verbose verbose, std::string sceneEntry) {
 
 void Printer::addToHud(Verbose verbose, std::string hudEntry) {
   hud.emplace_back(verbose, hudEntry);
+}
+
+void Printer::addToOptionHeader(Verbose verbose, std::string header) {
+  optionHeader.emplace_back(verbose, header);
 }
 
 void Printer::addToOptions(Verbose verbose, char option, std::string optionDescription) {
@@ -65,6 +70,7 @@ void Printer::printHud() {
 }
 
 void Printer::printOptions() {
+  printAndClear(optionHeader);
   printAndClear(options);
   std::cout << separator3 << "\n";
 }
@@ -81,6 +87,7 @@ void Printer::clearScreen() {
   std::system("clear");
 #endif
 }
+
 void Printer::printAndClear(PrintList &printList) {
   for (const auto entry : printList) {
     if (entry.first >= printerVerbose)

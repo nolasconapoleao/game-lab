@@ -21,6 +21,7 @@ public:
   // Insert entries to printed structures
   void addToScene(const Verbose verbose, const std::string sceneEntry);
   void addToHud(const Verbose verbose, const std::string hudEntry);
+  void addToOptionHeader(const Verbose verbose, const std::string header);
   void addToOptions(Verbose verbose, char option, std::string optionDescription);
   void addToRoundReport(const Verbose verbose, const std::string reportEntry);
 
@@ -36,10 +37,10 @@ private:
   void printRoundReport();
   void printAndClear(PrintList &printList);
 
-  // TODO: [nn] add option header
   Verbose printerVerbose;
   static PrintList scene;
   static PrintList hud;
+  static PrintList optionHeader;
   static PrintList options;
   static PrintList roundReport;
 };
