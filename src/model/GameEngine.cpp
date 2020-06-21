@@ -5,6 +5,7 @@
 #include "GameEngine.h"
 
 #include <magic_enum/include/magic_enum.hpp>
+#include <model/state/StartWorld.h>
 
 #include "input/Input.h"
 #include "input/Options.h"
@@ -18,18 +19,21 @@ enum MACRO_STATES : MacroStateId {
   example,
   attack,
   idleWorld,
+  startWorld,
   playerInput,
   wait,
 };
 
 namespace model::state {
 GameEngine::GameEngine() {
-  activeMacroState = idleWorld;
+  activeMacroState = startWorld;
 
+  addMacroState(startWorld, std::make_shared<StartWorld>());
   addMacroState(tutorial, std::make_shared<Tutorial>());
   addMacroState(example, std::make_shared<Example>());
   addMacroState(idleWorld, std::make_shared<IdleWorld>());
 
+  addTransition(startWorld, idleWorld, 's');
   addTransition(idleWorld, example, 'e');
   addTransition(idleWorld, tutorial, 't');
   addTransition(tutorial, idleWorld, 'c');

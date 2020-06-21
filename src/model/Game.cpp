@@ -23,11 +23,6 @@ void Game::loop() {
 }
 
 void Game::init() {
-  // FIXME: This generation should be handled in the creation of the world
-  factory.generateCharacter();
-  factory.createCharacter(Occupation::BEGGAR);
-  factory.createCharacter(Occupation::PLAYER);
-  factory.createItem(ItemPrototype::SHIELD);
 }
 
 void Game::shutdown() {

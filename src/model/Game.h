@@ -5,7 +5,6 @@
 #pragma once
 
 #include "GameEngine.h"
-#include "factory/EntityFactory.h"
 #include "view/Printer.h"
 
 namespace model {
@@ -23,8 +22,6 @@ private:
   void shutdown();
 
   view::Printer mPrinter;
-  // FIXME: [nn] Remove this factory class member
-  EntityFactory factory;
   model::state::GameEngine gameEngine;
   bool mTerminateGame;
 };
