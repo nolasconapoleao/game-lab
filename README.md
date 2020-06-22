@@ -1,4 +1,5 @@
 # Game-v2
+[![Build Status](https://travis-ci.org/nolasconapoleao/game-lab.svg?branch=develop)](https://travis-ci.org/nolasconapoleao/game-lab)
 
 Simple game to train design patterns in.
 

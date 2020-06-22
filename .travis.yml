@@ -1,0 +1,24 @@
+language: cpp
+os: linux
+dist: focal
+compiler:
+  - gcc
+
+sudo: true
+
+git:
+  submodules: false
+# Use sed to replace the SSH URL with the public URL, then initialize submodules
+before_install:
+  - sed -i 's/git@github.com:/https:\/\/github.com\//' .gitmodules
+  - git submodule update --init --recursive
+  - sudo apt update -qq
+  # install catch
+  - sudo apt install -qq catch
+
+script:
+  - mkdir build
+  - cd build
+  - cmake -DCMAKE_BUILD_TYPE=Debug -DCOMPILE_FOR_NON_UNIX:BOOL=OFF ../
+  - cmake --build . --target all
+  - ctest --output-on-failure
