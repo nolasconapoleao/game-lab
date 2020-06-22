@@ -11,7 +11,7 @@ void EntityHandler::updateViewVariables() {
 
   const auto characters = charactersInLocation(0);
   for (const auto character : characters) {
-    mPrinter.addToHud(Verbose::INFO, view::toString(character));
+    mPrinter.addToHud(Verbose::INFO, minimalPrint(character));
   }
 }
 

@@ -31,6 +31,9 @@ public:
   LocationId getLocation() const;
   void setLocation(LocationId location);
 
+  friend std::string minimalPrint(const Character &value);
+  friend std::string fullPrint(const Character &value);
+
 private:
   std::string name;
   Stats baseStats;
