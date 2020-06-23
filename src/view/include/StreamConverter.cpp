@@ -57,7 +57,7 @@ std::string entity::minimalPrint(const entity::Character &character) {
 
 std::string entity::fullPrint(const entity::Character &character) {
   std::ostringstream os;
-  os << "name: " << character.name << " baseStats: " << character.baseStats << " tempStats: " << character.tempStats
+  os << character.name << " baseStats: " << character.baseStats << " tempStats: " << character.tempStats
      << " ghost: " << character.ghost << " passport: " << character.passport;
   return os.str();
 }
@@ -97,14 +97,14 @@ std::ostream &operator<<(std::ostream &os, const ItemPrototype &value) {
 
 std::string entity::minimalPrint(const entity::Item &value) {
   std::ostringstream os;
-  os << "name: " << value.name << " ownership: " << value.ownership;
+  os << value.name;
   return os.str();
 }
 
 std::string entity::fullPrint(const entity::Item &value) {
   std::ostringstream os;
-  os << "name: " << value.name << "useType: " << value.useType << " weight: " << value.weight
-     << " quantity: " << value.quantity << " effect: " << value.effect << " ownership: " << value.ownership;
+  os << value.name << "useType: " << value.useType << " weight: " << value.weight << " quantity: " << value.quantity
+     << " effect: " << value.effect << " ownership: " << value.ownership;
   return os.str();
 }
 
@@ -125,13 +125,13 @@ std::ostream &operator<<(std::ostream &os, const LocationPrototype &value) {
 
 std::string entity::minimalPrint(const entity::Location &value) {
   std::ostringstream os;
-  os << "name: " << value.name << " type: " << value.type;
+  os << value.name << " type: " << value.type;
   return os.str();
 }
 
 std::string entity::fullPrint(const entity::Location &value) {
   std::ostringstream os;
-  os << "name: " << value.name << " type: " << value.type << " size: " << value.size << " floors: " << value.floors;
+  os << value.name << " type: " << value.type << " size: " << value.size << " floors: " << value.floors;
   return os.str();
 }
 
@@ -142,12 +142,31 @@ std::ostream &operator<<(std::ostream &os, const StructurePrototype &value) {
 
 std::string entity::minimalPrint(const entity::Structure &value) {
   std::ostringstream os;
-  os << "name: " << value.name;
+  os << value.name;
   return os.str();
 }
 
 std::string entity::fullPrint(const entity::Structure &value) {
   std::ostringstream os;
-  os << "name: " << value.name << " size: " << value.size << " location: " << value.location;
+  os << value.name << " size: " << value.size << " location: " << value.location;
+  return os.str();
+}
+
+std::string printScene(World &world) {
+  std::ostringstream os;
+  os << "Characters:";
+  for (const auto character : world.charactersInLocation(world.activeLocation)) {
+    os << " " << minimalPrint(character);
+  }
+
+  os << "\nStructures:";
+  for (const auto structure : world.structuresInLocation(world.activeLocation)) {
+    os << " " << minimalPrint(structure);
+  }
+
+  os << "\nItems:";
+  for (const auto item : world.itemsInLocation(world.activeLocation)) {
+    os << " " << minimalPrint(item);
+  }
   return os.str();
 }

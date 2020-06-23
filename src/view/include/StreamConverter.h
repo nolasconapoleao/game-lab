@@ -8,6 +8,7 @@
 #include "controller/factory/include/LocationCategory.h"
 #include "controller/factory/include/LocationPrototype.h"
 #include "controller/factory/include/StructurePrototype.h"
+#include "model/World.h"
 #include "model/entity/Character.h"
 #include "model/entity/Item.h"
 #include "model/entity/Location.h"
@@ -43,3 +44,5 @@ std::ostream &operator<<(std::ostream &os, const LocationPrototype &value);
 std::ostream &operator<<(std::ostream &os, const StructurePrototype &value);
 // std::string minimalPrint(const entity::Structure &value);
 // std::string fullPrint(const entity::Structure &value);
+
+// std::string printScene(World &world);

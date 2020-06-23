@@ -26,8 +26,17 @@ public:
 
   static CharacterId activeCharacter;
   static LocationId activeLocation;
+  // FIXME: printScene is const but uses non const methods
+  friend std::string printScene(World &world);
 
 private:
+  std::vector<entity::Item> itemsOfCharacter(CharacterId characterId);
+  std::vector<entity::Item> itemsInLocation(LocationId locationId);
+  std::vector<entity::Character> charactersInLocation(const LocationId locationId);
+  std::vector<entity::Structure> structuresInLocation(const LocationId locationId);
+  std::vector<entity::Location> adjcentLocations(const LocationId locationId);
+  std::vector<entity::Location> activeLocations();
+
   // TODO: [nn] Exchange std::vector<T> by a more suitable resource container
   static std::vector<entity::Item> items;
   static std::vector<entity::Character> characters;
