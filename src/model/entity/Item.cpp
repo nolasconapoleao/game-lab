@@ -6,7 +6,7 @@
 namespace entity {
 
 Item::Item(std::string name, UseType useType, Number weight, const ItemEffect &effect)
-    : useType(useType), weight(weight), effect(effect) {
+    : name(name), useType(useType), weight(weight), effect(effect) {
 }
 
 Number Item::getQuantity() const {

@@ -29,6 +29,7 @@ void StartWorld::whatsUp() {
 
     case CREATE_WORLD: {
       factory.createLocation(LocationPrototype::TOWN);
+      factory.fillLocation(0);
     }
 
     case POPULATE_LOCATIONS: {

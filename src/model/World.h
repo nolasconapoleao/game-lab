@@ -26,7 +26,7 @@ public:
 
   static CharacterId activeCharacter;
   static LocationId activeLocation;
-  // FIXME: printScene is const but uses non const methods
+  // FIXME: printScene should be const but can't because it uses non const methods
   friend std::string printScene(World &world);
 
 private:
