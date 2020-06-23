@@ -10,8 +10,6 @@
 #include "Occupation.h"
 #include "Race.h"
 
-namespace entity {
-
 struct Passport {
   std::string faction = "";        // faction
   std::string party = "";          // party
@@ -19,5 +17,3 @@ struct Passport {
   Race race;                       // class
   CharacterAttack characterAttack; // class
 };
-
-} // namespace entity

@@ -34,17 +34,17 @@ entity::Item ItemFactory::generateItem(UseType useType) {
 
 entity::Item ItemFactory::createItem(ItemPrototype type) {
   // TODO: replace by random generation based on item type
-  entity::ItemEffect effect{2, 3, 1, 0};
+  ItemEffect effect{2, 3, 1, 0};
 
   switch (type) {
     case ItemPrototype::POTION:
       effect.hp = 8;
-      return entity::Item(UseType::singleUse, 1, effect);
+      return entity::Item("Potion", UseType::singleUse, 1, effect);
     case ItemPrototype::SWORD:
       effect.atk = 6;
-      return entity::Item(UseType::equip, 15, effect);
+      return entity::Item("Sword", UseType::equip, 15, effect);
     case ItemPrototype::SHIELD:
       effect.def = 4;
-      return entity::Item(UseType::equip, 8, effect);
+      return entity::Item("Shield", UseType::equip, 8, effect);
   }
 }

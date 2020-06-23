@@ -13,7 +13,7 @@ namespace entity {
 
 class Item {
 public:
-  Item(UseType useType, Number weight, const ItemEffect &effect);
+  Item(std::string name, UseType useType, Number weight, const ItemEffect &effect);
   Number getQuantity() const;
   void setQuantity(Number quantity);
   const ItemOwnership &getOwnership() const;
@@ -22,7 +22,11 @@ public:
   Number getWeight() const;
   const ItemEffect &getEffect() const;
 
+  friend std::string minimalPrint(const Item &value);
+  friend std::string fullPrint(const Item &value);
+
 private:
+  std::string name;
   UseType useType;
   Number weight;
   Number quantity;

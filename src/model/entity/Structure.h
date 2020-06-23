@@ -13,15 +13,16 @@ namespace entity {
 class Structure {
 public:
   Structure(const std::string &name, const Size &size);
+  LocationId getLocation() const;
+  void setLocation(LocationId location);
+
+  friend std::string minimalPrint(const Structure &value);
+  friend std::string fullPrint(const Structure &value);
 
 private:
   std::string name;
   Size size;
   LocationId location;
-
-public:
-  LocationId getLocation() const;
-  void setLocation(LocationId location);
 };
 
 } // namespace entity

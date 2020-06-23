@@ -8,13 +8,9 @@
 
 #include "common/GameTypes.h"
 
-namespace entity {
-
 struct ItemEffect {
   Quantity atk = 0; // attack
   Quantity def = 0; // defense
   Quantity spd = 0; // speed
   Quantity hp = 0;  // health
 };
-
-} // namespace entity

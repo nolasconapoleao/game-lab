@@ -4,8 +4,6 @@
 
 #pragma once
 
-#include "common/GameTypes.h"
-
 struct ItemOwnership {
   ResourceId resourceId;
   OwnerType ownerType;

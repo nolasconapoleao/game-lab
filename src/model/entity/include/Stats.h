@@ -6,8 +6,6 @@
 
 #include "ItemEffect.h"
 
-namespace entity {
-
 struct Stats : ItemEffect {
   Quantity mhp = 0;  // max health
   Quantity cst = 0;  // constitution
@@ -15,5 +13,3 @@ struct Stats : ItemEffect {
   Quantity xp = 0;   // experience
   Quantity cash = 0; // money
 };
-
-} // namespace entity

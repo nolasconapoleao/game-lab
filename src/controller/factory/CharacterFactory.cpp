@@ -20,8 +20,8 @@ entity::Character CharacterFactory::generateCharacter() {
 
 entity::Character CharacterFactory::createCharacter(const Occupation type) {
   // TODO: replace by random generation based on class
-  entity::Stats stats{1, 2, 3, 8, 8};
-  entity::Passport passport{"a", "b", Occupation::BEGGAR, Race::HUMAN, CharacterAttack::PHYSICAL};
+  Stats stats{1, 2, 3, 8, 8};
+  Passport passport{"a", "b", Occupation::BEGGAR, Race::HUMAN, CharacterAttack::PHYSICAL};
 
   switch (type) {
     case Occupation::BLACKSMITH:

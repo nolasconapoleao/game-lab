@@ -5,7 +5,7 @@
 #include "Item.h"
 namespace entity {
 
-Item::Item(UseType useType, Number weight, const ItemEffect &effect)
+Item::Item(std::string name, UseType useType, Number weight, const ItemEffect &effect)
     : useType(useType), weight(weight), effect(effect) {
 }
 
