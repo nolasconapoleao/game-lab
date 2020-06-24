@@ -20,11 +20,13 @@ public:
   [[maybe_unused]] bool addNode(const NodeId nodeId, const NodeInfo &node);
   void removeNode(const NodeId nodeId);
   NodeInfo getNode(const NodeId nodeId);
+  size_t numberOfNodes();
 
   // Edge operations
   virtual bool addEdge(const EdgeId edgeId, const EdgeInfo &edgeInfo) = 0;
   virtual void removeEdge(const EdgeId &edgeId) = 0;
   virtual EdgeInfo getEdge(const EdgeId &edgeId) = 0;
+  // TODO: neighbours should be a set instead of vector, multiple connections are not allowed
   virtual std::vector<NodeId> neighbours(const NodeId nodeId) = 0;
 
 protected:
@@ -38,7 +40,7 @@ template <class NodeId, class NodeInfo, class EdgeInfo>
 bool IGraph<NodeId, NodeInfo, EdgeInfo>::addNode(const NodeId nodeId, const NodeInfo &node) {
 
   if (nodeExists(nodeId)) {
-    std::cerr << "Node id already in used.\n";
+    std::cerr << "Node id already in use.\n";
     return false;
   }
 
@@ -69,6 +71,10 @@ NodeInfo IGraph<NodeId, NodeInfo, EdgeInfo>::getNode(const NodeId nodeId) {
     throw std::out_of_range("Invalid node");
   }
   return node->second;
+}
+
+template <class NodeId, class NodeInfo, class EdgeInfo> size_t IGraph<NodeId, NodeInfo, EdgeInfo>::numberOfNodes() {
+  return nodes.size();
 }
 
 template <class NodeId, class NodeInfo, class EdgeInfo>

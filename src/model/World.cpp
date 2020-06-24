@@ -7,18 +7,20 @@
 std::vector<entity::Item> World::items;
 std::vector<entity::Character> World::characters;
 std::vector<entity::Structure> World::structures;
+std::vector<CharacterId> World::characterQueue;
 WorldMap World::worldMap;
 CharacterId World::activeCharacter = 0;
 LocationId World::activeLocation = 0;
+Number World::queuePosition = 0;
 
 void World::changeFocusedCharacter() {
-  const auto numOfCharacters = characters.size();
-  activeCharacter++;
-  activeCharacter %= numOfCharacters;
-}
-
-void World::changeFocusedLocation() {
-  // TODO: implement change of active location
+  queuePosition++;
+  if (queuePosition >= characterQueue.size()) {
+    queuePosition = 0;
+    updateCharacterQueue();
+  }
+  activeCharacter = characterQueue.at(queuePosition);
+  activeLocation = character(activeLocation).getLocation();
 }
 
 void World::addCharacter(entity::Character character) {
@@ -47,6 +49,15 @@ entity::Structure World::structure(StructureId id) {
 
 void World::addLocation(LocationId locationId, entity::Location location) {
   worldMap.addLocation(locationId, location);
+}
+
+void World::linkLocations(const LocationId begin, const LocationId end) {
+  // TODO: distance is not used
+  worldMap.linkLocations(begin, end, 1);
+}
+
+size_t World::numberOfLocations() {
+  return worldMap.numberOfLocations();
 }
 
 entity::Location World::location(LocationId id) {
@@ -108,7 +119,7 @@ std::vector<entity::Location> World::adjcentLocations(LocationId locationId) {
   return result;
 }
 
-std::vector<entity::Location> World::activeLocations() {
+std::vector<LocationId> World::activeLocations() {
   std::vector<LocationId> activeLocationIds;
   auto saveActiveLocation = [&activeLocationIds](entity::Character character) {
     if (character.getGhost() == GhostInTheShell::Player) {
@@ -117,19 +128,29 @@ std::vector<entity::Location> World::activeLocations() {
   };
   std::for_each(characters.begin(), characters.end(), saveActiveLocation);
 
-  std::vector<LocationId> unpackedLocationIds;
-  auto saveAllLocations
-      = [&unpackedLocationIds](LocationId locationId) { unpackedLocationIds.emplace_back(locationId); };
+  std::vector<LocationId> result;
+  auto saveAllLocations = [&result](LocationId locationId) { result.emplace_back(locationId); };
   for (const auto activeLocation : activeLocationIds) {
     const auto aux = worldMap.neighbours(activeLocation);
-    unpackedLocationIds.emplace_back();
+    result.emplace_back();
     std::for_each(aux.begin(), aux.end(), saveAllLocations);
   }
 
-  std::vector<entity::Location> result;
-  for (const auto locationId : unpackedLocationIds) {
-    result.emplace_back(worldMap.location(locationId));
-  }
-
   return result;
+}
+void World::updateCharacterQueue() {
+  // TODO: Don't add dead people to the queue
+  characterQueue.clear();
+  std::vector<LocationId> locations = activeLocations();
+
+  LocationId characterLocation;
+  bool existsInLocation;
+  const auto findInLocations = [&characterLocation](LocationId locationId) { return locationId == characterLocation; };
+  for (int i = 0; i < characters.size(); i++) {
+    characterLocation = characters.at(i).getLocation();
+    existsInLocation = (std::find_if(locations.begin(), locations.end(), findInLocations) != locations.end());
+    if (existsInLocation) {
+      characterQueue.emplace_back(i);
+    }
+  }
 }

@@ -16,10 +16,11 @@ void EntityFactory::createCharacter(const Occupation type) {
   addCharacter(creation);
 }
 
-void EntityFactory::createPlayer() {
+void EntityFactory::createPlayer(const LocationId locationId) {
   auto creation = characterFactory.generateCharacter();
   // TODO: [nn] change to random creation
   creation.setGhost(GhostInTheShell::Player);
+  creation.setLocation(0);
   addCharacter(creation);
 }
 
@@ -57,6 +58,7 @@ void EntityFactory::createLocation(LocationPrototype type) {
 
 void EntityFactory::fillLocation(LocationId locationId) {
   // TODO: Implement random generation of entities based on room type
+  // FIXME: Amount of entities should be a function of the location size
   auto characterCreation = characterFactory.generateCharacter();
   characterCreation.setLocation(locationId);
   addCharacter(characterCreation);
@@ -69,6 +71,35 @@ void EntityFactory::fillLocation(LocationId locationId) {
   auto structureCreation = structureFactory.generateStructure();
   structureCreation.setLocation(locationId);
   addStructure(structureCreation);
+}
+
+void EntityFactory::createWorld() {
+  // TODO: Random creation of rooms
+  generateLocation(LocationCategory::Exterior);
+  createPlayer(0);
+
+  fillLocation(0);
+  generateLocation(LocationCategory::Interior);
+  generateLocation(LocationCategory::Interior);
+  fillLocation(3);
+  generateLocation(LocationCategory::Connector);
+  fillLocation(4);
+  world.linkLocations(0, 1);
+  world.linkLocations(0, 2);
+  world.linkLocations(0, 3);
+  generateLocation(LocationCategory::Exterior);
+  world.linkLocations(3, 4);
+  generateLocation(LocationCategory::Interior);
+  world.linkLocations(4, 5);
+  fillLocation(5);
+}
+
+void EntityFactory::resetWorld() {
+  world.items.clear();
+  world.characters.clear();
+  world.structures.clear();
+  world.characterQueue.clear();
+  // TODO: Delete all rooms
 }
 
 void EntityFactory::addCharacter(entity::Character character) {
@@ -84,6 +115,6 @@ void EntityFactory::addStructure(entity::Structure structure) {
 void EntityFactory::addLocation(entity::Location location) {
   // TODO: handle connections to cities
   // TODO: locationId should be calculated based on how many locations already exist
-  LocationId locationId{0};
+  LocationId locationId{static_cast<LocationId>(world.numberOfLocations())};
   world.addLocation(locationId, location);
 }

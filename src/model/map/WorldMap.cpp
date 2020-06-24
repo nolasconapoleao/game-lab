@@ -16,6 +16,10 @@ entity::Location WorldMap::location(LocationId locationId) {
   return world.getNode(locationId);
 }
 
+Quantity WorldMap::numberOfLocations() {
+  return world.numberOfNodes();
+}
+
 void WorldMap::linkLocations(LocationId start, LocationId end, Distance distance) {
   LinkId link{start, end};
   world.addEdge(link, distance);

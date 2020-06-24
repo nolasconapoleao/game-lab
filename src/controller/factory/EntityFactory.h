@@ -16,7 +16,7 @@ class EntityFactory {
 public:
   void generateCharacter();
   void createCharacter(const Occupation type);
-  void createPlayer();
+  void createPlayer(const LocationId locationId);
   void generateItem(const UseType type);
   void createItem(const ItemPrototype type);
   void generateStructure();
@@ -24,6 +24,8 @@ public:
   void generateLocation(const LocationCategory type);
   void createLocation(const LocationPrototype type);
   void fillLocation(LocationId locationId);
+  void createWorld();
+  void resetWorld();
 
 private:
   void addCharacter(entity::Character character);

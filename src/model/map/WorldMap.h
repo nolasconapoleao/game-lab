@@ -16,6 +16,7 @@ public:
   void addLocation(const LocationId locationId, entity::Location location);
   void removeLocation(const LocationId locationId);
   entity::Location location(LocationId locationId);
+  Quantity numberOfLocations();
 
   void linkLocations(const LocationId start, const LocationId end, Distance distance);
   void removelink(const LocationId start, const LocationId end);

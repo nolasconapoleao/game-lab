@@ -168,5 +168,11 @@ std::string printScene(World &world) {
   for (const auto item : world.itemsInLocation(world.activeLocation)) {
     os << " " << minimalPrint(item);
   }
+
+  os << "\nNeighbourhood:";
+  for (const auto location : world.adjcentLocations(world.activeLocation)) {
+    os << " " << minimalPrint(location);
+  }
+
   return os.str();
 }

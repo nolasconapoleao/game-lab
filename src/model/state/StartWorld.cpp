@@ -28,17 +28,17 @@ void StartWorld::whatsUp() {
   switch (activeState) {
 
     case CREATE_WORLD: {
-      factory.createLocation(LocationPrototype::TOWN);
-      factory.fillLocation(0);
+      factory.createWorld();
     }
 
+    // FIXME: We can remove these states POPULATE_LOCATIONS CREATE_PLAYER as its handled inside createWorld
     case POPULATE_LOCATIONS: {
       factory.createCharacter(Occupation::BEGGAR);
       factory.createItem(ItemPrototype::SHIELD);
     }
 
     case CREATE_PLAYER: {
-      factory.createPlayer();
+      factory.createPlayer(0);
     }
   }
   continueToNext();
