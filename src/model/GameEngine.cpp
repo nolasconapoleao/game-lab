@@ -12,17 +12,19 @@
 #include "model/state/IdleWorld.h"
 #include "model/state/Shutdown.h"
 #include "model/state/StartWorld.h"
+#include "model/state/Travel.h"
 #include "model/state/Tutorial.h"
 
 enum MACRO_STATES : MacroStateId {
-  tutorial = 0,
+  attack = 0,
   example,
-  attack,
   idleWorld,
-  startWorld,
-  shutdown,
   playerInput,
+  shutdown,
+  startWorld,
+  tutorial,
   wait,
+  walk,
 };
 
 namespace model::state {
@@ -34,12 +36,15 @@ GameEngine::GameEngine() {
   addMacroState(example, std::make_shared<Example>());
   addMacroState(idleWorld, std::make_shared<IdleWorld>());
   addMacroState(shutdown, std::make_shared<Shutdown>());
+  addMacroState(walk, std::make_shared<Travel>());
 
   addTransition(startWorld, idleWorld, ' ');
   addTransition(idleWorld, example, 'e');
+  addTransition(idleWorld, walk, 'w');
   addTransition(idleWorld, tutorial, 't');
   addTransition(tutorial, idleWorld, ' ');
   addTransition(example, idleWorld, ' ');
+  addTransition(walk, idleWorld, ' ');
 
   std::shared_ptr<MacroState> currentMachine = macroStateNetwork.getNode(activeMacroState);
   currentMachine->startState();
@@ -50,12 +55,12 @@ void GameEngine::whatsUp() {
   auto currentState = getMacroState(activeMacroState);
   currentState->whatsUp();
 
-  if (!isTerminated() && currentState->isStandingBye()) {
+  if (!engineIsTerminated() && currentState->isStandingBye()) {
     loadAnotherMacroState();
   }
 }
 
-bool GameEngine::isTerminated() {
+bool GameEngine::engineIsTerminated() {
   auto currentMachine = getMacroState(activeMacroState);
   return (activeMacroState == shutdown) && (currentMachine->isStandingBye());
 }

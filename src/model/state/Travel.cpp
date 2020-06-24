@@ -1,40 +1,29 @@
 //
-// Created by nolasco on 11/06/20.
+// Created by nolasco on 24/06/20.
 //
 
-#include "Example.h"
+#include "Travel.h"
 
 #include "input/Input.h"
 #include "input/Options.h"
 
 enum STATES : StateId {
-  ENTER_1 = 1,
-  ENTER_2,
-  WRONG,
-  DONE,
+  SELECT_DESTINATION = 1,
+  EXECUTION,
 };
 
 namespace model::state {
 
-Example::Example() {
-  addState(ENTER_1, "Guess a number");
-  addState(ENTER_2, "Guess another number");
-  addState(WRONG, "Wrong. Start over");
-  addState(DONE, "Very well");
+Travel::Travel() {
+  addState(SELECT_DESTINATION, "Select location");
 
-  addTransition(STATE_STANDBYE, ENTER_1, 's');
-  addTransition(ENTER_1, ENTER_2, '1');
-  addTransition(ENTER_1, WRONG, '2');
-
-  addTransition(ENTER_2, WRONG, '1');
-  addTransition(ENTER_2, DONE, '2');
-
-  addTransition(WRONG, ENTER_1, ' ');
-  addTransition(DONE, STATE_STANDBYE, 'b');
+  addTransition(STATE_STANDBYE, SELECT_DESTINATION, 's');
+  addTransition(SELECT_DESTINATION, EXECUTION, ' ');
+  addTransition(EXECUTION, STATE_STANDBYE, ' ');
 }
 
-void Example::whatsUp() {
-  mPrinter.directPrint(stateNetwork.getNode(activeState));
+void Travel::whatsUp() {
+  mPrinter.addToOptionHeader(Verbose::INFO, stateNetwork.getNode(activeState));
   mNeighbours = stateNetwork.neighbours(activeState);
 
   if (mNeighbours.size() == 1) {
@@ -46,12 +35,12 @@ void Example::whatsUp() {
   handleUserInput();
 }
 
-void Example::continueToNext() {
+void Travel::continueToNext() {
   auto transition = stateNetwork.getEdge(LinkId{activeState, mNeighbours[0]});
   triggerTransition(transition);
 }
 
-void Example::fillOptions() {
+void Travel::fillOptions() {
   mOptions = "";
   for (auto neighbour : mNeighbours) {
     auto edgeInfo = stateNetwork.getEdge(LinkId{activeState, neighbour});
@@ -60,11 +49,12 @@ void Example::fillOptions() {
     auto nodeInfo = stateNetwork.getNode(neighbour);
     mPrinter.addToOptions(Verbose::INFO, edgeInfo, std::string(1, edgeInfo));
   }
+  fillStateOption();
   mOptions += input::backOption;
   mPrinter.addToOptions(Verbose::INFO, input::backOption, input::backOptionStr);
 }
 
-void Example::handleUserInput() {
+void Travel::handleUserInput() {
   mPrinter.printScreen();
   auto input = input::readAlphaNum(mOptions);
 
@@ -74,6 +64,9 @@ void Example::handleUserInput() {
   }
 
   triggerTransition(input);
+}
+
+void Travel::fillStateOption() {
 }
 
 } // namespace model::state

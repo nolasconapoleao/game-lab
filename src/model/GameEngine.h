@@ -16,7 +16,7 @@ public:
 
   GameEngine();
   void whatsUp() override;
-  bool isTerminated();
+  bool engineIsTerminated();
 
 private:
   void loadAnotherMacroState();

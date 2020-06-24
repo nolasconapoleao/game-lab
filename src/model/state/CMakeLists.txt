@@ -5,6 +5,7 @@ target_sources(${PROJECT_NAME}
         ${CMAKE_CURRENT_SOURCE_DIR}/Example.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/IdleWorld.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/StartWorld.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/Travel.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Tutorial.cpp
     PUBLIC
         # Headers
@@ -12,5 +13,6 @@ target_sources(${PROJECT_NAME}
         ${CMAKE_CURRENT_SOURCE_DIR}/Example.h
         ${CMAKE_CURRENT_SOURCE_DIR}/IdleWorld.h
         ${CMAKE_CURRENT_SOURCE_DIR}/StartWorld.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/Travel.h
         ${CMAKE_CURRENT_SOURCE_DIR}/Tutorial.h
 )
