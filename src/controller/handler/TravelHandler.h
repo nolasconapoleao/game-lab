@@ -4,5 +4,11 @@
 
 #pragma once
 
-// TODO: [nn] Implementation of use cases missing
-class TravelHandler {};
+#include "model/entity/Character.h"
+
+class TravelHandler {
+public:
+  void characterGoesTo(entity::Character &character, const LocationId locationId);
+
+private:
+};

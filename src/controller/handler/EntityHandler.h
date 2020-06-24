@@ -12,7 +12,8 @@
 class EntityHandler {
 public:
   void updateViewVariables();
-  void attack(entity::Character &attacker, entity::Character &attacked);
+  void attack(const CharacterId attackerId, const CharacterId attackedId);
+  void characterGoesTo(const CharacterId &characterId, const LocationId locationId);
 
 private:
   ItemHandler itemHandler;

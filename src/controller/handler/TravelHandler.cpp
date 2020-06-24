@@ -3,3 +3,7 @@
 //
 
 #include "TravelHandler.h"
+
+void TravelHandler::characterGoesTo(entity::Character &character, LocationId locationId) {
+  character.setLocation(locationId);
+}

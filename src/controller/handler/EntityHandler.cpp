@@ -17,6 +17,13 @@ void EntityHandler::updateViewVariables() {
   mPrinter.addToScene(Verbose::INFO, printScene(world));
 }
 
-void EntityHandler::attack(entity::Character &attacker, entity::Character &attacked) {
+void EntityHandler::attack(const CharacterId attackerId, const CharacterId attackedId) {
+  auto attacker = world.character(attackerId);
+  auto attacked = world.character(attackedId);
   combatHandler.handleAttack(attacker, attacked);
+}
+
+void EntityHandler::characterGoesTo(const CharacterId &characterId, LocationId locationId) {
+  auto character = world.character(characterId);
+  travelHandler.characterGoesTo(character, locationId);
 }
