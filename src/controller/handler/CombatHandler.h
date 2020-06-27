@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include <model/entity/Character.h>
+#include "model/entity/Character.h"
 
 // TODO: [nn] Implementation of use cases missing
 class CombatHandler {

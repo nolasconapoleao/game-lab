@@ -24,6 +24,6 @@ void EntityHandler::attack(const CharacterId attackerId, const CharacterId attac
 }
 
 void EntityHandler::characterGoesTo(const CharacterId &characterId, LocationId locationId) {
-  auto character = world.character(characterId);
+  entity::Character &character = world.character(characterId);
   travelHandler.characterGoesTo(character, locationId);
 }

@@ -27,7 +27,7 @@ void World::addCharacter(entity::Character character) {
   characters.emplace_back(character);
 }
 
-entity::Character World::character(CharacterId id) {
+entity::Character &World::character(const CharacterId id) {
   return characters.at(id);
 }
 
@@ -35,7 +35,7 @@ void World::addItem(entity::Item item) {
   items.emplace_back(item);
 }
 
-entity::Item World::item(ItemId id) {
+entity::Item &World::item(const ItemId id) {
   return items.at(id);
 }
 
@@ -43,7 +43,7 @@ void World::addStructure(entity::Structure structure) {
   structures.emplace_back(structure);
 }
 
-entity::Structure World::structure(StructureId id) {
+entity::Structure &World::structure(const StructureId id) {
   return structures.at(id);
 }
 
@@ -60,7 +60,7 @@ size_t World::numberOfLocations() {
   return worldMap.numberOfLocations();
 }
 
-entity::Location World::location(LocationId id) {
+entity::Location World::location(const LocationId id) {
   return worldMap.location(id);
 }
 
