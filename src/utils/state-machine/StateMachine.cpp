@@ -4,25 +4,33 @@
 
 #include "StateMachine.h"
 
-void StateMachine::addMacroState(const MacroStateId macroStateId, std::shared_ptr<MacroState> macroState) {
-  macroStateNetwork.addNode(macroStateId, macroState);
+StateMachine::StateMachine() {
 }
 
-void StateMachine::addTransition(MacroStateId origin, StateId destination, Transition transition) {
+void StateMachine::addState(StateId stateId, StateInfo stateInfo) {
+  stateNetwork.addNode(stateId, stateInfo);
+}
+
+StateId StateMachine::activeState() const {
+  return mActiveState;
+}
+
+void StateMachine::addTransition(StateId origin, StateId destination, Transition transition) {
   LinkId link{origin, destination};
-  macroStateNetwork.addEdge(link, transition);
+  stateNetwork.addEdge(link, transition);
 }
 
 void StateMachine::triggerTransition(Transition transition) {
-  const auto neighbourStates = macroStateNetwork.neighbours(activeMacroState);
+  const auto neighbourStates = stateNetwork.neighbours(mActiveState);
 
   for (const auto neighbour : neighbourStates) {
-    LinkId link{activeMacroState, neighbour};
-    if (macroStateNetwork.getEdge(link) == transition) {
-      activeMacroState = neighbour;
+    LinkId link{mActiveState, neighbour};
+    if (stateNetwork.getEdge(link) == transition) {
+      mActiveState = neighbour;
       return;
     }
   }
 
+  std::cerr << "Invalid transition.\n";
   return;
 }

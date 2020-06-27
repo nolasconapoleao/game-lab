@@ -4,25 +4,29 @@
 
 #pragma once
 
-#include <memory>
+#include <string>
 
-#include "utils/state-machine/MacroState.h"
+#include "utils/graph/DirectedGraph.h"
 
-using MacroStateId = uint8_t;
-using MacroStateInfo = std::shared_ptr<MacroState>;
+using StateId = uint8_t;
+using StateInfo = std::string;
+using Transition = char;
 
 class StateMachine {
 
 public:
   // Auxiliary types definition
-  using LinkId = typename DirectedGraph<MacroStateId, MacroStateInfo, Transition>::EdgeId;
+  using LinkId = typename DirectedGraph<StateId, StateInfo, Transition>::EdgeId;
 
-  void addMacroState(const MacroStateId macroStateId, std::shared_ptr<MacroState> macroState);
-  void addTransition(MacroStateId origin, StateId destination, const Transition transition);
-  virtual void whatsUp() = 0;
+  StateMachine();
+  void addState(const StateId stateId, const StateInfo stateInfo);
+  void addTransition(StateId origin, StateId destination, const Transition transition);
+  StateId activeState() const;
+
+  virtual void run() = 0;
   void triggerTransition(const Transition transition);
 
 protected:
-  MacroStateId activeMacroState;
-  DirectedGraph<MacroStateId, MacroStateInfo, Transition> macroStateNetwork;
+  StateId mActiveState;
+  DirectedGraph<StateId, StateInfo, Transition> stateNetwork;
 };
