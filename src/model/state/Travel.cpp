@@ -4,69 +4,30 @@
 
 #include "Travel.h"
 
-#include "input/Input.h"
-#include "input/Options.h"
-
 enum STATES : StateId {
-  SELECT_DESTINATION = 1,
-  EXECUTION,
+  SELECT_DESTINATION = 0,
 };
 
 namespace model::state {
 
 Travel::Travel() {
-  addState(SELECT_DESTINATION, "Select location");
-
-  addTransition(STATE_STANDBYE, SELECT_DESTINATION, 's');
-  addTransition(SELECT_DESTINATION, EXECUTION, ' ');
-  addTransition(EXECUTION, STATE_STANDBYE, ' ');
+  mCaterpillar.emplace_back(SELECT_DESTINATION);
+  createNetwork();
 }
 
-void Travel::whatsUp() {
-  mPrinter.addToOptionHeader(Verbose::INFO, stateNetwork.getNode(activeState));
-  mNeighbours = stateNetwork.neighbours(activeState);
-
-  if (mNeighbours.size() == 1) {
-    continueToNext();
-    return;
-  }
-
-  fillOptions();
-  handleUserInput();
-}
-
-void Travel::continueToNext() {
-  auto transition = stateNetwork.getEdge(LinkId{activeState, mNeighbours[0]});
-  triggerTransition(transition);
-}
-
-void Travel::fillOptions() {
-  mOptions = "";
-  for (auto neighbour : mNeighbours) {
-    auto edgeInfo = stateNetwork.getEdge(LinkId{activeState, neighbour});
-    mOptions += edgeInfo;
-
-    auto nodeInfo = stateNetwork.getNode(neighbour);
-    mPrinter.addToOptions(Verbose::INFO, edgeInfo, std::string(1, edgeInfo));
-  }
-  fillStateOption();
-  mOptions += input::backOption;
-  mPrinter.addToOptions(Verbose::INFO, input::backOption, input::backOptionStr);
-}
-
-void Travel::handleUserInput() {
-  mPrinter.printScreen();
-  auto input = input::readAlphaNum(mOptions);
-
-  if (input::backOption == input) {
-    endState();
-    return;
-  }
-
-  triggerTransition(input);
+void Travel::execute() {
+  mHandler.characterGoesTo(mWorld.activeCharacter, mInput[SELECT_DESTINATION]);
 }
 
 void Travel::fillStateOption() {
+  mPrinter.addToOptionHeader(Verbose::INFO, "Select destination");
+  const auto characterLocation = mWorld.character(mWorld.activeCharacter).getLocation();
+  const auto neighbours = mWorld.adjcentLocations(characterLocation);
+
+  for (auto it = 0; it < neighbours.size(); it++) {
+    mPrinter.addToOptions(Verbose::INFO, '0' + it, minimalPrint(neighbours[it]));
+    mOptions += '0' + it;
+  }
 }
 
 } // namespace model::state

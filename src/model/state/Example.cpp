@@ -5,37 +5,41 @@
 #include "Example.h"
 
 #include "input/Input.h"
-#include "input/Options.h"
+#include "model/state/include/Substate.h"
+#include "model/state/include/Transition.h"
 
 enum STATES : StateId {
   ENTER_1 = 1,
   ENTER_2,
   WRONG,
-  DONE,
 };
 
 namespace model::state {
 
 Example::Example() {
+  addState(IDLE, "Macro state is in stand bye");
   addState(ENTER_1, "Guess a number");
   addState(ENTER_2, "Guess another number");
   addState(WRONG, "Wrong. Start over");
-  addState(DONE, "Very well");
+  addState(TERMINATED, "Very well");
+  addState(USER_TERMINATED, "Macro state was terminated by you");
 
-  addTransition(STATE_STANDBYE, ENTER_1, 's');
+  addTransition(IDLE, ENTER_1, 's');
   addTransition(ENTER_1, ENTER_2, '1');
   addTransition(ENTER_1, WRONG, '2');
 
   addTransition(ENTER_2, WRONG, '1');
-  addTransition(ENTER_2, DONE, '2');
+  addTransition(ENTER_2, TERMINATED, '2');
 
   addTransition(WRONG, ENTER_1, ' ');
-  addTransition(DONE, STATE_STANDBYE, 'b');
+  addTransition(TERMINATED, IDLE, 'r');
+  addTransition(USER_TERMINATED, IDLE, 'r');
+  mActiveState = IDLE;
 }
 
-void Example::whatsUp() {
-  mPrinter.directPrint(stateNetwork.getNode(activeState));
-  mNeighbours = stateNetwork.neighbours(activeState);
+void Example::run() {
+  mPrinter.directPrint(stateNetwork.getNode(mActiveState));
+  mNeighbours = stateNetwork.neighbours(mActiveState);
 
   if (mNeighbours.size() == 1) {
     continueToNext();
@@ -47,29 +51,29 @@ void Example::whatsUp() {
 }
 
 void Example::continueToNext() {
-  auto transition = stateNetwork.getEdge(LinkId{activeState, mNeighbours[0]});
+  auto transition = stateNetwork.getEdge(LinkId{mActiveState, mNeighbours[0]});
   triggerTransition(transition);
 }
 
 void Example::fillOptions() {
   mOptions = "";
   for (auto neighbour : mNeighbours) {
-    auto edgeInfo = stateNetwork.getEdge(LinkId{activeState, neighbour});
+    auto edgeInfo = stateNetwork.getEdge(LinkId{mActiveState, neighbour});
     mOptions += edgeInfo;
 
     auto nodeInfo = stateNetwork.getNode(neighbour);
     mPrinter.addToOptions(Verbose::INFO, edgeInfo, std::string(1, edgeInfo));
   }
-  mOptions += input::backOption;
-  mPrinter.addToOptions(Verbose::INFO, input::backOption, input::backOptionStr);
+  mOptions += Transitions::CANCEL;
+  mPrinter.addToOptions(Verbose::INFO, Transitions::CANCEL, "back");
 }
 
 void Example::handleUserInput() {
   mPrinter.printScreen();
   auto input = input::readAlphaNum(mOptions);
 
-  if (input::backOption == input) {
-    endState();
+  if (Transitions::CANCEL == input) {
+    mActiveState = USER_TERMINATED;
     return;
   }
 

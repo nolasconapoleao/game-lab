@@ -4,6 +4,9 @@
 
 #include "IdleWorld.h"
 
+#include "model/state/include/Substate.h"
+#include "model/state/include/Transition.h"
+
 enum STATES : StateId {
   SETUP = 1,
   EXECUTION,
@@ -13,17 +16,14 @@ enum STATES : StateId {
 namespace model::state {
 
 IdleWorld::IdleWorld() {
-  addState(SETUP, "Load next character from list");
-  addState(EXECUTION, "Handle character action");
-  addState(CLEANUP, "Get next character");
-
-  addTransition(STATE_STANDBYE, SETUP, 's');
-  addTransition(SETUP, EXECUTION, '1');
-  addTransition(EXECUTION, CLEANUP, '2');
-  addTransition(CLEANUP, SETUP, '3');
+  createNetwork();
 }
 
-void IdleWorld::whatsUp() {
+void IdleWorld::fillStateOption() {
+  // Intentionally left blank
+}
+
+void IdleWorld::execute() {
   //  TODO: Loop through characters in current room
   // TODO: Make characters think
   auto activeCharacter = mWorld.character(mWorld.activeCharacter);
@@ -31,17 +31,10 @@ void IdleWorld::whatsUp() {
   mWorld.changeFocusedCharacter();
   if (GhostInTheShell::Player == activeCharacter.getGhost()) {
     mPrinter.directPrint("Comand me");
-    endState();
+    triggerTransition(Transitions::TERMINATE);
   } else {
     mPrinter.directPrint("I'm gonna ride this on my own");
-    continueToNext();
   }
-}
-
-void IdleWorld::continueToNext() {
-  auto neighbours = stateNetwork.neighbours(activeState);
-  auto transition = stateNetwork.getEdge(LinkId{activeState, neighbours[0]});
-  triggerTransition(transition);
 }
 
 } // namespace model::state

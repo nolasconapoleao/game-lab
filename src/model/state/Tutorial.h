@@ -5,17 +5,17 @@
 #pragma once
 
 #include "utils/graph/DirectedGraph.h"
-#include "utils/state-machine/MacroState.h"
+#include "utils/state-machine/StateMachine.h"
 #include "view/Printer.h"
 
 namespace model::state {
 
-class Tutorial : public MacroState {
-  using LinkId = typename MacroState::LinkId;
+class Tutorial : public StateMachine {
+  using LinkId = typename StateMachine::LinkId;
 
 public:
   Tutorial();
-  void whatsUp();
+  void run();
 
 private:
   std::string name;

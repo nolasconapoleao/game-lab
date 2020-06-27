@@ -4,23 +4,17 @@
 
 #pragma once
 
-#include "common/GameTypes.h"
-#include "utils/state-machine/MacroState.h"
-#include "view/Printer.h"
+#include "model/state/include/Caterpillar.h"
 
 namespace model::state {
 
-class Shutdown : public MacroState {
-  using LinkId = typename MacroState::LinkId;
-
+class Shutdown : public Caterpillar {
 public:
   Shutdown();
-  void whatsUp() override;
+  void execute() override;
 
 protected:
-  void continueToNext();
-
-  view::Printer mPrinter;
+  void fillStateOption() override;
 };
 
 } // namespace model::state

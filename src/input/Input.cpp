@@ -6,8 +6,6 @@
 
 #include <iostream>
 
-#include "Options.h"
-
 namespace input {
 
 const bool isInputValid(const char input, const std::string options) {

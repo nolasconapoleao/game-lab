@@ -5,6 +5,8 @@
 #include "Tutorial.h"
 
 #include "input/Input.h"
+#include "model/state/include/Substate.h"
+#include "model/state/include/Transition.h"
 
 enum STATES : StateId {
   ENTER_NAME = 1,
@@ -20,20 +22,24 @@ Tutorial::Tutorial() : attempts(0) {
   failOutput.emplace_back("You truly are a rebel, but this is not the time.");
   failOutput.emplace_back("I can do this all day..");
 
+  addState(Substate::IDLE, "Macro state is in standbye");
+  addState(Substate::TERMINATED, "Macro state was terminated");
   addState(ENTER_NAME, "Enter name");
   addState(WRONG_ANSWER, "Wrong answer");
   addState(INPUT_ANYKEY, "Input 'any key'");
 
-  addTransition(STATE_STANDBYE, ENTER_NAME, 's');
+  addTransition(IDLE, ENTER_NAME, Transitions::START);
   addTransition(ENTER_NAME, INPUT_ANYKEY, 'b');
   addTransition(INPUT_ANYKEY, WRONG_ANSWER, 'c');
   addTransition(WRONG_ANSWER, INPUT_ANYKEY, 'd');
-  addTransition(INPUT_ANYKEY, STATE_STANDBYE, 'e');
+  addTransition(INPUT_ANYKEY, TERMINATED, 'e');
+  addTransition(TERMINATED, IDLE, Transitions::RESET);
+  mActiveState = IDLE;
 }
 
-void Tutorial::whatsUp() {
+void Tutorial::run() {
 
-  switch (activeState) {
+  switch (mActiveState) {
 
     case ENTER_NAME: {
       mPrinter.directPrint("What is your name?");

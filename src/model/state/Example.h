@@ -4,17 +4,17 @@
 
 #pragma once
 
-#include "utils/state-machine/MacroState.h"
+#include "utils/state-machine/StateMachine.h"
 #include "view/Printer.h"
 
 namespace model::state {
 
-class Example : public MacroState {
-  using LinkId = typename MacroState::LinkId;
+class Example : public StateMachine {
+  using LinkId = typename StateMachine::LinkId;
 
 public:
   Example();
-  void whatsUp() override;
+  void run() override;
 
 protected:
   void continueToNext();
