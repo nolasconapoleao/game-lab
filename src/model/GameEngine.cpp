@@ -5,60 +5,60 @@
 #include "GameEngine.h"
 
 #include <magic_enum/include/magic_enum.hpp>
-#include <model/state/include/Substate.h>
-#include <model/state/include/Transition.h>
 
 #include "input/Input.h"
+#include "model/state/Empty.h"
 #include "model/state/Example.h"
 #include "model/state/IdleWorld.h"
 #include "model/state/Shutdown.h"
 #include "model/state/Start.h"
 #include "model/state/Travel.h"
 #include "model/state/Tutorial.h"
+#include "model/state/include/Menu.h"
+#include "model/state/include/Substate.h"
+#include "model/state/include/Transition.h"
 
 enum MACRO_STATES : StateId {
   example = 0,
   idleWorld,
-  shutdown,
   startWorld,
   tutorial,
   walk,
-  attack,
-  wait,
-  playerInput,
+  skip,
+  playerTurn,
+  endTurn,
+  shutdown,
 };
 
 namespace model::state {
 GameEngine::GameEngine() {
   mActiveState = startWorld;
 
-  gameStates.emplace_back(std::make_shared<Example>());
-  gameStates.emplace_back(std::make_shared<IdleWorld>());
-  gameStates.emplace_back(std::make_shared<Shutdown>());
-  gameStates.emplace_back(std::make_shared<Start>());
-  gameStates.emplace_back(std::make_shared<Tutorial>());
-  gameStates.emplace_back(std::make_shared<Travel>());
+  addState(example, std::make_shared<Example>());
+  addState(idleWorld, std::make_shared<IdleWorld>());
+  addState(shutdown, std::make_shared<Shutdown>());
+  addState(startWorld, std::make_shared<Start>());
+  addState(tutorial, std::make_shared<Tutorial>());
+  addState(walk, std::make_shared<Travel>());
+  addState(playerTurn, std::make_shared<Empty>());
+  addState(endTurn, std::make_shared<Empty>());
 
-  addState(MACRO_STATES::example, "Example");
-  addState(MACRO_STATES::idleWorld, "IdleWorld");
-  addState(MACRO_STATES::shutdown, "Shutdown");
-  addState(MACRO_STATES::startWorld, "Start");
-  addState(MACRO_STATES::tutorial, "Tutorial");
-  addState(MACRO_STATES::walk, "Walk");
+  addTransition(example, endTurn, NEXT);
+  addTransition(tutorial, playerTurn, NEXT);
 
-  addTransition(startWorld, idleWorld, 'n');
-  addTransition(idleWorld, example, 'e');
-  addTransition(idleWorld, walk, 'w');
-  addTransition(idleWorld, shutdown, 'x');
-  addTransition(walk, idleWorld, 'p');
-  addTransition(idleWorld, tutorial, 't');
-  addTransition(tutorial, idleWorld, 'n');
-  addTransition(example, idleWorld, 'n');
-  // TODO: Since this linkId is repeated it refuses to connect the states
-  addTransition(example, idleWorld, 'p');
+  addTransition(playerTurn, example, MENU_EXAMPLE);
+  addTransition(playerTurn, shutdown, MENU_SHUTDOWN);
+  addTransition(playerTurn, tutorial, MENU_TUTORIAL);
+  addTransition(playerTurn, walk, MENU_WALK);
+
+  addTransition(startWorld, idleWorld, NEXT);
+  addTransition(idleWorld, playerTurn, NEXT);
+
+  addTransition(walk, endTurn, PREVIOUS);
+  addTransition(endTurn, idleWorld, NEXT);
 
   auto currentMachine = getState(mActiveState);
-  currentMachine->triggerTransition(Transitions::START);
+  currentMachine->triggerTransition(START);
 }
 
 void GameEngine::run() {
@@ -71,14 +71,14 @@ void GameEngine::run() {
   }
 
   if (currentState->activeState() == Substate::TERMINATED) {
-    getState(mActiveState)->triggerTransition(Transitions::RESET);
-    loadAnotherMacroState();
+    getState(mActiveState)->triggerTransition(RESET);
+    loadNextState();
     return;
-  } else if (currentState->activeState() == Substate::USER_TERMINATED) {
-    getState(mActiveState)->triggerTransition(Transitions::RESET);
+  } else if (currentState->activeState() == Substate::Cancel) {
+    getState(mActiveState)->triggerTransition(RESET);
 
-    triggerTransition(Transitions::PREVIOUS);
-    getState(mActiveState)->triggerTransition(Transitions::START);
+    triggerTransition(PREVIOUS);
+    getState(mActiveState)->triggerTransition(START);
     return;
   }
 }
@@ -88,7 +88,13 @@ bool GameEngine::isTerminated() {
   return (mActiveState == shutdown) && (currentState->activeState() == Substate::TERMINATED);
 }
 
-void GameEngine::loadAnotherMacroState() {
+void GameEngine::addState(StateId stateId, std::shared_ptr<StateMachine> state) {
+  std::pair<StateId, std::shared_ptr<StateMachine>> entry{stateId, state};
+  gameStates.insert(gameStates.begin(), entry);
+  stateNetwork.addNode(stateId, "");
+}
+
+void GameEngine::loadNextState() {
   mNeighbours = stateNetwork.neighbours(mActiveState);
   if (mNeighbours.size() == 1) {
     automaticTransition();
@@ -101,7 +107,7 @@ void GameEngine::automaticTransition() {
   auto transition = stateNetwork.getEdge(LinkId{mActiveState, mNeighbours[0]});
   // Handle change of Macro State
   triggerTransition(transition);
-  getState(mActiveState)->triggerTransition(Transitions::START);
+  getState(mActiveState)->triggerTransition(START);
 }
 
 void GameEngine::manualTransition() {
@@ -128,7 +134,7 @@ void GameEngine::handleUserInput() {
 
   // Handle change of Macro State
   triggerTransition(input);
-  getState(mActiveState)->triggerTransition(Transitions::START);
+  getState(mActiveState)->triggerTransition(START);
 }
 
 std::shared_ptr<StateMachine> GameEngine::getState(const StateId stateId) {

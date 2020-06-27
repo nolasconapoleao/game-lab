@@ -22,7 +22,7 @@ Example::Example() {
   addState(ENTER_2, "Guess another number");
   addState(WRONG, "Wrong. Start over");
   addState(TERMINATED, "Very well");
-  addState(USER_TERMINATED, "Macro state was terminated by you");
+  addState(Cancel, "Macro state was terminated by you");
 
   addTransition(IDLE, ENTER_1, 's');
   addTransition(ENTER_1, ENTER_2, '1');
@@ -33,7 +33,7 @@ Example::Example() {
 
   addTransition(WRONG, ENTER_1, ' ');
   addTransition(TERMINATED, IDLE, 'r');
-  addTransition(USER_TERMINATED, IDLE, 'r');
+  addTransition(Cancel, IDLE, 'r');
   mActiveState = IDLE;
 }
 
@@ -73,7 +73,7 @@ void Example::handleUserInput() {
   auto input = input::readAlphaNum(mOptions);
 
   if (Transitions::CANCEL == input) {
-    mActiveState = USER_TERMINATED;
+    mActiveState = Cancel;
     return;
   }
 

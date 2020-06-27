@@ -4,6 +4,7 @@
 
 #pragma once
 
+#include <map>
 #include <memory>
 
 #include "controller/handler/EntityHandler.h"
@@ -19,21 +20,21 @@ public:
   GameEngine();
   void run() override;
   bool isTerminated();
+  void addState(const StateId stateId, std::shared_ptr<StateMachine> state);
 
 private:
-  void loadAnotherMacroState();
+  void loadNextState();
   void automaticTransition();
   void manualTransition();
   void fillOptions();
   void handleUserInput();
-  void addTransitionWithReturn();
   std::shared_ptr<StateMachine> getState(const StateId stateId);
 
   view::Printer mPrinter;
   EntityHandler entityHandler;
   std::vector<StateId> mNeighbours;
   std::string mOptions;
-  std::vector<std::shared_ptr<StateMachine>> gameStates;
+  std::map<StateId, std::shared_ptr<StateMachine>> gameStates;
 };
 
 } // namespace model::state

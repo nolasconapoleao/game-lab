@@ -18,8 +18,8 @@ void Caterpillar::createNetwork() {
   addState(TERMINATED, "Macro state was terminated");
 
   if (mCaterpillar.size() != 0) {
-    addState(USER_TERMINATED, "Macro state was terminated by user");
-    addTransition(USER_TERMINATED, IDLE, NEXT);
+    addState(Cancel, "Macro state was terminated by user");
+    addTransition(Cancel, IDLE, RESET);
   }
 
   mCaterpillar.emplace_back(EXECUTE);
@@ -32,7 +32,7 @@ void Caterpillar::createNetwork() {
     if (mCaterpillar.at(it) != EXECUTE) {
       addTransition(mCaterpillar.at(it), mCaterpillar.at(it + 1), NEXT);
       addTransition(mCaterpillar.at(it + 1), mCaterpillar.at(it), PREVIOUS);
-      addTransition(mCaterpillar.at(it), USER_TERMINATED, CANCEL);
+      addTransition(mCaterpillar.at(it), Cancel, CANCEL);
     }
   }
   addTransition(EXECUTE, TERMINATED, NEXT);
@@ -45,6 +45,7 @@ void Caterpillar::createNetwork() {
 void Caterpillar::run() {
   if (mActiveState == EXECUTE) {
     execute();
+    triggerTransition(NEXT);
   }
 
   mNeighbours = stateNetwork.neighbours(mActiveState);
@@ -68,8 +69,8 @@ void Caterpillar::fillBaseOptions() {
     if (edgeInfo != NEXT) {
       mOptions += edgeInfo;
       // TODO: Add map of options and strings
-      Substate substate = Substate{neighbour};
-      mPrinter.addToOptions(Verbose::INFO, edgeInfo, magic_enum::enum_name(substate).data());
+      Transitions transition = Transitions{edgeInfo};
+      mPrinter.addToOptions(Verbose::INFO, edgeInfo, magic_enum::enum_name(transition).data());
     }
   }
 }

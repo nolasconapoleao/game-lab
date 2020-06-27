@@ -4,10 +4,9 @@
 
 #pragma once
 
-#include <controller/handler/EntityHandler.h>
-#include <view/Printer.h>
-
+#include "controller/handler/EntityHandler.h"
 #include "utils/state-machine/StateMachine.h"
+#include "view/Printer.h"
 
 namespace model::state {
 
