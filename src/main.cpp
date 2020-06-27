@@ -7,8 +7,8 @@ int main() {
   model::state::GameEngine engine;
   signal(SIGINT, Input::signal_callback_handler);
 
-  while (!engine.engineIsTerminated()) {
-    engine.whatsUp();
+  while (!engine.isTerminated()) {
+    engine.run();
   }
 
   return 0;

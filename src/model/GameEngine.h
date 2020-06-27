@@ -4,6 +4,8 @@
 
 #pragma once
 
+#include <memory>
+
 #include "controller/handler/EntityHandler.h"
 #include "utils/state-machine/StateMachine.h"
 #include "view/Printer.h"
@@ -15,8 +17,8 @@ public:
   using LinkId = StateMachine::LinkId;
 
   GameEngine();
-  void whatsUp() override;
-  bool engineIsTerminated();
+  void run() override;
+  bool isTerminated();
 
 private:
   void loadAnotherMacroState();
@@ -24,12 +26,14 @@ private:
   void manualTransition();
   void fillOptions();
   void handleUserInput();
-  std::shared_ptr<MacroState> getMacroState(const MacroStateId macroStateId);
+  void addTransitionWithReturn();
+  std::shared_ptr<StateMachine> getState(const StateId stateId);
 
   view::Printer mPrinter;
   EntityHandler entityHandler;
   std::vector<StateId> mNeighbours;
   std::string mOptions;
+  std::vector<std::shared_ptr<StateMachine>> gameStates;
 };
 
 } // namespace model::state
