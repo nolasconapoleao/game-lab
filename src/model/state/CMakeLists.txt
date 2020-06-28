@@ -7,7 +7,7 @@ target_sources(${PROJECT_NAME}
         ${CMAKE_CURRENT_SOURCE_DIR}/Example.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/IdleWorld.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Start.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/Travel.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/Walk.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Tutorial.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Empty.cpp
     PUBLIC
@@ -16,7 +16,7 @@ target_sources(${PROJECT_NAME}
         ${CMAKE_CURRENT_SOURCE_DIR}/Example.h
         ${CMAKE_CURRENT_SOURCE_DIR}/IdleWorld.h
         ${CMAKE_CURRENT_SOURCE_DIR}/Start.h
-        ${CMAKE_CURRENT_SOURCE_DIR}/Travel.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/Walk.h
         ${CMAKE_CURRENT_SOURCE_DIR}/Tutorial.h
         ${CMAKE_CURRENT_SOURCE_DIR}/Empty.h
 )

@@ -2,7 +2,7 @@
 // Created by nolasco on 24/06/20.
 //
 
-#include "Travel.h"
+#include "Walk.h"
 
 enum STATES : StateId {
   SELECT_DESTINATION = 0,
@@ -10,16 +10,16 @@ enum STATES : StateId {
 
 namespace model::state {
 
-Travel::Travel() {
+Walk::Walk() {
   mCaterpillar.emplace_back(SELECT_DESTINATION);
   createNetwork();
 }
 
-void Travel::execute() {
+void Walk::execute() {
   mHandler.characterGoesTo(mWorld.activeCharacter, mInput[SELECT_DESTINATION]);
 }
 
-void Travel::fillStateOption() {
+void Walk::fillStateOption() {
   mPrinter.addToOptionHeader(Verbose::INFO, "Select destination");
   const auto characterLocation = mWorld.character(mWorld.activeCharacter).getLocation();
   const auto neighbours = mWorld.adjcentLocations(characterLocation);

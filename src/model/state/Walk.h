@@ -8,9 +8,9 @@
 
 namespace model::state {
 
-class Travel : public Caterpillar {
+class Walk : public Caterpillar {
 public:
-  Travel();
+  Walk();
 
 private:
   void execute() override;

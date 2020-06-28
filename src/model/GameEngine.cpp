@@ -12,8 +12,8 @@
 #include "model/state/IdleWorld.h"
 #include "model/state/Shutdown.h"
 #include "model/state/Start.h"
-#include "model/state/Travel.h"
 #include "model/state/Tutorial.h"
+#include "model/state/Walk.h"
 #include "model/state/include/Menu.h"
 #include "model/state/include/Substate.h"
 #include "model/state/include/Transition.h"
@@ -39,7 +39,7 @@ GameEngine::GameEngine() {
   addState(shutdown, std::make_shared<Shutdown>());
   addState(startWorld, std::make_shared<Start>());
   addState(tutorial, std::make_shared<Tutorial>());
-  addState(walk, std::make_shared<Travel>());
+  addState(walk, std::make_shared<Walk>());
   addState(playerTurn, std::make_shared<Empty>());
   addState(endTurn, std::make_shared<Empty>());
 
@@ -47,9 +47,9 @@ GameEngine::GameEngine() {
   addTransition(tutorial, playerTurn, NEXT);
 
   addTransition(playerTurn, example, MENU_EXAMPLE);
-  addTransition(playerTurn, shutdown, MENU_SHUTDOWN);
   addTransition(playerTurn, tutorial, MENU_TUTORIAL);
   addTransition(playerTurn, walk, MENU_WALK);
+  addTransition(playerTurn, shutdown, MENU_SHUTDOWN);
 
   addTransition(startWorld, idleWorld, NEXT);
   addTransition(idleWorld, playerTurn, NEXT);
