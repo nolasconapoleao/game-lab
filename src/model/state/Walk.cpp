@@ -25,7 +25,7 @@ void Walk::fillStateOption() {
   const auto neighbours = mWorld.adjcentLocations(characterLocation);
 
   for (auto it = 0; it < neighbours.size(); it++) {
-    mPrinter.addToOptions(Verbose::INFO, '0' + it, minimalPrint(neighbours[it]));
+    mPrinter.addToOptions(Verbose::INFO, '0' + it, minimalPrint(*neighbours[it].get()));
     mOptions += '0' + it;
   }
 }

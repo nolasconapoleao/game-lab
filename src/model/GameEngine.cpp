@@ -7,6 +7,7 @@
 #include <magic_enum/include/magic_enum.hpp>
 
 #include "input/Input.h"
+#include "model/state/Attack.h"
 #include "model/state/Empty.h"
 #include "model/state/Example.h"
 #include "model/state/IdleWorld.h"
@@ -21,6 +22,7 @@
 enum MACRO_STATES : StateId {
   example = 0,
   idleWorld,
+  attack,
   startWorld,
   tutorial,
   walk,
@@ -42,6 +44,7 @@ GameEngine::GameEngine() {
   addState(walk, std::make_shared<Walk>());
   addState(playerTurn, std::make_shared<Empty>());
   addState(endTurn, std::make_shared<Empty>());
+  addState(attack, std::make_shared<Attack>());
 
   addTransition(example, endTurn, NEXT);
   addTransition(tutorial, playerTurn, NEXT);
@@ -49,12 +52,16 @@ GameEngine::GameEngine() {
   addTransition(playerTurn, example, MENU_EXAMPLE);
   addTransition(playerTurn, tutorial, MENU_TUTORIAL);
   addTransition(playerTurn, walk, MENU_WALK);
+  addTransition(playerTurn, attack, MENU_ATTACK);
   addTransition(playerTurn, shutdown, MENU_SHUTDOWN);
 
   addTransition(startWorld, idleWorld, NEXT);
   addTransition(idleWorld, playerTurn, NEXT);
 
-  addTransition(walk, endTurn, PREVIOUS);
+  // TODO: missing addTransition(attack, endTurn, NEXT);
+  // TODO: missing addTransition(walk, endTurn, NEXT);
+  addTransition(attack, playerTurn, PREVIOUS);
+  addTransition(walk, playerTurn, PREVIOUS);
   addTransition(endTurn, idleWorld, NEXT);
 
   auto currentMachine = getState(mActiveState);
