@@ -19,11 +19,12 @@ public:
   void setVerboseLevel(Verbose verbose);
 
   // Insert entries to printed structures
+  void addToRoundReport(const Verbose verbose, const std::string reportEntry);
   void addToScene(const Verbose verbose, const std::string sceneEntry);
   void addToHud(const Verbose verbose, const std::string hudEntry);
+  void addToExtraInfo(Verbose verbose, std::string note);
   void addToOptionHeader(const Verbose verbose, const std::string header);
   void addToOptions(Verbose verbose, char option, std::string optionDescription);
-  void addToRoundReport(const Verbose verbose, const std::string reportEntry);
   void resetLists();
 
   // Print methods
@@ -32,18 +33,20 @@ public:
   void clearScreen();
 
 private:
+  void printRoundReport();
   void printScene();
   void printHud();
+  void printExtraInfo();
   void printOptions();
-  void printRoundReport();
   void printAndClear(PrintList &printList);
 
   Verbose printerVerbose;
+  static PrintList roundReport;
   static PrintList scene;
   static PrintList hud;
+  static PrintList extraInfo;
   static PrintList optionHeader;
   static PrintList options;
-  static PrintList roundReport;
 };
 
 } // namespace view

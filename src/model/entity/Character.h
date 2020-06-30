@@ -22,6 +22,7 @@ public:
   void setBaseStats(const Stats &baseStats);
   const ItemEffect &getTempStats() const;
   void setTempStats(const ItemEffect &tempStats);
+  const Stats getStats() const;
   GhostInTheShell getGhost() const;
   void setGhost(GhostInTheShell ghost);
   const Passport &getPassport() const;
@@ -44,3 +45,5 @@ private:
   LocationId location;
 };
 } // namespace entity
+
+Stats operator+(const Stats &base, const ItemEffect &temp);

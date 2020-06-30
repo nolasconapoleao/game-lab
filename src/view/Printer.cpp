@@ -12,11 +12,12 @@
 
 namespace view {
 
+PrintList Printer::roundReport;
 PrintList Printer::scene;
 PrintList Printer::hud;
+PrintList Printer::extraInfo;
 PrintList Printer::options;
 PrintList Printer::optionHeader;
-PrintList Printer::roundReport;
 
 Printer::Printer(const Verbose verbose) : printerVerbose(verbose) {
 }
@@ -25,12 +26,20 @@ void Printer::setVerboseLevel(const Verbose verbose) {
   Printer::printerVerbose = verbose;
 }
 
+void Printer::addToRoundReport(Verbose verbose, std::string reportEntry) {
+  roundReport.emplace_back(verbose, reportEntry);
+}
+
 void Printer::addToScene(Verbose verbose, std::string sceneEntry) {
   scene.emplace_back(verbose, sceneEntry);
 }
 
 void Printer::addToHud(Verbose verbose, std::string hudEntry) {
   hud.emplace_back(verbose, hudEntry);
+}
+
+void Printer::addToExtraInfo(Verbose verbose, std::string note) {
+  extraInfo.emplace_back(verbose, note);
 }
 
 void Printer::addToOptionHeader(Verbose verbose, std::string header) {
@@ -43,14 +52,11 @@ void Printer::addToOptions(Verbose verbose, char option, std::string optionDescr
   options.emplace_back(verbose, os.str());
 }
 
-void Printer::addToRoundReport(Verbose verbose, std::string reportEntry) {
-  roundReport.emplace_back(verbose, reportEntry);
-}
-
 void Printer::resetLists() {
   scene.clear();
   hud.clear();
   optionHeader.clear();
+  extraInfo.clear();
   options.clear();
   roundReport.clear();
 }
@@ -63,6 +69,7 @@ void Printer::printScreen() {
   clearScreen();
   printScene();
   printHud();
+  printExtraInfo();
   printOptions();
   printRoundReport();
 }
@@ -94,6 +101,11 @@ void Printer::clearScreen() {
 #else
   std::system("clear");
 #endif
+}
+
+void Printer::printExtraInfo() {
+  printAndClear(extraInfo);
+  std::cout << separator1 << "\n";
 }
 
 void Printer::printAndClear(PrintList &printList) {
