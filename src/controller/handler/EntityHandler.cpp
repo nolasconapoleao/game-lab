@@ -10,20 +10,31 @@
 void EntityHandler::updateViewVariables() {
   mPrinter.resetLists();
 
-  const auto characters = world.charactersInLocation(0);
-  for (const auto character : characters) {
-    mPrinter.addToHud(Verbose::INFO, minimalPrint(character));
+  if (!world.characters.empty()) {
+    mPrinter.addToHud(Verbose::INFO, fullPrint(world.character(world.activeCharacter)));
   }
   mPrinter.addToScene(Verbose::INFO, printScene(world));
 }
 
-void EntityHandler::attack(const CharacterId attackerId, const CharacterId attackedId) {
-  auto attacker = world.character(attackerId);
-  auto attacked = world.character(attackedId);
+void EntityHandler::battle(const CharacterId attackerId, const CharacterId attackedId,
+                           const LocationId battleGroundId) {
+  auto &attacker = world.character(attackerId);
+  auto &attacked = world.character(attackedId);
+
   combatHandler.handleAttack(attacker, attacked);
+  if (attacked.getStats().hp == 0) {
+    dropAllItems(attackedId, battleGroundId);
+  }
 }
 
 void EntityHandler::characterGoesTo(const CharacterId &characterId, LocationId locationId) {
   entity::Character &character = world.character(characterId);
   travelHandler.characterGoesTo(character, locationId);
+}
+
+void EntityHandler::dropAllItems(CharacterId characterId, LocationId locationId) {
+  const auto items = world.itemsOfCharacter(characterId);
+  for (auto item : items) {
+    itemHandler.changeItemOwner(*item.get(), OwnerType::LOCATION, locationId);
+  }
 }

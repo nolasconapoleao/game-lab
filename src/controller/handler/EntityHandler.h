@@ -12,8 +12,9 @@
 class EntityHandler {
 public:
   void updateViewVariables();
-  void attack(const CharacterId attackerId, const CharacterId attackedId);
+  void battle(const CharacterId attackerId, const CharacterId attackedId, const LocationId battleGroundId);
   void characterGoesTo(const CharacterId &characterId, const LocationId locationId);
+  void dropAllItems(const CharacterId characterId, const LocationId locationId);
 
 private:
   ItemHandler itemHandler;

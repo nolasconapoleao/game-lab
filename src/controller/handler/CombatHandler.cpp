@@ -6,16 +6,25 @@
 
 #include <cmath>
 
+#include "controller/handler/include/gamemath.h"
+
 constexpr Number MAXLEVEL = 100;
 
 void CombatHandler::handleAttack(entity::Character &attacker, entity::Character &attacked) {
   // TODO: [nn] Include random hit probability
-  // TODO: [nn] Include clamp for hp
-  auto attackerStats = attacker.getBaseStats();
-  auto attackedStats = attacked.getBaseStats();
+  auto attackerStats = attacker.getStats();
+  auto attackedStats = attacked.getStats();
 
-  attackedStats.hp -= attackerStats.atk;
-  attacked.setBaseStats(attackedStats);
+  const auto damage = attackerStats.atk;
+  const auto damage_remainder = gamemath::difference(damage, attacked.getTempStats().hp);
+
+  auto updatedBase = attacked.getBaseStats();
+  auto updatedTemp = attacked.getTempStats();
+  updatedTemp.hp = gamemath::clamp_sub(updatedTemp.hp, damage, 0);
+  updatedBase.hp = gamemath::clamp_sub(updatedBase.hp, damage_remainder, 0);
+
+  attacked.setTempStats(updatedTemp);
+  attacked.setBaseStats(updatedBase);
 }
 
 void CombatHandler::addXp(entity::Character &character, Quantity addedXp) {
