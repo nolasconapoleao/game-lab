@@ -51,14 +51,14 @@ std::ostream &operator<<(std::ostream &os, const ItemEffect &value) {
 
 std::string entity::minimalPrint(const entity::Character &character) {
   std::ostringstream os;
-  os << character.name << " " << character.baseStats.mhp << "/" << (character.baseStats.hp + character.tempStats.hp);
+  os << character.name << " " << character.getStats().hp << "/" << (character.getStats().mhp);
   return os.str();
 }
 
 std::string entity::fullPrint(const entity::Character &character) {
   std::ostringstream os;
-  os << character.name << " baseStats: " << character.baseStats << " tempStats: " << character.tempStats
-     << " ghost: " << character.ghost << " passport: " << character.passport;
+  os << character.name << " stats: " << character.getStats() << " ghost: " << character.ghost
+     << "\n\t\tpassport: " << character.passport;
   return os.str();
 }
 
@@ -125,7 +125,7 @@ std::ostream &operator<<(std::ostream &os, const LocationPrototype &value) {
 
 std::string entity::minimalPrint(const entity::Location &value) {
   std::ostringstream os;
-  os << value.name << " type: " << value.type;
+  os << value.name << " (" << value.type << ")";
   return os.str();
 }
 
@@ -156,22 +156,22 @@ std::string printScene(World &world) {
   std::ostringstream os;
   os << "Characters:";
   for (const auto character : world.charactersInLocation(world.activeLocation)) {
-    os << " " << minimalPrint(character);
+    os << " " << minimalPrint(*character.get());
   }
 
   os << "\nStructures:";
   for (const auto structure : world.structuresInLocation(world.activeLocation)) {
-    os << " " << minimalPrint(structure);
+    os << " " << minimalPrint(*structure.get());
   }
 
   os << "\nItems:";
   for (const auto item : world.itemsInLocation(world.activeLocation)) {
-    os << " " << minimalPrint(item);
+    os << " " << minimalPrint(*item.get());
   }
 
   os << "\nNeighbourhood:";
   for (const auto location : world.adjcentLocations(world.activeLocation)) {
-    os << " " << minimalPrint(location);
+    os << " " << minimalPrint(*location.get());
   }
 
   return os.str();

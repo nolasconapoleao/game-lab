@@ -4,6 +4,8 @@
 
 #pragma once
 
+#include <memory>
+
 #include "model/entity/Character.h"
 #include "model/entity/Item.h"
 #include "model/entity/Location.h"
@@ -30,11 +32,11 @@ public:
   // FIXME: printScene should be const but can't because it uses non const methods
   friend std::string printScene(World &world);
 
-  static std::vector<entity::Item> itemsOfCharacter(CharacterId characterId);
-  static std::vector<entity::Item> itemsInLocation(LocationId locationId);
-  static std::vector<entity::Character> charactersInLocation(const LocationId locationId);
-  static std::vector<entity::Structure> structuresInLocation(const LocationId locationId);
-  static std::vector<entity::Location> adjcentLocations(const LocationId locationId);
+  static std::vector<std::shared_ptr<entity::Item>> itemsOfCharacter(CharacterId characterId);
+  static std::vector<std::shared_ptr<entity::Item>> itemsInLocation(LocationId locationId);
+  static std::vector<std::shared_ptr<entity::Character>> charactersInLocation(const LocationId locationId);
+  static std::vector<std::shared_ptr<entity::Structure>> structuresInLocation(const LocationId locationId);
+  static std::vector<std::shared_ptr<entity::Location>> adjcentLocations(const LocationId locationId);
   static std::vector<LocationId> activeLocations();
   static void updateCharacterQueue();
 
