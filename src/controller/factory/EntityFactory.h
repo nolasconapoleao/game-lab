@@ -6,14 +6,15 @@
 
 #include "CharacterFactory.h"
 #include "ItemFactory.h"
-#include "LocationFactory.h"
 #include "StructureFactory.h"
+#include "controller/factory/include/LocationPrototype.h"
 #include "model/World.h"
 
 class World;
 
 class EntityFactory {
 public:
+  EntityFactory();
   void generateCharacter();
   void createCharacter(const Occupation type);
   void createPlayer(const LocationId locationId);
@@ -35,7 +36,11 @@ private:
 
   CharacterFactory characterFactory;
   ItemFactory itemFactory;
-  LocationFactory locationFactory;
   StructureFactory structureFactory;
+
+  std::vector<LocationPrototype> interiorPool;
+  std::vector<LocationPrototype> exteriorPool;
+  std::vector<LocationPrototype> connectorPool;
+
   World world;
 };

@@ -6,6 +6,17 @@
 
 #include "common/GameTypes.h"
 
+EntityFactory::EntityFactory() {
+  // Exterior
+  exteriorPool.emplace_back(LocationPrototype::TOWN);
+
+  // Interior
+  interiorPool.emplace_back(LocationPrototype::ARENA);
+
+  // Connector
+  connectorPool.emplace_back(LocationPrototype::CAVE);
+}
+
 void EntityFactory::generateCharacter() {
   auto creation = characterFactory.generateCharacter();
   addCharacter(creation);
@@ -44,16 +55,6 @@ void EntityFactory::createStructure(StructurePrototype type) {
   // TODO: structures should have a location or character owner
   auto creation = structureFactory.createStructure(type);
   addStructure(creation);
-}
-
-void EntityFactory::generateLocation(LocationCategory type) {
-  auto creation = locationFactory.generateLocation(type);
-  addLocation(creation);
-}
-
-void EntityFactory::createLocation(LocationPrototype type) {
-  auto creation = locationFactory.createLocation(type);
-  addLocation(creation);
 }
 
 void EntityFactory::fillLocation(LocationId locationId) {
@@ -109,12 +110,7 @@ void EntityFactory::addCharacter(entity::Character character) {
 void EntityFactory::addItem(entity::Item item) {
   world.addItem(item);
 }
+
 void EntityFactory::addStructure(entity::Structure structure) {
   world.addStructure(structure);
-}
-void EntityFactory::addLocation(entity::Location location) {
-  // TODO: handle connections to cities
-  // TODO: locationId should be calculated based on how many locations already exist
-  LocationId locationId{static_cast<LocationId>(world.numberOfLocations())};
-  world.addLocation(locationId, location);
 }

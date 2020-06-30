@@ -13,6 +13,5 @@ target_sources(${PROJECT_NAME}
         ${CMAKE_CURRENT_SOURCE_DIR}/CharacterFactory.h
         ${CMAKE_CURRENT_SOURCE_DIR}/EntityFactory.h
         ${CMAKE_CURRENT_SOURCE_DIR}/ItemFactory.h
-        ${CMAKE_CURRENT_SOURCE_DIR}/LocationFactory.h
         ${CMAKE_CURRENT_SOURCE_DIR}/StructureFactory.h
 )

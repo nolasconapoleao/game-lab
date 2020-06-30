@@ -13,6 +13,7 @@ namespace entity {
 
 class Location {
 public:
+  Location() = default;
   Location(const std::string &name, LocationCategory type, const Size &size, Number floors = 1);
   const std::string &getName() const;
   void setName(const std::string &name);

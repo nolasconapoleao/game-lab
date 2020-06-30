@@ -2,23 +2,17 @@
 // Created by nolasco on 16/06/20.
 //
 
-#include "LocationFactory.h"
-
-#include "controller/factory/include/LocationPrototype.h"
+#include "EntityFactory.h"
 #include "utils/random/Random.h"
 
-LocationFactory::LocationFactory() {
-  // Exterior
-  exteriorPool.emplace_back(LocationPrototype::TOWN);
-
-  // Interior
-  interiorPool.emplace_back(LocationPrototype::ARENA);
-
-  // Connector
-  connectorPool.emplace_back(LocationPrototype::CAVE);
+void EntityFactory::addLocation(entity::Location location) {
+  // TODO: handle connections to cities
+  // TODO: locationId should be calculated based on how many locations already exist
+  LocationId locationId{static_cast<LocationId>(world.numberOfLocations())};
+  world.addLocation(locationId, location);
 }
 
-entity::Location LocationFactory::generateLocation(const LocationCategory type) {
+void EntityFactory::generateLocation(const LocationCategory type) {
   // TODO: [nn] Change access to random element of vector
   std::vector<LocationPrototype>::iterator locationType;
 
@@ -36,18 +30,22 @@ entity::Location LocationFactory::generateLocation(const LocationCategory type) 
       std::advance(locationType, Random::fromTo(0, exteriorPool.size() - 1));
       break;
   }
-  return createLocation(*locationType);
+
+  createLocation(*locationType);
 }
 
-entity::Location LocationFactory::createLocation(LocationPrototype type) {
+void EntityFactory::createLocation(LocationPrototype type) {
   // TODO: replace by random generation based on item type
+  entity::Location creation;
 
   switch (type) {
     case LocationPrototype::TOWN:
-      return entity::Location("Field", LocationCategory::Exterior, Size{50, 20}, 0);
+      creation = entity::Location("Field", LocationCategory::Exterior, Size{50, 20}, 0);
     case LocationPrototype::ARENA:
-      return entity::Location("Arena", LocationCategory::Interior, Size{10, 10}, 0);
+      creation = entity::Location("Arena", LocationCategory::Interior, Size{10, 10}, 0);
     case LocationPrototype::CAVE:
-      return entity::Location("Cave", LocationCategory::Connector, Size{30, 5}, 0);
+      creation = entity::Location("Cave", LocationCategory::Connector, Size{30, 5}, 0);
   }
+
+  addLocation(creation);
 }
