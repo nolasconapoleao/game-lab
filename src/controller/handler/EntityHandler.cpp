@@ -38,3 +38,12 @@ void EntityHandler::dropAllItems(CharacterId characterId, LocationId locationId)
     itemHandler.changeItemOwner(*item.get(), OwnerType::LOCATION, locationId);
   }
 }
+
+void EntityHandler::strategize(CharacterId characterId) {
+  // TODO: use character inteligence, occupation, health, location
+  const auto character = world.character(characterId);
+
+  if (character.getStats().hp > 2) {
+    battle(characterId, characterId, world.activeLocation);
+  }
+}

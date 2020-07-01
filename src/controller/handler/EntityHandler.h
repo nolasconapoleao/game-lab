@@ -15,11 +15,12 @@ public:
   void battle(const CharacterId attackerId, const CharacterId attackedId, const LocationId battleGroundId);
   void characterGoesTo(const CharacterId &characterId, const LocationId locationId);
   void dropAllItems(const CharacterId characterId, const LocationId locationId);
+  void strategize(const CharacterId characterId);
 
 private:
   ItemHandler itemHandler;
   CombatHandler combatHandler;
   TravelHandler travelHandler;
-  World world;
   view::Printer mPrinter;
+  World world;
 };

@@ -34,6 +34,7 @@ void IdleWorld::execute() {
     triggerTransition(Transitions::TERMINATE);
   } else {
     mPrinter.directPrint("I'm gonna ride this on my own");
+    entityHandler.strategize(mWorld.activeCharacter);
   }
 }
 
