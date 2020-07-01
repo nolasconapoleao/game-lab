@@ -6,10 +6,6 @@
 #include "controller/factory/include/StructurePrototype.h"
 #include "utils/random/Random.h"
 
-void Factory::addStructure(entity::Structure structure) {
-  world.addStructure(structure);
-}
-
 void Factory::generateStructure() {
   // TODO: [nn] Change access to random element of vector
   auto type = structurePool.begin();
@@ -26,5 +22,5 @@ void Factory::createStructure(StructurePrototype type) {
       break;
   }
 
-  addStructure(creation);
+  world.addStructure(creation);
 }

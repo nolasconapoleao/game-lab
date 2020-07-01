@@ -26,14 +26,8 @@ public:
   void createLocation(const LocationPrototype type);
   void fillLocation(LocationId locationId);
   void createWorld();
-  void resetWorld();
 
 private:
-  void addCharacter(entity::Character character);
-  void addItem(entity::Item item);
-  void addStructure(entity::Structure structure);
-  void addLocation(entity::Location location);
-
   std::vector<LocationPrototype> interiorPool;
   std::vector<LocationPrototype> exteriorPool;
   std::vector<LocationPrototype> connectorPool;

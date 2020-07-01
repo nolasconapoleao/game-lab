@@ -23,7 +23,7 @@ public:
   static entity::Item &item(const ItemId id);
   static void addStructure(entity::Structure structure);
   static entity::Structure &structure(const StructureId id);
-  static void addLocation(const LocationId locationId, entity::Location location);
+  static void addLocation(entity::Location location);
   static size_t numberOfLocations();
   static void linkLocations(const LocationId begin, const LocationId end);
   static entity::Location location(const LocationId id);

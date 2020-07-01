@@ -5,13 +5,6 @@
 #include "Factory.h"
 #include "utils/random/Random.h"
 
-void Factory::addLocation(entity::Location location) {
-  // TODO: handle connections to cities
-  // TODO: locationId should be calculated based on how many locations already exist
-  LocationId locationId{static_cast<LocationId>(world.numberOfLocations())};
-  world.addLocation(locationId, location);
-}
-
 void Factory::generateLocation(const LocationCategory type) {
   // TODO: [nn] Change access to random element of vector
   std::vector<LocationPrototype>::iterator locationType;
@@ -50,5 +43,5 @@ void Factory::createLocation(const LocationPrototype type) {
       break;
   }
 
-  addLocation(creation);
+  world.addLocation(creation);
 }

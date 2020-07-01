@@ -5,10 +5,6 @@
 #include "Factory.h"
 #include "utils/random/Random.h"
 
-void Factory::addItem(entity::Item item) {
-  world.addItem(item);
-}
-
 void Factory::generateItem(UseType useType) {
   // TODO: [nn] Change access to random element of vector
   std::vector<ItemPrototype>::iterator itemType;
@@ -46,5 +42,5 @@ void Factory::createItem(ItemPrototype type) {
       break;
   }
 
-  addItem(creation);
+  world.addItem(creation);
 }

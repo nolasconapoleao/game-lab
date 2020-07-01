@@ -47,7 +47,8 @@ entity::Structure &World::structure(const StructureId id) {
   return structures.at(id);
 }
 
-void World::addLocation(LocationId locationId, entity::Location location) {
+void World::addLocation(entity::Location location) {
+  LocationId locationId{static_cast<LocationId>(numberOfLocations())};
   worldMap.addLocation(locationId, location);
 }
 

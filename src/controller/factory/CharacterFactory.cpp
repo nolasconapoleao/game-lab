@@ -5,11 +5,6 @@
 #include "Factory.h"
 #include "utils/random/Random.h"
 
-void Factory::addCharacter(entity::Character character) {
-  world.addCharacter(character);
-  world.characters.back();
-}
-
 void Factory::generateCharacter() {
   // TODO: [nn] Change access to random element of vector
   auto type = occupationPool.begin();
@@ -32,7 +27,7 @@ void Factory::createCharacter(const Occupation type) {
       break;
   }
 
-  addCharacter(creation);
+  world.addCharacter(creation);
 }
 
 void Factory::createPlayer(const LocationId locationId) {

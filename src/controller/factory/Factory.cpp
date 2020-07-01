@@ -7,25 +7,26 @@
 #include "common/GameTypes.h"
 
 Factory::Factory() {
+  // LOCATION
   // Exterior
   exteriorPool.emplace_back(LocationPrototype::TOWN);
-
   // Interior
   interiorPool.emplace_back(LocationPrototype::ARENA);
-
   // Connector
   connectorPool.emplace_back(LocationPrototype::CAVE);
 
+  // CHARACTER
   occupationPool.emplace_back(Occupation::BLACKSMITH);
   occupationPool.emplace_back(Occupation::BEGGAR);
 
+  // ITEM
   // Single Use
   singleUsePool.emplace_back(ItemPrototype::POTION);
-
   // Equip
   equipPool.emplace_back(ItemPrototype::SWORD);
   equipPool.emplace_back(ItemPrototype::SHIELD);
 
+  // STRUCTURE
   structurePool.emplace_back(StructurePrototype::MAILBOX);
 }
 
@@ -62,12 +63,4 @@ void Factory::createWorld() {
   generateLocation(LocationCategory::Interior);
   world.linkLocations(4, 5);
   fillLocation(5);
-}
-
-void Factory::resetWorld() {
-  world.items.clear();
-  world.characters.clear();
-  world.structures.clear();
-  world.characterQueue.clear();
-  // TODO: Delete all rooms
 }
