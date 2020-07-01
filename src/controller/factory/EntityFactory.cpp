@@ -18,28 +18,15 @@ EntityFactory::EntityFactory() {
 
   occupationPool.emplace_back(Occupation::BLACKSMITH);
   occupationPool.emplace_back(Occupation::BEGGAR);
-}
 
-void EntityFactory::generateItem(const UseType type) {
-  auto creation = itemFactory.generateItem(type);
-  addItem(creation);
-}
+  // Single Use
+  singleUsePool.emplace_back(ItemPrototype::POTION);
 
-void EntityFactory::createItem(ItemPrototype type) {
-  // TODO: items should have a location or character owner
-  auto creation = itemFactory.createItem(type);
-  addItem(creation);
-}
+  // Equip
+  equipPool.emplace_back(ItemPrototype::SWORD);
+  equipPool.emplace_back(ItemPrototype::SHIELD);
 
-void EntityFactory::generateStructure() {
-  auto creation = structureFactory.generateStructure();
-  addStructure(creation);
-}
-
-void EntityFactory::createStructure(StructurePrototype type) {
-  // TODO: structures should have a location or character owner
-  auto creation = structureFactory.createStructure(type);
-  addStructure(creation);
+  structurePool.emplace_back(StructurePrototype::MAILBOX);
 }
 
 void EntityFactory::fillLocation(LocationId locationId) {
@@ -48,14 +35,12 @@ void EntityFactory::fillLocation(LocationId locationId) {
   generateCharacter();
   world.characters.back().setLocation(locationId);
 
-  auto itemCreation = itemFactory.generateItem(UseType::singleUse);
+  generateItem(UseType::singleUse);
   ItemOwnership itemOwnership = {locationId, OwnerType::LOCATION};
-  itemCreation.setOwnership(itemOwnership);
-  addItem(itemCreation);
+  world.items.back().setOwnership(itemOwnership);
 
-  auto structureCreation = structureFactory.generateStructure();
-  structureCreation.setLocation(locationId);
-  addStructure(structureCreation);
+  generateStructure();
+  world.structures.back().setLocation(locationId);
 }
 
 void EntityFactory::createWorld() {
@@ -85,12 +70,4 @@ void EntityFactory::resetWorld() {
   world.structures.clear();
   world.characterQueue.clear();
   // TODO: Delete all rooms
-}
-
-void EntityFactory::addItem(entity::Item item) {
-  world.addItem(item);
-}
-
-void EntityFactory::addStructure(entity::Structure structure) {
-  world.addStructure(structure);
 }

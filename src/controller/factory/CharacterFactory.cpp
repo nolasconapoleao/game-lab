@@ -26,8 +26,10 @@ void EntityFactory::createCharacter(const Occupation type) {
   switch (type) {
     case Occupation::BLACKSMITH:
       creation = entity::Character("BlackSmith", stats, passport, GhostInTheShell::AI);
+      break;
     case Occupation::BEGGAR:
       creation = entity::Character("Beggar", stats, passport, GhostInTheShell::AI);
+      break;
   }
 
   addCharacter(creation);

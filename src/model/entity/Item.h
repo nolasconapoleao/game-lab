@@ -13,6 +13,7 @@ namespace entity {
 
 class Item {
 public:
+  Item() = default;
   Item(std::string name, UseType useType, Number weight, const ItemEffect &effect);
   Number getQuantity() const;
   void setQuantity(Number quantity);

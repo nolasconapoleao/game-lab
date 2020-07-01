@@ -12,6 +12,7 @@ namespace entity {
 
 class Structure {
 public:
+  Structure() = default;
   Structure(const std::string &name, const Size &size);
   LocationId getLocation() const;
   void setLocation(LocationId location);

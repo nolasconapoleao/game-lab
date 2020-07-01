@@ -2,20 +2,14 @@
 // Created by nolasco on 07/06/20.
 //
 
-#include "ItemFactory.h"
-
+#include "EntityFactory.h"
 #include "utils/random/Random.h"
 
-ItemFactory::ItemFactory() {
-  // Single Use
-  singleUsePool.emplace_back(ItemPrototype::POTION);
-
-  // Equip
-  equipPool.emplace_back(ItemPrototype::SWORD);
-  equipPool.emplace_back(ItemPrototype::SHIELD);
+void EntityFactory::addItem(entity::Item item) {
+  world.addItem(item);
 }
 
-entity::Item ItemFactory::generateItem(UseType useType) {
+void EntityFactory::generateItem(UseType useType) {
   // TODO: [nn] Change access to random element of vector
   std::vector<ItemPrototype>::iterator itemType;
 
@@ -29,22 +23,28 @@ entity::Item ItemFactory::generateItem(UseType useType) {
       std::advance(itemType, Random::fromTo(0, singleUsePool.size() - 1));
       break;
   }
-  return createItem(*itemType);
+  createItem(*itemType);
 }
 
-entity::Item ItemFactory::createItem(ItemPrototype type) {
+void EntityFactory::createItem(ItemPrototype type) {
   // TODO: replace by random generation based on item type
   ItemEffect effect{2, 3, 1, 0};
 
+  entity::Item creation;
   switch (type) {
     case ItemPrototype::POTION:
       effect.hp = 8;
-      return entity::Item("Potion", UseType::singleUse, 1, effect);
+      creation = entity::Item("Potion", UseType::singleUse, 1, effect);
+      break;
     case ItemPrototype::SWORD:
       effect.atk = 6;
-      return entity::Item("Sword", UseType::equip, 15, effect);
+      creation = entity::Item("Sword", UseType::equip, 15, effect);
+      break;
     case ItemPrototype::SHIELD:
       effect.def = 4;
-      return entity::Item("Shield", UseType::equip, 8, effect);
+      creation = entity::Item("Shield", UseType::equip, 8, effect);
+      break;
   }
+
+  addItem(creation);
 }

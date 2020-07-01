@@ -4,9 +4,9 @@
 
 #pragma once
 
-#include "ItemFactory.h"
-#include "StructureFactory.h"
+#include "controller/factory/include/ItemPrototype.h"
 #include "controller/factory/include/LocationPrototype.h"
+#include "controller/factory/include/StructurePrototype.h"
 #include "model/World.h"
 #include "model/entity/include/Occupation.h"
 
@@ -34,14 +34,16 @@ private:
   void addStructure(entity::Structure structure);
   void addLocation(entity::Location location);
 
-  ItemFactory itemFactory;
-  StructureFactory structureFactory;
-
   std::vector<LocationPrototype> interiorPool;
   std::vector<LocationPrototype> exteriorPool;
   std::vector<LocationPrototype> connectorPool;
 
   std::vector<Occupation> occupationPool;
+
+  std::vector<ItemPrototype> equipPool;
+  std::vector<ItemPrototype> singleUsePool;
+
+  std::vector<StructurePrototype> structurePool;
 
   World world;
 };

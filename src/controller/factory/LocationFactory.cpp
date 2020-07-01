@@ -41,10 +41,13 @@ void EntityFactory::createLocation(const LocationPrototype type) {
   switch (type) {
     case LocationPrototype::TOWN:
       creation = entity::Location("Field", LocationCategory::Exterior, Size{50, 20}, 0);
+      break;
     case LocationPrototype::ARENA:
       creation = entity::Location("Arena", LocationCategory::Interior, Size{10, 10}, 0);
+      break;
     case LocationPrototype::CAVE:
       creation = entity::Location("Cave", LocationCategory::Connector, Size{30, 5}, 0);
+      break;
   }
 
   addLocation(creation);

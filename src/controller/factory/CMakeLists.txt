@@ -11,6 +11,4 @@ target_sources(${PROJECT_NAME}
     PUBLIC
         # Headers
         ${CMAKE_CURRENT_SOURCE_DIR}/EntityFactory.h
-        ${CMAKE_CURRENT_SOURCE_DIR}/ItemFactory.h
-        ${CMAKE_CURRENT_SOURCE_DIR}/StructureFactory.h
 )
