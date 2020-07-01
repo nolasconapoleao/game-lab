@@ -15,6 +15,7 @@ namespace entity {
 
 class Character {
 public:
+  Character() = default;
   Character(const std::string &name, const Stats &baseStats, Passport passport, GhostInTheShell ghost);
   const std::string &getName() const;
   void setName(const std::string &name);

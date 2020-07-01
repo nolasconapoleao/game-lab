@@ -34,10 +34,10 @@ void EntityFactory::generateLocation(const LocationCategory type) {
   createLocation(*locationType);
 }
 
-void EntityFactory::createLocation(LocationPrototype type) {
+void EntityFactory::createLocation(const LocationPrototype type) {
   // TODO: replace by random generation based on item type
-  entity::Location creation;
 
+  entity::Location creation;
   switch (type) {
     case LocationPrototype::TOWN:
       creation = entity::Location("Field", LocationCategory::Exterior, Size{50, 20}, 0);

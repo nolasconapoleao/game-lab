@@ -15,24 +15,9 @@ EntityFactory::EntityFactory() {
 
   // Connector
   connectorPool.emplace_back(LocationPrototype::CAVE);
-}
 
-void EntityFactory::generateCharacter() {
-  auto creation = characterFactory.generateCharacter();
-  addCharacter(creation);
-}
-
-void EntityFactory::createCharacter(const Occupation type) {
-  auto creation = characterFactory.createCharacter(type);
-  addCharacter(creation);
-}
-
-void EntityFactory::createPlayer(const LocationId locationId) {
-  auto creation = characterFactory.generateCharacter();
-  // TODO: [nn] change to random creation
-  creation.setGhost(GhostInTheShell::Player);
-  creation.setLocation(0);
-  addCharacter(creation);
+  occupationPool.emplace_back(Occupation::BLACKSMITH);
+  occupationPool.emplace_back(Occupation::BEGGAR);
 }
 
 void EntityFactory::generateItem(const UseType type) {
@@ -60,9 +45,8 @@ void EntityFactory::createStructure(StructurePrototype type) {
 void EntityFactory::fillLocation(LocationId locationId) {
   // TODO: Implement random generation of entities based on room type
   // FIXME: Amount of entities should be a function of the location size
-  auto characterCreation = characterFactory.generateCharacter();
-  characterCreation.setLocation(locationId);
-  addCharacter(characterCreation);
+  generateCharacter();
+  world.characters.back().setLocation(locationId);
 
   auto itemCreation = itemFactory.generateItem(UseType::singleUse);
   ItemOwnership itemOwnership = {locationId, OwnerType::LOCATION};
@@ -101,10 +85,6 @@ void EntityFactory::resetWorld() {
   world.structures.clear();
   world.characterQueue.clear();
   // TODO: Delete all rooms
-}
-
-void EntityFactory::addCharacter(entity::Character character) {
-  world.addCharacter(character);
 }
 
 void EntityFactory::addItem(entity::Item item) {
