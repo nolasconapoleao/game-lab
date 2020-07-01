@@ -2,9 +2,11 @@
 // Created by nolasco on 16/06/20.
 //
 
-#include "ItemHandler.h"
+#include "Controller.h"
+#include "model/entity/include/ItemOwnerType.h"
+#include "model/entity/include/ItemOwnership.h"
 
-void ItemHandler::changeItemOwner(entity::Item &item, const OwnerType &type, ResourceId newOwner) {
+void Controller::changeItemOwner(ItemId itemId, const OwnerType &type, ResourceId newOwner) {
   ItemOwnership newOwnership{newOwner, type, false};
-  item.setOwnership(newOwnership);
+  world.item(itemId).setOwnership(newOwnership);
 }

@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "controller/handler/EntityHandler.h"
+#include "controller/handler/Controller.h"
 #include "utils/state-machine/StateMachine.h"
 #include "view/Printer.h"
 
@@ -32,7 +32,7 @@ protected:
   std::vector<ResourceId> mInputParser;
   view::Printer mPrinter;
   std::string mOptions;
-  EntityHandler mHandler;
+  Controller mHandler;
   World mWorld;
 };
 

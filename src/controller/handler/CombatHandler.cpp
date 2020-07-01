@@ -2,15 +2,14 @@
 // Created by nolasco on 16/06/20.
 //
 
-#include "CombatHandler.h"
-
 #include <cmath>
 
+#include "Controller.h"
 #include "controller/handler/include/gamemath.h"
 
 constexpr Number MAXLEVEL = 100;
 
-void CombatHandler::handleAttack(entity::Character &attacker, entity::Character &attacked) {
+void Controller::handleAttack(entity::Character &attacker, entity::Character &attacked) {
   // TODO: [nn] Include random hit probability
   auto attackerStats = attacker.getStats();
   auto attackedStats = attacked.getStats();
@@ -27,7 +26,7 @@ void CombatHandler::handleAttack(entity::Character &attacker, entity::Character 
   attacked.setBaseStats(updatedBase);
 }
 
-void CombatHandler::addXp(entity::Character &character, Quantity addedXp) {
+void Controller::addXp(entity::Character &character, Quantity addedXp) {
   auto baseStats = character.getBaseStats();
   Number currentTotal = totalXp(baseStats.lvl, baseStats.xp);
   Number finalTotal = currentTotal + addedXp;
@@ -52,11 +51,11 @@ void CombatHandler::addXp(entity::Character &character, Quantity addedXp) {
   updateStats(lvlIncrease);
 }
 
-Number CombatHandler::totalXp(Quantity lvl, Quantity xp) {
+Number Controller::totalXp(Quantity lvl, Quantity xp) {
   auto result = std::pow(lvl, 2) + xp;
   return result;
 }
 
-void CombatHandler::updateStats(Quantity increase) {
+void Controller::updateStats(Quantity increase) {
   // TODO: unimplemented
 }

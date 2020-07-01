@@ -7,7 +7,7 @@
 #include <map>
 #include <memory>
 
-#include "controller/handler/EntityHandler.h"
+#include "controller/handler/Controller.h"
 #include "utils/state-machine/StateMachine.h"
 #include "view/Printer.h"
 
@@ -31,7 +31,7 @@ private:
   std::shared_ptr<StateMachine> getState(const StateId stateId);
 
   view::Printer mPrinter;
-  EntityHandler entityHandler;
+  Controller entityHandler;
   std::vector<StateId> mNeighbours;
   std::string mOptions;
   std::map<StateId, std::shared_ptr<StateMachine>> gameStates;

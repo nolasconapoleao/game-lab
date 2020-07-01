@@ -4,13 +4,10 @@ target_sources(${PROJECT_NAME}
     PRIVATE
         # Sources
         ${CMAKE_CURRENT_SOURCE_DIR}/CombatHandler.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/EntityHandler.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/Controller.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/ItemHandler.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/TravelHandler.cpp
     PUBLIC
         # Headers
-        ${CMAKE_CURRENT_SOURCE_DIR}/CombatHandler.h
-        ${CMAKE_CURRENT_SOURCE_DIR}/EntityHandler.h
-        ${CMAKE_CURRENT_SOURCE_DIR}/ItemHandler.h
-        ${CMAKE_CURRENT_SOURCE_DIR}/TravelHandler.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/Controller.h
 )

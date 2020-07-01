@@ -2,8 +2,8 @@
 // Created by nolasco on 07/06/20.
 //
 
-#include "TravelHandler.h"
+#include "Controller.h"
 
-void TravelHandler::characterGoesTo(entity::Character &character, LocationId locationId) {
-  character.setLocation(locationId);
+void Controller::characterGoesTo(const CharacterId &characterId, const LocationId locationId) {
+  world.character(characterId).setLocation(locationId);
 }

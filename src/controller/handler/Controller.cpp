@@ -2,12 +2,12 @@
 // Created by nolasco on 20/06/20.
 //
 
-#include "EntityHandler.h"
+#include "Controller.h"
 
 #include "model/World.h"
 #include "view/include/StreamConverter.h"
 
-void EntityHandler::updateViewVariables() {
+void Controller::updateViewVariables() {
   mPrinter.resetLists();
 
   if (!world.characters.empty()) {
@@ -16,30 +16,25 @@ void EntityHandler::updateViewVariables() {
   mPrinter.addToScene(Verbose::INFO, printScene(world));
 }
 
-void EntityHandler::battle(const CharacterId attackerId, const CharacterId attackedId,
-                           const LocationId battleGroundId) {
+void Controller::battle(const CharacterId attackerId, const CharacterId attackedId, const LocationId battleGroundId) {
   auto &attacker = world.character(attackerId);
   auto &attacked = world.character(attackedId);
 
-  combatHandler.handleAttack(attacker, attacked);
+  handleAttack(attacker, attacked);
   if (attacked.getStats().hp == 0) {
     dropAllItems(attackedId, battleGroundId);
   }
 }
 
-void EntityHandler::characterGoesTo(const CharacterId &characterId, LocationId locationId) {
-  entity::Character &character = world.character(characterId);
-  travelHandler.characterGoesTo(character, locationId);
-}
-
-void EntityHandler::dropAllItems(CharacterId characterId, LocationId locationId) {
+void Controller::dropAllItems(CharacterId characterId, LocationId locationId) {
   const auto items = world.itemsOfCharacter(characterId);
-  for (auto item : items) {
-    itemHandler.changeItemOwner(*item.get(), OwnerType::LOCATION, locationId);
-  }
+  // TODO: resolve this once world returns ids instead of objects
+  //  for (auto item : items) {
+  //    changeItemOwner(*item.get(), OwnerType::LOCATION, locationId);
+  //  }
 }
 
-void EntityHandler::strategize(CharacterId characterId) {
+void Controller::strategize(CharacterId characterId) {
   // TODO: use character inteligence, occupation, health, location
   const auto character = world.character(characterId);
 

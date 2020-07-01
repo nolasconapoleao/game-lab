@@ -51,5 +51,5 @@ private:
   static Number queuePosition;
 
   friend class Factory;
-  friend class EntityHandler;
+  friend class Controller;
 };
