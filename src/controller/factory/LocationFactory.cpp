@@ -2,17 +2,17 @@
 // Created by nolasco on 16/06/20.
 //
 
-#include "EntityFactory.h"
+#include "Factory.h"
 #include "utils/random/Random.h"
 
-void EntityFactory::addLocation(entity::Location location) {
+void Factory::addLocation(entity::Location location) {
   // TODO: handle connections to cities
   // TODO: locationId should be calculated based on how many locations already exist
   LocationId locationId{static_cast<LocationId>(world.numberOfLocations())};
   world.addLocation(locationId, location);
 }
 
-void EntityFactory::generateLocation(const LocationCategory type) {
+void Factory::generateLocation(const LocationCategory type) {
   // TODO: [nn] Change access to random element of vector
   std::vector<LocationPrototype>::iterator locationType;
 
@@ -34,7 +34,7 @@ void EntityFactory::generateLocation(const LocationCategory type) {
   createLocation(*locationType);
 }
 
-void EntityFactory::createLocation(const LocationPrototype type) {
+void Factory::createLocation(const LocationPrototype type) {
   // TODO: replace by random generation based on item type
 
   entity::Location creation;

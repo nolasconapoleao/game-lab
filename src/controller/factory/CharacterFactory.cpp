@@ -2,22 +2,22 @@
 // Created by nolasco on 16/06/20.
 //
 
-#include "EntityFactory.h"
+#include "Factory.h"
 #include "utils/random/Random.h"
 
-void EntityFactory::addCharacter(entity::Character character) {
+void Factory::addCharacter(entity::Character character) {
   world.addCharacter(character);
   world.characters.back();
 }
 
-void EntityFactory::generateCharacter() {
+void Factory::generateCharacter() {
   // TODO: [nn] Change access to random element of vector
   auto type = occupationPool.begin();
   std::advance(type, Random::fromTo(0, occupationPool.size() - 1));
   createCharacter(*type);
 }
 
-void EntityFactory::createCharacter(const Occupation type) {
+void Factory::createCharacter(const Occupation type) {
   // TODO: replace by random generation based on class
   Stats stats{{1, 2, 3, 8}, 8, 0, 9, 12};
   Passport passport{"a", "b", Occupation::BEGGAR, Race::HUMAN, CharacterAttack::PHYSICAL};
@@ -35,7 +35,7 @@ void EntityFactory::createCharacter(const Occupation type) {
   addCharacter(creation);
 }
 
-void EntityFactory::createPlayer(const LocationId locationId) {
+void Factory::createPlayer(const LocationId locationId) {
   generateCharacter();
   // TODO: [nn] change to random creation
   world.characters.back().setGhost(GhostInTheShell::Player);

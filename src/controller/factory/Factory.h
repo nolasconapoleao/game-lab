@@ -12,9 +12,9 @@
 
 class World;
 
-class EntityFactory {
+class Factory {
 public:
-  EntityFactory();
+  Factory();
   void generateCharacter();
   void createCharacter(const Occupation type);
   void createPlayer(const LocationId locationId);

@@ -2,14 +2,14 @@
 // Created by nolasco on 07/06/20.
 //
 
-#include "EntityFactory.h"
+#include "Factory.h"
 #include "utils/random/Random.h"
 
-void EntityFactory::addItem(entity::Item item) {
+void Factory::addItem(entity::Item item) {
   world.addItem(item);
 }
 
-void EntityFactory::generateItem(UseType useType) {
+void Factory::generateItem(UseType useType) {
   // TODO: [nn] Change access to random element of vector
   std::vector<ItemPrototype>::iterator itemType;
 
@@ -26,7 +26,7 @@ void EntityFactory::generateItem(UseType useType) {
   createItem(*itemType);
 }
 
-void EntityFactory::createItem(ItemPrototype type) {
+void Factory::createItem(ItemPrototype type) {
   // TODO: replace by random generation based on item type
   ItemEffect effect{2, 3, 1, 0};
 

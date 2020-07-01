@@ -2,11 +2,11 @@
 // Created by nolasco on 16/06/20.
 //
 
-#include "EntityFactory.h"
+#include "Factory.h"
 
 #include "common/GameTypes.h"
 
-EntityFactory::EntityFactory() {
+Factory::Factory() {
   // Exterior
   exteriorPool.emplace_back(LocationPrototype::TOWN);
 
@@ -29,7 +29,7 @@ EntityFactory::EntityFactory() {
   structurePool.emplace_back(StructurePrototype::MAILBOX);
 }
 
-void EntityFactory::fillLocation(LocationId locationId) {
+void Factory::fillLocation(LocationId locationId) {
   // TODO: Implement random generation of entities based on room type
   // FIXME: Amount of entities should be a function of the location size
   generateCharacter();
@@ -43,7 +43,7 @@ void EntityFactory::fillLocation(LocationId locationId) {
   world.structures.back().setLocation(locationId);
 }
 
-void EntityFactory::createWorld() {
+void Factory::createWorld() {
   // TODO: Random creation of rooms
   generateLocation(LocationCategory::Exterior);
   createPlayer(0);
@@ -64,7 +64,7 @@ void EntityFactory::createWorld() {
   fillLocation(5);
 }
 
-void EntityFactory::resetWorld() {
+void Factory::resetWorld() {
   world.items.clear();
   world.characters.clear();
   world.structures.clear();

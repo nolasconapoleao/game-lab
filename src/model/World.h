@@ -50,6 +50,6 @@ private:
   static WorldMap worldMap;
   static Number queuePosition;
 
-  friend class EntityFactory;
+  friend class Factory;
   friend class EntityHandler;
 };

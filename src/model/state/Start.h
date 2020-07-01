@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "controller/factory/EntityFactory.h"
+#include "controller/factory/Factory.h"
 #include "model/state/include/Caterpillar.h"
 
 namespace model::state {
@@ -16,7 +16,7 @@ public:
 
 protected:
   void fillStateOption() override;
-  EntityFactory mFactory;
+  Factory mFactory;
 };
 
 } // namespace model::state
