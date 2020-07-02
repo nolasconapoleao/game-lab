@@ -4,22 +4,23 @@
 
 #include "World.h"
 
+#include <memory>
+#include <set>
+
 std::map<ItemId, entity::Item> World::items;
 std::map<CharacterId, entity::Character> World::characters;
 std::map<StructureId, entity::Structure> World::structures;
-std::vector<CharacterId> World::characterQueue;
+std::priority_queue<std::pair<int, CharacterId>> World::characterQueue;
 WorldMap World::worldMap;
 CharacterId World::activeCharacter = 0;
 LocationId World::activeLocation = 0;
-Number World::queuePosition = 0;
 
 void World::changeFocusedCharacter() {
-  queuePosition++;
-  if (queuePosition >= characterQueue.size()) {
-    queuePosition = 0;
+  if (characterQueue.size() == 0) {
     updateCharacterQueue();
   }
-  activeCharacter = characterQueue.at(queuePosition);
+  activeCharacter = characterQueue.top().second;
+  characterQueue.pop();
   activeLocation = character(activeLocation).getLocation();
 }
 
@@ -147,18 +148,14 @@ std::vector<LocationId> World::activeLocations() {
   return result;
 }
 void World::updateCharacterQueue() {
-  // TODO: Don't add dead people to the queue
-  characterQueue.clear();
   std::vector<LocationId> locations = activeLocations();
+  std::set<LocationId> locationSet{locations.begin(), locations.end()};
 
-  LocationId characterLocation;
-  bool existsInLocation;
-  const auto findInLocations = [&characterLocation](LocationId locationId) { return locationId == characterLocation; };
-  for (int i = 0; i < characters.size(); i++) {
-    characterLocation = characters.at(i).getLocation();
-    existsInLocation = (std::find_if(locations.begin(), locations.end(), findInLocations) != locations.end());
-    if (existsInLocation) {
-      characterQueue.emplace_back(i);
+  const auto saveToQueue = [&locationSet](const CharacterEntry &entry) {
+    // TODO: Don't add dead people or paralysed to the queue
+    if (locationSet.contains(entry.second.getLocation())) {
+      characterQueue.push(std::make_pair(entry.second.getStats().spd, entry.first));
     }
-  }
+  };
+  std::for_each(characters.begin(), characters.end(), saveToQueue);
 }

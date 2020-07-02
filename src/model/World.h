@@ -5,6 +5,7 @@
 #pragma once
 
 #include <map>
+#include <queue>
 
 #include "model/entity/Character.h"
 #include "model/entity/Item.h"
@@ -48,10 +49,8 @@ private:
   static std::map<ItemId, entity::Item> items;
   static std::map<CharacterId, entity::Character> characters;
   static std::map<StructureId, entity::Structure> structures;
-  // TODO: use an actual queue for this
-  static std::vector<CharacterId> characterQueue;
+  static std::priority_queue<std::pair<int, CharacterId>> characterQueue;
   static WorldMap worldMap;
-  static Number queuePosition;
 
   friend class Factory;
   friend class Controller;
