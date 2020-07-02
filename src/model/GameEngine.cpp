@@ -20,14 +20,14 @@
 #include "model/state/include/Transition.h"
 
 enum MACRO_STATES : StateId {
-  example = 0,
+  startWorld = 0,
   idleWorld,
-  attack,
-  startWorld,
+  playerTurn,
+  example,
   tutorial,
+  attack,
   walk,
   skip,
-  playerTurn,
   endTurn,
   shutdown,
 };
@@ -36,26 +36,26 @@ namespace model::state {
 GameEngine::GameEngine() {
   mActiveState = startWorld;
 
+  addState(attack, std::make_shared<Attack>());
+  addState(endTurn, std::make_shared<Empty>());
   addState(example, std::make_shared<Example>());
   addState(idleWorld, std::make_shared<IdleWorld>());
+  addState(playerTurn, std::make_shared<Empty>());
   addState(shutdown, std::make_shared<Shutdown>());
+  addState(skip, std::make_shared<Empty>());
   addState(startWorld, std::make_shared<Start>());
   addState(tutorial, std::make_shared<Tutorial>());
   addState(walk, std::make_shared<Walk>());
-  addState(playerTurn, std::make_shared<Empty>());
-  addState(skip, std::make_shared<Empty>());
-  addState(endTurn, std::make_shared<Empty>());
-  addState(attack, std::make_shared<Attack>());
 
   addTransition(example, endTurn, NEXT);
   addTransition(tutorial, playerTurn, NEXT);
 
-  addTransition(playerTurn, example, MENU_EXAMPLE);
-  addTransition(playerTurn, tutorial, MENU_TUTORIAL);
-  addTransition(playerTurn, walk, MENU_WALK);
   addTransition(playerTurn, attack, MENU_ATTACK);
+  addTransition(playerTurn, example, MENU_EXAMPLE);
   addTransition(playerTurn, shutdown, MENU_SHUTDOWN);
   addTransition(playerTurn, skip, MENU_SKIP);
+  addTransition(playerTurn, tutorial, MENU_TUTORIAL);
+  addTransition(playerTurn, walk, MENU_WALK);
 
   addTransition(startWorld, idleWorld, NEXT);
   addTransition(skip, idleWorld, NEXT);
@@ -105,7 +105,11 @@ void GameEngine::addState(StateId stateId, std::shared_ptr<StateMachine> state) 
 }
 
 void GameEngine::loadNextState() {
-  mNeighbours = stateNetwork.neighbours(mActiveState);
+  const auto neighbours = stateNetwork.neighbours(mActiveState);
+  mNeighbours.clear();
+  for (auto it = neighbours.begin(); it != neighbours.end(); ++it) {
+    mNeighbours.insert(*it);
+  }
   if (mNeighbours.size() == 1) {
     automaticTransition();
   } else {
@@ -114,7 +118,7 @@ void GameEngine::loadNextState() {
 }
 
 void GameEngine::automaticTransition() {
-  auto transition = stateNetwork.getEdge(LinkId{mActiveState, mNeighbours[0]});
+  auto transition = stateNetwork.getEdge(LinkId{mActiveState, *mNeighbours.cbegin()});
   // Handle change of Macro State
   triggerTransition(transition);
   getState(mActiveState)->triggerTransition(START);

@@ -41,7 +41,7 @@ public:
   static std::vector<ItemId> itemsInLocation(LocationId locationId);
   static std::vector<CharacterId> charactersInLocation(const LocationId locationId);
   static std::vector<StructureId> structuresInLocation(const LocationId locationId);
-  static std::vector<LocationId> adjcentLocations(const LocationId locationId);
+  static std::unordered_set<LocationId> adjcentLocations(LocationId locationId);
   static std::vector<LocationId> activeLocations();
   static void updateCharacterQueue();
 

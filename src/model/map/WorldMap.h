@@ -22,7 +22,7 @@ public:
   void removelink(const LocationId start, const LocationId end);
   Distance distance(const LocationId start, const LocationId end);
   // FIXME: Neighbourhood should be a set and not a vector
-  std::vector<LocationId> neighbours(LocationId locationId);
+  std::unordered_set<LocationId> neighbours(LocationId locationId);
 
 private:
   UndirectedGraph<LocationId, entity::Location, Distance> world;

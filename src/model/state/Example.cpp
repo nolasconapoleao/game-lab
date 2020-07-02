@@ -25,11 +25,11 @@ Example::Example() {
   addState(Cancel, "Macro state was terminated by you");
 
   addTransition(IDLE, ENTER_1, 's');
-  addTransition(ENTER_1, ENTER_2, '1');
   addTransition(ENTER_1, WRONG, '2');
+  addTransition(ENTER_1, ENTER_2, '1');
 
-  addTransition(ENTER_2, WRONG, '1');
   addTransition(ENTER_2, TERMINATED, '2');
+  addTransition(ENTER_2, WRONG, '1');
 
   addTransition(WRONG, ENTER_1, ' ');
   addTransition(TERMINATED, IDLE, 'r');
@@ -51,7 +51,7 @@ void Example::run() {
 }
 
 void Example::continueToNext() {
-  auto transition = stateNetwork.getEdge(LinkId{mActiveState, mNeighbours[0]});
+  auto transition = stateNetwork.getEdge(LinkId{mActiveState, *mNeighbours.cbegin()});
   triggerTransition(transition);
 }
 

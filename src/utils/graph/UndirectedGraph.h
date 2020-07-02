@@ -19,7 +19,7 @@ public:
   bool addEdge(const EdgeId edgeId, const EdgeInfo &edgeInfo) override;
   void removeEdge(const EdgeId &edgeId) override;
   EdgeInfo getEdge(const EdgeId &edgeId);
-  std::vector<NodeId> neighbours(NodeId nodeId) override;
+  std::unordered_set<NodeId> neighbours(NodeId nodeId) override;
 
 private:
   bool edgeExists(const EdgeId edgeId);
@@ -77,14 +77,14 @@ EdgeInfo UndirectedGraph<NodeId, NodeInfo, EdgeInfo>::getEdge(const EdgeId &edge
 }
 
 template <class NodeId, class NodeInfo, class EdgeInfo>
-std::vector<NodeId> UndirectedGraph<NodeId, NodeInfo, EdgeInfo>::neighbours(NodeId nodeId) {
+std::unordered_set<NodeId> UndirectedGraph<NodeId, NodeInfo, EdgeInfo>::neighbours(NodeId nodeId) {
 
-  std::vector<NodeId> neighbours;
+  std::unordered_set<NodeId> neighbours;
   for (const auto &edge : this->edges) {
     if (std::get<0>(edge) == nodeId) {
-      neighbours.emplace_back(std::get<1>(edge));
+      neighbours.insert(std::get<1>(edge));
     } else if (std::get<1>(edge) == nodeId) {
-      neighbours.emplace_back(std::get<0>(edge));
+      neighbours.insert(std::get<0>(edge));
     }
   }
 

@@ -4,6 +4,8 @@
 
 #include "WorldMap.h"
 
+#include "../../../../../../../../usr/lib/gcc/x86_64-w64-mingw32/9.2-win32/include/c++/set"
+
 void WorldMap::addLocation(LocationId locationId, entity::Location location) {
   world.addNode(locationId, location);
 }
@@ -35,6 +37,6 @@ Distance WorldMap::distance(LocationId start, LocationId end) {
   return world.getEdge(link);
 }
 
-std::vector<LocationId> WorldMap::neighbours(LocationId locationId) {
+std::unordered_set<LocationId> WorldMap::neighbours(LocationId locationId) {
   return world.neighbours(locationId);
 }

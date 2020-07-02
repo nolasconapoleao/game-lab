@@ -124,7 +124,7 @@ std::vector<StructureId> World::structuresInLocation(LocationId locationId) {
   return result;
 }
 
-std::vector<LocationId> World::adjcentLocations(LocationId locationId) {
+std::unordered_set<LocationId> World::adjcentLocations(LocationId locationId) {
   return worldMap.neighbours(locationId);
 }
 

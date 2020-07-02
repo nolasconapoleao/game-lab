@@ -24,8 +24,6 @@ void IdleWorld::fillStateOption() {
 }
 
 void IdleWorld::execute() {
-  //  TODO: Loop through characters in current room
-  // TODO: Make characters think
   auto activeCharacter = mWorld.character(mWorld.activeCharacter);
 
   mWorld.changeFocusedCharacter();

@@ -27,7 +27,7 @@ protected:
   bool isUserTerminated();
 
   std::vector<StateId> mCaterpillar;
-  std::vector<StateId> mNeighbours;
+  std::unordered_set<StateId> mNeighbours;
   std::vector<ResourceId> mInput;
   std::vector<ResourceId> mInputParser;
   view::Printer mPrinter;

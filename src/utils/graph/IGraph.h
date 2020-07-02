@@ -6,6 +6,7 @@
 
 #include <iostream>
 #include <tuple>
+#include <unordered_set>
 #include <vector>
 
 template <class NodeId, class NodeInfo, class EdgeInfo> class IGraph {
@@ -26,8 +27,7 @@ public:
   virtual bool addEdge(const EdgeId edgeId, const EdgeInfo &edgeInfo) = 0;
   virtual void removeEdge(const EdgeId &edgeId) = 0;
   virtual EdgeInfo getEdge(const EdgeId &edgeId) = 0;
-  // TODO: neighbours should be a set instead of vector, multiple connections are not allowed
-  virtual std::vector<NodeId> neighbours(const NodeId nodeId) = 0;
+  virtual std::unordered_set<NodeId> neighbours(const NodeId nodeId) = 0;
 
 protected:
   bool nodeExists(const NodeId nodeId);

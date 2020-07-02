@@ -22,7 +22,7 @@ protected:
   void handleUserInput();
 
   view::Printer mPrinter;
-  std::vector<StateId> mNeighbours;
+  std::unordered_set<StateId> mNeighbours;
   std::string mOptions;
 };
 
