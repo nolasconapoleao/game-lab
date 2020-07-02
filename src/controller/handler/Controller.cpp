@@ -28,10 +28,9 @@ void Controller::battle(const CharacterId attackerId, const CharacterId attacked
 
 void Controller::dropAllItems(CharacterId characterId, LocationId locationId) {
   const auto items = world.itemsOfCharacter(characterId);
-  // TODO: resolve this once world returns ids instead of objects
-  //  for (auto item : items) {
-  //    changeItemOwner(*item.get(), OwnerType::LOCATION, locationId);
-  //  }
+  for (auto item : items) {
+    changeItemOwner(item, OwnerType::LOCATION, locationId);
+  }
 }
 
 void Controller::strategize(CharacterId characterId) {

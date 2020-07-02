@@ -21,7 +21,6 @@ public:
   void linkLocations(const LocationId start, const LocationId end, Distance distance);
   void removelink(const LocationId start, const LocationId end);
   Distance distance(const LocationId start, const LocationId end);
-  // FIXME: Neighbourhood should be a set and not a vector
   std::unordered_set<LocationId> neighbours(LocationId locationId);
 
 private:
