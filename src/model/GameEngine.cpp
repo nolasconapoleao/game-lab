@@ -43,6 +43,7 @@ GameEngine::GameEngine() {
   addState(tutorial, std::make_shared<Tutorial>());
   addState(walk, std::make_shared<Walk>());
   addState(playerTurn, std::make_shared<Empty>());
+  addState(skip, std::make_shared<Empty>());
   addState(endTurn, std::make_shared<Empty>());
   addState(attack, std::make_shared<Attack>());
 
@@ -54,8 +55,10 @@ GameEngine::GameEngine() {
   addTransition(playerTurn, walk, MENU_WALK);
   addTransition(playerTurn, attack, MENU_ATTACK);
   addTransition(playerTurn, shutdown, MENU_SHUTDOWN);
+  addTransition(playerTurn, skip, MENU_SKIP);
 
   addTransition(startWorld, idleWorld, NEXT);
+  addTransition(skip, idleWorld, NEXT);
   addTransition(idleWorld, playerTurn, NEXT);
 
   // TODO: missing addTransition(attack, endTurn, NEXT);
