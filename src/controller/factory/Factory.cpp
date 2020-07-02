@@ -34,14 +34,14 @@ void Factory::fillLocation(LocationId locationId) {
   // TODO: Implement random generation of entities based on room type
   // FIXME: Amount of entities should be a function of the location size
   generateCharacter();
-  world.characters.back().setLocation(locationId);
+  world.characters.rbegin()->second.setLocation(locationId);
 
   generateItem(UseType::singleUse);
   ItemOwnership itemOwnership = {locationId, OwnerType::LOCATION};
-  world.items.back().setOwnership(itemOwnership);
+  world.items.rbegin()->second.setOwnership(itemOwnership);
 
   generateStructure();
-  world.structures.back().setLocation(locationId);
+  world.structures.rbegin()->second.setLocation(locationId);
 }
 
 void Factory::createWorld() {

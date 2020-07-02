@@ -4,9 +4,9 @@
 
 #include "World.h"
 
-std::vector<entity::Item> World::items;
-std::vector<entity::Character> World::characters;
-std::vector<entity::Structure> World::structures;
+std::map<ItemId, entity::Item> World::items;
+std::map<CharacterId, entity::Character> World::characters;
+std::map<StructureId, entity::Structure> World::structures;
 std::vector<CharacterId> World::characterQueue;
 WorldMap World::worldMap;
 CharacterId World::activeCharacter = 0;
@@ -24,7 +24,11 @@ void World::changeFocusedCharacter() {
 }
 
 void World::addCharacter(entity::Character character) {
-  characters.emplace_back(character);
+  if (characters.rbegin() != characters.rend()) {
+    characters.emplace(characters.rbegin()->first + 1, character);
+  } else {
+    characters.emplace(0, character);
+  }
 }
 
 entity::Character &World::character(const CharacterId id) {
@@ -32,7 +36,11 @@ entity::Character &World::character(const CharacterId id) {
 }
 
 void World::addItem(entity::Item item) {
-  items.emplace_back(item);
+  if (items.rbegin() != items.rend()) {
+    items.emplace(items.rbegin()->first + 1, item);
+  } else {
+    items.emplace(0, item);
+  }
 }
 
 entity::Item &World::item(const ItemId id) {
@@ -40,7 +48,11 @@ entity::Item &World::item(const ItemId id) {
 }
 
 void World::addStructure(entity::Structure structure) {
-  structures.emplace_back(structure);
+  if (structures.rbegin() != structures.rend()) {
+    structures.emplace(structures.rbegin()->first + 1, structure);
+  } else {
+    structures.emplace(0, structure);
+  }
 }
 
 entity::Structure &World::structure(const StructureId id) {
@@ -65,66 +77,61 @@ entity::Location World::location(const LocationId id) {
   return worldMap.location(id);
 }
 
-std::vector<std::shared_ptr<entity::Item>> World::itemsOfCharacter(CharacterId characterId) {
-  std::vector<std::shared_ptr<entity::Item>> result;
-  auto saveItem = [characterId, &result](entity::Item item) {
-    if ((item.getOwnership().ownerType == OwnerType::CHARACTER) && (item.getOwnership().resourceId == characterId)) {
-      result.emplace_back(std::make_shared<entity::Item>(item));
+std::vector<ItemId> World::itemsOfCharacter(CharacterId characterId) {
+  std::vector<ItemId> result;
+  auto saveItem = [characterId, &result](const ItemEntry &entry) {
+    if ((entry.second.getOwnership().ownerType == OwnerType::CHARACTER)
+        && (entry.second.getOwnership().resourceId == characterId)) {
+      result.emplace_back(entry.first);
     };
   };
   std::for_each(items.begin(), items.end(), saveItem);
   return result;
 }
 
-std::vector<std::shared_ptr<entity::Item>> World::itemsInLocation(CharacterId locationId) {
-  std::vector<std::shared_ptr<entity::Item>> result;
-  auto saveItem = [locationId, &result](entity::Item item) {
-    if ((item.getOwnership().ownerType == OwnerType::LOCATION) && (item.getOwnership().resourceId == locationId)) {
-      result.emplace_back(std::make_shared<entity::Item>(item));
+std::vector<ItemId> World::itemsInLocation(CharacterId locationId) {
+  std::vector<ItemId> result;
+  auto saveItem = [locationId, &result](const ItemEntry &entry) {
+    if ((entry.second.getOwnership().ownerType == OwnerType::LOCATION)
+        && (entry.second.getOwnership().resourceId == locationId)) {
+      result.emplace_back(entry.first);
     };
   };
   std::for_each(items.begin(), items.end(), saveItem);
   return result;
 }
 
-std::vector<std::shared_ptr<entity::Character>> World::charactersInLocation(LocationId locationId) {
-  std::vector<std::shared_ptr<entity::Character>> result;
-  auto saveCharacter = [locationId, &result](entity::Character character) {
-    if (character.getLocation() == locationId) {
-      result.emplace_back(std::make_shared<entity::Character>(character));
+std::vector<CharacterId> World::charactersInLocation(LocationId locationId) {
+  std::vector<CharacterId> result;
+  auto saveCharacter = [locationId, &result](const CharacterEntry &entry) {
+    if (entry.second.getLocation() == locationId) {
+      result.emplace_back(entry.first);
     };
   };
   std::for_each(characters.begin(), characters.end(), saveCharacter);
   return result;
 }
 
-std::vector<std::shared_ptr<entity::Structure>> World::structuresInLocation(LocationId locationId) {
-  std::vector<std::shared_ptr<entity::Structure>> result;
-  auto saveStructure = [locationId, &result](entity::Structure structure) {
-    if (structure.getLocation() == locationId) {
-      result.emplace_back(std::make_shared<entity::Structure>(structure));
+std::vector<StructureId> World::structuresInLocation(LocationId locationId) {
+  std::vector<StructureId> result;
+  auto saveStructure = [locationId, &result](const StructureEntry &entry) {
+    if (entry.second.getLocation() == locationId) {
+      result.emplace_back(entry.first);
     };
   };
   std::for_each(structures.begin(), structures.end(), saveStructure);
   return result;
 }
 
-std::vector<std::shared_ptr<entity::Location>> World::adjcentLocations(LocationId locationId) {
-  auto neighbours = worldMap.neighbours(locationId);
-  std::vector<std::shared_ptr<entity::Location>> result;
-
-  for (const auto locationId : neighbours) {
-    result.emplace_back(std::make_shared<entity::Location>(worldMap.location(locationId)));
-  }
-
-  return result;
+std::vector<LocationId> World::adjcentLocations(LocationId locationId) {
+  return worldMap.neighbours(locationId);
 }
 
 std::vector<LocationId> World::activeLocations() {
   std::vector<LocationId> activeLocationIds;
-  auto saveActiveLocation = [&activeLocationIds](entity::Character character) {
-    if (character.getGhost() == GhostInTheShell::Player) {
-      activeLocationIds.emplace_back(character.getLocation());
+  auto saveActiveLocation = [&activeLocationIds](CharacterEntry entry) {
+    if (entry.second.getGhost() == GhostInTheShell::Player) {
+      activeLocationIds.emplace_back(entry.second.getLocation());
     };
   };
   std::for_each(characters.begin(), characters.end(), saveActiveLocation);

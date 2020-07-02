@@ -25,7 +25,7 @@ void Attack::fillStateOption() {
   const auto characters = mWorld.charactersInLocation(characterLocation);
 
   for (auto it = 0; it < characters.size(); it++) {
-    mPrinter.addToOptions(Verbose::INFO, '0' + it, minimalPrint(*characters[it].get()));
+    mPrinter.addToOptions(Verbose::INFO, '0' + it, minimalPrint(mWorld.character(it)));
     mOptions += '0' + it;
   }
 }

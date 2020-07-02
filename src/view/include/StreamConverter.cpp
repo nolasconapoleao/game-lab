@@ -155,23 +155,23 @@ std::string entity::fullPrint(const entity::Structure &value) {
 std::string printScene(World &world) {
   std::ostringstream os;
   os << "Characters:";
-  for (const auto character : world.charactersInLocation(world.activeLocation)) {
-    os << " " << minimalPrint(*character.get());
+  for (const auto characterId : world.charactersInLocation(world.activeLocation)) {
+    os << " " << minimalPrint(world.character(characterId));
   }
 
   os << "\nStructures:";
-  for (const auto structure : world.structuresInLocation(world.activeLocation)) {
-    os << " " << minimalPrint(*structure.get());
+  for (const auto structureId : world.structuresInLocation(world.activeLocation)) {
+    os << " " << minimalPrint(world.structure(structureId));
   }
 
   os << "\nItems:";
-  for (const auto item : world.itemsInLocation(world.activeLocation)) {
-    os << " " << minimalPrint(*item.get());
+  for (const auto itemId : world.itemsInLocation(world.activeLocation)) {
+    os << " " << minimalPrint(world.item(itemId));
   }
 
   os << "\nNeighbourhood:";
-  for (const auto location : world.adjcentLocations(world.activeLocation)) {
-    os << " " << minimalPrint(*location.get());
+  for (const auto locationId : world.adjcentLocations(world.activeLocation)) {
+    os << " " << minimalPrint(world.location(locationId));
   }
 
   return os.str();

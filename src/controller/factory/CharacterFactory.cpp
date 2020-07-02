@@ -33,6 +33,6 @@ void Factory::createCharacter(const Occupation type) {
 void Factory::createPlayer(const LocationId locationId) {
   generateCharacter();
   // TODO: [nn] change to random creation
-  world.characters.back().setGhost(GhostInTheShell::Player);
-  world.characters.back().setLocation(0);
+  world.characters.rbegin()->second.setGhost(GhostInTheShell::Player);
+  world.characters.rbegin()->second.setLocation(0);
 }
