@@ -6,10 +6,8 @@
 #include "utils/random/Random.h"
 
 void Factory::generateCharacter() {
-  // TODO: [nn] Change access to random element of vector
-  auto type = occupationPool.begin();
-  std::advance(type, Random::fromTo(0, occupationPool.size() - 1));
-  createCharacter(*type);
+  const auto typeId = Random::fromVec(occupationPool);
+  createCharacter(typeId);
 }
 
 void Factory::createCharacter(const Occupation type) {
@@ -32,7 +30,6 @@ void Factory::createCharacter(const Occupation type) {
 
 void Factory::createPlayer(const LocationId locationId) {
   generateCharacter();
-  // TODO: [nn] change to random creation
   world.characters.rbegin()->second.setGhost(GhostInTheShell::Player);
   world.characters.rbegin()->second.setLocation(0);
 }

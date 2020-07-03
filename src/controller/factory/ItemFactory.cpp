@@ -6,20 +6,18 @@
 #include "utils/random/Random.h"
 
 void Factory::generateItem(UseType useType) {
-  // TODO: [nn] Change access to random element of vector
+  ItemPrototype typeId;
   std::vector<ItemPrototype>::iterator itemType;
 
   switch (useType) {
     case UseType::equip:
-      itemType = equipPool.begin();
-      std::advance(itemType, Random::fromTo(0, equipPool.size() - 1));
+      typeId = Random::fromVec(equipPool);
       break;
     case UseType::singleUse:
-      itemType = singleUsePool.begin();
-      std::advance(itemType, Random::fromTo(0, singleUsePool.size() - 1));
+      typeId = Random::fromVec(singleUsePool);
       break;
   }
-  createItem(*itemType);
+  createItem(typeId);
 }
 
 void Factory::createItem(ItemPrototype type) {

@@ -7,10 +7,8 @@
 #include "utils/random/Random.h"
 
 void Factory::generateStructure() {
-  // TODO: [nn] Change access to random element of vector
-  auto type = structurePool.begin();
-  std::advance(type, Random::fromTo(0, structurePool.size() - 1));
-  createStructure(*type);
+  const auto typeId = Random::fromVec(structurePool);
+  createStructure(typeId);
 }
 
 void Factory::createStructure(StructurePrototype type) {

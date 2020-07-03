@@ -26,14 +26,6 @@ Number fromTo(Number lowerBound, Number upperBound) {
   return distribution(generator);
 }
 
-Number fromVec(const std::vector<Number> &valuePool) {
-
-  const auto upperBound = valuePool.size();
-  const auto index = fromTo(0, upperBound - 1);
-
-  return valuePool[index];
-}
-
 std::unordered_set<Number> multipleNonRepeated(Number quantity, Number lowerBound, Number upperBound) {
 
   if (lowerBound > upperBound) {

@@ -19,14 +19,6 @@ using Number = uint8_t;
  */
 [[nodiscard]] Number fromTo(Number lowerBound, Number upperBound);
 
-// TODO: Refactor to allow call for vector of any type
-/**
- * @brief Generates a random number from the vector of given options.
- * @param valuePool for generation
- * @return random number
- */
-[[nodiscard]] Number fromVec(const std::vector<Number> &valuePool);
-
 /**
  * @brief Generates a set of non repeating number between lowerBound and upperBound.
  * @param lowerBound for generation
@@ -34,5 +26,18 @@ using Number = uint8_t;
  * @return set of random numbers
  */
 [[nodiscard]] std::unordered_set<Number> multipleNonRepeated(Number quantity, Number lowerBound, Number upperBound);
+
+/**
+ * @brief Generates a random number from the vector of given options.
+ * @param valuePool for generation
+ * @return random vector element
+ */
+template <class T>[[nodiscard]] T fromVec(const std::vector<T> &valuePool) {
+
+  const auto upperBound = valuePool.size();
+  const auto index = fromTo(0, upperBound - 1);
+
+  return valuePool[index];
+}
 
 }; // namespace Random

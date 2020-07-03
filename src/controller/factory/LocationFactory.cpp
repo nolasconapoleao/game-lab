@@ -6,25 +6,21 @@
 #include "utils/random/Random.h"
 
 void Factory::generateLocation(const LocationCategory type) {
-  // TODO: [nn] Change access to random element of vector
-  std::vector<LocationPrototype>::iterator locationType;
+  LocationPrototype typeId;
 
   switch (type) {
     case LocationCategory::Interior:
-      locationType = interiorPool.begin();
-      std::advance(locationType, Random::fromTo(0, interiorPool.size() - 1));
+      typeId = Random::fromVec(interiorPool);
       break;
     case LocationCategory::Connector:
-      locationType = connectorPool.begin();
-      std::advance(locationType, Random::fromTo(0, connectorPool.size() - 1));
+      typeId = Random::fromVec(connectorPool);
       break;
     case LocationCategory::Exterior:
-      locationType = exteriorPool.begin();
-      std::advance(locationType, Random::fromTo(0, exteriorPool.size() - 1));
+      typeId = Random::fromVec(exteriorPool);
       break;
   }
 
-  createLocation(*locationType);
+  createLocation(typeId);
 }
 
 void Factory::createLocation(const LocationPrototype type) {
