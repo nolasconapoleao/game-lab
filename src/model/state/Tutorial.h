@@ -11,7 +11,7 @@
 namespace model::state {
 
 class Tutorial : public StateMachine {
-  using LinkId = typename StateMachine::LinkId;
+  using LinkId = StateMachine::LinkId;
 
 public:
   Tutorial();

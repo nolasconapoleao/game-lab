@@ -15,7 +15,7 @@ public:
 
 protected:
   void fillStateOption() override;
-  Controller entityHandler;
+  Controller controller;
 };
 
 } // namespace model::state

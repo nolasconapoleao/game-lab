@@ -10,7 +10,7 @@
 namespace model::state {
 
 class Example : public StateMachine {
-  using LinkId = typename StateMachine::LinkId;
+  using LinkId = StateMachine::LinkId;
 
 public:
   Example();

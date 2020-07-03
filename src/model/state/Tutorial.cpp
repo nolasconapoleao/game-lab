@@ -22,18 +22,18 @@ Tutorial::Tutorial() : attempts(0) {
   failOutput.emplace_back("You truly are a rebel, but this is not the time.");
   failOutput.emplace_back("I can do this all day..");
 
-  addState(Substate::IDLE, "Macro state is in standbye");
-  addState(Substate::TERMINATED, "Macro state was terminated");
+  addState(IDLE, "Macro state is in standbye");
+  addState(TERMINATED, "Macro state was terminated");
   addState(ENTER_NAME, "Enter name");
   addState(WRONG_ANSWER, "Wrong answer");
   addState(INPUT_ANYKEY, "Input 'any key'");
 
-  addTransition(IDLE, ENTER_NAME, Transitions::START);
+  addTransition(IDLE, ENTER_NAME, START);
   addTransition(ENTER_NAME, INPUT_ANYKEY, 'b');
   addTransition(INPUT_ANYKEY, WRONG_ANSWER, 'c');
   addTransition(WRONG_ANSWER, INPUT_ANYKEY, 'd');
   addTransition(INPUT_ANYKEY, TERMINATED, 'e');
-  addTransition(TERMINATED, IDLE, Transitions::RESET);
+  addTransition(TERMINATED, IDLE, RESET);
   mActiveState = IDLE;
 }
 

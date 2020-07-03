@@ -4,9 +4,6 @@
 
 #include "StateMachine.h"
 
-StateMachine::StateMachine() {
-}
-
 void StateMachine::addState(StateId stateId, StateInfo stateInfo) {
   stateNetwork.addNode(stateId, stateInfo);
 }
@@ -20,17 +17,16 @@ void StateMachine::addTransition(StateId origin, StateId destination, Transition
   stateNetwork.addEdge(link, transition);
 }
 
-void StateMachine::triggerTransition(Transition transition) {
+bool StateMachine::triggerTransition(Transition transition) {
   const auto neighbourStates = stateNetwork.neighbours(mActiveState);
 
   for (const auto neighbour : neighbourStates) {
     LinkId link{mActiveState, neighbour};
     if (stateNetwork.getEdge(link) == transition) {
       mActiveState = neighbour;
-      return;
+      return true;
     }
   }
 
-  std::cerr << "Invalid transition.\n";
-  return;
+  return false;
 }

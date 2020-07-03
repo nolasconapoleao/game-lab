@@ -64,15 +64,15 @@ void Example::fillOptions() {
     auto nodeInfo = stateNetwork.getNode(neighbour);
     mPrinter.addToOptions(Verbose::INFO, edgeInfo, std::string(1, edgeInfo));
   }
-  mOptions += Transitions::CANCEL;
-  mPrinter.addToOptions(Verbose::INFO, Transitions::CANCEL, "back");
+  mOptions += CANCEL;
+  mPrinter.addToOptions(Verbose::INFO, CANCEL, "back");
 }
 
 void Example::handleUserInput() {
   mPrinter.printScreen();
   auto input = input::readAlphaNum(mOptions);
 
-  if (Transitions::CANCEL == input) {
+  if (CANCEL == input) {
     mActiveState = Cancel;
     return;
   }

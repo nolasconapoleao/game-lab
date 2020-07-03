@@ -29,10 +29,10 @@ void IdleWorld::execute() {
   mWorld.changeFocusedCharacter();
   if (GhostInTheShell::Player == activeCharacter.getGhost()) {
     mPrinter.directPrint("Comand me");
-    triggerTransition(Transitions::TERMINATE);
+    triggerTransition(TERMINATE);
   } else {
     mPrinter.directPrint("I'm gonna ride this on my own");
-    entityHandler.strategize(mWorld.activeCharacter);
+    controller.strategize(mWorld.activeCharacter);
   }
 }
 

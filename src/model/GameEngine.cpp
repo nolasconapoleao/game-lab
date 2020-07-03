@@ -47,8 +47,14 @@ GameEngine::GameEngine() {
   addState(tutorial, std::make_shared<Tutorial>());
   addState(walk, std::make_shared<Walk>());
 
+  addTransition(attack, endTurn, NEXT);
+  addTransition(endTurn, idleWorld, NEXT);
   addTransition(example, endTurn, NEXT);
+  addTransition(idleWorld, playerTurn, NEXT);
+  addTransition(skip, idleWorld, NEXT);
+  addTransition(startWorld, idleWorld, NEXT);
   addTransition(tutorial, playerTurn, NEXT);
+  addTransition(walk, endTurn, NEXT);
 
   addTransition(playerTurn, attack, MENU_ATTACK);
   addTransition(playerTurn, example, MENU_EXAMPLE);
@@ -57,71 +63,44 @@ GameEngine::GameEngine() {
   addTransition(playerTurn, tutorial, MENU_TUTORIAL);
   addTransition(playerTurn, walk, MENU_WALK);
 
-  addTransition(startWorld, idleWorld, NEXT);
-  addTransition(skip, idleWorld, NEXT);
-  addTransition(idleWorld, playerTurn, NEXT);
-
-  // TODO: missing addTransition(attack, endTurn, NEXT);
-  // TODO: missing addTransition(walk, endTurn, NEXT);
   addTransition(attack, playerTurn, PREVIOUS);
   addTransition(walk, playerTurn, PREVIOUS);
-  addTransition(endTurn, idleWorld, NEXT);
 
-  auto currentMachine = getState(mActiveState);
-  currentMachine->triggerTransition(START);
+  gameStates[mActiveState]->triggerTransition(START);
 }
 
 void GameEngine::run() {
-  entityHandler.updateViewVariables();
-  auto currentState = getState(mActiveState);
-  currentState->run();
+  controller.updateViewVariables();
+  gameStates[mActiveState]->run();
 
   if (isTerminated()) {
     return;
   }
 
-  if (currentState->activeState() == Substate::TERMINATED) {
-    getState(mActiveState)->triggerTransition(RESET);
-    loadNextState();
-    return;
-  } else if (currentState->activeState() == Substate::Cancel) {
-    getState(mActiveState)->triggerTransition(RESET);
+  const auto activeSubstate = gameStates[mActiveState]->activeState();
+  if (activeSubstate == TERMINATED || activeSubstate == Cancel) {
+    gameStates[mActiveState]->triggerTransition(RESET);
 
-    triggerTransition(PREVIOUS);
-    getState(mActiveState)->triggerTransition(START);
-    return;
+    if (activeSubstate == TERMINATED) {
+      if (!triggerTransition(NEXT)) {
+        manualTransition();
+      }
+    } else if (activeSubstate == Cancel) {
+      triggerTransition(PREVIOUS);
+    }
+    gameStates[mActiveState]->triggerTransition(START);
   }
 }
 
 bool GameEngine::isTerminated() {
-  auto currentState = getState(mActiveState);
-  return (mActiveState == shutdown) && (currentState->activeState() == Substate::TERMINATED);
+  auto currentState = gameStates[mActiveState];
+  return (mActiveState == shutdown) && (currentState->activeState() == TERMINATED);
 }
 
 void GameEngine::addState(StateId stateId, std::shared_ptr<StateMachine> state) {
   std::pair<StateId, std::shared_ptr<StateMachine>> entry{stateId, state};
   gameStates.insert(gameStates.begin(), entry);
-  stateNetwork.addNode(stateId, "");
-}
-
-void GameEngine::loadNextState() {
-  const auto neighbours = stateNetwork.neighbours(mActiveState);
-  mNeighbours.clear();
-  for (auto it = neighbours.begin(); it != neighbours.end(); ++it) {
-    mNeighbours.insert(*it);
-  }
-  if (mNeighbours.size() == 1) {
-    automaticTransition();
-  } else {
-    manualTransition();
-  }
-}
-
-void GameEngine::automaticTransition() {
-  auto transition = stateNetwork.getEdge(LinkId{mActiveState, *mNeighbours.cbegin()});
-  // Handle change of Macro State
-  triggerTransition(transition);
-  getState(mActiveState)->triggerTransition(START);
+  stateNetwork.addNode(stateId, magic_enum::enum_name(MACRO_STATES{stateId}).data());
 }
 
 void GameEngine::manualTransition() {
@@ -131,6 +110,7 @@ void GameEngine::manualTransition() {
 
 void GameEngine::fillOptions() {
   mOptions = "";
+  mNeighbours = stateNetwork.neighbours(mActiveState);
   for (auto neighbour : mNeighbours) {
     auto edgeInfo = stateNetwork.getEdge(LinkId{mActiveState, neighbour});
     mOptions += edgeInfo;
@@ -145,14 +125,7 @@ void GameEngine::handleUserInput() {
   mPrinter.addToOptionHeader(Verbose::INFO, "Select menu option ..");
   mPrinter.printScreen();
   auto input = input::readAlphaNum(mOptions);
-
-  // Handle change of Macro State
   triggerTransition(input);
-  getState(mActiveState)->triggerTransition(START);
-}
-
-std::shared_ptr<StateMachine> GameEngine::getState(const StateId stateId) {
-  return gameStates.at(stateId);
 }
 
 } // namespace model::state

@@ -4,9 +4,9 @@
 
 #pragma once
 
+#include <functional>
 #include <iostream>
 #include <vector>
-#include <functional>
 
 using Id = id_t;
 
@@ -14,12 +14,13 @@ template <class EntryInfo> class Database {
 
 public:
   // CRUD operations
-  [[no_discard]] Id createEntry(const EntryInfo &entry);
+  [[nodiscard]] Id createEntry(const EntryInfo &entry);
   EntryInfo readEntry(const Id id);
   void updateEntry(const Id id, const EntryInfo &entry);
   void deleteEntry(const Id id);
 
   size_t size();
+
 protected:
   std::vector<std::pair<Id, EntryInfo>> data;
 };
