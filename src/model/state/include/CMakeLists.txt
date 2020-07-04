@@ -4,6 +4,7 @@ target_sources(${PROJECT_NAME}
         ${CMAKE_CURRENT_SOURCE_DIR}/Caterpillar.cpp
     PUBLIC
         # Headers
+        ${CMAKE_CURRENT_SOURCE_DIR}/State.h
         ${CMAKE_CURRENT_SOURCE_DIR}/Substate.h
         ${CMAKE_CURRENT_SOURCE_DIR}/Caterpillar.h
         ${CMAKE_CURRENT_SOURCE_DIR}/Menu.h

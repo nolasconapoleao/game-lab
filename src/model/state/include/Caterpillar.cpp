@@ -24,7 +24,7 @@ void Caterpillar::createNetwork() {
 
   mCaterpillar.emplace_back(EXECUTE);
   for (const auto stateId : mCaterpillar) {
-    addState(stateId, "");
+    addState(stateId, magic_enum::enum_name(Substate{stateId}).data());
   }
 
   addTransition(IDLE, mCaterpillar.at(0), START);
@@ -45,16 +45,12 @@ void Caterpillar::createNetwork() {
 void Caterpillar::run() {
   if (mActiveState == EXECUTE) {
     execute();
-    triggerTransition(NEXT);
-  }
-
-  mNeighbours = stateNetwork.neighbours(mActiveState);
-  if (mNeighbours.size() == 1) {
-    triggerTransition(NEXT);
   } else {
     fillOptions();
     handleUserInput();
   }
+
+  triggerTransition(NEXT);
 }
 
 void Caterpillar::fillOptions() {
@@ -64,11 +60,11 @@ void Caterpillar::fillOptions() {
 }
 
 void Caterpillar::fillBaseOptions() {
+  mNeighbours = stateNetwork.neighbours(mActiveState);
   for (const auto neighbour : mNeighbours) {
     auto edgeInfo = stateNetwork.getEdge(LinkId{mActiveState, neighbour});
     if (edgeInfo != NEXT) {
       mOptions += edgeInfo;
-      // TODO: Add map of options and strings
       Transitions transition = Transitions{edgeInfo};
       mPrinter.addToOptions(Verbose::INFO, edgeInfo, magic_enum::enum_name(transition).data());
     }

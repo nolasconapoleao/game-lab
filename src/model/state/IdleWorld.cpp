@@ -4,14 +4,7 @@
 
 #include "IdleWorld.h"
 
-#include "model/state/include/Substate.h"
 #include "model/state/include/Transition.h"
-
-enum STATES : StateId {
-  SETUP = 1,
-  EXECUTION,
-  CLEANUP,
-};
 
 namespace model::state {
 

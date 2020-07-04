@@ -16,23 +16,12 @@
 #include "model/state/Tutorial.h"
 #include "model/state/Walk.h"
 #include "model/state/include/Menu.h"
+#include "model/state/include/State.h"
 #include "model/state/include/Substate.h"
 #include "model/state/include/Transition.h"
 
-enum MACRO_STATES : StateId {
-  startWorld = 0,
-  idleWorld,
-  playerTurn,
-  example,
-  tutorial,
-  attack,
-  walk,
-  skip,
-  endTurn,
-  shutdown,
-};
-
 namespace model::state {
+
 GameEngine::GameEngine() {
   mActiveState = startWorld;
 
@@ -83,7 +72,8 @@ void GameEngine::run() {
 
     if (activeSubstate == TERMINATED) {
       if (!triggerTransition(NEXT)) {
-        manualTransition();
+        fillOptions();
+        handleUserInput();
       }
     } else if (activeSubstate == Cancel) {
       triggerTransition(PREVIOUS);
@@ -100,23 +90,22 @@ bool GameEngine::isTerminated() {
 void GameEngine::addState(StateId stateId, std::shared_ptr<StateMachine> state) {
   std::pair<StateId, std::shared_ptr<StateMachine>> entry{stateId, state};
   gameStates.insert(gameStates.begin(), entry);
-  stateNetwork.addNode(stateId, magic_enum::enum_name(MACRO_STATES{stateId}).data());
-}
-
-void GameEngine::manualTransition() {
-  fillOptions();
-  handleUserInput();
+  stateNetwork.addNode(stateId, magic_enum::enum_name(State{stateId}).data());
 }
 
 void GameEngine::fillOptions() {
   mOptions = "";
-  mNeighbours = stateNetwork.neighbours(mActiveState);
+
+  const auto aux = stateNetwork.neighbours(mActiveState);
+  mNeighbours.clear();
+  std::copy(aux.begin(), aux.end(), std::inserter(mNeighbours, mNeighbours.begin()));
+
   for (auto neighbour : mNeighbours) {
     auto edgeInfo = stateNetwork.getEdge(LinkId{mActiveState, neighbour});
     mOptions += edgeInfo;
 
     auto nodeInfo = stateNetwork.getNode(neighbour);
-    auto stateName = magic_enum::enum_name(MACRO_STATES{neighbour}).data();
+    auto stateName = magic_enum::enum_name(State{neighbour}).data();
     mPrinter.addToOptions(Verbose::INFO, edgeInfo, stateName);
   }
 }

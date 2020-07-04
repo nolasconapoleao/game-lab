@@ -4,9 +4,7 @@
 
 #include "Attack.h"
 
-enum STATES : StateId {
-  SELECT_CHARACTER = 0,
-};
+#include "model/state/include/Substate.h"
 
 namespace model::state {
 

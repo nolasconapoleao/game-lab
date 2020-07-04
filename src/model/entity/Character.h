@@ -37,6 +37,7 @@ public:
   friend std::string fullPrint(const Character &value);
 
 private:
+  // TODO: Use name Id to lookup instead of string
   std::string name;
   Stats baseStats;
   ItemEffect tempStats;

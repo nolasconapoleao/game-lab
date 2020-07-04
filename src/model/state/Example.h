@@ -9,6 +9,7 @@
 
 namespace model::state {
 
+// FIX: Define Splitter state for these
 class Example : public StateMachine {
   using LinkId = StateMachine::LinkId;
 

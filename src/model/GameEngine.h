@@ -24,7 +24,6 @@ public:
   void addState(const StateId stateId, std::shared_ptr<StateMachine> state);
 
 private:
-  void manualTransition();
   void fillOptions();
   void handleUserInput();
 

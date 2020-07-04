@@ -17,6 +17,7 @@ public:
   void dropAllItems(const CharacterId characterId, const LocationId locationId);
   void changeItemOwner(ItemId item, const OwnerType &type, const ResourceId newOwner);
   void strategize(const CharacterId characterId);
+  void changePlayerName(const CharacterId characterId, const std::string &newName);
 
 private:
   void handleAttack(entity::Character &attacker, entity::Character &attacked);

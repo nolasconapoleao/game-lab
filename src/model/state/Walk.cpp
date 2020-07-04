@@ -4,19 +4,17 @@
 
 #include "Walk.h"
 
-enum STATES : StateId {
-  SELECT_DESTINATION = 0,
-};
+#include "model/state/include/Substate.h"
 
 namespace model::state {
 
 Walk::Walk() {
-  mCaterpillar.emplace_back(SELECT_DESTINATION);
+  mCaterpillar.emplace_back(SELECT_LOCATION);
   createNetwork();
 }
 
 void Walk::execute() {
-  mHandler.characterGoesTo(mWorld.activeCharacter, mInput[SELECT_DESTINATION]);
+  mHandler.characterGoesTo(mWorld.activeCharacter, mInput[SELECT_LOCATION]);
 }
 
 void Walk::fillStateOption() {

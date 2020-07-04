@@ -5,8 +5,13 @@
 #pragma once
 
 enum Substate : uint8_t {
-  IDLE = 11,
-  TERMINATED = 12,
-  Cancel = 14,
-  EXECUTE = 15,
+  IDLE,
+  TERMINATED,
+  Cancel,
+  EXECUTE,
+  SELECT_CHARACTER,
+  SELECT_STRUCTURE,
+  SELECT_LOCATION,
+  SELECT_ITEM,
+  SELECT_QUANTITY,
 };
