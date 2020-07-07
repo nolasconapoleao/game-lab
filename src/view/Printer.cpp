@@ -58,7 +58,6 @@ void Printer::resetLists() {
   optionHeader.clear();
   extraInfo.clear();
   options.clear();
-  roundReport.clear();
 }
 
 void Printer::directPrint(const std::string &message) {
@@ -67,11 +66,11 @@ void Printer::directPrint(const std::string &message) {
 
 void Printer::printScreen() {
   clearScreen();
+  printRoundReport();
   printScene();
   printHud();
   printExtraInfo();
   printOptions();
-  printRoundReport();
 }
 
 void Printer::printScene() {

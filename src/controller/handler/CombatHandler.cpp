@@ -6,15 +6,29 @@
 
 #include "Controller.h"
 #include "controller/handler/include/gamemath.h"
+#include "utils/random/Random.h"
 
 constexpr Number MAXLEVEL = 100;
 
 void Controller::handleAttack(entity::Character &attacker, entity::Character &attacked) {
-  // TODO: [nn] Include random hit probability
   auto attackerStats = attacker.getStats();
   auto attackedStats = attacked.getStats();
 
-  const auto damage = attackerStats.atk;
+  auto hitChange = Random::fromTo(0, attackerStats.atk);
+  auto defenseChange = Random::fromTo(0, attackedStats.def);
+
+  auto damage = 0;
+  std::string hitReport = attacker.getName() + " attacks " + attacked.getName() + ": ";
+  if (hitChange > (2 * defenseChange)) {
+    damage = 2 * (hitChange - defenseChange);
+    hitReport += "Critical";
+  } else if (hitChange > defenseChange) {
+    damage = hitChange - defenseChange;
+    hitReport += "Hit";
+  } else {
+    hitReport += "Fail";
+  }
+  mPrinter.addToRoundReport(Verbose::INFO, hitReport);
   const auto damage_remainder = gamemath::difference(damage, attacked.getTempStats().hp);
 
   auto updatedBase = attacked.getBaseStats();

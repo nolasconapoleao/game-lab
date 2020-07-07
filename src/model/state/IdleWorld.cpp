@@ -17,16 +17,15 @@ void IdleWorld::fillStateOption() {
 }
 
 void IdleWorld::execute() {
-  auto activeCharacter = mWorld.character(mWorld.activeCharacter);
-
   mWorld.changeFocusedCharacter();
-  if (GhostInTheShell::Player == activeCharacter.getGhost()) {
-    mPrinter.directPrint("Comand me");
-    triggerTransition(TERMINATE);
-  } else {
-    mPrinter.directPrint("I'm gonna ride this on my own");
+  // FIXME: Hic sunt dracones - if no character with player ghost exists
+  while (GhostInTheShell::Player != mWorld.character(mWorld.activeCharacter).getGhost()) {
+    mPrinter.addToRoundReport(Verbose::INFO, "I'm gonna ride this on my own");
     controller.strategize(mWorld.activeCharacter);
-  }
+    mWorld.changeFocusedCharacter();
+  };
+  mPrinter.addToRoundReport(Verbose::INFO, "Comand me");
+  triggerTransition(TERMINATE);
 }
 
 } // namespace model::state

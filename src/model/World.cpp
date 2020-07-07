@@ -20,8 +20,8 @@ void World::changeFocusedCharacter() {
     updateCharacterQueue();
   }
   activeCharacter = characterQueue.top().second;
+  activeLocation = character(activeCharacter).getLocation();
   characterQueue.pop();
-  activeLocation = character(activeLocation).getLocation();
 }
 
 void World::addCharacter(entity::Character character) {
@@ -128,33 +128,33 @@ std::unordered_set<LocationId> World::adjcentLocations(LocationId locationId) {
   return worldMap.neighbours(locationId);
 }
 
-std::vector<LocationId> World::activeLocations() {
-  std::vector<LocationId> activeLocationIds;
-  auto saveActiveLocation = [&activeLocationIds](CharacterEntry entry) {
+std::set<LocationId> World::activeLocations() {
+  std::set<LocationId> locationWithPlayer;
+  auto saveActiveLocation = [&locationWithPlayer](CharacterEntry entry) {
     if (entry.second.getGhost() == GhostInTheShell::Player) {
-      activeLocationIds.emplace_back(entry.second.getLocation());
+      locationWithPlayer.insert(entry.second.getLocation());
     };
   };
   std::for_each(characters.begin(), characters.end(), saveActiveLocation);
 
-  std::vector<LocationId> result;
-  auto saveAllLocations = [&result](LocationId locationId) { result.emplace_back(locationId); };
-  for (const auto activeLocation : activeLocationIds) {
+  std::set<LocationId> result;
+  auto saveAllLocations = [&result](LocationId locationId) { result.insert(locationId); };
+  for (const auto activeLocation : locationWithPlayer) {
     const auto aux = worldMap.neighbours(activeLocation);
-    result.emplace_back();
     std::for_each(aux.begin(), aux.end(), saveAllLocations);
+    result.insert(activeLocation);
   }
 
   return result;
 }
+
 void World::updateCharacterQueue() {
-  std::vector<LocationId> locations = activeLocations();
-  std::set<LocationId> locationSet{locations.begin(), locations.end()};
+  auto locationSet = activeLocations();
 
   const auto saveToQueue = [&locationSet](const CharacterEntry &entry) {
     // TODO: Don't add dead people or paralysed to the queue
     if (locationSet.contains(entry.second.getLocation())) {
-      characterQueue.push(std::make_pair(entry.second.getStats().spd, entry.first));
+      characterQueue.push({entry.second.getStats().spd, entry.first});
     }
   };
   std::for_each(characters.begin(), characters.end(), saveToQueue);

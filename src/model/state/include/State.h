@@ -5,7 +5,7 @@
 #pragma once
 
 enum State : uint8_t {
-  startWorld,
+  startWorld = 0,
   idleWorld,
   playerTurn,
   example,

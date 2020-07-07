@@ -7,6 +7,7 @@
 #include <map>
 #include <queue>
 
+#include "../../../../../../../usr/lib/gcc/x86_64-w64-mingw32/9.2-win32/include/c++/set"
 #include "model/entity/Character.h"
 #include "model/entity/Item.h"
 #include "model/entity/Location.h"
@@ -42,7 +43,7 @@ public:
   static std::vector<CharacterId> charactersInLocation(const LocationId locationId);
   static std::vector<StructureId> structuresInLocation(const LocationId locationId);
   static std::unordered_set<LocationId> adjcentLocations(LocationId locationId);
-  static std::vector<LocationId> activeLocations();
+  static std::set<LocationId> activeLocations();
   static void updateCharacterQueue();
 
 private:

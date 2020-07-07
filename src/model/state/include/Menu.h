@@ -11,5 +11,4 @@ enum Menu : char {
   MENU_ATTACK = 'a',
   MENU_SKIP = 's',
   MENU_SHUTDOWN = 'x',
-  MENU_UNUSED = ' ',
 };

@@ -5,7 +5,7 @@
 #pragma once
 
 enum Substate : uint8_t {
-  IDLE,
+  IDLE = 0,
   TERMINATED,
   Cancel,
   EXECUTE,

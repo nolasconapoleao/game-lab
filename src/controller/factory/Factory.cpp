@@ -48,6 +48,7 @@ void Factory::createWorld() {
   // TODO: Random creation of rooms
   generateLocation(LocationCategory::Exterior);
   createPlayer(0);
+  world.characters.rbegin()->second.setName("Player");
 
   fillLocation(0);
   generateLocation(LocationCategory::Interior);

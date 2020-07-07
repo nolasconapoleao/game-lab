@@ -12,7 +12,7 @@ void Factory::generateCharacter() {
 
 void Factory::createCharacter(const Occupation type) {
   // TODO: replace by random generation based on class
-  Stats stats{{1, 2, 3, 8}, 8, 0, 9, 12};
+  Stats stats{{4, 2, 3, 20}, 20, 8, 0, 9, 12};
   Passport passport{"a", "b", Occupation::BEGGAR, Race::HUMAN, CharacterAttack::PHYSICAL};
 
   entity::Character creation;
