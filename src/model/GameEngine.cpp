@@ -38,6 +38,18 @@ GameEngine::GameEngine() {
   addState(tutorial, std::make_shared<Tutorial>());
   addState(walk, std::make_shared<Walk>());
 
+  addTransition(playerTurn, attack, TR_BATTLE_CHARACTER);
+  addTransition(playerTurn, useItem, TR_ITEM_USE);
+  addTransition(playerTurn, example, TR_QUEST_READ);
+  addTransition(playerTurn, shutdown, TR_TERMINATE);
+  addTransition(playerTurn, skip, TR_SKIP_TURN);
+  addTransition(playerTurn, tutorial, TR_TUTORIAL);
+  addTransition(playerTurn, walk, TR_TRAVEL);
+
+  addTransition(useItem, playerTurn, PREVIOUS);
+  addTransition(attack, playerTurn, PREVIOUS);
+  addTransition(walk, playerTurn, PREVIOUS);
+
   addTransition(idleWorld, playerTurn, NEXT);
   addTransition(tutorial, playerTurn, NEXT);
   addTransition(endTurn, idleWorld, NEXT);
@@ -47,18 +59,6 @@ GameEngine::GameEngine() {
   addTransition(example, endTurn, NEXT);
   addTransition(useItem, endTurn, NEXT);
   addTransition(walk, endTurn, NEXT);
-
-  addTransition(playerTurn, attack, MENU_ATTACK);
-  addTransition(playerTurn, useItem, MENU_INVENTORY);
-  addTransition(playerTurn, example, MENU_EXAMPLE);
-  addTransition(playerTurn, shutdown, MENU_SHUTDOWN);
-  addTransition(playerTurn, skip, MENU_SKIP);
-  addTransition(playerTurn, tutorial, MENU_TUTORIAL);
-  addTransition(playerTurn, walk, MENU_WALK);
-
-  addTransition(useItem, playerTurn, PREVIOUS);
-  addTransition(attack, playerTurn, PREVIOUS);
-  addTransition(walk, playerTurn, PREVIOUS);
 
   gameStates[mActiveState]->triggerTransition(START);
 }
