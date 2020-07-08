@@ -19,13 +19,13 @@ public:
   void setVerboseLevel(Verbose verbose);
 
   // Insert entries to printed structures
-  void addToRoundReport(const Verbose verbose, const std::string reportEntry);
-  void addToScene(const Verbose verbose, const std::string sceneEntry);
-  void addToHud(const Verbose verbose, const std::string hudEntry);
-  void addToExtraInfo(Verbose verbose, std::string note);
-  void addToOptionHeader(const Verbose verbose, const std::string header);
-  void addToOptions(Verbose verbose, char option, std::string optionDescription);
-  void resetLists();
+  static void addToRoundReport(const Verbose verbose, const std::string reportEntry);
+  static void addToScene(const Verbose verbose, const std::string sceneEntry);
+  static void addToHud(const Verbose verbose, const std::string hudEntry);
+  static void addToExtraInfo(Verbose verbose, std::string note);
+  static void addToOptionHeader(const Verbose verbose, const std::string header);
+  static void addToOptions(Verbose verbose, char option, std::string optionDescription);
+  static void resetLists();
 
   // Print methods
   void directPrint(const std::string &message);

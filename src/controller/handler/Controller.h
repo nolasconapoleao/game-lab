@@ -20,16 +20,9 @@ public:
   void changePlayerName(const CharacterId characterId, const std::string &newName);
   void updateItem(const CharacterId characterId, const ItemId itemId);
   void consumeItem(const ItemId itemId);
+  void transferMoney(const CharacterId origin, const CharacterId destination, const Quantity amount);
 
 private:
-  void handleAttack(entity::Character &attacker, entity::Character &attacked);
-
-  void addXp(entity::Character &character, Quantity addedXp);
-  // Auxiliary methods
-  static Number totalXp(Quantity lvl, Quantity xp);
-  void evolve(Quantity levelIncrease);
-  void updateStats(Quantity increase);
-
   view::Printer mPrinter;
   World world;
 };

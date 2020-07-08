@@ -10,7 +10,23 @@
 
 constexpr Number MAXLEVEL = 100;
 
-void Controller::handleAttack(entity::Character &attacker, entity::Character &attacked) {
+void handleAttack(entity::Character &attacker, entity::Character &attacked);
+void updateExperience(entity::Character &character, Quantity addedXp);
+void updateStats(entity::Character &character, Quantity increase);
+
+void Controller::battle(const CharacterId attackerId, const CharacterId attackedId, const LocationId battleGroundId) {
+  auto &attacker = world.character(attackerId);
+  auto &attacked = world.character(attackedId);
+
+  handleAttack(attacker, attacked);
+  if (attacked.getStats().hp == 0) {
+    dropAllItems(attackedId, battleGroundId);
+    updateExperience(attacker, gamemath::accumulatedXp(attacked.getStats().lvl, attacked.getStats().xp));
+    transferMoney(attackedId, attackerId, attacked.getStats().cash);
+  }
+}
+
+void handleAttack(entity::Character &attacker, entity::Character &attacked) {
   auto attackerStats = attacker.getStats();
   auto attackedStats = attacked.getStats();
 
@@ -28,7 +44,8 @@ void Controller::handleAttack(entity::Character &attacker, entity::Character &at
   } else {
     hitReport += "Fail";
   }
-  mPrinter.addToRoundReport(Verbose::INFO, hitReport);
+
+  view::Printer::addToRoundReport(Verbose::INFO, hitReport);
   const auto damage_remainder = gamemath::difference(damage, attacked.getTempStats().hp);
 
   auto updatedBase = attacked.getBaseStats();
@@ -40,12 +57,16 @@ void Controller::handleAttack(entity::Character &attacker, entity::Character &at
   attacked.setBaseStats(updatedBase);
 }
 
-void Controller::addXp(entity::Character &character, Quantity addedXp) {
+void updateExperience(entity::Character &character, Quantity addedXp) {
+  if (character.isMaxLevelReached()) {
+    return;
+  }
+
   auto baseStats = character.getBaseStats();
-  Number currentTotal = totalXp(baseStats.lvl, baseStats.xp);
+  Number currentTotal = gamemath::accumulatedXp(baseStats.lvl, baseStats.xp);
   Number finalTotal = currentTotal + addedXp;
   Quantity finalLvl = std::floor((std::sqrt(8 * finalTotal + 1) - 1) / 2);
-  Number truncatedFinalTotal = totalXp(finalLvl, 0);
+  Number truncatedFinalTotal = gamemath::accumulatedXp(finalLvl, 0);
   Quantity finalXp = finalTotal - truncatedFinalTotal;
 
   // Update level variables
@@ -61,15 +82,22 @@ void Controller::addXp(entity::Character &character, Quantity addedXp) {
   Quantity lvlIncrease = finalLvl - baseStats.lvl;
   character.setBaseStats(baseStats);
 
-  // Evolve character
-  updateStats(lvlIncrease);
+  updateStats(character, lvlIncrease);
 }
 
-Number Controller::totalXp(Quantity lvl, Quantity xp) {
-  auto result = std::pow(lvl, 2) + xp;
-  return result;
-}
+void updateStats(entity::Character &character, Quantity increase) {
+  // TODO: Add random evolution points
+  auto updatedBaseStats = character.getBaseStats();
+  updatedBaseStats.mhp += increase;
+  updatedBaseStats.hp += increase;
 
-void Controller::updateStats(Quantity increase) {
-  // TODO: unimplemented
+  switch (character.getPassport().occupation) {
+    case Occupation::BEGGAR:
+      updatedBaseStats.cst += increase;
+      break;
+    case Occupation::BLACKSMITH:
+      updatedBaseStats.def += increase;
+      break;
+  }
+  character.setBaseStats(updatedBaseStats);
 }

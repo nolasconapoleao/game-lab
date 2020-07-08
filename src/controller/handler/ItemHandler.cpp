@@ -47,3 +47,10 @@ void Controller::consumeItem(ItemId itemId) {
   auto itemQuantity = world.item(itemId).getQuantity();
   world.item(itemId).setQuantity(gamemath::clamp_sub(itemQuantity, 1, 0));
 }
+
+void Controller::dropAllItems(const CharacterId characterId, const LocationId locationId) {
+  const auto items = world.itemsOfCharacter(characterId);
+  for (auto item : items) {
+    changeItemOwner(item, OwnerType::LOCATION, locationId);
+  }
+}

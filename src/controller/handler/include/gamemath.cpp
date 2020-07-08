@@ -4,6 +4,8 @@
 
 #include "gamemath.h"
 
+#include <cmath>
+
 namespace gamemath {
 
 Quantity clamp_sub(Quantity minuend, Quantity subtrahend, Quantity lowerBound) {
@@ -34,6 +36,11 @@ Quantity clamp(Quantity num, Quantity lowerBound, Quantity upperBound) {
 
 Quantity difference(Quantity num1, Quantity num2) {
   return abs(num1 - num2);
+}
+
+Number accumulatedXp(Quantity lvl, Quantity xp) {
+  auto result = (std::pow(lvl, 2) + lvl) / 2 + xp;
+  return result;
 }
 
 } // namespace gamemath

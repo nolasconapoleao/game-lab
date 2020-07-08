@@ -8,6 +8,7 @@
 
 #include "common/GameTypes.h"
 
+// TODO: Remove gamemath namespace
 namespace gamemath {
 
 /**
@@ -37,7 +38,21 @@ Quantity clamp_add(Quantity augend, Quantity addend, Quantity upperBound);
  */
 Quantity clamp(Quantity num, Quantity lowerBound, Quantity upperBound);
 
+/**
+ * @brief Returns distance between two scalars.
+ * @param num1 first scalar
+ * @param num2 second scalar
+ * @return absolute value of difference.
+ */
 Quantity difference(Quantity num1, Quantity num2);
+
+/**
+ * @brief Given level and experience, calculate accumulated experience.
+ * @param lvl current level
+ * @param xp current experience
+ * @return accumulated experience
+ */
+Number accumulatedXp(Quantity lvl, Quantity xp);
 
 }; // namespace gamemath
 

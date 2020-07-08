@@ -7,9 +7,9 @@
 #include "ItemEffect.h"
 
 struct Stats : ItemEffect {
-  Quantity mhp = 0;  // max health
-  Quantity cst = 0;  // constitution
-  Quantity lvl = 0;  // level
-  Quantity xp = 0;   // experience
-  Quantity cash = 0; // money
+  Quantity mhp = 0; // max health
+  Quantity cst = 0; // constitution
+  Quantity lvl = 0; // level
+  Quantity xp = 0;  // experience
+  Number cash = 0;  // money
 };
