@@ -126,11 +126,11 @@ SCENARIO("Get neighbours for node", "[DirectedGraph]") {
       const auto stalkees3 = stalkerNetwork.neighbours(constants::person3Id);
       THEN("the results come as expected") {
         REQUIRE(stalkees1.size() == 2);
-        REQUIRE(stalkees1[0] == constants::person2Id);
-        REQUIRE(stalkees1[1] == constants::person3Id);
+        REQUIRE(stalkees1.contains(constants::person2Id));
+        REQUIRE(stalkees1.contains(constants::person3Id));
 
         REQUIRE(stalkees2.size() == 1);
-        REQUIRE(stalkees2[0] == constants::person3Id);
+        REQUIRE(stalkees2.contains(constants::person3Id));
 
         REQUIRE(stalkees3.size() == 0);
       }
@@ -156,7 +156,7 @@ SCENARIO("Remove node with connections", "[DirectedGraph]") {
 
         const auto stalkees2 = stalkerNetwork.neighbours(constants::person2Id);
         REQUIRE(stalkees2.size() == 1);
-        REQUIRE(stalkees2[0] == constants::person3Id);
+        REQUIRE(stalkees2.contains(constants::person3Id));
 
         const auto stalkees3 = stalkerNetwork.neighbours(constants::person3Id);
         REQUIRE(stalkees3.size() == 0);
@@ -169,7 +169,7 @@ SCENARIO("Remove node with connections", "[DirectedGraph]") {
 
         const auto stalkees1 = stalkerNetwork.neighbours(constants::person1Id);
         REQUIRE(stalkees1.size() == 1);
-        REQUIRE(stalkees1[0] == constants::person3Id);
+        REQUIRE(stalkees1.contains(constants::person3Id));
 
         const auto stalkees3 = stalkerNetwork.neighbours(constants::person3Id);
         REQUIRE(stalkees3.size() == 0);
