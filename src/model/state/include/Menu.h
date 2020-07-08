@@ -9,6 +9,7 @@ enum Menu : char {
   MENU_TUTORIAL = 't',
   MENU_WALK = 'w',
   MENU_ATTACK = 'a',
+  MENU_INVENTORY = 'i',
   MENU_SKIP = 's',
   MENU_SHUTDOWN = 'x',
 };

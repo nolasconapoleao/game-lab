@@ -40,7 +40,8 @@ std::ostream &operator<<(std::ostream &os, const Passport &value) {
 
 std::ostream &operator<<(std::ostream &os, const Stats &value) {
   os << " mhp: " << value.mhp << " cst: " << value.cst << " lvl: " << value.lvl << " xp: " << value.xp
-     << " cash: " << value.cash;
+     << " cash: " << value.cash << "\n\t\tatk: " << value.atk << " def: " << value.def << " spd: " << value.spd
+     << " hp: " << value.hp;
   return os;
 }
 
@@ -103,7 +104,7 @@ std::string entity::minimalPrint(const entity::Item &value) {
 
 std::string entity::fullPrint(const entity::Item &value) {
   std::ostringstream os;
-  os << value.name << "useType: " << value.useType << " weight: " << value.weight << " quantity: " << value.quantity
+  os << value.name << " useType: " << value.useType << " weight: " << value.weight << " quantity: " << value.quantity
      << " effect: " << value.effect << " ownership: " << value.ownership;
   return os.str();
 }

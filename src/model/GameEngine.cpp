@@ -14,6 +14,7 @@
 #include "model/state/Shutdown.h"
 #include "model/state/Start.h"
 #include "model/state/Tutorial.h"
+#include "model/state/UseItem.h"
 #include "model/state/Walk.h"
 #include "model/state/include/Menu.h"
 #include "model/state/include/State.h"
@@ -30,28 +31,32 @@ GameEngine::GameEngine() {
   addState(example, std::make_shared<Example>());
   addState(idleWorld, std::make_shared<IdleWorld>());
   addState(playerTurn, std::make_shared<Empty>());
+  addState(useItem, std::make_shared<UseItem>());
   addState(shutdown, std::make_shared<Shutdown>());
   addState(skip, std::make_shared<Empty>());
   addState(startWorld, std::make_shared<Start>());
   addState(tutorial, std::make_shared<Tutorial>());
   addState(walk, std::make_shared<Walk>());
 
-  addTransition(attack, endTurn, NEXT);
-  addTransition(endTurn, idleWorld, NEXT);
-  addTransition(example, endTurn, NEXT);
   addTransition(idleWorld, playerTurn, NEXT);
+  addTransition(tutorial, playerTurn, NEXT);
+  addTransition(endTurn, idleWorld, NEXT);
   addTransition(skip, idleWorld, NEXT);
   addTransition(startWorld, idleWorld, NEXT);
-  addTransition(tutorial, playerTurn, NEXT);
+  addTransition(attack, endTurn, NEXT);
+  addTransition(example, endTurn, NEXT);
+  addTransition(useItem, endTurn, NEXT);
   addTransition(walk, endTurn, NEXT);
 
   addTransition(playerTurn, attack, MENU_ATTACK);
+  addTransition(playerTurn, useItem, MENU_INVENTORY);
   addTransition(playerTurn, example, MENU_EXAMPLE);
   addTransition(playerTurn, shutdown, MENU_SHUTDOWN);
   addTransition(playerTurn, skip, MENU_SKIP);
   addTransition(playerTurn, tutorial, MENU_TUTORIAL);
   addTransition(playerTurn, walk, MENU_WALK);
 
+  addTransition(useItem, playerTurn, PREVIOUS);
   addTransition(attack, playerTurn, PREVIOUS);
   addTransition(walk, playerTurn, PREVIOUS);
 

@@ -11,6 +11,7 @@ enum State : uint8_t {
   example,
   tutorial,
   attack,
+  useItem,
   walk,
   skip,
   endTurn,

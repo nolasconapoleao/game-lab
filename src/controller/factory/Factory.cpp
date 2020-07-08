@@ -44,11 +44,21 @@ void Factory::fillLocation(LocationId locationId) {
   world.structures.rbegin()->second.setLocation(locationId);
 }
 
+void Factory::fillInventory(CharacterId characterId) {
+  // TODO: Implement random generation of entities based on character type
+  generateItem(UseType::singleUse);
+  ItemOwnership itemOwnership = {characterId, OwnerType::CHARACTER};
+  world.items.rbegin()->second.setOwnership(itemOwnership);
+  generateItem(UseType::equip);
+  world.items.rbegin()->second.setOwnership(itemOwnership);
+}
+
 void Factory::createWorld() {
   // TODO: Random creation of rooms
   generateLocation(LocationCategory::Exterior);
   createPlayer(0);
   world.characters.rbegin()->second.setName("Player");
+  fillInventory(world.characters.rbegin()->first);
 
   fillLocation(0);
   generateLocation(LocationCategory::Interior);

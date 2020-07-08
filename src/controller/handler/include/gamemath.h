@@ -4,6 +4,8 @@
 
 #pragma once
 
+#include <model/entity/include/ItemEffect.h>
+
 #include "common/GameTypes.h"
 
 namespace gamemath {
@@ -38,3 +40,6 @@ Quantity clamp(Quantity num, Quantity lowerBound, Quantity upperBound);
 Quantity difference(Quantity num1, Quantity num2);
 
 }; // namespace gamemath
+
+ItemEffect operator+(const ItemEffect &addend1, const ItemEffect &addend2);
+ItemEffect operator-(const ItemEffect &effect, const ItemEffect &subtraction);

@@ -25,6 +25,7 @@ public:
   void generateLocation(const LocationCategory type);
   void createLocation(const LocationPrototype type);
   void fillLocation(LocationId locationId);
+  void fillInventory(CharacterId characterId);
   void createWorld();
 
 private:

@@ -10,6 +10,7 @@ target_sources(${PROJECT_NAME}
         ${CMAKE_CURRENT_SOURCE_DIR}/Shutdown.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Start.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Tutorial.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/UseItem.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Walk.cpp
         PUBLIC
         # Headers
@@ -20,5 +21,6 @@ target_sources(${PROJECT_NAME}
         ${CMAKE_CURRENT_SOURCE_DIR}/Shutdown.h
         ${CMAKE_CURRENT_SOURCE_DIR}/Start.h
         ${CMAKE_CURRENT_SOURCE_DIR}/Tutorial.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/UseItem.h
         ${CMAKE_CURRENT_SOURCE_DIR}/Walk.h
         )

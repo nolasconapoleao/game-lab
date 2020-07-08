@@ -78,7 +78,6 @@ void Caterpillar::handleUserInput() {
     triggerTransition(input);
   } else {
     mInput[mActiveState] = input - '0';
-    triggerTransition(NEXT);
   }
 }
 

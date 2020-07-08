@@ -5,7 +5,6 @@
 #include "World.h"
 
 #include <memory>
-#include <set>
 
 std::map<ItemId, entity::Item> World::items;
 std::map<CharacterId, entity::Character> World::characters;
