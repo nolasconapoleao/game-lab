@@ -4,16 +4,49 @@
 
 #pragma once
 
+// clang-format off
+
 enum State : uint8_t {
-  startWorld = 0,
-  idleWorld,
-  playerTurn,
-  example,
-  tutorial,
-  attack,
-  useItem,
-  walk,
-  skip,
-  endTurn,
-  shutdown,
+  ST_CREATION = 0,
+  ST_WORLD_AT_LARGE,
+  ST_PLAYER_TURN,
+  ST_PLAYER_EVENTS,
+  ST_MENU,
+    ST_SAVE,
+    ST_TUTORIAL,
+  ST_SKIP_TURN,
+  ST_BATTLE,
+    ST_BATTLE_CHARACTER,
+    ST_BATTLE_BUILDING,
+    ST_BATTLE_STRUCTURE,
+  ST_PICKUP,
+  ST_INVENTORY,
+    ST_ITEM_DROP,
+    ST_ITEM_USE,
+  ST_PARTY,
+    ST_PARTY_CREATE,
+    ST_PARTY_DISBAND,
+    ST_PARTY_TRADE,
+    ST_PARTY_KICK,
+    ST_PARTY_INVITE,
+  ST_SHOP,
+    ST_SHOP_BUY,
+    ST_SHOP_SELL,
+  ST_QUEST,
+    ST_QUEST_READ,
+    ST_QUEST_ABANDON,
+    ST_QUEST_FINISH,
+  ST_TRAVEL,
+  ST_TERMINATE,
+
+  // #### Special option ####
+  ST_SUMMON,
+  ST_PICKPOCKET,
+  ST_POSSESS,
+  ST_READ_BOOK,
+  ST_CALL,
+    ST_REINFORCEMENT,
+    ST_TAUNT_ENEMY,
+
 };
+// clang-format on

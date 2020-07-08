@@ -24,41 +24,42 @@
 namespace model::state {
 
 GameEngine::GameEngine() {
-  mActiveState = startWorld;
+  mActiveState = ST_CREATION;
 
-  addState(attack, std::make_shared<Attack>());
-  addState(endTurn, std::make_shared<Empty>());
-  addState(example, std::make_shared<Example>());
-  addState(idleWorld, std::make_shared<IdleWorld>());
-  addState(playerTurn, std::make_shared<Empty>());
-  addState(useItem, std::make_shared<UseItem>());
-  addState(shutdown, std::make_shared<Shutdown>());
-  addState(skip, std::make_shared<Empty>());
-  addState(startWorld, std::make_shared<Start>());
-  addState(tutorial, std::make_shared<Tutorial>());
-  addState(walk, std::make_shared<Walk>());
+  addState(ST_BATTLE_CHARACTER, std::make_shared<Attack>());
+  addState(ST_PLAYER_EVENTS, std::make_shared<Empty>());
+  // FIXME: Example is a type of event, not quest
+  addState(ST_QUEST_READ, std::make_shared<Example>());
+  addState(ST_WORLD_AT_LARGE, std::make_shared<IdleWorld>());
+  addState(ST_PLAYER_TURN, std::make_shared<Empty>());
+  addState(ST_ITEM_USE, std::make_shared<UseItem>());
+  addState(ST_TERMINATE, std::make_shared<Shutdown>());
+  addState(ST_SKIP_TURN, std::make_shared<Empty>());
+  addState(ST_CREATION, std::make_shared<Start>());
+  addState(ST_TUTORIAL, std::make_shared<Tutorial>());
+  addState(ST_TRAVEL, std::make_shared<Walk>());
 
-  addTransition(playerTurn, attack, TR_BATTLE_CHARACTER);
-  addTransition(playerTurn, useItem, TR_ITEM_USE);
-  addTransition(playerTurn, example, TR_QUEST_READ);
-  addTransition(playerTurn, shutdown, TR_TERMINATE);
-  addTransition(playerTurn, skip, TR_SKIP_TURN);
-  addTransition(playerTurn, tutorial, TR_TUTORIAL);
-  addTransition(playerTurn, walk, TR_TRAVEL);
+  addTransition(ST_PLAYER_TURN, ST_BATTLE_CHARACTER, TR_BATTLE_CHARACTER);
+  addTransition(ST_PLAYER_TURN, ST_ITEM_USE, TR_ITEM_USE);
+  addTransition(ST_PLAYER_TURN, ST_QUEST_READ, TR_QUEST_READ);
+  addTransition(ST_PLAYER_TURN, ST_TERMINATE, TR_TERMINATE);
+  addTransition(ST_PLAYER_TURN, ST_SKIP_TURN, TR_SKIP_TURN);
+  addTransition(ST_PLAYER_TURN, ST_TUTORIAL, TR_TUTORIAL);
+  addTransition(ST_PLAYER_TURN, ST_TRAVEL, TR_TRAVEL);
 
-  addTransition(useItem, playerTurn, PREVIOUS);
-  addTransition(attack, playerTurn, PREVIOUS);
-  addTransition(walk, playerTurn, PREVIOUS);
+  addTransition(ST_ITEM_USE, ST_PLAYER_TURN, PREVIOUS);
+  addTransition(ST_BATTLE_CHARACTER, ST_PLAYER_TURN, PREVIOUS);
+  addTransition(ST_TRAVEL, ST_PLAYER_TURN, PREVIOUS);
 
-  addTransition(idleWorld, playerTurn, NEXT);
-  addTransition(tutorial, playerTurn, NEXT);
-  addTransition(endTurn, idleWorld, NEXT);
-  addTransition(skip, idleWorld, NEXT);
-  addTransition(startWorld, idleWorld, NEXT);
-  addTransition(attack, endTurn, NEXT);
-  addTransition(example, endTurn, NEXT);
-  addTransition(useItem, endTurn, NEXT);
-  addTransition(walk, endTurn, NEXT);
+  addTransition(ST_WORLD_AT_LARGE, ST_PLAYER_TURN, NEXT);
+  addTransition(ST_TUTORIAL, ST_PLAYER_TURN, NEXT);
+  addTransition(ST_PLAYER_EVENTS, ST_WORLD_AT_LARGE, NEXT);
+  addTransition(ST_SKIP_TURN, ST_WORLD_AT_LARGE, NEXT);
+  addTransition(ST_CREATION, ST_WORLD_AT_LARGE, NEXT);
+  addTransition(ST_BATTLE_CHARACTER, ST_PLAYER_EVENTS, NEXT);
+  addTransition(ST_QUEST_READ, ST_PLAYER_EVENTS, NEXT);
+  addTransition(ST_ITEM_USE, ST_PLAYER_EVENTS, NEXT);
+  addTransition(ST_TRAVEL, ST_PLAYER_EVENTS, NEXT);
 
   gameStates[mActiveState]->triggerTransition(START);
 }
@@ -89,7 +90,7 @@ void GameEngine::run() {
 
 bool GameEngine::isTerminated() {
   auto currentState = gameStates[mActiveState];
-  return (mActiveState == shutdown) && (currentState->activeState() == TERMINATED);
+  return (mActiveState == ST_TERMINATE) && (currentState->activeState() == TERMINATED);
 }
 
 void GameEngine::addState(StateId stateId, std::shared_ptr<StateMachine> state) {
@@ -110,7 +111,10 @@ void GameEngine::fillOptions() {
     mOptions += edgeInfo;
 
     auto nodeInfo = stateNetwork.getNode(neighbour);
-    auto stateName = magic_enum::enum_name(State{neighbour}).data();
+    std::string stateName = magic_enum::enum_name(State{neighbour}).data();
+    // TODO: string clipping should have a centralized library, or should be calculated at compile time
+    stateName.replace(0, 3, "");
+    std::replace(stateName.begin(), stateName.end(), '_', ' ');
     mPrinter.addToOptions(Verbose::INFO, edgeInfo, stateName);
   }
 }
