@@ -24,5 +24,5 @@ public:
   std::unordered_set<LocationId> neighbours(LocationId locationId);
 
 private:
-  UndirectedGraph<LocationId, entity::Location, Distance> world;
+  UndirectedGraph<LocationId, entity::Location, Distance> map;
 };
