@@ -26,11 +26,11 @@ void Factory::createCharacter(const Occupation type) {
       break;
   }
 
-  world.addCharacter(creation);
+  World::addCharacter(creation);
 }
 
 void Factory::createPlayer(const LocationId locationId) {
   generateCharacter();
-  world.characters.rbegin()->second.setGhost(GhostInTheShell::Player);
-  world.characters.rbegin()->second.setLocation(0);
+  World::characters.rbegin()->second.setGhost(GhostInTheShell::Player);
+  World::characters.rbegin()->second.setLocation(0);
 }

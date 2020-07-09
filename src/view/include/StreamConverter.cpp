@@ -153,26 +153,26 @@ std::string entity::fullPrint(const entity::Structure &value) {
   return os.str();
 }
 
-std::string printScene(World &world) {
+std::string printScene() {
   std::ostringstream os;
   os << "Characters:";
-  for (const auto characterId : world.charactersInLocation(world.activeLocation)) {
-    os << " " << minimalPrint(world.character(characterId));
+  for (const auto characterId : World::charactersInLocation(World::activeLocation)) {
+    os << " " << minimalPrint(World::character(characterId));
   }
 
   os << "\nStructures:";
-  for (const auto structureId : world.structuresInLocation(world.activeLocation)) {
-    os << " " << minimalPrint(world.structure(structureId));
+  for (const auto structureId : World::structuresInLocation(World::activeLocation)) {
+    os << " " << minimalPrint(World::structure(structureId));
   }
 
   os << "\nItems:";
-  for (const auto itemId : world.itemsInLocation(world.activeLocation)) {
-    os << " " << minimalPrint(world.item(itemId));
+  for (const auto itemId : World::itemsInLocation(World::activeLocation)) {
+    os << " " << minimalPrint(World::item(itemId));
   }
 
   os << "\nNeighbourhood:";
-  for (const auto locationId : world.adjcentLocations(world.activeLocation)) {
-    os << " " << minimalPrint(world.location(locationId));
+  for (const auto locationId : World::adjcentLocations(World::activeLocation)) {
+    os << " " << minimalPrint(World::location(locationId));
   }
 
   return os.str();

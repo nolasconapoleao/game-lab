@@ -39,5 +39,5 @@ void Factory::createLocation(const LocationPrototype type) {
       break;
   }
 
-  world.addLocation(creation);
+  World::addLocation(creation);
 }

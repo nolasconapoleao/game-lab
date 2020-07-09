@@ -35,8 +35,6 @@ public:
 
   static CharacterId activeCharacter;
   static LocationId activeLocation;
-  // FIXME: printScene should be const but can't because it uses non const methods
-  friend std::string printScene(World &world);
 
   static std::vector<ItemId> itemsOfCharacter(CharacterId characterId);
   static std::vector<ItemId> itemsInLocation(LocationId locationId);

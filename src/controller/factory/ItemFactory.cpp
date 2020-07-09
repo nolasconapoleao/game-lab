@@ -40,5 +40,5 @@ void Factory::createItem(ItemPrototype type) {
       break;
   }
 
-  world.addItem(creation);
+  World::addItem(creation);
 }

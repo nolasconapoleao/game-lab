@@ -45,4 +45,5 @@ std::ostream &operator<<(std::ostream &os, const StructurePrototype &value);
 // std::string minimalPrint(const entity::Structure &value);
 // std::string fullPrint(const entity::Structure &value);
 
-// std::string printScene(World &world);
+// FIXME: printScene should be const but can't because it uses non const methods
+std::string printScene();

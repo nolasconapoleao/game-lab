@@ -21,7 +21,4 @@ public:
   void updateItem(const CharacterId characterId, const ItemId itemId);
   void consumeItem(const ItemId itemId);
   void transferMoney(const CharacterId origin, const CharacterId destination, const Quantity amount);
-
-private:
-  World world;
 };

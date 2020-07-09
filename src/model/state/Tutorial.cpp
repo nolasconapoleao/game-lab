@@ -47,7 +47,7 @@ void Tutorial::run() {
       name = input::readSentence(flush);
       view::Printer::clearScreen();
       view::Printer::directPrint("Hey there, " + name);
-      mHandler.changePlayerName(mWorld.activeCharacter, name);
+      mHandler.changePlayerName(World::activeCharacter, name);
       triggerTransition('b');
       break;
     }

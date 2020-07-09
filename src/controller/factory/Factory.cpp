@@ -34,31 +34,31 @@ void Factory::fillLocation(LocationId locationId) {
   // TODO: Implement random generation of entities based on room type
   // FIXME: Amount of entities should be a function of the location size
   generateCharacter();
-  world.characters.rbegin()->second.setLocation(locationId);
+  World::characters.rbegin()->second.setLocation(locationId);
 
   generateItem(UseType::singleUse);
   ItemOwnership itemOwnership = {locationId, OwnerType::LOCATION};
-  world.items.rbegin()->second.setOwnership(itemOwnership);
+  World::items.rbegin()->second.setOwnership(itemOwnership);
 
   generateStructure();
-  world.structures.rbegin()->second.setLocation(locationId);
+  World::structures.rbegin()->second.setLocation(locationId);
 }
 
 void Factory::fillInventory(CharacterId characterId) {
   // TODO: Implement random generation of entities based on character type
   generateItem(UseType::singleUse);
   ItemOwnership itemOwnership = {characterId, OwnerType::CHARACTER};
-  world.items.rbegin()->second.setOwnership(itemOwnership);
+  World::items.rbegin()->second.setOwnership(itemOwnership);
   generateItem(UseType::equip);
-  world.items.rbegin()->second.setOwnership(itemOwnership);
+  World::items.rbegin()->second.setOwnership(itemOwnership);
 }
 
 void Factory::createWorld() {
   // TODO: Random creation of rooms
   generateLocation(LocationCategory::Exterior);
   createPlayer(0);
-  world.characters.rbegin()->second.setName("Player");
-  fillInventory(world.characters.rbegin()->first);
+  World::characters.rbegin()->second.setName("Player");
+  fillInventory(World::characters.rbegin()->first);
 
   fillLocation(0);
   generateLocation(LocationCategory::Interior);
@@ -66,12 +66,12 @@ void Factory::createWorld() {
   fillLocation(3);
   generateLocation(LocationCategory::Connector);
   fillLocation(4);
-  world.linkLocations(0, 1);
-  world.linkLocations(0, 2);
-  world.linkLocations(0, 3);
+  World::linkLocations(0, 1);
+  World::linkLocations(0, 2);
+  World::linkLocations(0, 3);
   generateLocation(LocationCategory::Exterior);
-  world.linkLocations(3, 4);
+  World::linkLocations(3, 4);
   generateLocation(LocationCategory::Interior);
-  world.linkLocations(4, 5);
+  World::linkLocations(4, 5);
   fillLocation(5);
 }

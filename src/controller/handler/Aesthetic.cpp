@@ -5,5 +5,5 @@
 #include "Controller.h"
 
 void Controller::changePlayerName(const CharacterId characterId, const std::string &newName) {
-  world.character(characterId).setName(newName);
+  World::character(characterId).setName(newName);
 }

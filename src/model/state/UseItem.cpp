@@ -14,16 +14,16 @@ UseItem::UseItem() {
 }
 
 void UseItem::execute() {
-  mHandler.updateItem(mWorld.activeCharacter, mInput[SELECT_ITEM]);
+  mHandler.updateItem(World::activeCharacter, mInput[SELECT_ITEM]);
 }
 
 void UseItem::fillStateOption() {
   view::Printer::addToOptionHeader(Verbose::INFO, "Select Item");
-  const auto items = mWorld.itemsOfCharacter(mWorld.activeCharacter);
+  const auto items = World::itemsOfCharacter(World::activeCharacter);
 
   for (auto it = 0; it < items.size(); it++) {
-    view::Printer::addToOptions(Verbose::INFO, '0' + it, minimalPrint(mWorld.item(it)));
-    view::Printer::addToExtraInfo(Verbose::INFO, fullPrint(mWorld.item(it)));
+    view::Printer::addToOptions(Verbose::INFO, '0' + it, minimalPrint(World::item(it)));
+    view::Printer::addToExtraInfo(Verbose::INFO, fullPrint(World::item(it)));
     mOptions += '0' + it;
   }
 }

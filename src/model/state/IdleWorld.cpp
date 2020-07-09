@@ -17,12 +17,12 @@ void IdleWorld::fillStateOption() {
 }
 
 void IdleWorld::execute() {
-  mWorld.changeFocusedCharacter();
+  World::changeFocusedCharacter();
   // FIXME: Hic sunt dracones - if no character with player ghost exists
-  while (GhostInTheShell::Player != mWorld.character(mWorld.activeCharacter).getGhost()) {
+  while (GhostInTheShell::Player != World::character(World::activeCharacter).getGhost()) {
     view::Printer::addToRoundReport(Verbose::INFO, "I'm gonna ride this on my own");
-    controller.strategize(mWorld.activeCharacter);
-    mWorld.changeFocusedCharacter();
+    controller.strategize(World::activeCharacter);
+    World::changeFocusedCharacter();
   };
   view::Printer::addToRoundReport(Verbose::INFO, "Comand me");
   triggerTransition(TERMINATE);

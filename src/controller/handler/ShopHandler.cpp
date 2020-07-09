@@ -8,8 +8,8 @@
 constexpr Number MAXCASH = 100'000;
 
 void Controller::transferMoney(const CharacterId originId, const CharacterId destinationId, const Quantity amount) {
-  auto &origin = world.character(originId);
-  auto &destination = world.character(destinationId);
+  auto &origin = World::character(originId);
+  auto &destination = World::character(destinationId);
 
   auto updatedOriginStats = origin.getStats();
   updatedOriginStats.cash = gamemath::clamp_sub(updatedOriginStats.cash, amount, 0);

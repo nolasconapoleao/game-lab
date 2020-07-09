@@ -14,16 +14,16 @@ Attack::Attack() {
 }
 
 void Attack::execute() {
-  mHandler.battle(mWorld.activeCharacter, mInput[SELECT_CHARACTER], mWorld.activeLocation);
+  mHandler.battle(World::activeCharacter, mInput[SELECT_CHARACTER], World::activeLocation);
 }
 
 void Attack::fillStateOption() {
   view::Printer::addToOptionHeader(Verbose::INFO, "Select character");
-  const auto characterLocation = mWorld.character(mWorld.activeCharacter).getLocation();
-  const auto characters = mWorld.charactersInLocation(characterLocation);
+  const auto characterLocation = World::character(World::activeCharacter).getLocation();
+  const auto characters = World::charactersInLocation(characterLocation);
 
   for (auto it = 0; it < characters.size(); it++) {
-    view::Printer::addToOptions(Verbose::INFO, '0' + it, minimalPrint(mWorld.character(it)));
+    view::Printer::addToOptions(Verbose::INFO, '0' + it, minimalPrint(World::character(it)));
     mOptions += '0' + it;
   }
 }

@@ -5,5 +5,5 @@
 #include "Controller.h"
 
 void Controller::characterGoesTo(const CharacterId &characterId, const LocationId locationId) {
-  world.character(characterId).setLocation(locationId);
+  World::character(characterId).setLocation(locationId);
 }

@@ -20,5 +20,5 @@ void Factory::createStructure(StructurePrototype type) {
       break;
   }
 
-  world.addStructure(creation);
+  World::addStructure(creation);
 }

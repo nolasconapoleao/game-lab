@@ -15,8 +15,8 @@ void updateExperience(entity::Character &character, Quantity addedXp);
 void updateStats(entity::Character &character, Quantity increase);
 
 void Controller::battle(const CharacterId attackerId, const CharacterId attackedId, const LocationId battleGroundId) {
-  auto &attacker = world.character(attackerId);
-  auto &attacked = world.character(attackedId);
+  auto &attacker = World::character(attackerId);
+  auto &attacked = World::character(attackedId);
 
   handleAttack(attacker, attacked);
   if (attacked.getStats().hp == 0) {

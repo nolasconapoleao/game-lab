@@ -39,6 +39,4 @@ private:
   std::vector<ItemPrototype> singleUsePool;
 
   std::vector<StructurePrototype> structurePool;
-
-  World world;
 };
