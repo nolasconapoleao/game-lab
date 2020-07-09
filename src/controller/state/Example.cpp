@@ -4,9 +4,9 @@
 
 #include "Example.h"
 
+#include "controller/state/include/Substate.h"
+#include "controller/state/include/Transition.h"
 #include "input/Input.h"
-#include "model/state/include/Substate.h"
-#include "model/state/include/Transition.h"
 
 enum STATES : StateId {
   ENTER_1 = 1,
@@ -14,7 +14,7 @@ enum STATES : StateId {
   WRONG,
 };
 
-namespace model::state {
+namespace controller {
 
 Example::Example() {
   addState(IDLE, "Macro state is in stand bye");
@@ -80,4 +80,4 @@ void Example::handleUserInput() {
   triggerTransition(input);
 }
 
-} // namespace model::state
+} // namespace controller

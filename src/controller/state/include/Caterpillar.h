@@ -8,7 +8,7 @@
 #include "utils/state-machine/StateMachine.h"
 #include "view/Printer.h"
 
-namespace model::state {
+namespace controller {
 
 class Caterpillar : public StateMachine {
 
@@ -35,4 +35,4 @@ protected:
   World mWorld;
 };
 
-} // namespace model::state
+} // namespace controller

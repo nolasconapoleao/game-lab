@@ -4,9 +4,9 @@
 
 #include "UseItem.h"
 
-#include "model/state/include/Substate.h"
+#include "controller/state/include/Substate.h"
 
-namespace model::state {
+namespace controller {
 
 UseItem::UseItem() {
   mCaterpillar.emplace_back(SELECT_ITEM);
@@ -28,4 +28,4 @@ void UseItem::fillStateOption() {
   }
 }
 
-} // namespace model::state
+} // namespace controller

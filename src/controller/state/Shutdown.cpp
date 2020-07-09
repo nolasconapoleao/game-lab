@@ -4,7 +4,7 @@
 
 #include "Shutdown.h"
 
-namespace model::state {
+namespace controller {
 
 Shutdown::Shutdown() {
   createNetwork();
@@ -18,4 +18,4 @@ void Shutdown::execute() {
   view::Printer::directPrint("Game over.");
 }
 
-} // namespace model::state
+} // namespace controller

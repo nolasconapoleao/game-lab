@@ -4,9 +4,9 @@
 
 #include "IdleWorld.h"
 
-#include "model/state/include/Transition.h"
+#include "controller/state/include/Transition.h"
 
-namespace model::state {
+namespace controller {
 
 IdleWorld::IdleWorld() {
   createNetwork();
@@ -28,4 +28,4 @@ void IdleWorld::execute() {
   triggerTransition(TERMINATE);
 }
 
-} // namespace model::state
+} // namespace controller

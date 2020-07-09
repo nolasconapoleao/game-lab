@@ -7,7 +7,7 @@
 #include "utils/state-machine/StateMachine.h"
 #include "view/Printer.h"
 
-namespace model::state {
+namespace controller {
 
 // FIX: Define Splitter state for these
 class Example : public StateMachine {
@@ -26,4 +26,4 @@ protected:
   std::string mOptions;
 };
 
-} // namespace model::state
+} // namespace controller

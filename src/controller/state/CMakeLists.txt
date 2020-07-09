@@ -1,7 +1,7 @@
 add_subdirectory(include)
 
 target_sources(${PROJECT_NAME}
-        PRIVATE
+    PRIVATE
         # Sources
         ${CMAKE_CURRENT_SOURCE_DIR}/Attack.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Empty.cpp
@@ -12,7 +12,7 @@ target_sources(${PROJECT_NAME}
         ${CMAKE_CURRENT_SOURCE_DIR}/Tutorial.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/UseItem.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Walk.cpp
-        PUBLIC
+    PUBLIC
         # Headers
         ${CMAKE_CURRENT_SOURCE_DIR}/Attack.h
         ${CMAKE_CURRENT_SOURCE_DIR}/Empty.h
@@ -23,4 +23,4 @@ target_sources(${PROJECT_NAME}
         ${CMAKE_CURRENT_SOURCE_DIR}/Tutorial.h
         ${CMAKE_CURRENT_SOURCE_DIR}/UseItem.h
         ${CMAKE_CURRENT_SOURCE_DIR}/Walk.h
-        )
+)

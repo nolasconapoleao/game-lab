@@ -10,7 +10,7 @@
 #include "Transition.h"
 #include "input/Input.h"
 
-namespace model::state {
+namespace controller {
 
 void Caterpillar::createNetwork() {
   // FIXME: [nn] this should be simplified
@@ -81,4 +81,4 @@ void Caterpillar::handleUserInput() {
   }
 }
 
-} // namespace model::state
+} // namespace controller

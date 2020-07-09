@@ -4,9 +4,9 @@
 
 #include "Attack.h"
 
-#include "model/state/include/Substate.h"
+#include "controller/state/include/Substate.h"
 
-namespace model::state {
+namespace controller {
 
 Attack::Attack() {
   mCaterpillar.emplace_back(SELECT_CHARACTER);
@@ -28,4 +28,4 @@ void Attack::fillStateOption() {
   }
 }
 
-} // namespace model::state
+} // namespace controller

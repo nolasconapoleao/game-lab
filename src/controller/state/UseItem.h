@@ -4,9 +4,9 @@
 
 #pragma once
 
-#include "model/state/include/Caterpillar.h"
+#include "controller/state/include/Caterpillar.h"
 
-namespace model::state {
+namespace controller {
 
 class UseItem : public Caterpillar {
 public:
@@ -18,4 +18,4 @@ protected:
   Controller controller;
 };
 
-} // namespace model::state
+} // namespace controller

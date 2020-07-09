@@ -4,9 +4,9 @@
 
 #include "Walk.h"
 
-#include "model/state/include/Substate.h"
+#include "controller/state/include/Substate.h"
 
-namespace model::state {
+namespace controller {
 
 Walk::Walk() {
   mCaterpillar.emplace_back(SELECT_LOCATION);
@@ -28,4 +28,4 @@ void Walk::fillStateOption() {
   }
 }
 
-} // namespace model::state
+} // namespace controller

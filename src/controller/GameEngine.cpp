@@ -6,22 +6,22 @@
 
 #include <magic_enum/include/magic_enum.hpp>
 
+#include "controller/state/Attack.h"
+#include "controller/state/Empty.h"
+#include "controller/state/Example.h"
+#include "controller/state/IdleWorld.h"
+#include "controller/state/Shutdown.h"
+#include "controller/state/Start.h"
+#include "controller/state/Tutorial.h"
+#include "controller/state/UseItem.h"
+#include "controller/state/Walk.h"
+#include "controller/state/include/Menu.h"
+#include "controller/state/include/State.h"
+#include "controller/state/include/Substate.h"
+#include "controller/state/include/Transition.h"
 #include "input/Input.h"
-#include "model/state/Attack.h"
-#include "model/state/Empty.h"
-#include "model/state/Example.h"
-#include "model/state/IdleWorld.h"
-#include "model/state/Shutdown.h"
-#include "model/state/Start.h"
-#include "model/state/Tutorial.h"
-#include "model/state/UseItem.h"
-#include "model/state/Walk.h"
-#include "model/state/include/Menu.h"
-#include "model/state/include/State.h"
-#include "model/state/include/Substate.h"
-#include "model/state/include/Transition.h"
 
-namespace model::state {
+namespace controller {
 
 GameEngine::GameEngine() {
   mActiveState = ST_CREATION;
@@ -126,4 +126,4 @@ void GameEngine::handleUserInput() {
   triggerTransition(input);
 }
 
-} // namespace model::state
+} // namespace controller

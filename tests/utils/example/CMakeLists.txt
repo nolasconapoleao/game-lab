@@ -11,7 +11,7 @@ target_sources(
     PRIVATE
         ${PROJECT_SOURCE_DIR}/src/view/Printer.cpp
         ${PROJECT_SOURCE_DIR}/src/input/Input.cpp
-        ${PROJECT_SOURCE_DIR}/src/model/state/Tutorial.cpp
+        ../../../src/controller/state/Tutorial.cpp
         ${PROJECT_SOURCE_DIR}/src/utils/state-machine/MacroState.cpp
         ${PROJECT_SOURCE_DIR}/src/utils/graph/DirectedGraph.h
         ${PROJECT_SOURCE_DIR}/src/utils/graph/IGraph.h

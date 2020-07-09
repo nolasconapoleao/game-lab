@@ -5,9 +5,9 @@
 #pragma once
 
 #include "controller/factory/Factory.h"
-#include "model/state/include/Caterpillar.h"
+#include "controller/state/include/Caterpillar.h"
 
-namespace model::state {
+namespace controller {
 
 class Start : public Caterpillar {
 public:
@@ -19,4 +19,4 @@ protected:
   Factory mFactory;
 };
 
-} // namespace model::state
+} // namespace controller

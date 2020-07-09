@@ -12,7 +12,7 @@
 #include "utils/state-machine/StateMachine.h"
 #include "view/Printer.h"
 
-namespace model::state {
+namespace controller {
 
 class GameEngine : public StateMachine {
 public:
@@ -33,4 +33,4 @@ private:
   std::map<StateId, std::shared_ptr<StateMachine>> gameStates;
 };
 
-} // namespace model::state
+} // namespace controller

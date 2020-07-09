@@ -9,7 +9,7 @@
 #include "utils/state-machine/StateMachine.h"
 #include "view/Printer.h"
 
-namespace model::state {
+namespace controller {
 
 // FIX: Define Splitter state for these
 class Tutorial : public StateMachine {
@@ -27,4 +27,4 @@ private:
   World mWorld;
 };
 
-} // namespace model::state
+} // namespace controller

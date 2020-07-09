@@ -4,7 +4,7 @@
 
 #include "Empty.h"
 
-namespace model::state {
+namespace controller {
 
 Empty::Empty() {
   createNetwork();
@@ -18,4 +18,4 @@ void Empty::execute() {
   // Intentionally left blank
 }
 
-} // namespace model::state
+} // namespace controller

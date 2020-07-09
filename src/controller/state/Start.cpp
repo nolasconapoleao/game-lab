@@ -4,7 +4,7 @@
 
 #include "Start.h"
 
-namespace model::state {
+namespace controller {
 
 Start::Start() {
   createNetwork();
@@ -18,4 +18,4 @@ void Start::execute() {
   mFactory.createWorld();
 }
 
-} // namespace model::state
+} // namespace controller

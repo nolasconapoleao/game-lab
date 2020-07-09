@@ -4,9 +4,9 @@
 
 #pragma once
 
-#include "model/state/include/Caterpillar.h"
+#include "controller/state/include/Caterpillar.h"
 
-namespace model::state {
+namespace controller {
 
 class Empty : public Caterpillar {
 public:
@@ -17,4 +17,4 @@ protected:
   void fillStateOption() override;
 };
 
-} // namespace model::state
+} // namespace controller

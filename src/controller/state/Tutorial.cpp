@@ -4,9 +4,9 @@
 
 #include "Tutorial.h"
 
+#include "controller/state/include/Substate.h"
+#include "controller/state/include/Transition.h"
 #include "input/Input.h"
-#include "model/state/include/Substate.h"
-#include "model/state/include/Transition.h"
 
 enum STATES : StateId {
   ENTER_NAME = 1,
@@ -14,7 +14,7 @@ enum STATES : StateId {
   INPUT_ANYKEY,
 };
 
-namespace model::state {
+namespace controller {
 
 Tutorial::Tutorial() : attempts(0) {
   failOutput.emplace_back("Let's start over. Say it with me 'any key'");
@@ -76,4 +76,4 @@ void Tutorial::run() {
   }
 }
 
-} // namespace model::state
+} // namespace controller
