@@ -66,13 +66,13 @@ void Caterpillar::fillBaseOptions() {
     if (edgeInfo != NEXT) {
       mOptions += edgeInfo;
       Transitions transition = Transitions{edgeInfo};
-      mPrinter.addToOptions(Verbose::INFO, edgeInfo, magic_enum::enum_name(transition).data());
+      view::Printer::addToOptions(Verbose::INFO, edgeInfo, magic_enum::enum_name(transition).data());
     }
   }
 }
 
 void Caterpillar::handleUserInput() {
-  mPrinter.printScreen();
+  view::Printer::printScreen();
   auto input = input::readAlphaNum(mOptions);
   if (CANCEL == input || PREVIOUS == input || NEXT == input) {
     triggerTransition(input);

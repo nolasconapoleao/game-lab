@@ -15,7 +15,6 @@ using PrintList = std::vector<std::pair<Verbose, std::string>>;
 
 class Printer {
 public:
-  Printer(const Verbose verbose = Verbose::INFO);
   void setVerboseLevel(Verbose verbose);
 
   // Insert entries to printed structures
@@ -28,19 +27,19 @@ public:
   static void resetLists();
 
   // Print methods
-  void directPrint(const std::string &message);
-  void printScreen();
-  void clearScreen();
+  static void directPrint(const std::string &message);
+  static void printScreen();
+  static void clearScreen();
 
 private:
-  void printRoundReport();
-  void printScene();
-  void printHud();
-  void printExtraInfo();
-  void printOptions();
-  void printAndClear(PrintList &printList);
+  static void printRoundReport();
+  static void printScene();
+  static void printHud();
+  static void printExtraInfo();
+  static void printOptions();
+  static void printAndClear(PrintList &printList);
 
-  Verbose printerVerbose;
+  static Verbose printerVerbose;
   static PrintList roundReport;
   static PrintList scene;
   static PrintList hud;

@@ -22,7 +22,6 @@ protected:
   void fillOptions();
   void handleUserInput();
 
-  view::Printer mPrinter;
   std::unordered_set<StateId> mNeighbours;
   std::string mOptions;
 };

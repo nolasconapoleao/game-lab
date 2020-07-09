@@ -18,12 +18,12 @@ void Walk::execute() {
 }
 
 void Walk::fillStateOption() {
-  mPrinter.addToOptionHeader(Verbose::INFO, "Select destination");
+  view::Printer::addToOptionHeader(Verbose::INFO, "Select destination");
   const auto characterLocation = mWorld.character(mWorld.activeCharacter).getLocation();
   const auto neighbours = mWorld.adjcentLocations(characterLocation);
 
   for (auto it = 0; it < neighbours.size(); it++) {
-    mPrinter.addToOptions(Verbose::INFO, '0' + it, minimalPrint(mWorld.location(it)));
+    view::Printer::addToOptions(Verbose::INFO, '0' + it, minimalPrint(mWorld.location(it)));
     mOptions += '0' + it;
   }
 }

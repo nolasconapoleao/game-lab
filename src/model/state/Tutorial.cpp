@@ -42,18 +42,18 @@ void Tutorial::run() {
   switch (mActiveState) {
 
     case ENTER_NAME: {
-      mPrinter.directPrint("What is your name?");
+      view::Printer::directPrint("What is your name?");
       bool flush = true;
       name = input::readSentence(flush);
-      mPrinter.clearScreen();
-      mPrinter.directPrint("Hey there, " + name);
+      view::Printer::clearScreen();
+      view::Printer::directPrint("Hey there, " + name);
       mHandler.changePlayerName(mWorld.activeCharacter, name);
       triggerTransition('b');
       break;
     }
 
     case INPUT_ANYKEY: {
-      mPrinter.directPrint("Enter any key to start ..");
+      view::Printer::directPrint("Enter any key to start ..");
 
       std::string input = input::readSentence();
 
@@ -68,7 +68,7 @@ void Tutorial::run() {
     }
 
     case WRONG_ANSWER: {
-      mPrinter.directPrint(failOutput[attempts]);
+      view::Printer::directPrint(failOutput[attempts]);
 
       triggerTransition('d');
       break;

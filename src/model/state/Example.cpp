@@ -38,7 +38,7 @@ Example::Example() {
 }
 
 void Example::run() {
-  mPrinter.directPrint(stateNetwork.getNode(mActiveState));
+  view::Printer::directPrint(stateNetwork.getNode(mActiveState));
   mNeighbours = stateNetwork.neighbours(mActiveState);
 
   if (mNeighbours.size() == 1) {
@@ -62,14 +62,14 @@ void Example::fillOptions() {
     mOptions += edgeInfo;
 
     auto nodeInfo = stateNetwork.getNode(neighbour);
-    mPrinter.addToOptions(Verbose::INFO, edgeInfo, std::string(1, edgeInfo));
+    view::Printer::addToOptions(Verbose::INFO, edgeInfo, std::string(1, edgeInfo));
   }
   mOptions += CANCEL;
-  mPrinter.addToOptions(Verbose::INFO, CANCEL, "back");
+  view::Printer::addToOptions(Verbose::INFO, CANCEL, "back");
 }
 
 void Example::handleUserInput() {
-  mPrinter.printScreen();
+  view::Printer::printScreen();
   auto input = input::readAlphaNum(mOptions);
 
   if (CANCEL == input) {

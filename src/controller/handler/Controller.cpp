@@ -8,12 +8,12 @@
 #include "view/include/StreamConverter.h"
 
 void Controller::updateViewVariables() {
-  mPrinter.resetLists();
+  view::Printer::resetLists();
 
   if (!world.characters.empty()) {
-    mPrinter.addToHud(Verbose::INFO, fullPrint(world.character(world.activeCharacter)));
+    view::Printer::addToHud(Verbose::INFO, fullPrint(world.character(world.activeCharacter)));
   }
-  mPrinter.addToScene(Verbose::INFO, printScene(world));
+  view::Printer::addToScene(Verbose::INFO, printScene(world));
 }
 
 void Controller::strategize(CharacterId characterId) {

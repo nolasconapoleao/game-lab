@@ -25,7 +25,6 @@ private:
   std::vector<std::string> failOutput;
   Controller mHandler;
   World mWorld;
-  view::Printer mPrinter;
 };
 
 } // namespace model::state

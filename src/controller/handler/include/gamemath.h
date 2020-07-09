@@ -4,9 +4,8 @@
 
 #pragma once
 
-#include <model/entity/include/ItemEffect.h>
-
 #include "common/GameTypes.h"
+#include "model/entity/include/ItemEffect.h"
 
 // TODO: Remove gamemath namespace
 namespace gamemath {

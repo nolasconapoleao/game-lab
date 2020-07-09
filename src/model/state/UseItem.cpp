@@ -18,12 +18,12 @@ void UseItem::execute() {
 }
 
 void UseItem::fillStateOption() {
-  mPrinter.addToOptionHeader(Verbose::INFO, "Select Item");
+  view::Printer::addToOptionHeader(Verbose::INFO, "Select Item");
   const auto items = mWorld.itemsOfCharacter(mWorld.activeCharacter);
 
   for (auto it = 0; it < items.size(); it++) {
-    mPrinter.addToOptions(Verbose::INFO, '0' + it, minimalPrint(mWorld.item(it)));
-    mPrinter.addToExtraInfo(Verbose::INFO, fullPrint(mWorld.item(it)));
+    view::Printer::addToOptions(Verbose::INFO, '0' + it, minimalPrint(mWorld.item(it)));
+    view::Printer::addToExtraInfo(Verbose::INFO, fullPrint(mWorld.item(it)));
     mOptions += '0' + it;
   }
 }

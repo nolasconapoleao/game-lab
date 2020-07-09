@@ -27,7 +27,6 @@ private:
   void fillOptions();
   void handleUserInput();
 
-  view::Printer mPrinter;
   Controller controller;
   std::set<StateId> mNeighbours;
   std::string mOptions;

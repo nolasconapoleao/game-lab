@@ -15,7 +15,7 @@ void Shutdown::fillStateOption() {
 }
 
 void Shutdown::execute() {
-  mPrinter.directPrint("Game over.");
+  view::Printer::directPrint("Game over.");
 }
 
 } // namespace model::state

@@ -18,12 +18,12 @@ void Attack::execute() {
 }
 
 void Attack::fillStateOption() {
-  mPrinter.addToOptionHeader(Verbose::INFO, "Select character");
+  view::Printer::addToOptionHeader(Verbose::INFO, "Select character");
   const auto characterLocation = mWorld.character(mWorld.activeCharacter).getLocation();
   const auto characters = mWorld.charactersInLocation(characterLocation);
 
   for (auto it = 0; it < characters.size(); it++) {
-    mPrinter.addToOptions(Verbose::INFO, '0' + it, minimalPrint(mWorld.character(it)));
+    view::Printer::addToOptions(Verbose::INFO, '0' + it, minimalPrint(mWorld.character(it)));
     mOptions += '0' + it;
   }
 }

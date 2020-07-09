@@ -115,13 +115,13 @@ void GameEngine::fillOptions() {
     // TODO: string clipping should have a centralized library, or should be calculated at compile time
     stateName.replace(0, 3, "");
     std::replace(stateName.begin(), stateName.end(), '_', ' ');
-    mPrinter.addToOptions(Verbose::INFO, edgeInfo, stateName);
+    view::Printer::addToOptions(Verbose::INFO, edgeInfo, stateName);
   }
 }
 
 void GameEngine::handleUserInput() {
-  mPrinter.addToOptionHeader(Verbose::INFO, "Select menu option ..");
-  mPrinter.printScreen();
+  view::Printer::addToOptionHeader(Verbose::INFO, "Select menu option ..");
+  view::Printer::printScreen();
   auto input = input::readAlphaNum(mOptions);
   triggerTransition(input);
 }

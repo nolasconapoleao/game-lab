@@ -18,9 +18,7 @@ PrintList Printer::hud;
 PrintList Printer::extraInfo;
 PrintList Printer::options;
 PrintList Printer::optionHeader;
-
-Printer::Printer(const Verbose verbose) : printerVerbose(verbose) {
-}
+Verbose Printer::printerVerbose;
 
 void Printer::setVerboseLevel(const Verbose verbose) {
   Printer::printerVerbose = verbose;

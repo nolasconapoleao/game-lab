@@ -23,6 +23,5 @@ public:
   void transferMoney(const CharacterId origin, const CharacterId destination, const Quantity amount);
 
 private:
-  view::Printer mPrinter;
   World world;
 };
