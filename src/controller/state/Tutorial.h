@@ -24,7 +24,6 @@ private:
   uint8_t attempts;
   std::vector<std::string> failOutput;
   Controller mHandler;
-  World mWorld;
 };
 
 } // namespace controller

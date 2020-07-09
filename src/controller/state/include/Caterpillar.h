@@ -32,7 +32,6 @@ protected:
   std::vector<ResourceId> mInputParser;
   std::string mOptions;
   Controller mHandler;
-  World mWorld;
 };
 
 } // namespace controller

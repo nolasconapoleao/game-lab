@@ -1,6 +1,5 @@
 add_subdirectory(entity)
 add_subdirectory(map)
-add_subdirectory(quest)
 
 target_sources(${PROJECT_NAME}
     PRIVATE
