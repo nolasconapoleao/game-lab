@@ -31,29 +31,37 @@ void KingCrab::createNetwork() {
   for (auto it = 0; it < mKingCrab.size(); it++) {
     StateId stateId = START_STATE_ID + it;
     addState(stateId, mKingCrab[it].OptionHeader);
-
-    if (it != mKingCrab.size() - 1) {
-      if (!mIsMaze) {
-        addTransition(stateId, Cancel, CANCEL);
-      }
-      addTransition(stateId, stateId + 1, CORRECT);
-      addTransition(stateId, PUNISH, INCORRECT);
-      addTransition(PUNISH, stateId, '0' + it);
-    } else {
-      addTransition(stateId, REWARD, CORRECT);
-    }
   }
 
+  for (auto it = 0; it < mKingCrab.size(); it++) {
+    StateId stateId = START_STATE_ID + it;
+    (it < (mKingCrab.size() - 1)) ? addTransition(stateId, stateId + 1, CORRECT)
+                                  : addTransition(stateId, REWARD, CORRECT);
+
+    if (!mIsMaze) {
+      addTransition(stateId, Cancel, CANCEL);
+    }
+    addTransition(stateId, PUNISH, INCORRECT);
+    addTransition(PUNISH, stateId, '0' + it + START_STATE_ID);
+  }
+
+  addTransition(IDLE, START_STATE_ID, START);
   addTransition(TERMINATED, IDLE, RESET);
+  addTransition(REWARD, TERMINATED, NEXT);
+  addTransition(PUNISH, TERMINATED, TERMINATE);
+  addTransition(PUNISH, REWARD, FORGIVEN);
   mActiveState = IDLE;
 }
 
 void KingCrab::run() {
   if (mActiveState == PUNISH) {
+    // TODO: eventOnwer will scold you for failing
+    view::Printer::addToRoundReport(Verbose::INFO, "That is the wrond answer");
     punish();
     restoreState();
   } else if (mActiveState == REWARD) {
     reward();
+    triggerTransition(NEXT);
   } else {
     fillOptions();
     handleUserInput();
@@ -62,6 +70,8 @@ void KingCrab::run() {
 
 void KingCrab::fillOptions() {
   // TODO: options should be printed in random order
+  mOptions = "";
+  view::Printer::addToOptionHeader(Verbose::INFO, mKingCrab[mActiveState - START_STATE_ID].OptionHeader);
   for (auto it = 0; it < mKingCrab[mActiveState - START_STATE_ID].alternatives.size(); it++) {
     const auto optionLabel = '0' + it;
     mOptions += optionLabel;
@@ -69,8 +79,9 @@ void KingCrab::fillOptions() {
                                 mKingCrab[mActiveState - START_STATE_ID].alternatives[it].first);
   }
 
-  if (mIsMaze) {
+  if (!mIsMaze) {
     view::Printer::addToOptions(Verbose::INFO, CANCEL, magic_enum::enum_name(Cancel).data());
+    mOptions += CANCEL;
   }
 }
 
@@ -97,14 +108,11 @@ void KingCrab::restoreState() {
     case UNFORGIVING:
       triggerTransition('0' + START_STATE_ID);
       break;
-    case CRAWLER:
-      triggerTransition('0' + previousPlatform + 1);
-      break;
   }
 }
 
 bool KingCrab::isInputCorrect(char input) {
-  return mKingCrab[mActiveState - START_STATE_ID].alternatives[input].second > 0;
+  return (mKingCrab[mActiveState - START_STATE_ID].alternatives[input - '0'].second > 0);
 }
 
 } // namespace controller

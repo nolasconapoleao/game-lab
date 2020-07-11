@@ -9,6 +9,7 @@
 #include "controller/state/Attack.h"
 #include "controller/state/Empty.h"
 #include "controller/state/Example.h"
+#include "controller/state/GuessWhat.h"
 #include "controller/state/IdleWorld.h"
 #include "controller/state/Shutdown.h"
 #include "controller/state/Start.h"
@@ -29,7 +30,7 @@ GameEngine::GameEngine() {
   addState(ST_BATTLE_CHARACTER, std::make_shared<Attack>());
   addState(ST_PLAYER_EVENTS, std::make_shared<Empty>());
   // FIXME: Example is a type of event, not quest
-  addState(ST_QUEST_READ, std::make_shared<Example>());
+  addState(ST_QUEST_READ, std::make_shared<GuessWhat>(false, CRABMODE, 0));
   addState(ST_WORLD_AT_LARGE, std::make_shared<IdleWorld>());
   addState(ST_PLAYER_TURN, std::make_shared<Empty>());
   addState(ST_ITEM_USE, std::make_shared<UseItem>());
@@ -49,6 +50,7 @@ GameEngine::GameEngine() {
 
   addTransition(ST_ITEM_USE, ST_PLAYER_TURN, PREVIOUS);
   addTransition(ST_BATTLE_CHARACTER, ST_PLAYER_TURN, PREVIOUS);
+  addTransition(ST_QUEST_READ, ST_PLAYER_TURN, PREVIOUS);
   addTransition(ST_TRAVEL, ST_PLAYER_TURN, PREVIOUS);
 
   addTransition(ST_WORLD_AT_LARGE, ST_PLAYER_TURN, NEXT);

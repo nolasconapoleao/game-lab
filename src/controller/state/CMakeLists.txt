@@ -6,6 +6,7 @@ target_sources(${PROJECT_NAME}
         ${CMAKE_CURRENT_SOURCE_DIR}/Attack.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Empty.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Example.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/GuessWhat.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/IdleWorld.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Shutdown.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Start.cpp
@@ -17,6 +18,7 @@ target_sources(${PROJECT_NAME}
         ${CMAKE_CURRENT_SOURCE_DIR}/Attack.h
         ${CMAKE_CURRENT_SOURCE_DIR}/Empty.h
         ${CMAKE_CURRENT_SOURCE_DIR}/Example.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/GuessWhat.h
         ${CMAKE_CURRENT_SOURCE_DIR}/IdleWorld.h
         ${CMAKE_CURRENT_SOURCE_DIR}/Shutdown.h
         ${CMAKE_CURRENT_SOURCE_DIR}/Start.h

@@ -6,6 +6,5 @@
 
 enum CrabDifficulty {
   UNFORGIVING,
-  CRAWLER,
   CRABMODE,
 };
