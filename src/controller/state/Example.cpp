@@ -4,80 +4,33 @@
 
 #include "Example.h"
 
-#include "controller/state/include/Substate.h"
-#include "controller/state/include/Transition.h"
-#include "input/Input.h"
-
-enum STATES : StateId {
-  ENTER_1 = 1,
-  ENTER_2,
-  WRONG,
-};
-
 namespace controller {
 
-Example::Example() {
-  addState(IDLE, "Macro state is in stand bye");
-  addState(ENTER_1, "Guess a number");
-  addState(ENTER_2, "Guess another number");
-  addState(WRONG, "Wrong. Start over");
-  addState(TERMINATED, "Very well");
-  addState(Cancel, "Macro state was terminated by you");
+Example::Example(bool isMaze, CrabDifficulty difficulty, ResourceId eventOriginer, int8_t exitScore)
+    : KingCrab(isMaze, difficulty, eventOriginer, exitScore) {
+  std::vector<std::pair<std::string, Score>> alternatives;
+  alternatives.emplace_back("a", 1);
+  alternatives.emplace_back("b", -1);
+  alternatives.emplace_back("c", -1);
+  Platform platform1{"Gimme an a", alternatives};
+  mKingCrab.emplace_back(platform1);
 
-  addTransition(IDLE, ENTER_1, 's');
-  addTransition(ENTER_1, WRONG, '2');
-  addTransition(ENTER_1, ENTER_2, '1');
+  alternatives.clear();
+  alternatives.emplace_back("a", -1);
+  alternatives.emplace_back("b", 1);
+  alternatives.emplace_back("c", -1);
+  Platform platform2{"What comes after a?", alternatives};
+  mKingCrab.emplace_back(platform2);
 
-  addTransition(ENTER_2, TERMINATED, '2');
-  addTransition(ENTER_2, WRONG, '1');
-
-  addTransition(WRONG, ENTER_1, ' ');
-  addTransition(TERMINATED, IDLE, 'r');
-  addTransition(Cancel, IDLE, 'r');
-  mActiveState = IDLE;
+  createNetwork();
 }
 
-void Example::run() {
-  view::Printer::directPrint(stateNetwork.getNode(mActiveState));
-  mNeighbours = stateNetwork.neighbours(mActiveState);
-
-  if (mNeighbours.size() == 1) {
-    continueToNext();
-    return;
-  }
-
-  fillOptions();
-  handleUserInput();
+void Example::punish() {
+  mHandler.changePlayerName(World::activeCharacter, "Loooser");
 }
 
-void Example::continueToNext() {
-  auto transition = stateNetwork.getEdge(LinkId{mActiveState, *mNeighbours.cbegin()});
-  triggerTransition(transition);
-}
-
-void Example::fillOptions() {
-  mOptions = "";
-  for (auto neighbour : mNeighbours) {
-    auto edgeInfo = stateNetwork.getEdge(LinkId{mActiveState, neighbour});
-    mOptions += edgeInfo;
-
-    auto nodeInfo = stateNetwork.getNode(neighbour);
-    view::Printer::addToOptions(Verbose::INFO, edgeInfo, std::string(1, edgeInfo));
-  }
-  mOptions += CANCEL;
-  view::Printer::addToOptions(Verbose::INFO, CANCEL, "back");
-}
-
-void Example::handleUserInput() {
-  view::Printer::printScreen();
-  auto input = input::readAlphaNum(mOptions);
-
-  if (CANCEL == input) {
-    mActiveState = Cancel;
-    return;
-  }
-
-  triggerTransition(input);
+void Example::reward() {
+  mHandler.changePlayerName(World::activeCharacter, "Spelling king");
 }
 
 } // namespace controller

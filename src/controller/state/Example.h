@@ -4,26 +4,18 @@
 
 #pragma once
 
-#include "utils/state-machine/StateMachine.h"
-#include "view/Printer.h"
+#include "controller/state/include/KingCrab.h"
 
 namespace controller {
 
 // FIX: Define Splitter state for these
-class Example : public StateMachine {
-  using LinkId = StateMachine::LinkId;
-
+class Example : public KingCrab {
 public:
-  Example();
-  void run() override;
+  Example(bool isMaze, CrabDifficulty difficulty, ResourceId eventOriginer, int8_t exitScore);
 
 protected:
-  void continueToNext();
-  void fillOptions();
-  void handleUserInput();
-
-  std::unordered_set<StateId> mNeighbours;
-  std::string mOptions;
+  void punish() override;
+  void reward() override;
 };
 
 } // namespace controller
