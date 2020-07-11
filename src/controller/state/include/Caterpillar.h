@@ -23,9 +23,6 @@ protected:
   virtual void fillStateOption() = 0;
   void fillBaseOptions();
 
-  bool isTerminated();
-  bool isUserTerminated();
-
   std::vector<StateId> mCaterpillar;
   std::unordered_set<StateId> mNeighbours;
   std::vector<ResourceId> mInput;

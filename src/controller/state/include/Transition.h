@@ -11,4 +11,7 @@ enum Transitions : char {
   RESET = 'r',
   PREVIOUS = 'p',
   NEXT = 'n',
+
+  CORRECT = '+',
+  INCORRECT = '-',
 };
