@@ -14,5 +14,4 @@ enum Transitions : char {
 
   CORRECT = '+',
   INCORRECT = '-',
-  FORGIVEN = 'f',
 };

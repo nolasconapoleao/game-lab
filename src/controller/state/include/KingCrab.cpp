@@ -13,8 +13,9 @@
 namespace controller {
 
 constexpr StateId START_STATE_ID = 50;
-KingCrab::KingCrab(bool isMaze, CrabDifficulty difficulty, ResourceId eventOriginer)
-    : mIsMaze(isMaze), mDifficulty(difficulty), mEventOriginer(eventOriginer) {
+KingCrab::KingCrab(bool isMaze, CrabDifficulty difficulty, ResourceId eventOriginer, int8_t exitScore)
+    : mIsMaze(isMaze), mDifficulty(difficulty), mEventOriginer(eventOriginer), mAccumulatedScore(0),
+      mExitScore(exitScore) {
 }
 
 void KingCrab::createNetwork() {
@@ -49,14 +50,13 @@ void KingCrab::createNetwork() {
   addTransition(TERMINATED, IDLE, RESET);
   addTransition(REWARD, TERMINATED, NEXT);
   addTransition(PUNISH, TERMINATED, TERMINATE);
-  addTransition(PUNISH, REWARD, FORGIVEN);
   mActiveState = IDLE;
 }
 
 void KingCrab::run() {
   if (mActiveState == PUNISH) {
     // TODO: eventOnwer will scold you for failing
-    view::Printer::addToRoundReport(Verbose::INFO, "That is the wrond answer");
+    view::Printer::addToRoundReport(Verbose::INFO, "That is the wrong answer");
     punish();
     restoreState();
   } else if (mActiveState == REWARD) {
@@ -101,6 +101,11 @@ void KingCrab::handleUserInput() {
 }
 
 void KingCrab::restoreState() {
+  if (mAccumulatedScore < mExitScore) {
+    triggerTransition(TERMINATE);
+    return;
+  }
+
   switch (mDifficulty) {
     case CRABMODE:
       triggerTransition('0' + previousPlatform);
@@ -112,6 +117,7 @@ void KingCrab::restoreState() {
 }
 
 bool KingCrab::isInputCorrect(char input) {
+  mAccumulatedScore += mKingCrab[mActiveState - START_STATE_ID].alternatives[input - '0'].second;
   return (mKingCrab[mActiveState - START_STATE_ID].alternatives[input - '0'].second > 0);
 }
 

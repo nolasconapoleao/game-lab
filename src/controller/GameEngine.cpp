@@ -30,7 +30,7 @@ GameEngine::GameEngine() {
   addState(ST_BATTLE_CHARACTER, std::make_shared<Attack>());
   addState(ST_PLAYER_EVENTS, std::make_shared<Empty>());
   // FIXME: Example is a type of event, not quest
-  addState(ST_QUEST_READ, std::make_shared<GuessWhat>(false, CRABMODE, 0));
+  addState(ST_QUEST_READ, std::make_shared<GuessWhat>(false, CRABMODE, 0, -5));
   addState(ST_WORLD_AT_LARGE, std::make_shared<IdleWorld>());
   addState(ST_PLAYER_TURN, std::make_shared<Empty>());
   addState(ST_ITEM_USE, std::make_shared<UseItem>());

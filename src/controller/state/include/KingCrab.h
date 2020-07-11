@@ -14,7 +14,7 @@ namespace controller {
 
 class KingCrab : public StateMachine {
 public:
-  KingCrab(bool isMaze, CrabDifficulty difficulty, ResourceId eventOriginer);
+  KingCrab(bool isMaze, CrabDifficulty difficulty, ResourceId eventOriginer, int8_t exitScore);
   void createNetwork();
   void run() final;
 
@@ -33,6 +33,8 @@ protected:
   Controller mHandler;
   CrabDifficulty mDifficulty;
   ResourceId mEventOriginer;
+  int8_t mAccumulatedScore;
+  int8_t mExitScore;
 };
 
 } // namespace controller
