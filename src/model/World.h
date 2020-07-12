@@ -6,8 +6,8 @@
 
 #include <map>
 #include <queue>
+#include <set>
 
-#include "../../../../../../../usr/lib/gcc/x86_64-w64-mingw32/9.2-win32/include/c++/set"
 #include "model/entity/Character.h"
 #include "model/entity/Item.h"
 #include "model/entity/Location.h"
