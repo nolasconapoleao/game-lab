@@ -1,3 +1,4 @@
+add_subdirectory(input)
 add_subdirectory(factory)
 add_subdirectory(handler)
 add_subdirectory(state)

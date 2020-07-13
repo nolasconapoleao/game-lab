@@ -4,9 +4,9 @@
 
 #include "Tutorial.h"
 
+#include "controller/input/Input.h"
 #include "controller/state/include/Substate.h"
 #include "controller/state/include/Transition.h"
-#include "input/Input.h"
 
 enum STATES : StateId {
   ENTER_NAME = 1,

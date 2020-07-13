@@ -1,7 +1,7 @@
 #include <csignal>
 
 #include "controller/GameEngine.h"
-#include "input/Signal_Handler.h"
+#include "controller/input/Signal_Handler.h"
 
 int main() {
   view::Printer printer;

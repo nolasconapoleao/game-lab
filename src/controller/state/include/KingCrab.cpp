@@ -8,7 +8,7 @@
 
 #include "Substate.h"
 #include "Transition.h"
-#include "input/Input.h"
+#include "controller/input/Input.h"
 
 namespace controller {
 

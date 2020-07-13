@@ -10,7 +10,7 @@ target_sources(
     ${EXECUTABLE_NAME}
     PRIVATE
         ${PROJECT_SOURCE_DIR}/src/view/Printer.cpp
-        ${PROJECT_SOURCE_DIR}/src/input/Input.cpp
+        ../../../src/controller/input/Input.cpp
         ../../../src/controller/state/Tutorial.cpp
         ${PROJECT_SOURCE_DIR}/src/utils/state-machine/MacroState.cpp
         ${PROJECT_SOURCE_DIR}/src/utils/graph/DirectedGraph.h

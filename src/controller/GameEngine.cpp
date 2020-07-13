@@ -6,6 +6,7 @@
 
 #include <magic_enum/include/magic_enum.hpp>
 
+#include "controller/input/Input.h"
 #include "controller/state/Attack.h"
 #include "controller/state/Empty.h"
 #include "controller/state/Example.h"
@@ -20,7 +21,6 @@
 #include "controller/state/include/State.h"
 #include "controller/state/include/Substate.h"
 #include "controller/state/include/Transition.h"
-#include "input/Input.h"
 
 namespace controller {
 
