@@ -3,7 +3,7 @@
 //
 
 #include "Controller.h"
-#include "controller/handler/include/gamemath.h"
+#include "model/handler/include/gamemath.h"
 
 constexpr Number MAXCASH = 100'000;
 

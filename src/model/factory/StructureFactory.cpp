@@ -3,7 +3,7 @@
 //
 
 #include "Factory.h"
-#include "controller/factory/include/StructurePrototype.h"
+#include "model/factory/include/StructurePrototype.h"
 #include "utils/random/Random.h"
 
 void Factory::generateStructure() {

@@ -2,17 +2,17 @@
 // Created by nolasco on 21/06/20.
 //
 
-#include "controller/factory/include/CharacterPrototype.h"
-#include "controller/factory/include/ItemCategory.h"
-#include "controller/factory/include/ItemPrototype.h"
-#include "controller/factory/include/LocationCategory.h"
-#include "controller/factory/include/LocationPrototype.h"
-#include "controller/factory/include/StructurePrototype.h"
 #include "model/World.h"
 #include "model/entity/Character.h"
 #include "model/entity/Item.h"
 #include "model/entity/Location.h"
 #include "model/entity/Structure.h"
+#include "model/factory/include/CharacterPrototype.h"
+#include "model/factory/include/ItemCategory.h"
+#include "model/factory/include/ItemPrototype.h"
+#include "model/factory/include/LocationCategory.h"
+#include "model/factory/include/LocationPrototype.h"
+#include "model/factory/include/StructurePrototype.h"
 
 std::ostream &operator<<(std::ostream &os, const Quantity &value);
 std::ostream &operator<<(std::ostream &os, const Race &value);

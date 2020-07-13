@@ -3,9 +3,9 @@
 //
 
 #include "Controller.h"
-#include "controller/handler/include/gamemath.h"
 #include "model/entity/include/ItemOwnerType.h"
 #include "model/entity/include/ItemOwnership.h"
+#include "model/handler/include/gamemath.h"
 
 void Controller::changeItemOwner(ItemId itemId, const OwnerType &type, ResourceId newOwner) {
   ItemOwnership newOwnership{newOwner, type, false};

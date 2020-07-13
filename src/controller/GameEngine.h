@@ -8,7 +8,7 @@
 #include <memory>
 #include <set>
 
-#include "controller/handler/Controller.h"
+#include "model/handler/Controller.h"
 #include "utils/state-machine/StateMachine.h"
 #include "view/Printer.h"
 

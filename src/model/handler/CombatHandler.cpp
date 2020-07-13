@@ -5,7 +5,7 @@
 #include <cmath>
 
 #include "Controller.h"
-#include "controller/handler/include/gamemath.h"
+#include "model/handler/include/gamemath.h"
 #include "utils/random/Random.h"
 
 constexpr Number MAXLEVEL = 100;

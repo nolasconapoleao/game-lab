@@ -4,11 +4,11 @@
 
 #pragma once
 
-#include "controller/factory/include/ItemPrototype.h"
-#include "controller/factory/include/LocationPrototype.h"
-#include "controller/factory/include/StructurePrototype.h"
 #include "model/World.h"
 #include "model/entity/include/Occupation.h"
+#include "model/factory/include/ItemPrototype.h"
+#include "model/factory/include/LocationPrototype.h"
+#include "model/factory/include/StructurePrototype.h"
 
 class World;
 

@@ -6,7 +6,7 @@
 
 #include "CrabDifficulty.h"
 #include "Platform.h"
-#include "controller/handler/Controller.h"
+#include "model/handler/Controller.h"
 #include "utils/state-machine/StateMachine.h"
 #include "view/Printer.h"
 

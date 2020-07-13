@@ -4,8 +4,8 @@
 
 #pragma once
 
-#include "controller/factory/Factory.h"
 #include "controller/state/include/Caterpillar.h"
+#include "model/factory/Factory.h"
 
 namespace controller {
 
