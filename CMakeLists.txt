@@ -20,7 +20,7 @@ endif()
 set(CMAKE_CXX_FLAGS "-g -O0 -Wall -fprofile-arcs -ftest-coverage")
 
 # Add cmake scripts
-include(cmake/utils.cmake)
+include(tools/cmake/tests.cmake)
 
 ## Renderer executable
 add_executable(
@@ -29,6 +29,7 @@ add_executable(
 )
 
 add_subdirectory(src)
+add_subdirectory(extras)
 # To disable tests, comment these two lines
 enable_testing()
 add_subdirectory(tests)
@@ -37,9 +38,11 @@ add_subdirectory(tests)
 target_include_directories(
     ${PROJECT_NAME}
     PRIVATE
+        ${CMAKE_BINARY_DIR}/extras
+        ${CMAKE_SOURCE_DIR}/external
+        ${CMAKE_SOURCE_DIR}/extras
         ${CMAKE_SOURCE_DIR}/src
-        ${CMAKE_BINARY_DIR}/src
-        ${CMAKE_SOURCE_DIR}/3rd-party
+        ${CMAKE_SOURCE_DIR}/src/include
 )
 
 ## Unit tests target
