@@ -7,8 +7,8 @@
 #include <iostream>
 #include <sstream>
 
-#include "PrintConstants.h"
 #include "config/cmakeconfig.h"
+#include "view/include/PrintConstants.h"
 
 namespace view {
 

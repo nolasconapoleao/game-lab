@@ -7,7 +7,7 @@
 #include <string>
 #include <vector>
 
-#include "Verbose.h"
+#include "view/include/Verbose.h"
 
 namespace view {
 
@@ -15,7 +15,7 @@ using PrintList = std::vector<std::pair<Verbose, std::string>>;
 
 class Printer {
 public:
-  void setVerboseLevel(Verbose verbose);
+  static void setVerboseLevel(Verbose verbose);
 
   // Insert entries to printed structures
   static void addToRoundReport(const Verbose verbose, const std::string reportEntry);

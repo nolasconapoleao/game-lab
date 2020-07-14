@@ -1,3 +1,4 @@
+add_subdirectory(entity)
 add_subdirectory(include)
 
 target_sources(${PROJECT_NAME}
@@ -7,5 +8,4 @@ target_sources(${PROJECT_NAME}
     PUBLIC
         # Headers
         ${CMAKE_CURRENT_SOURCE_DIR}/Printer.h
-        ${CMAKE_CURRENT_SOURCE_DIR}/PrintConstants.h
 )

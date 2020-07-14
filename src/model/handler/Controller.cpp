@@ -4,11 +4,10 @@
 
 #include "Controller.h"
 
-#include <model/World.h>
-
 #include "model/World.h"
-#include "view/include/StreamConverter.h"
+#include "view/entity/StreamConverter.h"
 
+// TODO: mvc model does not need to access this
 void Controller::updateViewVariables() {
   view::Printer::resetLists();
 
