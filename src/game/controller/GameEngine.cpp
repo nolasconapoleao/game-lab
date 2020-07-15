@@ -6,15 +6,15 @@
 
 #include <magic_enum/include/magic_enum.hpp>
 
+#include "game/controller/event/Example.h"
+#include "game/controller/event/GuessWhat.h"
+#include "game/controller/event/Tutorial.h"
 #include "game/controller/input/Input.h"
 #include "game/controller/state/Attack.h"
 #include "game/controller/state/Empty.h"
-#include "game/controller/state/Example.h"
-#include "game/controller/state/GuessWhat.h"
 #include "game/controller/state/IdleWorld.h"
 #include "game/controller/state/Shutdown.h"
 #include "game/controller/state/Start.h"
-#include "game/controller/state/Tutorial.h"
 #include "game/controller/state/UseItem.h"
 #include "game/controller/state/Walk.h"
 #include "game/controller/state/include/Menu.h"

@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "game/controller/state/include/KingCrab.h"
+#include "game/controller/event/include/KingCrab.h"
 
 namespace controller {
 

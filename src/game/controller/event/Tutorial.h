@@ -11,7 +11,7 @@
 
 namespace controller {
 
-// FIX: Define Splitter state for these
+// TODO: tutorial should inherit from kingcrab
 class Tutorial : public StateMachine {
   using LinkId = StateMachine::LinkId;
 
