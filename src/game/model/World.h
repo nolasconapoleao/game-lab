@@ -19,6 +19,10 @@ using ItemEntry = std::pair<ItemId, entity::Item>;
 using CharacterEntry = std::pair<CharacterId, entity::Character>;
 using StructureEntry = std::pair<StructureId, entity::Structure>;
 
+namespace controller {
+class GameEngine;
+}
+
 class World {
 public:
   static void changeFocusedCharacter();
@@ -53,4 +57,5 @@ private:
 
   friend class Factory;
   friend class Controller;
+  friend controller::GameEngine;
 };

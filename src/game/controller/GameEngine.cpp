@@ -21,6 +21,7 @@
 #include "game/controller/state/include/State.h"
 #include "game/controller/state/include/Substate.h"
 #include "game/controller/state/include/Transition.h"
+#include "game/view/entity/StreamConverter.h"
 
 namespace controller {
 
@@ -67,7 +68,9 @@ GameEngine::GameEngine() {
 }
 
 void GameEngine::run() {
-  controller.updateViewVariables();
+  if (activeState() != ST_QUEST_READ) {
+    updateViewVariables();
+  }
   gameStates[mActiveState]->run();
 
   if (isTerminated()) {
@@ -126,6 +129,15 @@ void GameEngine::handleUserInput() {
   view::Printer::printScreen();
   auto input = input::readAlphaNum(mOptions);
   triggerTransition(input);
+}
+
+void GameEngine::updateViewVariables() {
+  view::Printer::resetLists();
+
+  if (!World::characters.empty()) {
+    view::Printer::addToHud(Verbose::INFO, fullPrint(World::character(World::activeCharacter)));
+  }
+  view::Printer::addToScene(Verbose::INFO, printScene());
 }
 
 } // namespace controller

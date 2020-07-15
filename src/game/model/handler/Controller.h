@@ -11,7 +11,6 @@
 
 class Controller {
 public:
-  void updateViewVariables();
   void battle(const CharacterId attackerId, const CharacterId attackedId, const LocationId battleGroundId);
   void characterGoesTo(const CharacterId &characterId, const LocationId locationId);
   void dropAllItems(const CharacterId characterId, const LocationId locationId);

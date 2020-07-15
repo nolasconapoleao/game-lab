@@ -8,6 +8,7 @@
 #include <memory>
 #include <set>
 
+#include "game/model/World.h"
 #include "game/model/handler/Controller.h"
 #include "game/view/Printer.h"
 #include "state-machine/StateMachine.h"
@@ -26,6 +27,7 @@ public:
 private:
   void fillOptions();
   void handleUserInput();
+  void updateViewVariables();
 
   Controller controller;
   std::set<StateId> mNeighbours;
