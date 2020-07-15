@@ -5,7 +5,7 @@
 #include "Handler.h"
 #include "game/model/entity/include/ItemOwnerType.h"
 #include "game/model/entity/include/ItemOwnership.h"
-#include "game/model/handler/include/gamemath.h"
+#include "math/gamemath.h"
 
 void Handler::changeItemOwner(ItemId itemId, const OwnerType &type, ResourceId newOwner) {
   ItemOwnership newOwnership{newOwner, type, false};
