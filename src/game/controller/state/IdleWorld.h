@@ -15,7 +15,7 @@ public:
 
 protected:
   void fillStateOption() override;
-  Controller controller;
+  Handler controller;
 };
 
 } // namespace controller

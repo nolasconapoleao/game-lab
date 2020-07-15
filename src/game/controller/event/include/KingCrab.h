@@ -6,7 +6,7 @@
 
 #include "CrabDifficulty.h"
 #include "Platform.h"
-#include "game/model/handler/Controller.h"
+#include "game/model/handler/Handler.h"
 #include "game/view/Printer.h"
 #include "state-machine/StateMachine.h"
 
@@ -30,7 +30,7 @@ protected:
   bool mIsMaze;
   StateId previousPlatform;
   std::string mOptions;
-  Controller mHandler;
+  Handler mHandler;
   CrabDifficulty mDifficulty;
   ResourceId mEventOriginer;
   int8_t mAccumulatedScore;

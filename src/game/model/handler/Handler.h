@@ -9,7 +9,7 @@
 #include "game/model/entity/include/ItemOwnerType.h"
 #include "game/view/Printer.h"
 
-class Controller {
+class Handler {
 public:
   void battle(const CharacterId attackerId, const CharacterId attackedId, const LocationId battleGroundId);
   void characterGoesTo(const CharacterId &characterId, const LocationId locationId);

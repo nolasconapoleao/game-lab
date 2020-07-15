@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "game/model/handler/Controller.h"
+#include "game/model/handler/Handler.h"
 #include "game/view/Printer.h"
 #include "state-machine/StateMachine.h"
 
@@ -28,7 +28,7 @@ protected:
   std::vector<ResourceId> mInput;
   std::vector<ResourceId> mInputParser;
   std::string mOptions;
-  Controller mHandler;
+  Handler mHandler;
 };
 
 } // namespace controller

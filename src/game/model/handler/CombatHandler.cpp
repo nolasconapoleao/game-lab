@@ -4,7 +4,7 @@
 
 #include <cmath>
 
-#include "Controller.h"
+#include "Handler.h"
 #include "game/model/handler/include/gamemath.h"
 #include "random/Random.h"
 
@@ -14,7 +14,7 @@ void handleAttack(entity::Character &attacker, entity::Character &attacked);
 void updateExperience(entity::Character &character, Quantity addedXp);
 void updateStats(entity::Character &character, Quantity increase);
 
-void Controller::battle(const CharacterId attackerId, const CharacterId attackedId, const LocationId battleGroundId) {
+void Handler::battle(const CharacterId attackerId, const CharacterId attackedId, const LocationId battleGroundId) {
   auto &attacker = World::character(attackerId);
   auto &attacked = World::character(attackedId);
 

@@ -2,12 +2,12 @@
 // Created by nolasco on 08/07/20.
 //
 
-#include "Controller.h"
+#include "Handler.h"
 #include "game/model/handler/include/gamemath.h"
 
 constexpr Number MAXCASH = 100'000;
 
-void Controller::transferMoney(const CharacterId originId, const CharacterId destinationId, const Quantity amount) {
+void Handler::transferMoney(const CharacterId originId, const CharacterId destinationId, const Quantity amount) {
   auto &origin = World::character(originId);
   auto &destination = World::character(destinationId);
 

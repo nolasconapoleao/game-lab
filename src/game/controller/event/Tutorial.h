@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "game/model/handler/Controller.h"
+#include "game/model/handler/Handler.h"
 #include "game/view/Printer.h"
 #include "graph/DirectedGraph.h"
 #include "state-machine/StateMachine.h"
@@ -23,7 +23,7 @@ private:
   std::string name;
   uint8_t attempts;
   std::vector<std::string> failOutput;
-  Controller mHandler;
+  Handler mHandler;
 };
 
 } // namespace controller

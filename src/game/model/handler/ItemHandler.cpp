@@ -2,17 +2,17 @@
 // Created by nolasco on 16/06/20.
 //
 
-#include "Controller.h"
+#include "Handler.h"
 #include "game/model/entity/include/ItemOwnerType.h"
 #include "game/model/entity/include/ItemOwnership.h"
 #include "game/model/handler/include/gamemath.h"
 
-void Controller::changeItemOwner(ItemId itemId, const OwnerType &type, ResourceId newOwner) {
+void Handler::changeItemOwner(ItemId itemId, const OwnerType &type, ResourceId newOwner) {
   ItemOwnership newOwnership{newOwner, type, false};
   World::item(itemId).setOwnership(newOwnership);
 }
 
-void Controller::updateItem(const CharacterId characterId, const ItemId itemId) {
+void Handler::updateItem(const CharacterId characterId, const ItemId itemId) {
   // TODO: use weight and constitution to check a valid equip
   const auto item = World::item(itemId);
   const auto character = World::character(characterId);
@@ -42,13 +42,13 @@ void Controller::updateItem(const CharacterId characterId, const ItemId itemId) 
   }
 }
 
-void Controller::consumeItem(ItemId itemId) {
+void Handler::consumeItem(ItemId itemId) {
   auto item = World::item(itemId);
   auto itemQuantity = World::item(itemId).getQuantity();
   World::item(itemId).setQuantity(gamemath::clamp_sub(itemQuantity, 1, 0));
 }
 
-void Controller::dropAllItems(const CharacterId characterId, const LocationId locationId) {
+void Handler::dropAllItems(const CharacterId characterId, const LocationId locationId) {
   const auto items = World::itemsOfCharacter(characterId);
   for (auto item : items) {
     changeItemOwner(item, OwnerType::LOCATION, locationId);

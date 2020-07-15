@@ -9,7 +9,7 @@
 #include <set>
 
 #include "game/model/World.h"
-#include "game/model/handler/Controller.h"
+#include "game/model/handler/Handler.h"
 #include "game/view/Printer.h"
 #include "state-machine/StateMachine.h"
 
@@ -29,7 +29,7 @@ private:
   void handleUserInput();
   void updateViewVariables();
 
-  Controller controller;
+  Handler controller;
   std::set<StateId> mNeighbours;
   std::string mOptions;
   std::map<StateId, std::shared_ptr<StateMachine>> gameStates;
