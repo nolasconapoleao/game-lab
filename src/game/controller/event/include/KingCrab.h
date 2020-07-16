@@ -8,6 +8,7 @@
 #include "Platform.h"
 #include "game/model/handler/Handler.h"
 #include "game/view/Printer.h"
+#include "game/view/entity/StreamConverter.h"
 #include "state-machine/StateMachine.h"
 
 namespace controller {

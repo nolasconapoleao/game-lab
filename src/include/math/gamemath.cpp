@@ -57,3 +57,16 @@ ItemEffect operator-(const ItemEffect &effect, const ItemEffect &subtraction) {
       gamemath::clamp_sub(effect.spd, subtraction.spd, 0), gamemath::clamp_sub(effect.hp, subtraction.hp, 0)};
   return result;
 }
+
+Stats operator+(const Stats &base, const ItemEffect &temp) {
+  Stats result{
+      {static_cast<Quantity>(base.atk + temp.atk), static_cast<Quantity>(base.def + temp.def),
+       static_cast<Quantity>(base.spd + temp.spd), static_cast<Quantity>(base.hp + temp.hp)},
+      base.mhp,
+      base.cst,
+      base.lvl,
+      base.xp,
+      base.cash,
+  };
+  return result;
+}

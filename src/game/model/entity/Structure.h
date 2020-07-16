@@ -14,11 +14,12 @@ class Structure {
 public:
   Structure() = default;
   Structure(const std::string &name, const Size &size);
+  const std::string &getName() const;
+  void setName(const std::string &name);
+  const Size &getSize() const;
+  void setSize(const Size &size);
   LocationId getLocation() const;
   void setLocation(LocationId location);
-
-  friend std::string minimalPrint(const Structure &value);
-  friend std::string fullPrint(const Structure &value);
 
 private:
   std::string name;

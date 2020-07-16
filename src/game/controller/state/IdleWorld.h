@@ -15,6 +15,7 @@ public:
 
 protected:
   void fillStateOption() override;
+  void strategize(const CharacterId characterId);
   Handler controller;
 };
 

@@ -15,6 +15,8 @@ class Item {
 public:
   Item() = default;
   Item(std::string name, UseType useType, Number weight, const ItemEffect &effect);
+  const std::string &getName() const;
+  void setName(const std::string &name);
   Number getQuantity() const;
   void setQuantity(Number quantity);
   const ItemOwnership &getOwnership() const;
@@ -22,9 +24,6 @@ public:
   UseType getUseType() const;
   Number getWeight() const;
   const ItemEffect &getEffect() const;
-
-  friend std::string minimalPrint(const Item &value);
-  friend std::string fullPrint(const Item &value);
 
 private:
   std::string name;

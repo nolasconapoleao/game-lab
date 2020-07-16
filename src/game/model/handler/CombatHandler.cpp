@@ -10,23 +10,26 @@
 
 constexpr Number MAXLEVEL = 100;
 
-void handleAttack(entity::Character &attacker, entity::Character &attacked);
+AttackResult handleAttack(entity::Character &attacker, entity::Character &attacked);
 void updateExperience(entity::Character &character, Quantity addedXp);
 void updateStats(entity::Character &character, Quantity increase);
 
-void Handler::battle(const CharacterId attackerId, const CharacterId attackedId, const LocationId battleGroundId) {
+AttackResult Handler::battle(const CharacterId attackerId, const CharacterId attackedId,
+                             const LocationId battleGroundId) {
   auto &attacker = World::character(attackerId);
   auto &attacked = World::character(attackedId);
 
-  handleAttack(attacker, attacked);
+  const auto result = handleAttack(attacker, attacked);
   if (attacked.getStats().hp == 0) {
     dropAllItems(attackedId, battleGroundId);
     updateExperience(attacker, gamemath::accumulatedXp(attacked.getStats().lvl, attacked.getStats().xp));
     transferMoney(attackedId, attackerId, attacked.getStats().cash);
   }
+
+  return result;
 }
 
-void handleAttack(entity::Character &attacker, entity::Character &attacked) {
+AttackResult handleAttack(entity::Character &attacker, entity::Character &attacked) {
   auto attackerStats = attacker.getStats();
   auto attackedStats = attacked.getStats();
 
@@ -34,18 +37,17 @@ void handleAttack(entity::Character &attacker, entity::Character &attacked) {
   auto defenseChange = Random::fromTo(0, attackedStats.def);
 
   auto damage = 0;
-  std::string hitReport = attacker.getName() + " attacks " + attacked.getName() + ": ";
+  AttackResult result;
   if (hitChange > (2 * defenseChange)) {
     damage = 2 * (hitChange - defenseChange);
-    hitReport += "Critical";
+    result = AttackResult::Critical;
   } else if (hitChange > defenseChange) {
     damage = hitChange - defenseChange;
-    hitReport += "Hit";
+    result = AttackResult::Hit;
   } else {
-    hitReport += "Fail";
+    result = AttackResult::Fail;
   }
 
-  view::Printer::addToRoundReport(Verbose::INFO, hitReport);
   const auto damage_remainder = gamemath::difference(damage, attacked.getTempStats().hp);
 
   auto updatedBase = attacked.getBaseStats();
@@ -55,6 +57,7 @@ void handleAttack(entity::Character &attacker, entity::Character &attacked) {
 
   attacked.setTempStats(updatedTemp);
   attacked.setBaseStats(updatedBase);
+  return result;
 }
 
 void updateExperience(entity::Character &character, Quantity addedXp) {

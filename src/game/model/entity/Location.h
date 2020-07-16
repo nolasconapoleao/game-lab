@@ -22,9 +22,6 @@ public:
   Number getFloors() const;
   void setFloors(Number floors);
 
-  friend std::string minimalPrint(const Location &value);
-  friend std::string fullPrint(const Location &value);
-
 private:
   std::string name;
   LocationCategory type;

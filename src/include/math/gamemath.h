@@ -6,6 +6,7 @@
 
 #include "datatypes/GameTypes.h"
 #include "game/model/entity/include/ItemEffect.h"
+#include "game/model/entity/include/Stats.h"
 
 // TODO: Remove gamemath namespace
 namespace gamemath {
@@ -55,5 +56,7 @@ Number accumulatedXp(Quantity lvl, Quantity xp);
 
 }; // namespace gamemath
 
+// FIXME: these methods should be inside the namespace, by using gamemath
 ItemEffect operator+(const ItemEffect &addend1, const ItemEffect &addend2);
 ItemEffect operator-(const ItemEffect &effect, const ItemEffect &subtraction);
+Stats operator+(const Stats &base, const ItemEffect &temp);

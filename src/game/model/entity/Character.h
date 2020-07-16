@@ -33,9 +33,6 @@ public:
   LocationId getLocation() const;
   void setLocation(LocationId location);
 
-  friend std::string minimalPrint(const Character &value);
-  friend std::string fullPrint(const Character &value);
-
 private:
   // TODO: Use name Id to lookup instead of string
   std::string name;
@@ -47,5 +44,3 @@ private:
   LocationId location;
 };
 } // namespace entity
-
-Stats operator+(const Stats &base, const ItemEffect &temp);

@@ -9,6 +9,14 @@ Item::Item(std::string name, UseType useType, Number weight, const ItemEffect &e
     : name(name), useType(useType), weight(weight), effect(effect) {
 }
 
+const std::string &Item::getName() const {
+  return name;
+}
+
+void Item::setName(const std::string &name) {
+  Item::name = name;
+}
+
 Number Item::getQuantity() const {
   return quantity;
 }

@@ -4,6 +4,8 @@
 
 #include "Character.h"
 
+#include "math/gamemath.h"
+
 namespace entity {
 
 Character::Character(const std::string &name, const Stats &baseStats, Passport passport, GhostInTheShell ghost)
@@ -72,16 +74,3 @@ void Character::setLocation(LocationId location) {
 }
 
 } // namespace entity
-
-Stats operator+(const Stats &base, const ItemEffect &temp) {
-  Stats result{
-      {static_cast<Quantity>(base.atk + temp.atk), static_cast<Quantity>(base.def + temp.def),
-       static_cast<Quantity>(base.spd + temp.spd), static_cast<Quantity>(base.hp + temp.hp)},
-      base.mhp,
-      base.cst,
-      base.lvl,
-      base.xp,
-      base.cash,
-  };
-  return result;
-}
