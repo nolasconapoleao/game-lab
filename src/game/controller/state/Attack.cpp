@@ -5,6 +5,7 @@
 #include "Attack.h"
 
 #include "game/controller/state/include/Substate.h"
+#include "game/view/cases/Logger.h"
 
 namespace controller {
 
@@ -14,7 +15,8 @@ Attack::Attack() {
 }
 
 void Attack::execute() {
-  mHandler.battle(World::activeCharacter, mInput[SELECT_CHARACTER], World::activeLocation);
+  const auto result = mHandler.battle(World::activeCharacter, mInput[SELECT_CHARACTER], World::activeLocation);
+  logBattle(World::activeCharacter, mInput[SELECT_CHARACTER], World::activeLocation, result);
 }
 
 void Attack::fillStateOption() {

@@ -4,9 +4,8 @@
 
 #include "IdleWorld.h"
 
-#include <magic_enum/include/magic_enum.hpp>
-
 #include "game/controller/state/include/Transition.h"
+#include "game/view/cases/Logger.h"
 
 namespace controller {
 
@@ -36,10 +35,7 @@ void IdleWorld::strategize(CharacterId characterId) {
 
   if (character.getStats().hp > 2) {
     const auto result = mHandler.battle(characterId, characterId, World::activeLocation);
-    std::string hitReport = character.getName() + " attacks " + character.getName() + ": "
-                            + magic_enum::enum_name(AttackResult{result}).data();
-    ;
-    view::Printer::addToRoundReport(Verbose::INFO, hitReport);
+    logBattle(characterId, characterId, World::activeLocation, result);
   }
 }
 
