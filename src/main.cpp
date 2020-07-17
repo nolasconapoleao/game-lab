@@ -1,11 +1,10 @@
 #include <csignal>
 
-#include "controller/GameEngine.h"
-#include "input/Signal_Handler.h"
+#include "game/controller/GameEngine.h"
+#include "game/controller/input/Signal_Handler.h"
 
 int main() {
-  view::Printer printer;
-  printer.setVerboseLevel(Verbose::INFO);
+  view::Printer::setVerboseLevel(Verbose::INFO);
 
   controller::GameEngine engine;
   signal(SIGINT, Input::signal_callback_handler);
