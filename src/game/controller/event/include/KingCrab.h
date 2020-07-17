@@ -26,11 +26,13 @@ protected:
   virtual void reward() = 0;
   void restoreState();
   bool isInputCorrect(const char input);
+  void openAnswerInput();
 
   std::vector<Platform> mKingCrab;
   bool mIsMaze;
   StateId previousPlatform;
   std::string mOptions;
+  std::string mStringInput;
   Handler mHandler;
   CrabDifficulty mDifficulty;
   ResourceId mEventOriginer;

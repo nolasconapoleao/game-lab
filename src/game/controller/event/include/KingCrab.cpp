@@ -63,8 +63,12 @@ void KingCrab::run() {
     reward();
     triggerTransition(NEXT);
   } else {
-    fillOptions();
-    handleUserInput();
+    if (mKingCrab[mActiveState - START_STATE_ID].alternatives.size() > 1) {
+      fillOptions();
+      handleUserInput();
+    } else {
+      openAnswerInput();
+    }
   }
 }
 
@@ -119,6 +123,18 @@ void KingCrab::restoreState() {
 bool KingCrab::isInputCorrect(char input) {
   mAccumulatedScore += mKingCrab[mActiveState - START_STATE_ID].alternatives[input - '0'].second;
   return (mKingCrab[mActiveState - START_STATE_ID].alternatives[input - '0'].second > 0);
+}
+
+void KingCrab::openAnswerInput() {
+  view::Printer::addToOptionHeader(Verbose::INFO, mKingCrab[mActiveState - START_STATE_ID].OptionHeader);
+  view::Printer::printScreen();
+  mStringInput = input::readSentence(false);
+  if (mKingCrab[mActiveState - START_STATE_ID].alternatives[0].first == mStringInput) {
+    triggerTransition(CORRECT);
+  } else {
+    previousPlatform = mActiveState;
+    triggerTransition(INCORRECT);
+  }
 }
 
 } // namespace controller

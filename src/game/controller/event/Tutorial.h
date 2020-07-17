@@ -4,26 +4,20 @@
 
 #pragma once
 
-#include "game/model/handler/Handler.h"
-#include "game/view/Printer.h"
-#include "graph/DirectedGraph.h"
-#include "state-machine/StateMachine.h"
+#include "game/controller/event/include/KingCrab.h"
 
 namespace controller {
 
-// TODO: tutorial should inherit from kingcrab
-class Tutorial : public StateMachine {
-  using LinkId = StateMachine::LinkId;
+class Tutorial : public KingCrab {
 
 public:
-  Tutorial();
-  void run();
+  Tutorial(bool isMaze, CrabDifficulty difficulty, ResourceId eventOriginer, int8_t exitScore);
 
 private:
-  std::string name;
-  uint8_t attempts;
+  void punish() override;
+  void reward() override;
+
   std::vector<std::string> failOutput;
-  Handler mHandler;
 };
 
 } // namespace controller

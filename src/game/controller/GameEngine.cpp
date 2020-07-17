@@ -38,7 +38,7 @@ GameEngine::GameEngine() {
   addState(ST_TERMINATE, std::make_shared<Shutdown>());
   addState(ST_SKIP_TURN, std::make_shared<Empty>());
   addState(ST_CREATION, std::make_shared<Start>());
-  addState(ST_TUTORIAL, std::make_shared<Tutorial>());
+  addState(ST_TUTORIAL, std::make_shared<Tutorial>(false, CRABMODE, 0, -5));
   addState(ST_TRAVEL, std::make_shared<Walk>());
 
   addTransition(ST_PLAYER_TURN, ST_BATTLE_CHARACTER, TR_BATTLE_CHARACTER);
