@@ -5,8 +5,8 @@
 #include "GuessWhat.h"
 
 namespace controller {
-GuessWhat::GuessWhat(bool isMaze, CrabDifficulty difficulty, ResourceId eventOriginer, int8_t exitScore)
-    : KingCrab(isMaze, difficulty, eventOriginer, exitScore) {
+GuessWhat::GuessWhat(bool isMaze, CrabDifficulty difficulty, ResourceId origin, int8_t exitScore)
+    : KingCrab(isMaze, difficulty, origin, exitScore) {
   std::vector<std::pair<std::string, Score>> alternatives;
   alternatives.emplace_back("What?", 0);
   alternatives.emplace_back("Who's there?", 1);

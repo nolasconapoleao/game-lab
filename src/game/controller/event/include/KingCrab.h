@@ -15,7 +15,7 @@ namespace controller {
 
 class KingCrab : public StateMachine {
 public:
-  KingCrab(bool isMaze, CrabDifficulty difficulty, ResourceId eventOriginer, int8_t exitScore);
+  KingCrab(bool isMaze, CrabDifficulty difficulty, ResourceId origin, int8_t exitScore);
   void createNetwork();
   void run() final;
 
@@ -35,7 +35,7 @@ protected:
   std::string mStringInput;
   Handler mHandler;
   CrabDifficulty mDifficulty;
-  ResourceId mEventOriginer;
+  ResourceId mOrigin;
   int8_t mAccumulatedScore;
   int8_t mExitScore;
 };

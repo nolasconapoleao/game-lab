@@ -6,8 +6,8 @@
 
 namespace controller {
 
-Tutorial::Tutorial(bool isMaze, CrabDifficulty difficulty, ResourceId eventOriginer, int8_t exitScore)
-    : KingCrab(isMaze, difficulty, eventOriginer, exitScore) {
+Tutorial::Tutorial(bool isMaze, CrabDifficulty difficulty, ResourceId origin, int8_t exitScore)
+    : KingCrab(isMaze, difficulty, origin, exitScore) {
   failOutput.emplace_back("Let's start over. Say it with me 'any key'");
   failOutput.emplace_back("I mean 'any key'");
   failOutput.emplace_back("You truly are a rebel, but this is not the time.");

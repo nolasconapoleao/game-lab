@@ -6,8 +6,6 @@
 
 #include <magic_enum/include/magic_enum.hpp>
 
-#include "game/controller/event/Example.h"
-#include "game/controller/event/GuessWhat.h"
 #include "game/controller/event/Tutorial.h"
 #include "game/controller/input/Input.h"
 #include "game/controller/state/Attack.h"
@@ -30,8 +28,6 @@ GameEngine::GameEngine() {
 
   addState(ST_BATTLE_CHARACTER, std::make_shared<Attack>());
   addState(ST_PLAYER_EVENTS, std::make_shared<Empty>());
-  // FIXME: Example is a type of event, not quest
-  addState(ST_QUEST_READ, std::make_shared<Example>(false, CRABMODE, 0, -5));
   addState(ST_WORLD_AT_LARGE, std::make_shared<IdleWorld>());
   addState(ST_PLAYER_TURN, std::make_shared<Empty>());
   addState(ST_ITEM_USE, std::make_shared<UseItem>());
@@ -43,7 +39,6 @@ GameEngine::GameEngine() {
 
   addTransition(ST_PLAYER_TURN, ST_BATTLE_CHARACTER, TR_BATTLE_CHARACTER);
   addTransition(ST_PLAYER_TURN, ST_ITEM_USE, TR_ITEM_USE);
-  addTransition(ST_PLAYER_TURN, ST_QUEST_READ, TR_QUEST_READ);
   addTransition(ST_PLAYER_TURN, ST_TERMINATE, TR_TERMINATE);
   addTransition(ST_PLAYER_TURN, ST_SKIP_TURN, TR_SKIP_TURN);
   addTransition(ST_PLAYER_TURN, ST_TUTORIAL, TR_TUTORIAL);
@@ -51,16 +46,14 @@ GameEngine::GameEngine() {
 
   addTransition(ST_ITEM_USE, ST_PLAYER_TURN, PREVIOUS);
   addTransition(ST_BATTLE_CHARACTER, ST_PLAYER_TURN, PREVIOUS);
-  addTransition(ST_QUEST_READ, ST_PLAYER_TURN, PREVIOUS);
   addTransition(ST_TRAVEL, ST_PLAYER_TURN, PREVIOUS);
 
   addTransition(ST_WORLD_AT_LARGE, ST_PLAYER_TURN, NEXT);
   addTransition(ST_TUTORIAL, ST_PLAYER_TURN, NEXT);
   addTransition(ST_PLAYER_EVENTS, ST_WORLD_AT_LARGE, NEXT);
-  addTransition(ST_SKIP_TURN, ST_WORLD_AT_LARGE, NEXT);
   addTransition(ST_CREATION, ST_WORLD_AT_LARGE, NEXT);
+  addTransition(ST_SKIP_TURN, ST_PLAYER_EVENTS, NEXT);
   addTransition(ST_BATTLE_CHARACTER, ST_PLAYER_EVENTS, NEXT);
-  addTransition(ST_QUEST_READ, ST_PLAYER_EVENTS, NEXT);
   addTransition(ST_ITEM_USE, ST_PLAYER_EVENTS, NEXT);
   addTransition(ST_TRAVEL, ST_PLAYER_EVENTS, NEXT);
 
@@ -68,9 +61,17 @@ GameEngine::GameEngine() {
 }
 
 void GameEngine::run() {
-  if (activeState() != ST_QUEST_READ) {
-    updateViewVariables();
+  if (activeState() == ST_PLAYER_EVENTS) {
+    eventManager.run();
+    if (eventManager.isTerminated()) {
+      eventManager.addEvent(true, CRABMODE, 0, World::activeCharacter, -9);
+      triggerTransition(NEXT);
+      gameStates[mActiveState]->triggerTransition(START);
+    }
+    return;
   }
+
+  updateViewVariables();
   gameStates[mActiveState]->run();
 
   if (isTerminated()) {

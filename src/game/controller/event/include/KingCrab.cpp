@@ -13,9 +13,8 @@
 namespace controller {
 
 constexpr StateId START_STATE_ID = 50;
-KingCrab::KingCrab(bool isMaze, CrabDifficulty difficulty, ResourceId eventOriginer, int8_t exitScore)
-    : mIsMaze(isMaze), mDifficulty(difficulty), mEventOriginer(eventOriginer), mAccumulatedScore(0),
-      mExitScore(exitScore) {
+KingCrab::KingCrab(bool isMaze, CrabDifficulty difficulty, ResourceId origin, int8_t exitScore)
+    : mIsMaze(isMaze), mDifficulty(difficulty), mOrigin(origin), mAccumulatedScore(0), mExitScore(exitScore) {
 }
 
 void KingCrab::createNetwork() {

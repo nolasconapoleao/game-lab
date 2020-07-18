@@ -11,7 +11,7 @@ namespace controller {
 // FIX: Define Splitter state for these
 class Example : public KingCrab {
 public:
-  Example(bool isMaze, CrabDifficulty difficulty, ResourceId eventOriginer, int8_t exitScore);
+  Example(bool isMaze, CrabDifficulty difficulty, ResourceId origin, int8_t exitScore);
 
 protected:
   void punish() override;

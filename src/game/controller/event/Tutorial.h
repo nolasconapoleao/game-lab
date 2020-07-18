@@ -11,7 +11,7 @@ namespace controller {
 class Tutorial : public KingCrab {
 
 public:
-  Tutorial(bool isMaze, CrabDifficulty difficulty, ResourceId eventOriginer, int8_t exitScore);
+  Tutorial(bool isMaze, CrabDifficulty difficulty, ResourceId origin, int8_t exitScore);
 
 private:
   void punish() override;

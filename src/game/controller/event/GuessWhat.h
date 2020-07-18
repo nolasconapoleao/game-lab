@@ -11,7 +11,7 @@ namespace controller {
 class GuessWhat : public KingCrab {
 
 public:
-  GuessWhat(bool isMaze, CrabDifficulty difficulty, ResourceId eventOriginer, int8_t exitScore);
+  GuessWhat(bool isMaze, CrabDifficulty difficulty, ResourceId origin, int8_t exitScore);
 
 protected:
   void punish() override;

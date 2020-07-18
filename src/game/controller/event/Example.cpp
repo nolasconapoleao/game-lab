@@ -6,8 +6,8 @@
 
 namespace controller {
 
-Example::Example(bool isMaze, CrabDifficulty difficulty, ResourceId eventOriginer, int8_t exitScore)
-    : KingCrab(isMaze, difficulty, eventOriginer, exitScore) {
+Example::Example(bool isMaze, CrabDifficulty difficulty, ResourceId origin, int8_t exitScore)
+    : KingCrab(isMaze, difficulty, origin, exitScore) {
   std::vector<std::pair<std::string, Score>> alternatives;
   alternatives.emplace_back("a", 1);
   alternatives.emplace_back("b", -1);
