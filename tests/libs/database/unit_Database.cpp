@@ -5,7 +5,7 @@
 #define CATCH_CONFIG_MAIN
 #include <catch.hpp>
 
-#include "database/Database.h"
+#include "interface/database/Database.h"
 
 namespace constants {
 constexpr auto potato = "potato";

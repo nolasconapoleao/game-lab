@@ -5,7 +5,7 @@
 #define CATCH_CONFIG_MAIN
 #include <catch.hpp>
 
-#include "game/model/state/Tutorial.h"
+#include "model/state/Tutorial.h"
 
 SCENARIO("Use this to create a target for testing macro states", "[Example]") {
 

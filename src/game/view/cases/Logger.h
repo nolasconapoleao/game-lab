@@ -4,8 +4,8 @@
 
 #pragma once
 
-#include "game/model/handler/include/AttackResult.h"
-#include "include/datatypes/GameTypes.h"
+#include "datatypes/GameTypes.h"
+#include "datatypes/logger/AttackResult.h"
 
 void logBattle(const CharacterId attackerId, const CharacterId attackedId, const LocationId battleGroundId,
                const AttackResult result);

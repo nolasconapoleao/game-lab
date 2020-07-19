@@ -6,21 +6,21 @@
 
 #include <magic_enum/include/magic_enum.hpp>
 
-#include "game/controller/event/Tutorial.h"
-#include "game/controller/input/Input.h"
-#include "game/controller/state/Attack.h"
-#include "game/controller/state/DropItem.h"
-#include "game/controller/state/Empty.h"
-#include "game/controller/state/IdleWorld.h"
-#include "game/controller/state/Shutdown.h"
-#include "game/controller/state/Start.h"
-#include "game/controller/state/UseItem.h"
-#include "game/controller/state/Walk.h"
-#include "game/controller/state/include/Menu.h"
-#include "game/controller/state/include/State.h"
-#include "game/controller/state/include/Substate.h"
-#include "game/controller/state/include/Transition.h"
-#include "game/view/entity/StreamConverter.h"
+#include "controller/event/Tutorial.h"
+#include "controller/input/Input.h"
+#include "controller/state/Attack.h"
+#include "controller/state/DropItem.h"
+#include "controller/state/Empty.h"
+#include "controller/state/IdleWorld.h"
+#include "controller/state/Shutdown.h"
+#include "controller/state/Start.h"
+#include "controller/state/UseItem.h"
+#include "controller/state/Walk.h"
+#include "datatypes/state/Menu.h"
+#include "datatypes/state/State.h"
+#include "datatypes/state/Substate.h"
+#include "datatypes/state/Transition.h"
+#include "view/entity/StreamConverter.h"
 
 namespace controller {
 

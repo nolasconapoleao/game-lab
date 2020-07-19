@@ -4,10 +4,10 @@
 
 #pragma once
 
-#include "game/model/entity/include/ItemEffect.h"
-#include "game/model/entity/include/ItemOwnerType.h"
-#include "game/model/entity/include/ItemOwnership.h"
-#include "game/model/entity/include/UseType.h"
+#include "datatypes/entity/ItemEffect.h"
+#include "datatypes/entity/ItemOwnerType.h"
+#include "datatypes/entity/ItemOwnership.h"
+#include "datatypes/entity/UseType.h"
 
 namespace entity {
 

@@ -4,8 +4,8 @@
 
 #pragma once
 
-#include "game/controller/state/include/Caterpillar.h"
-#include "game/model/factory/Factory.h"
+#include "interface/state/Caterpillar.h"
+#include "model/factory/Factory.h"
 
 namespace controller {
 

@@ -7,7 +7,7 @@
 #include <string>
 #include <vector>
 
-#include "include/datatypes/GameTypes.h"
+#include "datatypes/GameTypes.h"
 
 namespace input {
 

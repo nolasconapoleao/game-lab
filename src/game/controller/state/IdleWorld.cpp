@@ -4,8 +4,8 @@
 
 #include "IdleWorld.h"
 
-#include "game/controller/state/include/Transition.h"
-#include "game/view/cases/Logger.h"
+#include "datatypes/state/Transition.h"
+#include "view/cases/Logger.h"
 
 namespace controller {
 

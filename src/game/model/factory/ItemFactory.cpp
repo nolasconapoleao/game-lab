@@ -3,7 +3,7 @@
 //
 
 #include "Factory.h"
-#include "random/Random.h"
+#include "libs/random/Random.h"
 
 void Factory::generateItem(UseType useType) {
   ItemPrototype typeId;

@@ -4,8 +4,8 @@
 
 #include "Attack.h"
 
-#include "game/controller/state/include/Substate.h"
-#include "game/view/cases/Logger.h"
+#include "datatypes/state/Substate.h"
+#include "view/cases/Logger.h"
 
 namespace controller {
 

@@ -7,7 +7,7 @@
 #include <iostream>
 #include <sstream>
 
-#include "game/view/include/PrintConstants.h"
+#include "datatypes/logger/PrintConstants.h"
 #include "platform/platformconfig.h"
 
 namespace view {

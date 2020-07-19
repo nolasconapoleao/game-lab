@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "game/controller/state/include/Caterpillar.h"
+#include "interface/state/Caterpillar.h"
 
 namespace controller {
 

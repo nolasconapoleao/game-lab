@@ -4,7 +4,7 @@
 
 #include "Character.h"
 
-#include "math/gamemath.h"
+#include "libs/math/gamemath.h"
 
 namespace entity {
 

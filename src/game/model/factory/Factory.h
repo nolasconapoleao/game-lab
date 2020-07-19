@@ -4,11 +4,11 @@
 
 #pragma once
 
-#include "game/model/World.h"
-#include "game/model/entity/include/Occupation.h"
-#include "game/model/factory/include/ItemPrototype.h"
-#include "game/model/factory/include/LocationPrototype.h"
-#include "game/model/factory/include/StructurePrototype.h"
+#include "datatypes/entity/Occupation.h"
+#include "datatypes/factory/ItemPrototype.h"
+#include "datatypes/factory/LocationPrototype.h"
+#include "datatypes/factory/StructurePrototype.h"
+#include "model/World.h"
 
 class World;
 

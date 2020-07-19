@@ -8,12 +8,12 @@
 #include <queue>
 #include <set>
 
-#include "game/model/entity/Character.h"
-#include "game/model/entity/Item.h"
-#include "game/model/entity/Location.h"
-#include "game/model/entity/Structure.h"
-#include "game/model/map/WorldMap.h"
-#include "graph/UndirectedGraph.h"
+#include "interface/graph/UndirectedGraph.h"
+#include "model/entity/Character.h"
+#include "model/entity/Item.h"
+#include "model/entity/Location.h"
+#include "model/entity/Structure.h"
+#include "model/map/WorldMap.h"
 
 using ItemEntry = std::pair<ItemId, entity::Item>;
 using CharacterEntry = std::pair<CharacterId, entity::Character>;

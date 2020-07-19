@@ -1,6 +1,3 @@
-add_subdirectory(database)
 add_subdirectory(datatypes)
-add_subdirectory(graph)
-add_subdirectory(math)
-add_subdirectory(random)
-add_subdirectory(state-machine)
+add_subdirectory(interface)
+add_subdirectory(libs)

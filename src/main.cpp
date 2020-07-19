@@ -1,7 +1,7 @@
 #include <csignal>
 
-#include "game/controller/GameEngine.h"
-#include "game/controller/input/Signal_Handler.h"
+#include "controller/GameEngine.h"
+#include "controller/input/Signal_Handler.h"
 
 int main() {
   view::Printer::setVerboseLevel(Verbose::INFO);

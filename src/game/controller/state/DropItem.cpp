@@ -4,9 +4,9 @@
 
 #include "DropItem.h"
 
-#include "game/controller/input/Input.h"
-#include "game/controller/state/include/Substate.h"
-#include "game/view/entity/StreamConverter.h"
+#include "controller/input/Input.h"
+#include "datatypes/state/Substate.h"
+#include "view/entity/StreamConverter.h"
 
 namespace controller {
 

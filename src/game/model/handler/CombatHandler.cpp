@@ -5,8 +5,8 @@
 #include <cmath>
 
 #include "Handler.h"
-#include "math/gamemath.h"
-#include "random/Random.h"
+#include "libs/math/gamemath.h"
+#include "libs/random/Random.h"
 
 constexpr Number MAXLEVEL = 100;
 

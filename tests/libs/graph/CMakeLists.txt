@@ -14,9 +14,9 @@ add_executable(
 target_sources(
     ${EXECUTABLE_NAME}
     PRIVATE
-        ${PROJECT_SOURCE_DIR}/src/include/graph/DirectedGraph.h
-        ${PROJECT_SOURCE_DIR}/src/include/graph/IGraph.h
-        ${PROJECT_SOURCE_DIR}/src/include/graph/UndirectedGraph.h
+        ${CMAKE_SOURCE_DIR}/src/include/interface/graph/DirectedGraph.h
+        ${CMAKE_SOURCE_DIR}/src/include/interface/graph/IGraph.h
+        ${CMAKE_SOURCE_DIR}/src/include/interface/graph/UndirectedGraph.h
 )
 
 create_test(${EXECUTABLE_NAME})
@@ -37,8 +37,8 @@ add_executable(
 target_sources(
     ${EXECUTABLE_NAME}
     PRIVATE
-        ${PROJECT_SOURCE_DIR}/src/include/graph/DirectedGraph.h
-        ${PROJECT_SOURCE_DIR}/src/include/graph/IGraph.h
+        ${CMAKE_SOURCE_DIR}/src/include/interface/graph/DirectedGraph.h
+        ${CMAKE_SOURCE_DIR}/src/include/interface/graph/IGraph.h
 )
 
 create_test(${EXECUTABLE_NAME})
@@ -59,8 +59,8 @@ add_executable(
 target_sources(
     ${EXECUTABLE_NAME}
     PRIVATE
-        ${PROJECT_SOURCE_DIR}/src/include/graph/IGraph.h
-        ${PROJECT_SOURCE_DIR}/src/include/graph/UndirectedGraph.h
+        ${CMAKE_SOURCE_DIR}/src/include/interface/graph/IGraph.h
+        ${CMAKE_SOURCE_DIR}/src/include/interface/graph/UndirectedGraph.h
 )
 
 create_test(${EXECUTABLE_NAME})

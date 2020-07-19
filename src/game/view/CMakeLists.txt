@@ -1,6 +1,5 @@
 add_subdirectory(cases)
 add_subdirectory(entity)
-add_subdirectory(include)
 
 target_sources(${PROJECT_NAME}
     PRIVATE

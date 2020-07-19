@@ -6,9 +6,9 @@
 
 #include <magic_enum/include/magic_enum.hpp>
 
-#include "game/controller/input/Input.h"
-#include "game/controller/state/include/Substate.h"
-#include "game/controller/state/include/Transition.h"
+#include "controller/input/Input.h"
+#include "datatypes/state/Substate.h"
+#include "datatypes/state/Transition.h"
 
 namespace controller {
 

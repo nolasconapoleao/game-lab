@@ -6,7 +6,7 @@
 
 #include <string>
 
-#include "graph/DirectedGraph.h"
+#include "interface/graph/DirectedGraph.h"
 
 using StateId = uint8_t;
 using StateInfo = std::string;

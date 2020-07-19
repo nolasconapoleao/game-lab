@@ -7,7 +7,7 @@
 #include <string>
 #include <vector>
 
-#include "game/view/include/Verbose.h"
+#include "datatypes/logger/Verbose.h"
 
 namespace view {
 

@@ -9,12 +9,12 @@ add_executable(
 target_sources(
     ${EXECUTABLE_NAME}
     PRIVATE
-        ../../../src/game/view/Printer.cpp
-        ../../../src/game/controller/input/Input.cpp
-        ../../../src/game/controller/state/Tutorial.cpp
-        ${PROJECT_SOURCE_DIR}/src/include/state-machine/MacroState.cpp
-        ${PROJECT_SOURCE_DIR}/src/include/graph/DirectedGraph.h
-        ${PROJECT_SOURCE_DIR}/src/include/graph/IGraph.h
+        ${CMAKE_SOURCE_DIR}/src/game/view/Printer.cpp
+        ${CMAKE_SOURCE_DIR}/src/game/controller/input/Input.cpp
+        ${CMAKE_SOURCE_DIR}/src/game/controller/state/Tutorial.cpp
+        ${CMAKE_SOURCE_DIR}/src/include/interface/state-machine/MacroState.cpp
+        ${CMAKE_SOURCE_DIR}/src/include/interface/graph/DirectedGraph.h
+        ${CMAKE_SOURCE_DIR}/src/include/interface/graph/IGraph.h
         ${CMAKE_BINARY_DIR}/src/config/platformconfig.h
 )
 

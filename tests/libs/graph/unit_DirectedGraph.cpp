@@ -6,7 +6,7 @@
 #include <catch.hpp>
 
 #include "constants.h"
-#include "graph/DirectedGraph.h"
+#include "interface/graph/DirectedGraph.h"
 
 SCENARIO("Addition of edge directed graph", "[DirectedGraph]") {
 

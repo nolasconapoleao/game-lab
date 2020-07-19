@@ -6,7 +6,7 @@
 #include <catch.hpp>
 
 #include "constants.h"
-#include "graph/UndirectedGraph.h"
+#include "interface/graph/UndirectedGraph.h"
 
 SCENARIO("Addition of nodes to graph independent of directionality", "[BaseGraph]") {
 

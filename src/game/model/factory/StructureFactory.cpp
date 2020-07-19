@@ -3,8 +3,8 @@
 //
 
 #include "Factory.h"
-#include "game/model/factory/include/StructurePrototype.h"
-#include "random/Random.h"
+#include "datatypes/factory/StructurePrototype.h"
+#include "libs/random/Random.h"
 
 void Factory::generateStructure() {
   const auto typeId = Random::fromVec(structurePool);

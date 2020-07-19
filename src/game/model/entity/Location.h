@@ -7,7 +7,7 @@
 #include <string>
 
 #include "datatypes/GameTypes.h"
-#include "game/model/factory/include/LocationCategory.h"
+#include "datatypes/factory/LocationCategory.h"
 
 namespace entity {
 

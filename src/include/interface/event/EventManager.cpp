@@ -4,13 +4,13 @@
 
 #include "EventManager.h"
 
-#include "game/controller/event/Example.h"
-#include "game/controller/event/GuessWhat.h"
-#include "game/controller/input/Input.h"
-#include "game/controller/state/Start.h"
-#include "game/controller/state/include/Substate.h"
-#include "game/controller/state/include/Transition.h"
-#include "game/view/entity/StreamConverter.h"
+#include "controller/event/Example.h"
+#include "controller/event/GuessWhat.h"
+#include "controller/input/Input.h"
+#include "controller/state/Start.h"
+#include "datatypes/state/Substate.h"
+#include "datatypes/state/Transition.h"
+#include "view/entity/StreamConverter.h"
 
 namespace controller {
 

@@ -6,8 +6,8 @@
 
 #include <magic_enum/include/magic_enum.hpp>
 
-#include "game/model/World.h"
-#include "game/view/Printer.h"
+#include "model/World.h"
+#include "view/Printer.h"
 
 void logBattle(CharacterId attackerId, CharacterId attackedId, LocationId battleGroundId, AttackResult result) {
   std::string hitReport = World::character(attackerId).getName() + " attacks " + World::character(attackedId).getName()

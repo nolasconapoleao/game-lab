@@ -4,12 +4,12 @@
 
 #pragma once
 
-#include "CrabDifficulty.h"
-#include "Platform.h"
-#include "game/model/handler/Handler.h"
-#include "game/view/Printer.h"
-#include "game/view/entity/StreamConverter.h"
-#include "state-machine/StateMachine.h"
+#include "datatypes/event/CrabDifficulty.h"
+#include "datatypes/event/Platform.h"
+#include "interface/state-machine/StateMachine.h"
+#include "model/handler/Handler.h"
+#include "view/Printer.h"
+#include "view/entity/StreamConverter.h"
 
 namespace controller {
 

@@ -8,11 +8,11 @@
 #include <memory>
 #include <set>
 
-#include "game/controller/event/include/KingCrab.h"
-#include "game/model/World.h"
-#include "game/model/handler/Handler.h"
-#include "game/view/Printer.h"
-#include "state-machine/StateMachine.h"
+#include "interface/event/KingCrab.h"
+#include "interface/state-machine/StateMachine.h"
+#include "model/World.h"
+#include "model/handler/Handler.h"
+#include "view/Printer.h"
 
 namespace controller {
 

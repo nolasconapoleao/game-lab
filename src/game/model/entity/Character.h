@@ -6,10 +6,10 @@
 
 #include <string>
 
-#include "game/model/entity/include/GhostInTheShell.h"
-#include "game/model/entity/include/ItemEffect.h"
-#include "game/model/entity/include/Passport.h"
-#include "game/model/entity/include/Stats.h"
+#include "datatypes/entity/GhostInTheShell.h"
+#include "datatypes/entity/ItemEffect.h"
+#include "datatypes/entity/Passport.h"
+#include "datatypes/entity/Stats.h"
 
 namespace entity {
 

@@ -3,7 +3,7 @@
 //
 
 #include "Handler.h"
-#include "math/gamemath.h"
+#include "libs/math/gamemath.h"
 
 constexpr Number MAXCASH = 100'000;
 

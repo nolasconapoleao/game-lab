@@ -1,5 +1,3 @@
-add_subdirectory(include)
-
 target_sources(${PROJECT_NAME}
     PRIVATE
         # Sources

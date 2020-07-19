@@ -9,7 +9,7 @@ add_executable(
 target_sources(
     ${EXECUTABLE_NAME}
     PRIVATE
-        ${PROJECT_SOURCE_DIR}/src/include/database/Database.h
+        ${CMAKE_SOURCE_DIR}/src/include/interface/database/Database.h
 )
 
 create_test(${EXECUTABLE_NAME})

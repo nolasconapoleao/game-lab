@@ -5,9 +5,9 @@
 #pragma once
 
 #include "datatypes/GameTypes.h"
-#include "game/model/World.h"
-#include "game/model/entity/include/ItemOwnerType.h"
-#include "game/model/handler/include/AttackResult.h"
+#include "datatypes/entity/ItemOwnerType.h"
+#include "datatypes/logger/AttackResult.h"
+#include "model/World.h"
 
 class Handler {
 public:

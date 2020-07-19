@@ -41,7 +41,7 @@ target_include_directories(
         ${CMAKE_BINARY_DIR}/extras
         ${CMAKE_SOURCE_DIR}/external
         ${CMAKE_SOURCE_DIR}/extras
-        ${CMAKE_SOURCE_DIR}/src
+        ${CMAKE_SOURCE_DIR}/src/game
         ${CMAKE_SOURCE_DIR}/src/include
 )
 

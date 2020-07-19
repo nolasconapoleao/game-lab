@@ -1,0 +1,5 @@
+add_subdirectory(database)
+add_subdirectory(event)
+add_subdirectory(graph)
+add_subdirectory(state)
+add_subdirectory(state-machine)

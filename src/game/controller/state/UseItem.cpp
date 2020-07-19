@@ -4,7 +4,7 @@
 
 #include "UseItem.h"
 
-#include "game/controller/state/include/Substate.h"
+#include "datatypes/state/Substate.h"
 
 namespace controller {
 
