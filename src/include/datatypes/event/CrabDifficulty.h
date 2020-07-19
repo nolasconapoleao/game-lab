@@ -5,6 +5,6 @@
 #pragma once
 
 enum CrabDifficulty {
-  UNFORGIVING,
-  CRABMODE,
+  UNFORGiving,
+  crabmoDE,
 };

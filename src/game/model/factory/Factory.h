@@ -22,7 +22,7 @@ public:
   void createItem(const ItemPrototype type);
   void generateStructure();
   void createStructure(const StructurePrototype type);
-  void generateLocation(const LocationCategory type);
+  void generateLocation(const ExteriorType type);
   void createLocation(const LocationPrototype type);
   void fillLocation(LocationId locationId);
   void fillInventory(CharacterId characterId);

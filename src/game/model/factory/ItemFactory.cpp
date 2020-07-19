@@ -24,23 +24,23 @@ void Factory::createItem(ItemPrototype type) {
   // TODO: replace by random generation based on item type
   ItemEffect effect{2, 3, 1, 0};
 
-  entity::Item creation;
+  entity::Item creation(std::string(), 0, <#initializer #>);
   Quantity quantity = 0;
   switch (type) {
     case ItemPrototype::POTION:
       effect.hp = 8;
       quantity = 5;
-      creation = entity::Item("Potion", UseType::singleUse, 1, effect);
+      creation = entity::Item("Potion", 1, effect);
       break;
     case ItemPrototype::SWORD:
       effect.atk = 6;
       quantity = 50;
-      creation = entity::Item("Sword", UseType::equip, 15, effect);
+      creation = entity::Item("Sword", 15, effect);
       break;
     case ItemPrototype::SHIELD:
       effect.def = 4;
       quantity = 50;
-      creation = entity::Item("Shield", UseType::equip, 8, effect);
+      creation = entity::Item("Shield", 8, effect);
       break;
   }
   creation.setQuantity(quantity);

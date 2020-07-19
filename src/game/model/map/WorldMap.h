@@ -5,8 +5,8 @@
 #pragma once
 
 #include "datatypes/GameTypes.h"
+#include "interface/entity/Location.h"
 #include "interface/graph/UndirectedGraph.h"
-#include "model/entity/Location.h"
 
 class WorldMap {
 public:

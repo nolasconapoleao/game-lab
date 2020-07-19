@@ -17,12 +17,12 @@ std::ostream &operator<<(std::ostream &os, const Race &value) {
   return os;
 }
 
-std::ostream &operator<<(std::ostream &os, const GhostInTheShell &value) {
+std::ostream &operator<<(std::ostream &os, const Ghost &value) {
   os << magic_enum::enum_name(value).data();
   return os;
 }
 
-std::ostream &operator<<(std::ostream &os, const CharacterAttack &value) {
+std::ostream &operator<<(std::ostream &os, const AttackType &value) {
   os << magic_enum::enum_name(value).data();
   return os;
 }
@@ -32,9 +32,9 @@ std::ostream &operator<<(std::ostream &os, const Occupation &value) {
   return os;
 }
 
-std::ostream &operator<<(std::ostream &os, const Passport &value) {
+std::ostream &operator<<(std::ostream &os, const Info &value) {
   os << "faction: " << value.faction << " party: " << value.party << " occupation: " << value.occupation
-     << " race: " << value.race << " characterAttack: " << value.characterAttack;
+     << " race: " << value.race << " attackType: " << value.attackType;
   return os;
 }
 

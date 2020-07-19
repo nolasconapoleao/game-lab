@@ -26,16 +26,16 @@ void Factory::generateLocation(const LocationCategory type) {
 void Factory::createLocation(const LocationPrototype type) {
   // TODO: replace by random generation based on item type
 
-  entity::Location creation;
+  entity::Location creation(<#initializer #>, <#initializer #>, 0);
   switch (type) {
     case LocationPrototype::TOWN:
-      creation = entity::Location("Field", LocationCategory::Exterior, Size{50, 20}, 0);
+      creation = entity::Location("Field", Size{50, 20}, 0);
       break;
     case LocationPrototype::ARENA:
-      creation = entity::Location("Arena", LocationCategory::Interior, Size{10, 10}, 0);
+      creation = entity::Location("Arena", Size{10, 10}, 0);
       break;
     case LocationPrototype::CAVE:
-      creation = entity::Location("Cave", LocationCategory::Connector, Size{30, 5}, 0);
+      creation = entity::Location("Cave", Size{30, 5}, 0);
       break;
   }
 

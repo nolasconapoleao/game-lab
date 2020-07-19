@@ -130,7 +130,7 @@ std::unordered_set<LocationId> World::adjcentLocations(LocationId locationId) {
 std::set<LocationId> World::activeLocations() {
   std::set<LocationId> locationWithPlayer;
   auto saveActiveLocation = [&locationWithPlayer](CharacterEntry entry) {
-    if (entry.second.getGhost() == GhostInTheShell::Player) {
+    if (entry.second.getGhost() == Ghost::Player) {
       locationWithPlayer.insert(entry.second.getLocation());
     };
   };

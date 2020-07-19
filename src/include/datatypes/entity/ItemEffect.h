@@ -9,8 +9,14 @@
 #include "datatypes/GameTypes.h"
 
 struct ItemEffect {
-  Quantity atk = 0; // attack
-  Quantity def = 0; // defense
-  Quantity spd = 0; // speed
-  Quantity hp = 0;  // health
+  Quantity hp = 0;   // Health
+  Quantity atk = 0;  // Attack
+  Quantity def = 0;  // Defense
+  Quantity mAtk = 0; // Magic attack
+  Quantity mDef = 0; // Magic defense
+  Quantity spd = 0;  // Speed
+  Quantity inte = 0; // Intelligence
+  Quantity acc = 0;  // Accuracy
+  Quantity ste = 0;  // Stealth
+  Quantity mana = 0; // Mana
 };

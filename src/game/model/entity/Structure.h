@@ -4,27 +4,17 @@
 
 #pragma once
 
-#include <string>
-
 #include "datatypes/GameTypes.h"
+#include "interface/entity/Entity.h"
 
 namespace entity {
 
-class Structure {
+class Structure : public Entity {
 public:
-  Structure() = default;
   Structure(const std::string &name, const Size &size);
-  const std::string &getName() const;
-  void setName(const std::string &name);
-  const Size &getSize() const;
-  void setSize(const Size &size);
-  LocationId getLocation() const;
-  void setLocation(LocationId location);
 
 private:
-  std::string name;
   Size size;
-  LocationId location;
 };
 
 } // namespace entity

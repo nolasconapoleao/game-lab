@@ -4,7 +4,7 @@
 
 #pragma once
 
-enum class GhostInTheShell {
-  AI,
-  Player,
+enum class Ghost {
+  COMPUTER,
+  PLAYER,
 };

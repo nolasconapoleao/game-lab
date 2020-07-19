@@ -6,11 +6,11 @@
 
 enum class Occupation {
   BEGGAR,
-  SHOPKEEPER,
   BLACKSMITH,
+  JESTER,
   LIBRARIAN,
   MERCENARY,
+  SHOPKEEPER,
   THIEF,
   TOURIST,
-  JESTER,
 };

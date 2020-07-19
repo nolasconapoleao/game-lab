@@ -4,10 +4,8 @@
 
 #pragma once
 
-enum class ItemCategory {
-  WEAPON,
-  STAFF,
+enum class ItemType {
   ELEMENT,
-  EQUIPMENT,
-  CONSUME,
+  STAFF,
+  WEAPON,
 };

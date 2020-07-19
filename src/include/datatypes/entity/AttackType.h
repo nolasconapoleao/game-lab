@@ -4,7 +4,7 @@
 
 #pragma once
 
-enum class CharacterAttack {
+enum class AttackType {
   CONJURING,
   ELEMENTAL,
   MAGIC,

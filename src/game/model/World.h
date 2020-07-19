@@ -8,10 +8,10 @@
 #include <queue>
 #include <set>
 
+#include "interface/entity/Item.h"
+#include "interface/entity/Location.h"
 #include "interface/graph/UndirectedGraph.h"
 #include "model/entity/Character.h"
-#include "model/entity/Item.h"
-#include "model/entity/Location.h"
 #include "model/entity/Structure.h"
 #include "model/map/WorldMap.h"
 

@@ -5,42 +5,23 @@
 #pragma once
 
 #include <string>
+#include <unordered_set>
 
-#include "datatypes/entity/GhostInTheShell.h"
-#include "datatypes/entity/ItemEffect.h"
-#include "datatypes/entity/Passport.h"
+#include "datatypes/entity/Info.h"
 #include "datatypes/entity/Stats.h"
+#include "datatypes/entity/StatusEffect.h"
+#include "interface/entity/Entity.h"
 
 namespace entity {
 
-class Character {
+class Character : public Entity {
 public:
-  Character() = default;
-  Character(const std::string &name, const Stats &baseStats, Passport passport, GhostInTheShell ghost);
-  const std::string &getName() const;
-  void setName(const std::string &name);
-  const Stats &getBaseStats() const;
-  void setBaseStats(const Stats &baseStats);
-  const ItemEffect &getTempStats() const;
-  void setTempStats(const ItemEffect &tempStats);
-  const Stats getStats() const;
-  GhostInTheShell getGhost() const;
-  void setGhost(GhostInTheShell ghost);
-  const Passport &getPassport() const;
-  void setPassport(const Passport &passport);
-  bool isMaxLevelReached() const;
-  void setMaxLevelReached(bool maxLevelReached);
-  LocationId getLocation() const;
-  void setLocation(LocationId location);
+  Character(const std::string &name, const Stats &baseStats, const ItemEffect &tempStats, const Info &info);
 
 private:
-  // TODO: Use name Id to lookup instead of string
-  std::string name;
   Stats baseStats;
   ItemEffect tempStats;
-  GhostInTheShell ghost;
-  Passport passport;
-  bool maxLevelReached;
-  LocationId location;
+  Info info;
+  std::unordered_set<StatusEffect> effects;
 };
 } // namespace entity

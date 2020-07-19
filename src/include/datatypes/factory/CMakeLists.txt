@@ -2,9 +2,7 @@ target_sources(${PROJECT_NAME}
     PUBLIC
         # Headers
         ${CMAKE_CURRENT_SOURCE_DIR}/CharacterPrototype.h
-        ${CMAKE_CURRENT_SOURCE_DIR}/ItemCategory.h
         ${CMAKE_CURRENT_SOURCE_DIR}/ItemPrototype.h
-        ${CMAKE_CURRENT_SOURCE_DIR}/LocationCategory.h
         ${CMAKE_CURRENT_SOURCE_DIR}/LocationPrototype.h
         ${CMAKE_CURRENT_SOURCE_DIR}/StructurePrototype.h
 )
