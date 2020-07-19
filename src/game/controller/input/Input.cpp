@@ -32,4 +32,14 @@ const char readAlphaNum(const std::string options) {
   return input;
 }
 
+const Quantity readNum(const Quantity lowerBound, const Quantity upperBound) {
+  int input;
+
+  do {
+    std::cin >> input;
+  } while (input < lowerBound || input > upperBound);
+  Quantity result = input;
+  return result;
+}
+
 } // namespace input

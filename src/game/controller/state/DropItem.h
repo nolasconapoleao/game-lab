@@ -1,5 +1,5 @@
 //
-// Created by nolasco on 07/07/20.
+// Created by nolasco on 18/07/20.
 //
 
 #pragma once
@@ -8,9 +8,9 @@
 
 namespace controller {
 
-class UseItem : public Caterpillar {
+class DropItem : public Caterpillar {
 public:
-  UseItem();
+  DropItem();
   void execute() override;
 
 protected:

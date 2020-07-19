@@ -72,12 +72,14 @@ void Caterpillar::fillBaseOptions() {
 }
 
 void Caterpillar::handleUserInput() {
-  view::Printer::printScreen();
-  auto input = input::readAlphaNum(mOptions);
-  if (CANCEL == input || PREVIOUS == input || NEXT == input) {
-    triggerTransition(input);
-  } else {
-    mInput[mActiveState] = input - '0';
+  if (mActiveState != SELECT_QUANTITY) {
+    view::Printer::printScreen();
+    auto input = input::readAlphaNum(mOptions);
+    if (CANCEL == input || PREVIOUS == input || NEXT == input) {
+      triggerTransition(input);
+    } else {
+      mInput[mActiveState] = input - '0';
+    }
   }
 }
 

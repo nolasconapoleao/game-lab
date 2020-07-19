@@ -16,6 +16,7 @@
 
 namespace controller {
 
+// TODO: EventManager should inherit from StateMachine
 class EventManager {
 public:
   void run();

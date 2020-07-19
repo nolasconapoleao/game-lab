@@ -27,6 +27,7 @@ protected:
   std::vector<StateId> mCaterpillar;
   std::unordered_set<StateId> mNeighbours;
   std::vector<ResourceId> mInput;
+  // FIXME: mInputParser should be used to get the id after getting input
   std::vector<ResourceId> mInputParser;
   std::string mOptions;
   Handler mHandler;

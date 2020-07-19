@@ -54,3 +54,16 @@ void Handler::dropAllItems(const CharacterId characterId, const LocationId locat
     changeItemOwner(item, OwnerType::LOCATION, locationId);
   }
 }
+
+void Handler::dropItem(ItemId itemId, LocationId locationId, Quantity quantity) {
+  if (quantity == World::item(itemId).getQuantity()) {
+    changeItemOwner(itemId, OwnerType::LOCATION, locationId);
+  } else {
+    auto itemCopy = World::item(itemId);
+    changeItemOwner(itemId, OwnerType::LOCATION, locationId);
+    World::item(itemId).setQuantity(itemCopy.getQuantity() - quantity);
+    itemCopy.setQuantity(quantity);
+
+    World::addItem(itemCopy);
+  }
+}

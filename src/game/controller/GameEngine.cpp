@@ -9,6 +9,7 @@
 #include "game/controller/event/Tutorial.h"
 #include "game/controller/input/Input.h"
 #include "game/controller/state/Attack.h"
+#include "game/controller/state/DropItem.h"
 #include "game/controller/state/Empty.h"
 #include "game/controller/state/IdleWorld.h"
 #include "game/controller/state/Shutdown.h"
@@ -31,6 +32,7 @@ GameEngine::GameEngine() {
   addState(ST_WORLD_AT_LARGE, std::make_shared<IdleWorld>());
   addState(ST_PLAYER_TURN, std::make_shared<Empty>());
   addState(ST_ITEM_USE, std::make_shared<UseItem>());
+  addState(ST_ITEM_DROP, std::make_shared<DropItem>());
   addState(ST_TERMINATE, std::make_shared<Shutdown>());
   addState(ST_SKIP_TURN, std::make_shared<Empty>());
   addState(ST_CREATION, std::make_shared<Start>());
@@ -39,12 +41,14 @@ GameEngine::GameEngine() {
 
   addTransition(ST_PLAYER_TURN, ST_BATTLE_CHARACTER, TR_BATTLE_CHARACTER);
   addTransition(ST_PLAYER_TURN, ST_ITEM_USE, TR_ITEM_USE);
+  addTransition(ST_PLAYER_TURN, ST_ITEM_DROP, TR_ITEM_DROP);
   addTransition(ST_PLAYER_TURN, ST_TERMINATE, TR_TERMINATE);
   addTransition(ST_PLAYER_TURN, ST_SKIP_TURN, TR_SKIP_TURN);
   addTransition(ST_PLAYER_TURN, ST_TUTORIAL, TR_TUTORIAL);
   addTransition(ST_PLAYER_TURN, ST_TRAVEL, TR_TRAVEL);
 
   addTransition(ST_ITEM_USE, ST_PLAYER_TURN, PREVIOUS);
+  addTransition(ST_ITEM_DROP, ST_PLAYER_TURN, PREVIOUS);
   addTransition(ST_BATTLE_CHARACTER, ST_PLAYER_TURN, PREVIOUS);
   addTransition(ST_TRAVEL, ST_PLAYER_TURN, PREVIOUS);
 
@@ -55,6 +59,7 @@ GameEngine::GameEngine() {
   addTransition(ST_SKIP_TURN, ST_PLAYER_EVENTS, NEXT);
   addTransition(ST_BATTLE_CHARACTER, ST_PLAYER_EVENTS, NEXT);
   addTransition(ST_ITEM_USE, ST_PLAYER_EVENTS, NEXT);
+  addTransition(ST_ITEM_DROP, ST_PLAYER_EVENTS, NEXT);
   addTransition(ST_TRAVEL, ST_PLAYER_EVENTS, NEXT);
 
   gameStates[mActiveState]->triggerTransition(START);
@@ -64,7 +69,7 @@ void GameEngine::run() {
   if (activeState() == ST_PLAYER_EVENTS) {
     eventManager.run();
     if (eventManager.isTerminated()) {
-      eventManager.addEvent(true, CRABMODE, 0, World::activeCharacter, -9);
+      //      eventManager.addEvent(true, CRABMODE, 0, World::activeCharacter, -9);
       triggerTransition(NEXT);
       gameStates[mActiveState]->triggerTransition(START);
     }

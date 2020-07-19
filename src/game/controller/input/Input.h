@@ -7,6 +7,8 @@
 #include <string>
 #include <vector>
 
+#include "include/datatypes/GameTypes.h"
+
 namespace input {
 
 [[nodiscard]] const std::string readSentence(bool flushFirst = false);
@@ -17,5 +19,7 @@ namespace input {
  * @return consoleInput
  */
 [[nodiscard]] const char readAlphaNum(const std::string options);
+
+[[nodiscard]] const Quantity readNum(const Quantity lowerBound, const Quantity upperBound);
 
 } // namespace input
