@@ -11,8 +11,6 @@ namespace entity {
 class Team : public Entity {
 public:
   Team(const std::string &name);
-
-private:
 };
 
 } // namespace entity

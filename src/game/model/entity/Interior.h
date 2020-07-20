@@ -11,7 +11,6 @@ class Interior : public Location {
 public:
   Interior(const std::string &name, const Size &size, Number floors);
 
-private:
   Number floors;
 };
 } // namespace entity

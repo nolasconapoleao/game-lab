@@ -17,7 +17,6 @@ class Character : public Entity {
 public:
   Character(const std::string &name, const Stats &baseStats, const ItemEffect &tempStats, const Info &info);
 
-private:
   Stats baseStats;
   ItemEffect tempStats;
   Info info;

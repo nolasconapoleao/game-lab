@@ -13,7 +13,6 @@ class Structure : public Entity {
 public:
   Structure(const std::string &name, const Size &size);
 
-private:
   Size size;
 };
 

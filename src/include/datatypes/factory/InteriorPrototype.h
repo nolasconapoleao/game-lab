@@ -4,13 +4,7 @@
 
 #pragma once
 
-enum class LocationPrototype {
-  // Exterior
-  CITY,
-  TOWN,
-  VILLAGE,
-
-  // Interior
+enum class InteriorPrototype {
   ARENA,
   BARN,
   HOME,
@@ -21,10 +15,4 @@ enum class LocationPrototype {
   SHOP,
   SKYSCRAPER,
   STORAGE,
-
-  // Connector
-  BRIDGE,
-  CAVE,
-  RIVER,
-  TUNNEL,
 };

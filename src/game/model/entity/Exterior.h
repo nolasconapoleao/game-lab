@@ -11,8 +11,6 @@ namespace entity {
 class Exterior : public Location {
 public:
   Exterior(const std::string &name, const Size &size);
-
-private:
 };
 
 } // namespace entity

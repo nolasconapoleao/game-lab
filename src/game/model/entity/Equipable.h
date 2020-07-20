@@ -13,7 +13,6 @@ public:
   Equipable(const std::string &name, Number weight, const ItemEffect &effect, Number uses, const bool equipped);
   void deplete(const Number amount) override;
 
-private:
   Number uses;
   bool equipped;
 };
