@@ -18,6 +18,7 @@ using Distance = uint8_t;
 // Database
 using CharacterId = uint8_t;
 using ItemId = uint8_t;
-using StructureId = uint8_t;
-using ResourceId = uint8_t;
 using LocationId = uint8_t;
+using ResourceId = uint8_t;
+using StructureId = uint8_t;
+using TeamId = uint8_t;

@@ -1,7 +1,6 @@
 add_subdirectory(entity)
 add_subdirectory(factory)
 add_subdirectory(handler)
-add_subdirectory(map)
 
 target_sources(${PROJECT_NAME}
     PRIVATE

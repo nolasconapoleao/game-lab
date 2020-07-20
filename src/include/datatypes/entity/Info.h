@@ -7,6 +7,7 @@
 #include <cstdint>
 
 #include "AttackType.h"
+#include "Ghost.h"
 #include "Occupation.h"
 #include "Race.h"
 

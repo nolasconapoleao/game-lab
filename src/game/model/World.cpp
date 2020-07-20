@@ -4,22 +4,24 @@
 
 #include "World.h"
 
-#include <memory>
-
-std::map<ItemId, entity::Item> World::items;
-std::map<CharacterId, entity::Character> World::characters;
-std::map<StructureId, entity::Structure> World::structures;
+CharacterId World::activeCharacter;
 std::priority_queue<std::pair<int, CharacterId>> World::characterQueue;
-WorldMap World::worldMap;
-CharacterId World::activeCharacter = 0;
-LocationId World::activeLocation = 0;
+std::map<ResourceId, entity::Character> World::characters;
+std::map<ResourceId, entity::Consumable> World::consumables;
+std::map<ResourceId, entity::Equipable> World::equipables;
+std::map<ResourceId, entity::Exterior> World::exteriors;
+std::map<ResourceId, entity::Interior> World::interiors;
+std::map<ResourceId, entity::Structure> World::structures;
+std::map<ResourceId, entity::Team> World::teams;
+std::set<std::pair<LocationId, LocationId>> World::neighbourhoods;
+std::set<std::pair<ResourceId, ItemId>> World::possessions;
+std::set<std::pair<TeamId, CharacterId>> World::memberships;
 
-void World::changeFocusedCharacter() {
+void World::loadNextCharacter() {
   if (characterQueue.size() == 0) {
     updateCharacterQueue();
   }
   activeCharacter = characterQueue.top().second;
-  activeLocation = character(activeCharacter).getLocation();
   characterQueue.pop();
 }
 
@@ -29,10 +31,6 @@ void World::addCharacter(entity::Character character) {
   } else {
     characters.emplace(0, character);
   }
-}
-
-entity::Character &World::character(const CharacterId id) {
-  return characters.at(id);
 }
 
 void World::addItem(entity::Item item) {
@@ -53,28 +51,6 @@ void World::addStructure(entity::Structure structure) {
   } else {
     structures.emplace(0, structure);
   }
-}
-
-entity::Structure &World::structure(const StructureId id) {
-  return structures.at(id);
-}
-
-void World::addLocation(entity::Location location) {
-  LocationId locationId{static_cast<LocationId>(numberOfLocations())};
-  worldMap.addLocation(locationId, location);
-}
-
-void World::linkLocations(const LocationId begin, const LocationId end) {
-  // TODO: distance is not used
-  worldMap.linkLocations(begin, end, 1);
-}
-
-size_t World::numberOfLocations() {
-  return worldMap.numberOfLocations();
-}
-
-entity::Location World::location(const LocationId id) {
-  return worldMap.location(id);
 }
 
 std::vector<ItemId> World::itemsOfCharacter(CharacterId characterId) {

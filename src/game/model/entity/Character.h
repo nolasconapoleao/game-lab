@@ -4,7 +4,6 @@
 
 #pragma once
 
-#include <string>
 #include <unordered_set>
 
 #include "datatypes/entity/Info.h"

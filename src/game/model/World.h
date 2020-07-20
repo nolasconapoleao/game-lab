@@ -5,57 +5,57 @@
 #pragma once
 
 #include <map>
+#include <memory>
 #include <queue>
 #include <set>
 
-#include "interface/entity/Item.h"
-#include "interface/entity/Location.h"
-#include "interface/graph/UndirectedGraph.h"
 #include "model/entity/Character.h"
+#include "model/entity/Consumable.h"
+#include "model/entity/Equipable.h"
+#include "model/entity/Exterior.h"
+#include "model/entity/Interior.h"
 #include "model/entity/Structure.h"
-#include "model/map/WorldMap.h"
-
-using ItemEntry = std::pair<ItemId, entity::Item>;
-using CharacterEntry = std::pair<CharacterId, entity::Character>;
-using StructureEntry = std::pair<StructureId, entity::Structure>;
-
-namespace controller {
-class GameEngine;
-}
+#include "model/entity/Team.h"
 
 class World {
 public:
-  static void changeFocusedCharacter();
-  static void addCharacter(entity::Character character);
-  static entity::Character &character(const CharacterId id);
-  static void addItem(entity::Item item);
-  static entity::Item &item(const ItemId id);
-  static void addStructure(entity::Structure structure);
-  static entity::Structure &structure(const StructureId id);
-  static void addLocation(entity::Location location);
-  static size_t numberOfLocations();
-  static void linkLocations(const LocationId begin, const LocationId end);
-  static entity::Location location(const LocationId id);
-
+  // Active entity
+  static void loadNextCharacter();
   static CharacterId activeCharacter;
-  static LocationId activeLocation;
 
-  static std::vector<ItemId> itemsOfCharacter(CharacterId characterId);
-  static std::vector<ItemId> itemsInLocation(LocationId locationId);
-  static std::vector<CharacterId> charactersInLocation(const LocationId locationId);
-  static std::vector<StructureId> structuresInLocation(const LocationId locationId);
-  static std::unordered_set<LocationId> adjcentLocations(LocationId locationId);
-  static std::set<LocationId> activeLocations();
-  static void updateCharacterQueue();
+  // Entity relation
+  static void linkLocations(const LocationId begin, const LocationId end);
+  static void setItemOwner(const ResourceId owner, const ItemId itemId);
+  static void joinTeam(const ResourceId partyId, const CharacterId characterId);
+
+  // Entity management
+  static ResourceId addEntity(const std::shared_ptr<entity::Entity> entity);
+  static void removeEntity(const ResourceId entityId);
+  static std::shared_ptr<entity::Entity> &entity(const ResourceId entityId);
+  static std::vector<ResourceId> lookupEntities(const auto searchFunction);
 
 private:
-  static std::map<ItemId, entity::Item> items;
-  static std::map<CharacterId, entity::Character> characters;
-  static std::map<StructureId, entity::Structure> structures;
+  // Active entity
+  static void updateCharacterQueue();
+  static std::unordered_set<LocationId> activeLocations();
   static std::priority_queue<std::pair<int, CharacterId>> characterQueue;
-  static WorldMap worldMap;
 
+  // Entity storage
+  static std::map<ResourceId, entity::Character> characters;
+  static std::map<ResourceId, entity::Consumable> consumables;
+  static std::map<ResourceId, entity::Equipable> equipables;
+  static std::map<ResourceId, entity::Exterior> exteriors;
+  static std::map<ResourceId, entity::Interior> interiors;
+  static std::map<ResourceId, entity::Structure> structures;
+  static std::map<ResourceId, entity::Team> teams;
+
+  // Entity relationships
+  static std::set<std::pair<LocationId, LocationId>> neighbourhoods;
+  static std::set<std::pair<ResourceId, ItemId>> possessions;
+  static std::set<std::pair<TeamId, CharacterId>> memberships;
+
+  friend class Cleaner;
   friend class Factory;
-  friend class Controller;
-  friend controller::GameEngine;
+  friend class Handler;
+  friend class Lookup;
 };

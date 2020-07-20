@@ -4,8 +4,6 @@
 
 #pragma once
 
-#include <string>
-
 #include "Entity.h"
 #include "datatypes/GameTypes.h"
 

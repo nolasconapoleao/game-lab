@@ -7,6 +7,7 @@ target_sources(${PROJECT_NAME}
         ${CMAKE_CURRENT_SOURCE_DIR}/Exterior.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Interior.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Structure.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/Team.cpp
     PUBLIC
         # Headers
         ${CMAKE_CURRENT_SOURCE_DIR}/Character.h
@@ -15,4 +16,5 @@ target_sources(${PROJECT_NAME}
         ${CMAKE_CURRENT_SOURCE_DIR}/Exterior.h
         ${CMAKE_CURRENT_SOURCE_DIR}/Interior.h
         ${CMAKE_CURRENT_SOURCE_DIR}/Structure.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/Team.h
 )
