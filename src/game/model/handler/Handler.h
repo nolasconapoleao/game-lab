@@ -39,6 +39,8 @@ public:
   void possessCharacter(const CharacterId mageId, const CharacterId possessedId);
 
 private:
+  void demolishBuilding(LocationId buildingId);
+  void crumbleStructure(StructureId structureId);
   void fillLocation(LocationId locationId);
   void fillInventory(CharacterId characterId);
 

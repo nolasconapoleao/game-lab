@@ -16,11 +16,11 @@ int main() {
 
   // Model classes
   model::World world;
-  model::Cleaner cleaner{std::make_shared<model::World>(world)};
+  model::Lookup lookup{std::make_shared<model::World>(world)};
   model::Factory factory{std::make_shared<model::World>(world)};
+  model::Cleaner cleaner{std::make_shared<model::World>(world), std::make_shared<model::Lookup>(lookup)};
   model::Handler handler{std::make_shared<model::World>(world), std::make_shared<model::Factory>(factory),
                          std::make_shared<model::Cleaner>(cleaner)};
-  model::Lookup lookup{std::make_shared<model::World>(world)};
   model::GigaBrain gigaBrain{std::make_shared<model::Handler>(handler), {std::make_shared<model::Lookup>(lookup)}};
 
   // View classes

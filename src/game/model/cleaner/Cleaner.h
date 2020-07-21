@@ -11,21 +11,22 @@ namespace model {
 
 // Forward declaration
 class World;
+class Lookup;
 
 class Cleaner {
 public:
-  Cleaner(const std::shared_ptr<World> &world);
-  CharacterId deleteCharacter(const CharacterId characterId);
-  ItemId deleteEquipable(const ItemId equipableId);
-  ItemId deleteConsumable(const ItemId consumableId);
-  LocationId deleteLocation(const LocationId locationId);
-  LocationId deleteBuilding(const LocationId buildingId);
-  StructureId deleteStructure(const StructureId structureId);
-  EventId deleteEvent(const EventId eventId);
-  QuestId deleteQuest(const QuestId questId);
+  Cleaner(const std::shared_ptr<World> &world, std::shared_ptr<Lookup> lookup);
+  void deleteCharacter(const CharacterId characterId);
+  void deleteEquipable(const ItemId equipableId);
+  void deleteConsumable(const ItemId consumableId);
+  void deleteLocation(const LocationId locationId);
+  void deleteBuilding(const LocationId buildingId);
+  void deleteStructure(const StructureId structureId);
 
 private:
+  void cleanupLocation(const LocationId locationId);
   std::shared_ptr<World> world;
+  std::shared_ptr<Lookup> lookup;
 };
 
 } // namespace model

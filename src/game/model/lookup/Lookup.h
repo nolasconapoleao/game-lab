@@ -46,10 +46,12 @@ class World;
 class Lookup {
 public:
   Lookup(const std::shared_ptr<World> &world);
-  const std::vector<ItemEntry> &itemsIn(ResourceId resourceId);
+  const std::vector<ItemEntry> &itemsIn(const ResourceId resourceId);
   const std::vector<CharacterEntry> &charactersIn(const LocationId locationId);
   const std::vector<StructureEntry> &structuresIn(const LocationId locationId);
-  const std::vector<LocationEntry> &neighbourLocations(LocationId locationId);
+  const std::vector<LocationEntry> &neighbourLocations(const LocationId locationId);
+  const std::vector<LocationEntry> &neighboursEndingIn(const LocationId locationId);
+  const std::vector<LocationEntry> &neighbourStartingIn(const LocationId locationId);
 
 private:
   std::shared_ptr<World> world;
