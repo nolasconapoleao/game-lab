@@ -40,8 +40,4 @@ LocationId Factory::createLocation(ExteriorPrototype type) {
   return entityCounter;
 }
 
-StructureId Factory::createStructure(StructurePrototype type) {
-  return entityCounter;
-}
-
 } // namespace model

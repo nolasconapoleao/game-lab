@@ -54,6 +54,8 @@ private:
   Stats rampupByRace(Race race, Stats stats);
   Stats randomizeStats(Stats stats);
   constexpr Stats minimalStats();
+
+  Size structureSize(const StructurePrototype type);
   ResourceId entityCounter;
   std::shared_ptr<World> world;
 };
