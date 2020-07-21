@@ -24,14 +24,16 @@ public:
   std::map<ResourceId, entity::Consumable> consumables;
   std::map<ResourceId, entity::Equipable> equipables;
   std::map<ResourceId, entity::Exterior> exteriors;
-  std::map<ResourceId, entity::Building> interiors;
+  std::map<ResourceId, entity::Building> buildings;
   std::map<ResourceId, entity::Structure> structures;
   std::map<ResourceId, entity::Team> teams;
+  // TODO: Add quests and events
 
   // Entity relationships
-  std::set<std::pair<LocationId, LocationId>> neighbourhoods;
-  std::set<std::pair<ResourceId, ItemId>> possessions;
-  std::set<std::pair<TeamId, CharacterId>> memberships;
+  std::multimap<LocationId, LocationId> neighbours;
+  std::map<ItemId, ResourceId> possessions;
+  std::map<ResourceId, LocationId> locatedIn;
+  std::map<CharacterId, TeamId> memberships;
 
   friend class Cleaner;
   friend class Factory;
