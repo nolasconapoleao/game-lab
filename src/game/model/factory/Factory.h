@@ -4,6 +4,9 @@
 
 #pragma once
 
+#include <memory>
+
+#include "datatypes/GameTypes.h"
 #include "datatypes/entity/Occupation.h"
 #include "datatypes/factory/BuildingPrototype.h"
 #include "datatypes/factory/ConnectorPrototype.h"
@@ -26,6 +29,7 @@ class World;
 
 class Factory {
 public:
+  Factory(const std::shared_ptr<World> &world);
   CharacterId createCharacter(const ThreatLevel level, const Occupation occupation = Occupation::UNDEFINED);
   ItemId createEquipment(const EquipmentPrototype type = EquipmentPrototype::UNDEFINED);
   ItemId createStaff(const StaffPrototype type = StaffPrototype::UNDEFINED);

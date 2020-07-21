@@ -19,6 +19,7 @@ class World;
 
 class Lookup {
 public:
+  Lookup(const std::shared_ptr<World> &world);
   const std::vector<std::pair<ItemId, entity::Item>> &itemsIn(ResourceId id);
   const std::vector<std::pair<CharacterId, entity::Character>> &charactersIn(const LocationId locationId);
   const std::vector<std::pair<StructureId, entity::Structure>> &structuresIn(const LocationId locationId);

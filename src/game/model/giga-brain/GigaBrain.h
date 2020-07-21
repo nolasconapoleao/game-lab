@@ -15,6 +15,7 @@ class Lookup;
 
 class GigaBrain {
 public:
+  GigaBrain(const std::shared_ptr<Handler> &handler, const std::shared_ptr<Lookup> &lookup);
   void characterThink(const CharacterId characterId);
 
 private:

@@ -18,6 +18,8 @@ class Cleaner;
 
 class Handler {
 public:
+  Handler(const std::shared_ptr<World> &world, const std::shared_ptr<Factory> &factory,
+          const std::shared_ptr<Cleaner> &cleaner);
   void createWorld();
   void destroyWorld();
 

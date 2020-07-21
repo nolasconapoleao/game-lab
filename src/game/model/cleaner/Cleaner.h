@@ -14,6 +14,7 @@ class World;
 
 class Cleaner {
 public:
+  Cleaner(const std::shared_ptr<World> &world);
   CharacterId deleteCharacter(const CharacterId characterId);
   ItemId deleteEquipable(const ItemId equipableId);
   ItemId deleteConsumable(const ItemId consumableId);
