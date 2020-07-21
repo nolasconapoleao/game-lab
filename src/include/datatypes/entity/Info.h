@@ -6,14 +6,14 @@
 
 #include <cstdint>
 
-#include "AttackType.h"
 #include "Ghost.h"
-#include "Occupation.h"
-#include "Race.h"
+#include "datatypes/factory/AttackType.h"
+#include "datatypes/factory/CharacterPrototype.h"
+#include "datatypes/factory/Race.h"
 
 struct Info {
-  Ghost ghost;           // Ghost
-  Race race;             // Race
-  AttackType attackType; // Attack Type
-  Occupation occupation; // Occupation
+  Ghost ghost;                   // Ghost
+  Race race;                     // Race
+  AttackType attackType;         // Attack Type
+  CharacterPrototype occupation; // CharacterPrototype
 };

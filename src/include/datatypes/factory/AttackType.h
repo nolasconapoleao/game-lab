@@ -4,10 +4,12 @@
 
 #pragma once
 
-enum class AttackType {
+enum class AttackType : Quantity {
   CONJURING,
   ELEMENTAL,
   MAGIC,
   PHYSICAL,
   SUPPORT,
+
+  UNDEFINED,
 };

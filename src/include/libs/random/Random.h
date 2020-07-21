@@ -8,8 +8,9 @@
 #include <unordered_set>
 #include <vector>
 
+#include "datatypes/GameTypes.h"
+
 namespace Random {
-using Number = uint8_t;
 
 /**
  * @brief Generates a random number between lowerBound and upperBound.
@@ -17,7 +18,8 @@ using Number = uint8_t;
  * @param upperBound for generation
  * @return random number
  */
-[[nodiscard]] Number fromTo(Number lowerBound, Number upperBound);
+[[nodiscard]] Quantity rand(Quantity lowerBound = std::numeric_limits<Quantity>::min(),
+                            Quantity upperBound = std::numeric_limits<Quantity>::max());
 
 /**
  * @brief Generates a set of non repeating number between lowerBound and upperBound.
@@ -35,7 +37,7 @@ using Number = uint8_t;
 template <class T>[[nodiscard]] T fromVec(const std::vector<T> &valuePool) {
 
   const auto upperBound = valuePool.size();
-  const auto index = fromTo(0, upperBound - 1);
+  const auto index = rand(0, upperBound - 1);
 
   return valuePool[index];
 }

@@ -15,7 +15,7 @@ namespace entity {
 
 class Character : public Entity {
 public:
-  Character(const std::string &name, const Stats &baseStats, const ItemEffect &tempStats, const Info &info);
+  Character(const std::string &name, const Stats &baseStats, const Info &info);
 
   Stats baseStats;
   ItemEffect tempStats;

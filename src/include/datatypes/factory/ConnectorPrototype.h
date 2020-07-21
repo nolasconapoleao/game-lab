@@ -4,7 +4,7 @@
 
 #pragma once
 
-enum class ConnectorPrototype {
+enum class ConnectorPrototype : Quantity {
   BRIDGE,
   CAVE,
   RIVER,

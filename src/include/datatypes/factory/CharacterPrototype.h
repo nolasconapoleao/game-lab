@@ -4,7 +4,7 @@
 
 #pragma once
 
-enum class Occupation {
+enum class CharacterPrototype : Quantity {
   BEGGAR,
   BLACKSMITH,
   JESTER,

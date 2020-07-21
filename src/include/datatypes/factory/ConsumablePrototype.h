@@ -4,7 +4,7 @@
 
 #pragma once
 
-enum class ConsumablePrototype {
+enum class ConsumablePrototype : Quantity {
   COIN,
   ELIXIR,
   POISON,

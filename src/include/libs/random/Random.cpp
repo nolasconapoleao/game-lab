@@ -10,7 +10,7 @@
 
 namespace Random {
 
-Number fromTo(Number lowerBound, Number upperBound) {
+Number rand(Number lowerBound, Number upperBound) {
 
   if (lowerBound > upperBound) {
     std::cerr << "Lower bound has to be smaller than upper bound.\n";

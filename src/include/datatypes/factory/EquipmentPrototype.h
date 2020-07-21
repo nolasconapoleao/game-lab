@@ -4,7 +4,7 @@
 
 #pragma once
 
-enum class EquipmentPrototype {
+enum class EquipmentPrototype : Quantity {
   COAT,
   SHIELD,
   SKATE,

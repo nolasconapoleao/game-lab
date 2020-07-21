@@ -7,14 +7,18 @@
 #include <memory>
 
 #include "datatypes/GameTypes.h"
-#include "datatypes/entity/Occupation.h"
+#include "datatypes/entity/Info.h"
+#include "datatypes/entity/Stats.h"
+#include "datatypes/factory/AttackType.h"
 #include "datatypes/factory/BuildingPrototype.h"
+#include "datatypes/factory/CharacterPrototype.h"
 #include "datatypes/factory/ConnectorPrototype.h"
 #include "datatypes/factory/ConsumablePrototype.h"
 #include "datatypes/factory/EquipmentPrototype.h"
 #include "datatypes/factory/EventPrototype.h"
 #include "datatypes/factory/ExteriorPrototype.h"
 #include "datatypes/factory/QuestPrototype.h"
+#include "datatypes/factory/Race.h"
 #include "datatypes/factory/StaffPrototype.h"
 #include "datatypes/factory/StructurePrototype.h"
 #include "datatypes/factory/ThreatLevel.h"
@@ -30,7 +34,9 @@ class World;
 class Factory {
 public:
   Factory(const std::shared_ptr<World> &world);
-  CharacterId createCharacter(const ThreatLevel level, const Occupation occupation = Occupation::UNDEFINED);
+  CharacterId createCharacter(const ThreatLevel threat, const AttackType weaponAffinity = AttackType::UNDEFINED,
+                              const Race race = Race::UNDEFINED,
+                              const CharacterPrototype type = CharacterPrototype::UNDEFINED);
   ItemId createEquipment(const EquipmentPrototype type = EquipmentPrototype::UNDEFINED);
   ItemId createStaff(const StaffPrototype type = StaffPrototype::UNDEFINED);
   ItemId createWeapon(const WeaponPrototype type = WeaponPrototype::UNDEFINED);
@@ -39,10 +45,16 @@ public:
   LocationId createBuilding(const BuildingPrototype type = BuildingPrototype::UNDEFINED);
   LocationId createLocation(const ExteriorPrototype type = ExteriorPrototype::UNDEFINED);
   StructureId createStructure(const StructurePrototype type = StructurePrototype::UNDEFINED);
-  EventId createEvent(const EventPrototype type = EventPrototype::UNDEFINED);
-  QuestId createQuest(const QuestPrototype type = QuestPrototype::UNDEFINED);
+  Stats growStats(ThreatLevel level, Stats stats);
 
 private:
+  Stats characterStats(const Info info, const ThreatLevel threat);
+  Stats rampupByOccupation(const CharacterPrototype occupation, Stats stats);
+  Stats rampupByClass(AttackType weaponAffinity, Stats stats);
+  Stats rampupByRace(Race race, Stats stats);
+  Stats randomizeStats(Stats stats);
+  constexpr Stats minimalStats();
+  ResourceId entityCounter;
   std::shared_ptr<World> world;
 };
 

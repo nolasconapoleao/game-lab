@@ -4,7 +4,7 @@
 
 #pragma once
 
-enum class StructurePrototype {
+enum class StructurePrototype : Quantity {
   MAILBOX,
   PHONEBOOTH,
 

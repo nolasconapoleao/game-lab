@@ -16,11 +16,11 @@ struct Size {
 using Distance = uint8_t;
 
 // Database
-using CharacterId = uint8_t;
-using ItemId = uint8_t;
-using LocationId = uint8_t;
-using ResourceId = uint8_t;
-using StructureId = uint8_t;
-using TeamId = uint8_t;
-using EventId = uint8_t;
-using QuestId = uint8_t;
+using CharacterId = uint16_t;
+using ItemId = uint16_t;
+using LocationId = uint16_t;
+using ResourceId = uint16_t;
+using StructureId = uint16_t;
+using TeamId = uint16_t;
+using EventId = uint16_t;
+using QuestId = uint16_t;

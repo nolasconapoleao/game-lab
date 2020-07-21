@@ -18,7 +18,7 @@ namespace gamemath {
  * @param lowerBound min allowed for result
  * @return clamped result for subtraction
  */
-Quantity clamp_sub(Quantity minuend, Quantity subtrahend, Quantity lowerBound);
+Quantity cSub(Quantity minuend, Quantity subtrahend, Quantity lowerBound = std::numeric_limits<Quantity>::min());
 
 /**
  * @brief Ceils the result of an addition.
@@ -27,24 +27,29 @@ Quantity clamp_sub(Quantity minuend, Quantity subtrahend, Quantity lowerBound);
  * @param upperBound max allowed for result
  * @return clamped result of an addition
  */
-Quantity clamp_add(Quantity augend, Quantity addend, Quantity upperBound);
+Quantity cAdd(Quantity augend, Quantity addend, Quantity upperBound = std::numeric_limits<Quantity>::max());
 
 /**
- * @brief Clamps the result of a sum.
- * @param num number to clamp
- * @param lowerBound min allowed for num
- * @param upperBound max allowed for num
- * @return clamped number
+ * @brief Ceils the result of a multiplication.
+ * @param num first addition operand
+ * @param mult first addition operand
+ * @param upperBound max allowed for result
+ * @return clamped result of a multiplication
  */
-Quantity clamp(Quantity num, Quantity lowerBound, Quantity upperBound);
+Quantity cMult(Quantity num, Quantity mult, Quantity upperBound = std::numeric_limits<Quantity>::max());
 
 /**
  * @brief Returns distance between two scalars.
  * @param num1 first scalar
  * @param num2 second scalar
- * @return absolute value of difference.
+ * @return absolute value of diff.
  */
-Quantity difference(Quantity num1, Quantity num2);
+Quantity diff(Quantity num1, Quantity num2);
+
+ItemEffect operator+(const ItemEffect &a1, ItemEffect &a2);
+ItemEffect operator-(const ItemEffect &effect, ItemEffect &subtraction);
+Stats operator+(const Stats &base, const ItemEffect &temp);
+Stats operator*(const Stats &base, Quantity multiplier);
 
 /**
  * @brief Given level and experience, calculate accumulated experience.
@@ -55,8 +60,3 @@ Quantity difference(Quantity num1, Quantity num2);
 Number accumulatedXp(Quantity lvl, Quantity xp);
 
 }; // namespace gamemath
-
-// FIXME: these methods should be inside the namespace, by using gamemath
-ItemEffect operator+(const ItemEffect &addend1, const ItemEffect &addend2);
-ItemEffect operator-(const ItemEffect &effect, const ItemEffect &subtraction);
-Stats operator+(const Stats &base, const ItemEffect &temp);

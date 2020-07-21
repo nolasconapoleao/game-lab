@@ -4,7 +4,7 @@
 
 #pragma once
 
-enum class BuildingPrototype {
+enum class BuildingPrototype : Quantity {
   ARENA,
   BARN,
   HOME,

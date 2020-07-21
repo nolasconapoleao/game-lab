@@ -4,7 +4,7 @@
 
 #pragma once
 
-enum class StaffPrototype {
+enum class StaffPrototype : Quantity {
   CONJURING,
   DARK,
   SUPPORT,

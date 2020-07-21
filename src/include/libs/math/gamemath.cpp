@@ -8,7 +8,7 @@
 
 namespace gamemath {
 
-Quantity clamp_sub(Quantity minuend, Quantity subtrahend, Quantity lowerBound) {
+Quantity cSub(Quantity minuend, Quantity subtrahend, Quantity lowerBound) {
   if (minuend >= (subtrahend + lowerBound)) {
     return (minuend - subtrahend);
   } else {
@@ -16,7 +16,7 @@ Quantity clamp_sub(Quantity minuend, Quantity subtrahend, Quantity lowerBound) {
   };
 }
 
-Quantity clamp_add(Quantity augend, Quantity addend, Quantity upperBound) {
+Quantity cAdd(Quantity augend, Quantity addend, Quantity upperBound) {
   if ((augend + addend) > upperBound) {
     return upperBound;
   } else {
@@ -24,7 +24,15 @@ Quantity clamp_add(Quantity augend, Quantity addend, Quantity upperBound) {
   };
 }
 
-Quantity clamp(Quantity num, Quantity lowerBound, Quantity upperBound) {
+Quantity cMult(Quantity num, Quantity mult, Quantity upperBound) {
+  if ((num * mult) > upperBound) {
+    return upperBound;
+  } else {
+    return (num * mult);
+  };
+}
+
+Quantity cNum(Quantity num, Quantity lowerBound, Quantity upperBound) {
   if (num > upperBound) {
     return upperBound;
   } else if (num < lowerBound) {
@@ -34,8 +42,72 @@ Quantity clamp(Quantity num, Quantity lowerBound, Quantity upperBound) {
   };
 }
 
-Quantity difference(Quantity num1, Quantity num2) {
+Quantity diff(Quantity num1, Quantity num2) {
   return abs(num1 - num2);
+}
+
+ItemEffect operator+(ItemEffect &a1, ItemEffect &a2) {
+  a1.hp = cAdd(a1.hp, a2.hp);
+  a1.atk = cAdd(a1.atk, a2.atk);
+  a1.def = cAdd(a1.def, a2.def);
+  a1.mAtk = cAdd(a1.mAtk, a2.mAtk);
+  a1.mDef = cAdd(a1.mDef, a2.mDef);
+  a1.spd = cAdd(a1.spd, a2.spd);
+  a1.inte = cAdd(a1.inte, a2.inte);
+  a1.acc = cAdd(a1.acc, a2.acc);
+  a1.ste = cAdd(a1.ste, a2.ste);
+  a1.mana = cAdd(a1.mana, a2.mana);
+  return a1;
+}
+
+ItemEffect operator-(ItemEffect &effect, ItemEffect &subtraction) {
+  ItemEffect result;
+  result.hp = cSub(effect.hp, subtraction.hp);
+  result.atk = cSub(effect.atk, subtraction.atk);
+  result.def = cSub(effect.def, subtraction.def);
+  result.mAtk = cSub(effect.mAtk, subtraction.mAtk);
+  result.mDef = cSub(effect.mDef, subtraction.mDef);
+  result.spd = cSub(effect.spd, subtraction.spd);
+  result.inte = cSub(effect.inte, subtraction.inte);
+  result.acc = cSub(effect.acc, subtraction.acc);
+  result.ste = cSub(effect.ste, subtraction.ste);
+  result.mana = cSub(effect.mana, subtraction.mana);
+  return result;
+}
+
+Stats operator+(Stats &base, ItemEffect &temp) {
+  Stats result;
+  result.mhp = base.mhp;
+  result.cst = base.cst;
+  result.lvl = base.lvl;
+  result.xp = base.xp;
+  result.hp = cAdd(base.hp, temp.hp);
+  result.atk = cAdd(base.atk, temp.atk);
+  result.def = cAdd(base.def, temp.def);
+  result.mAtk = cAdd(base.mAtk, temp.mAtk);
+  result.mDef = cAdd(base.mDef, temp.mDef);
+  result.spd = cAdd(base.spd, temp.spd);
+  result.inte = cAdd(base.inte, temp.inte);
+  result.acc = cAdd(base.acc, temp.acc);
+  result.ste = cAdd(base.ste, temp.ste);
+  result.mana = cAdd(base.mana, temp.mana);
+  return result;
+}
+
+Stats operator*(Stats &base, Quantity multiplier) {
+  base.mhp = cMult(base.mhp, multiplier);
+  base.cst = cMult(base.cst, multiplier);
+  base.hp = cMult(base.hp, multiplier);
+  base.atk = cMult(base.atk, multiplier);
+  base.def = cMult(base.def, multiplier);
+  base.mAtk = cMult(base.mAtk, multiplier);
+  base.mDef = cMult(base.mDef, multiplier);
+  base.spd = cMult(base.spd, multiplier);
+  base.inte = cMult(base.inte, multiplier);
+  base.acc = cMult(base.acc, multiplier);
+  base.ste = cMult(base.ste, multiplier);
+  base.mana = cMult(base.mana, multiplier);
+  return base;
 }
 
 Number accumulatedXp(Quantity lvl, Quantity xp) {
@@ -44,28 +116,3 @@ Number accumulatedXp(Quantity lvl, Quantity xp) {
 }
 
 } // namespace gamemath
-
-ItemEffect operator+(const ItemEffect &addend1, const ItemEffect &addend2) {
-  ItemEffect result{static_cast<Quantity>(addend1.atk + addend2.atk), static_cast<Quantity>(addend1.def + addend2.def),
-                    static_cast<Quantity>(addend1.spd + addend2.spd), static_cast<Quantity>(addend1.hp + addend2.hp)};
-  return result;
-}
-
-ItemEffect operator-(const ItemEffect &effect, const ItemEffect &subtraction) {
-  ItemEffect result{
-      gamemath::clamp_sub(effect.atk, subtraction.atk, 0), gamemath::clamp_sub(effect.def, subtraction.def, 0),
-      gamemath::clamp_sub(effect.spd, subtraction.spd, 0), gamemath::clamp_sub(effect.hp, subtraction.hp, 0)};
-  return result;
-}
-
-Stats operator+(const Stats &base, const ItemEffect &temp) {
-  Stats result{
-      {static_cast<Quantity>(base.atk + temp.atk), static_cast<Quantity>(base.def + temp.def),
-       static_cast<Quantity>(base.spd + temp.spd), static_cast<Quantity>(base.hp + temp.hp)},
-      base.mhp,
-      base.cst,
-      base.lvl,
-      base.xp,
-  };
-  return result;
-}

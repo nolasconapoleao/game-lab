@@ -4,7 +4,7 @@
 
 #pragma once
 
-enum class Race {
+enum class Race : Quantity {
   DEMON,
   DRAGON,
   ELF,
@@ -13,4 +13,6 @@ enum class Race {
   ORC,
   TROLL,
   GOBLIN,
+
+  UNDEFINED,
 };

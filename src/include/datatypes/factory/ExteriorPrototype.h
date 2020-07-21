@@ -4,7 +4,7 @@
 
 #pragma once
 
-enum class ExteriorPrototype {
+enum class ExteriorPrototype : Quantity {
   CITY,
   TOWN,
   VILLAGE,

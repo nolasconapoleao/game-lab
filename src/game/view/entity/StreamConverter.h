@@ -17,7 +17,7 @@ std::ostream &operator<<(std::ostream &os, const Quantity &value);
 std::ostream &operator<<(std::ostream &os, const Race &value);
 std::ostream &operator<<(std::ostream &os, const Ghost &value);
 std::ostream &operator<<(std::ostream &os, const AttackType &value);
-std::ostream &operator<<(std::ostream &os, const Occupation &value);
+std::ostream &operator<<(std::ostream &os, const CharacterPrototype &value);
 std::ostream &operator<<(std::ostream &os, const Info &value);
 std::ostream &operator<<(std::ostream &os, const Stats &value);
 std::ostream &operator<<(std::ostream &os, const ItemEffect &value);

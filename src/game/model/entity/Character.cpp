@@ -6,8 +6,8 @@
 
 namespace entity {
 
-Character::Character(const std::string &name, const Stats &baseStats, const ItemEffect &tempStats, const Info &info)
-    : Entity(name), baseStats(baseStats), tempStats(tempStats), info(info) {
+Character::Character(const std::string &name, const Stats &baseStats, const Info &info)
+    : Entity(name), baseStats(baseStats), info(info) {
 }
 
 } // namespace entity

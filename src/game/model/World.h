@@ -35,6 +35,12 @@ public:
   std::map<ResourceId, LocationId> locatedIn;
   std::map<CharacterId, TeamId> memberships;
 
+  // Resource names
+  std::vector<std::string> characterNames;
+  std::vector<std::string> LocationNames;
+  std::vector<std::string> teamNames;
+  std::vector<std::string> idleTalk;
+
   friend class Cleaner;
   friend class Factory;
   friend class Handler;
