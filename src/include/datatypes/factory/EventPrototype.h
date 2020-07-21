@@ -4,10 +4,11 @@
 
 #pragma once
 
-enum class ExteriorPrototype {
-  CITY,
-  TOWN,
-  VILLAGE,
+enum class EventPrototype {
+  GHOST,
+  KIDNAPPING,
+  RIDDLE,
+  ROBBERY,
 
   UNDEFINED,
 };

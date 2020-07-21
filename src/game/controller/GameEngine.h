@@ -25,6 +25,13 @@ public:
   bool isTerminated();
   void addState(const StateId stateId, std::shared_ptr<StateMachine> state);
 
+  // Active entity
+  void loadNextCharacter();
+  CharacterId activeCharacter;
+  void updateCharacterQueue();
+  std::unordered_set<LocationId> activeLocations();
+  std::priority_queue<std::pair<int, CharacterId>> characterQueue;
+
 private:
   void fillOptions();
   void handleUserInput();

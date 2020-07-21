@@ -22,3 +22,5 @@ using LocationId = uint8_t;
 using ResourceId = uint8_t;
 using StructureId = uint8_t;
 using TeamId = uint8_t;
+using EventId = uint8_t;
+using QuestId = uint8_t;

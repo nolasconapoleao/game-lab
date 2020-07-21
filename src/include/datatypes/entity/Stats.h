@@ -11,5 +11,4 @@ struct Stats : ItemEffect {
   Quantity cst = 0; // constitution
   Quantity lvl = 0; // level
   Quantity xp = 0;  // experience
-  Number cash = 0;  // money
 };

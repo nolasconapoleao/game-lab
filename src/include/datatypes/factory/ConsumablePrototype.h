@@ -4,10 +4,11 @@
 
 #pragma once
 
-enum class ExteriorPrototype {
-  CITY,
-  TOWN,
-  VILLAGE,
+enum class ConsumablePrototype {
+  COIN,
+  ELIXIR,
+  POISON,
+  POTION,
 
   UNDEFINED,
 };

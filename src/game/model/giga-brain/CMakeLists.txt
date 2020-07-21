@@ -3,5 +3,5 @@ target_sources(${PROJECT_NAME}
         # Sources
     PUBLIC
         # Headers
-        ${CMAKE_CURRENT_SOURCE_DIR}/Handler.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/GigaBrain.h
 )

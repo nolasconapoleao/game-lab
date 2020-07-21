@@ -7,6 +7,7 @@
 #include <magic_enum/include/magic_enum.hpp>
 
 #include "controller/input/Input.h"
+#include "datatypes/event/CrabDifficulty.h"
 #include "datatypes/state/Substate.h"
 #include "datatypes/state/Transition.h"
 

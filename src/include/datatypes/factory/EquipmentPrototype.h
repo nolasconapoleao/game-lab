@@ -4,10 +4,10 @@
 
 #pragma once
 
-enum class ExteriorPrototype {
-  CITY,
-  TOWN,
-  VILLAGE,
+enum class EquipmentPrototype {
+  COAT,
+  SHIELD,
+  SKATE,
 
   UNDEFINED,
 };

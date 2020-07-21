@@ -7,9 +7,9 @@
 #include "interface/entity/Location.h"
 
 namespace entity {
-class Interior : public Location {
+class Building : public Location {
 public:
-  Interior(const std::string &name, const Size &size, Number floors);
+  Building(const std::string &name, const Size &size, Number floors);
 
   Number floors;
 };

@@ -66,7 +66,6 @@ Stats operator+(const Stats &base, const ItemEffect &temp) {
       base.cst,
       base.lvl,
       base.xp,
-      base.cash,
   };
   return result;
 }

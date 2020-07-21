@@ -4,10 +4,10 @@
 
 #pragma once
 
-enum class ExteriorPrototype {
-  CITY,
-  TOWN,
-  VILLAGE,
+enum class StaffPrototype {
+  CONJURING,
+  DARK,
+  SUPPORT,
 
   UNDEFINED,
 };

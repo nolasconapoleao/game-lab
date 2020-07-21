@@ -14,7 +14,7 @@ Walk::Walk() {
 }
 
 void Walk::execute() {
-  mHandler.characterGoesTo(World::activeCharacter, mInput[SELECT_LOCATION]);
+  mHandler.travel(World::activeCharacter, mInput[SELECT_LOCATION]);
 }
 
 void Walk::fillStateOption() {

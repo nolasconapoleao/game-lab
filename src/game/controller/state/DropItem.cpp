@@ -17,7 +17,7 @@ DropItem::DropItem() {
 }
 
 void DropItem::execute() {
-  mHandler.dropItem(mInput[SELECT_ITEM], World::activeLocation, mInput[SELECT_QUANTITY]);
+  mHandler.transferItem(mInput[SELECT_ITEM], World::activeLocation, mInput[SELECT_QUANTITY]);
 }
 
 void DropItem::fillStateOption() {

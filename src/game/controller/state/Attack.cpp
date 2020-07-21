@@ -15,7 +15,7 @@ Attack::Attack() {
 }
 
 void Attack::execute() {
-  const auto result = mHandler.battle(World::activeCharacter, mInput[SELECT_CHARACTER], World::activeLocation);
+  const auto result = mHandler.attack(World::activeCharacter, mInput[SELECT_CHARACTER], World::activeLocation);
   logBattle(World::activeCharacter, mInput[SELECT_CHARACTER], World::activeLocation, result);
 }
 

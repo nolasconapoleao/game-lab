@@ -13,4 +13,6 @@ enum class Occupation {
   SHOPKEEPER,
   THIEF,
   TOURIST,
+
+  UNDEFINED,
 };

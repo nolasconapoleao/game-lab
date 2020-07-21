@@ -7,4 +7,6 @@
 enum class StructurePrototype {
   MAILBOX,
   PHONEBOOTH,
+
+  UNDEFINED,
 };

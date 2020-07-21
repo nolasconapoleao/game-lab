@@ -34,7 +34,7 @@ void IdleWorld::strategize(CharacterId characterId) {
   const auto character = World::character(characterId);
 
   if (character.getStats().hp > 2) {
-    const auto result = mHandler.battle(characterId, characterId, World::activeLocation);
+    const auto result = mHandler.attack(characterId, characterId, World::activeLocation);
     logBattle(characterId, characterId, World::activeLocation, result);
   }
 }

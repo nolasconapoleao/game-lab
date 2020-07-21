@@ -4,15 +4,17 @@
 
 #pragma once
 
-enum class InteriorPrototype {
+enum class BuildingPrototype {
   ARENA,
   BARN,
   HOME,
-  SALOON,
-  MUSEUM,
   HOSPITAL,
   LIBRARY,
+  MUSEUM,
+  SALOON,
   SHOP,
   SKYSCRAPER,
   STORAGE,
+
+  UNDEFINED,
 };

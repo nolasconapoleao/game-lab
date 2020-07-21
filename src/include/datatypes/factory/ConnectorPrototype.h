@@ -9,4 +9,6 @@ enum class ConnectorPrototype {
   CAVE,
   RIVER,
   TUNNEL,
+
+  UNDEFINED,
 };

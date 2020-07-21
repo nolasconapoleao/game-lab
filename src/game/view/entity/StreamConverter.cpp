@@ -63,7 +63,7 @@ std::string fullPrint(const entity::Character &character) {
   return os.str();
 }
 
-std::ostream &operator<<(std::ostream &os, const CharacterPrototype &value) {
+std::ostream &operator<<(std::ostream &os, const ThreatLevel &value) {
   os << magic_enum::enum_name(value);
   return os;
 }
@@ -91,7 +91,7 @@ std::ostream &operator<<(std::ostream &os, const ItemCategory &value) {
   return os;
 }
 
-std::ostream &operator<<(std::ostream &os, const ItemPrototype &value) {
+std::ostream &operator<<(std::ostream &os, const ConsumablePrototype &value) {
   os << magic_enum::enum_name(value);
   return os;
 }
@@ -120,7 +120,7 @@ std::ostream &operator<<(std::ostream &os, const LocationCategory &value) {
   return os;
 }
 
-std::ostream &operator<<(std::ostream &os, const LocationPrototype &value) {
+std::ostream &operator<<(std::ostream &os, const ConnectorPrototype &value) {
   os << magic_enum::enum_name(value);
   return os;
 }

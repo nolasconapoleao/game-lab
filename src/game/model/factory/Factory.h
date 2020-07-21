@@ -5,38 +5,41 @@
 #pragma once
 
 #include "datatypes/entity/Occupation.h"
-#include "datatypes/factory/ItemPrototype.h"
-#include "datatypes/factory/LocationPrototype.h"
+#include "datatypes/factory/BuildingPrototype.h"
+#include "datatypes/factory/ConnectorPrototype.h"
+#include "datatypes/factory/ConsumablePrototype.h"
+#include "datatypes/factory/EquipmentPrototype.h"
+#include "datatypes/factory/EventPrototype.h"
+#include "datatypes/factory/ExteriorPrototype.h"
+#include "datatypes/factory/QuestPrototype.h"
+#include "datatypes/factory/StaffPrototype.h"
 #include "datatypes/factory/StructurePrototype.h"
-#include "model/World.h"
+#include "datatypes/factory/ThreatLevel.h"
+#include "datatypes/factory/WeaponPrototype.h"
 
+class World;
+
+namespace model {
+
+// Forward declaration
 class World;
 
 class Factory {
 public:
-  Factory();
-  void generateCharacter();
-  void createCharacter(const Occupation type);
-  void createPlayer(const LocationId locationId);
-  void generateItem(const UseType type);
-  void createItem(const ItemPrototype type);
-  void generateStructure();
-  void createStructure(const StructurePrototype type);
-  void generateLocation(const ExteriorType type);
-  void createLocation(const LocationPrototype type);
-  void fillLocation(LocationId locationId);
-  void fillInventory(CharacterId characterId);
-  void createWorld();
+  CharacterId createCharacter(const ThreatLevel level, const Occupation occupation = Occupation::UNDEFINED);
+  ItemId createEquipment(const EquipmentPrototype type = EquipmentPrototype::UNDEFINED);
+  ItemId createStaff(const StaffPrototype type = StaffPrototype::UNDEFINED);
+  ItemId createWeapon(const WeaponPrototype type = WeaponPrototype::UNDEFINED);
+  ItemId createConsumable(const ConsumablePrototype type = ConsumablePrototype::UNDEFINED);
+  LocationId createConnector(const ConnectorPrototype type = ConnectorPrototype::UNDEFINED);
+  LocationId createBuilding(const BuildingPrototype type = BuildingPrototype::UNDEFINED);
+  LocationId createLocation(const ExteriorPrototype type = ExteriorPrototype::UNDEFINED);
+  StructureId createStructure(const StructurePrototype type = StructurePrototype::UNDEFINED);
+  EventId createEvent(const EventPrototype type = EventPrototype::UNDEFINED);
+  QuestId createQuest(const QuestPrototype type = QuestPrototype::UNDEFINED);
 
 private:
-  std::vector<LocationPrototype> interiorPool;
-  std::vector<LocationPrototype> exteriorPool;
-  std::vector<LocationPrototype> connectorPool;
-
-  std::vector<Occupation> occupationPool;
-
-  std::vector<ItemPrototype> equipPool;
-  std::vector<ItemPrototype> singleUsePool;
-
-  std::vector<StructurePrototype> structurePool;
+  std::shared_ptr<World> world;
 };
+
+} // namespace model
