@@ -26,6 +26,11 @@
 
 class World;
 
+struct BuildingSpecs {
+  Size size;
+  Quantity floors;
+};
+
 namespace model {
 
 // Forward declaration
@@ -58,6 +63,10 @@ private:
   Size structureSize(const StructurePrototype type);
   ResourceId entityCounter;
   std::shared_ptr<World> world;
+
+  Size connectorSize(const ConnectorPrototype type);
+  BuildingSpecs buildingSpecs(const BuildingPrototype type);
+  Size exteriorSize(const ExteriorPrototype type);
 };
 
 } // namespace model

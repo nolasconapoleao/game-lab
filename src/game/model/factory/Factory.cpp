@@ -28,16 +28,4 @@ ItemId Factory::createConsumable(ConsumablePrototype type) {
   return entityCounter;
 }
 
-LocationId Factory::createConnector(ConnectorPrototype type) {
-  return entityCounter;
-}
-
-LocationId Factory::createBuilding(BuildingPrototype type) {
-  return entityCounter;
-}
-
-LocationId Factory::createLocation(ExteriorPrototype type) {
-  return entityCounter;
-}
-
 } // namespace model

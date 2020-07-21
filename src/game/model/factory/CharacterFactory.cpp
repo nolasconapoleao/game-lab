@@ -153,6 +153,7 @@ Stats Factory::characterStats(Info info, const ThreatLevel threat) {
   stats = rampupByClass(info.attackType, stats);
   stats = rampupByRace(info.race, stats);
   stats = growStats(threat, stats);
+  stats = randomizeStats(stats);
   return stats;
 }
 
