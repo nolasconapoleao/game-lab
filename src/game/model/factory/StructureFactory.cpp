@@ -2,6 +2,8 @@
 // Created by nolasco on 21/07/20.
 //
 
+#include <magic_enum/include/magic_enum.hpp>
+
 #include "Factory.h"
 #include "libs/random/Random.h"
 #include "model/World.h"
@@ -14,7 +16,7 @@ StructureId Factory::createStructure(StructurePrototype type) {
   }
 
   Size size = structureSize(type);
-  entity::Structure creation{"Struct", size};
+  entity::Structure creation{magic_enum::enum_name(type).data(), size};
 
   world->structures.emplace(entityCounter++, creation);
   return entityCounter;

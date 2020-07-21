@@ -11,14 +11,15 @@ namespace entity {
 
 class Item : public Entity {
 public:
-  Item(std::string name, Number unitaryWeight, const ItemEffect &effect)
-      : Entity(name), unitaryWeight(unitaryWeight), effect(effect) {
+  Item(const std::string &name, const ItemEffect &effect, Number unitaryWeight, Number unitaryPrice)
+      : Entity(name), effect(effect), unitaryWeight(unitaryWeight), unitaryPrice(unitaryPrice) {
   }
   virtual void deplete(Number amount) = 0;
 
 private:
-  Number unitaryWeight;
   ItemEffect effect;
+  Number unitaryWeight;
+  Number unitaryPrice;
 };
 
 } // namespace entity

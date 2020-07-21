@@ -2,6 +2,8 @@
 // Created by nolasco on 21/07/20.
 //
 
+#include <magic_enum/include/magic_enum.hpp>
+
 #include "Factory.h"
 #include "libs/random/Random.h"
 #include "model/World.h"
@@ -13,7 +15,7 @@ LocationId Factory::createConnector(ConnectorPrototype type) {
   }
 
   Size size = connectorSize(type);
-  entity::Exterior creation{"Struct", size};
+  entity::Exterior creation{Random::fromVec(world->locationNames) + " " + magic_enum::enum_name(type).data(), size};
 
   world->exteriors.emplace(entityCounter++, creation);
   return entityCounter;
@@ -25,7 +27,8 @@ LocationId Factory::createBuilding(BuildingPrototype type) {
   }
 
   auto [size, floors] = buildingSpecs(type);
-  entity::Building creation{"Struct", size, floors};
+  entity::Building creation{Random::fromVec(world->locationNames) + " " + magic_enum::enum_name(type).data(), size,
+                            floors};
 
   world->buildings.emplace(entityCounter++, creation);
   return entityCounter;
@@ -37,7 +40,7 @@ LocationId Factory::createLocation(ExteriorPrototype type) {
   }
 
   Size size = exteriorSize(type);
-  entity::Exterior creation{"Struct", size};
+  entity::Exterior creation{Random::fromVec(world->locationNames) + " " + magic_enum::enum_name(type).data(), size};
 
   world->exteriors.emplace(entityCounter++, creation);
   return entityCounter;

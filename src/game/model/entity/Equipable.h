@@ -10,7 +10,8 @@ namespace entity {
 
 class Equipable : public Item {
 public:
-  Equipable(const std::string &name, Number weight, const ItemEffect &effect, Number uses, const bool equipped);
+  Equipable(const std::string &name, const ItemEffect &effect, Number unitaryWeight, Number unitaryPrice, Number uses,
+            bool equipped);
   void deplete(const Number amount) override;
 
   Number uses;

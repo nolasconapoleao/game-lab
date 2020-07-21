@@ -6,8 +6,9 @@
 
 namespace entity {
 
-Equipable::Equipable(const std::string &name, Number weight, const ItemEffect &effect, Number uses, bool equipped)
-    : Item(name, weight, effect), uses(uses), equipped(equipped) {
+Equipable::Equipable(const std::string &name, const ItemEffect &effect, Number unitaryWeight, Number unitaryPrice,
+                     Number uses, bool equipped)
+    : Item(name, effect, unitaryWeight, unitaryPrice), uses(uses), equipped(equipped) {
 }
 
 void Equipable::deplete(Number amount) {

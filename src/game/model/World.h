@@ -37,7 +37,7 @@ public:
 
   // Resource names
   std::vector<std::string> characterNames;
-  std::vector<std::string> LocationNames;
+  std::vector<std::string> locationNames;
   std::vector<std::string> teamNames;
   std::vector<std::string> idleTalk;
 

@@ -45,7 +45,7 @@ public:
   ItemId createEquipment(const EquipmentPrototype type = EquipmentPrototype::UNDEFINED);
   ItemId createStaff(const StaffPrototype type = StaffPrototype::UNDEFINED);
   ItemId createWeapon(const WeaponPrototype type = WeaponPrototype::UNDEFINED);
-  ItemId createConsumable(const ConsumablePrototype type = ConsumablePrototype::UNDEFINED);
+  ItemId createConsumable(const ConsumablePrototype type, const Quantity quantity);
   LocationId createConnector(const ConnectorPrototype type = ConnectorPrototype::UNDEFINED);
   LocationId createBuilding(const BuildingPrototype type = BuildingPrototype::UNDEFINED);
   LocationId createLocation(const ExteriorPrototype type = ExteriorPrototype::UNDEFINED);
@@ -67,6 +67,11 @@ private:
   Size connectorSize(const ConnectorPrototype type);
   BuildingSpecs buildingSpecs(const BuildingPrototype type);
   Size exteriorSize(const ExteriorPrototype type);
+
+  ItemEffect equipmentSpecs(const EquipmentPrototype type);
+  ItemEffect staffSpecs(const StaffPrototype type);
+  ItemEffect weaponSpecs(const WeaponPrototype type);
+  ItemEffect consumableSpecs(const ConsumablePrototype type);
 };
 
 } // namespace model
