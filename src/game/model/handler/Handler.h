@@ -28,7 +28,7 @@ public:
 
   AttackResult attackCharacter(const CharacterId attackerId, const CharacterId attackedId);
   void attackStructure(const CharacterId attackerId, const StructureId structureId);
-  void attackBuilding(const CharacterId attackerId, const LocationId inLocationId);
+  void attackBuilding(const CharacterId attackerId, const LocationId buildingId);
 
   void dropItem(const ItemId itemId, const ResourceId locationId, const Quantity quantity = 0);
   void pickupItem(const ItemId itemId, const CharacterId characterId, const Quantity quantity = 0);

@@ -6,5 +6,6 @@
 
 enum class StatusEffect {
   BLIND,
+  DEAD,
   PARALISED,
 };
