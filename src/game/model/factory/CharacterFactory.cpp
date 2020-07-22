@@ -27,7 +27,7 @@ CharacterId Factory::createCharacter(const ThreatLevel threat, AttackType weapon
     race = Race{Random::rand(0, static_cast<Quantity>(Race::UNDEFINED) - 1)};
   }
 
-  Info info{Ghost::COMPUTER, race, weaponAffinity, type};
+  Info info{0, Ghost::COMPUTER, race, weaponAffinity, type};
   entity::Character creation(Random::fromVec(world->characterNames), characterStats(info, threat), info);
 
   world->characters.emplace(entityCounter++, creation);

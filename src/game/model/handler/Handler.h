@@ -47,11 +47,13 @@ private:
   void demolishStructure(const StructureId structureId);
   void fillLocation(const LocationId locationId, const ThreatLevel threat);
   void fillInventory(const CharacterId characterId, const ThreatLevel threat);
+  void fillExterior(const LocationId locationId, const ThreatLevel threat);
+  LocationId createNeighbour(const LocationId locationId, const ThreatLevel threat);
 
   void transferItem(const ItemId itemId, const ResourceId resourceId, const Quantity quantity);
   void transferMoney(const CharacterId origin, const CharacterId destination, Number quantity);
   Quantity maximumBuyable(const CharacterId characterId, const ItemId itemId);
-  Quantity compare(const Quantity attacker, const Quantity defender);
+  int compare(const Quantity attacker, const Quantity defender);
 
   const std::shared_ptr<entity::Item> getItem(ItemId itemId);
   const std::shared_ptr<entity::Location> getLocation(LocationId locationId);

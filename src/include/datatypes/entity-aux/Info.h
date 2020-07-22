@@ -12,6 +12,7 @@
 #include "Race.h"
 
 struct Info {
+  Number cash;           // Money
   Ghost ghost;           // Ghost
   Race race;             // Race
   AttackType attackType; // Attack Type

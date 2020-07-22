@@ -21,8 +21,7 @@ void Handler::buyItem(const ItemId itemId, const CharacterId buyerId, Quantity q
 void Handler::sellItem(const ItemId itemId, const CharacterId sellerId, Quantity quantity) {
   const auto buyer = world->possessions.find(itemId);
   if (0 == quantity) {
-    // FIXME: Not good
-    //    quantity = itemUnstacked(itemId);
+    quantity = getItem(itemId)->quantity;
   }
 
   transferItem(itemId, sellerId, quantity);
@@ -31,6 +30,7 @@ void Handler::sellItem(const ItemId itemId, const CharacterId sellerId, Quantity
 }
 
 Quantity Handler::maximumBuyable(CharacterId characterId, ItemId itemId) {
-  return 0;
+  return world->characters.find(characterId)->second.info.cash / getItem(itemId)->unitPrice;
 }
+
 } // namespace model
