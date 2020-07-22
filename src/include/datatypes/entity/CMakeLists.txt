@@ -1,10 +1,20 @@
 target_sources(${PROJECT_NAME}
+    PRIVATE
+        # Sources
+        ${CMAKE_CURRENT_SOURCE_DIR}/Building.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/Character.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/Consumable.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/Equipable.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/Exterior.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/Structure.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/Team.cpp
     PUBLIC
         # Headers
-        ${CMAKE_CURRENT_SOURCE_DIR}/Ghost.h
-        ${CMAKE_CURRENT_SOURCE_DIR}/ItemEffect.h
-        ${CMAKE_CURRENT_SOURCE_DIR}/ItemType.h
-        ${CMAKE_CURRENT_SOURCE_DIR}/Info.h
-        ${CMAKE_CURRENT_SOURCE_DIR}/Stats.h
-        ${CMAKE_CURRENT_SOURCE_DIR}/StatusEffect.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/Building.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/Character.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/Consumable.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/Equipable.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/Exterior.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/Structure.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/Team.h
 )

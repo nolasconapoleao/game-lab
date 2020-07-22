@@ -5,8 +5,8 @@
 #pragma once
 
 #include "datatypes/GameTypes.h"
-#include "datatypes/entity/ItemEffect.h"
-#include "datatypes/entity/Stats.h"
+#include "datatypes/entity-aux/ItemEffect.h"
+#include "datatypes/entity-aux/Stats.h"
 
 namespace gamemath {
 

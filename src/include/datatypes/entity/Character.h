@@ -6,9 +6,9 @@
 
 #include <unordered_set>
 
-#include "datatypes/entity/Info.h"
-#include "datatypes/entity/Stats.h"
-#include "datatypes/entity/StatusEffect.h"
+#include "datatypes/entity-aux/Info.h"
+#include "datatypes/entity-aux/Stats.h"
+#include "datatypes/entity-aux/StatusEffect.h"
 #include "interface/entity/Entity.h"
 
 namespace entity {

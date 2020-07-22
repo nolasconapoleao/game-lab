@@ -7,15 +7,15 @@
 #include <memory>
 #include <vector>
 
+#include "datatypes/entity/Building.h"
+#include "datatypes/entity/Character.h"
+#include "datatypes/entity/Consumable.h"
+#include "datatypes/entity/Equipable.h"
+#include "datatypes/entity/Exterior.h"
+#include "datatypes/entity/Structure.h"
+#include "datatypes/entity/Team.h"
 #include "interface/entity/Item.h"
 #include "interface/entity/Location.h"
-#include "model/entity/Building.h"
-#include "model/entity/Character.h"
-#include "model/entity/Consumable.h"
-#include "model/entity/Equipable.h"
-#include "model/entity/Exterior.h"
-#include "model/entity/Structure.h"
-#include "model/entity/Team.h"
 
 struct CharacterEntry {
   CharacterId id;

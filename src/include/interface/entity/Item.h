@@ -5,7 +5,7 @@
 #pragma once
 
 #include "Entity.h"
-#include "datatypes/entity/ItemEffect.h"
+#include "datatypes/entity-aux/ItemEffect.h"
 
 namespace entity {
 

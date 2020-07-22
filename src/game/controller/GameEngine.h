@@ -25,7 +25,7 @@ public:
   bool isTerminated();
   void addState(const StateId stateId, std::shared_ptr<StateMachine> state);
 
-  // Active entity
+  // Active entity-aux
   void loadNextCharacter();
   CharacterId activeCharacter;
   void updateCharacterQueue();

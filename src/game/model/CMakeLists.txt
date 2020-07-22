@@ -1,5 +1,4 @@
 add_subdirectory(cleaner)
-add_subdirectory(entity)
 add_subdirectory(factory)
 add_subdirectory(giga-brain)
 add_subdirectory(handler)

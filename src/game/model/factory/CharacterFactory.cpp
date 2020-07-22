@@ -3,10 +3,10 @@
 //
 
 #include "Factory.h"
+#include "datatypes/entity/Character.h"
 #include "libs/math/gamemath.h"
 #include "libs/random/Random.h"
 #include "model/World.h"
-#include "model/entity/Character.h"
 
 using namespace gamemath;
 
@@ -14,10 +14,9 @@ namespace model {
 
 constexpr Quantity randomRange = 4;
 
-CharacterId Factory::createCharacter(const ThreatLevel threat, AttackType weaponAffinity, Race race,
-                                     CharacterPrototype type) {
-  if (type == CharacterPrototype::UNDEFINED) {
-    type = CharacterPrototype{Random::rand(0, static_cast<Quantity>(CharacterPrototype::UNDEFINED) - 1)};
+CharacterId Factory::createCharacter(const ThreatLevel threat, AttackType weaponAffinity, Race race, Occupation type) {
+  if (type == Occupation::UNDEFINED) {
+    type = Occupation{Random::rand(0, static_cast<Quantity>(Occupation::UNDEFINED) - 1)};
   }
 
   if (weaponAffinity == AttackType::UNDEFINED) {
@@ -35,31 +34,31 @@ CharacterId Factory::createCharacter(const ThreatLevel threat, AttackType weapon
   return entityCounter;
 }
 
-Stats Factory::rampupByOccupation(const CharacterPrototype occupation, Stats stats) {
+Stats Factory::rampupByOccupation(const Occupation occupation, Stats stats) {
   switch (occupation) {
-    case CharacterPrototype::BEGGAR:
+    case Occupation::BEGGAR:
       stats.spd += 2;
       break;
-    case CharacterPrototype::BLACKSMITH:
+    case Occupation::BLACKSMITH:
       stats.cst += 5;
       break;
-    case CharacterPrototype::JESTER:
+    case Occupation::JESTER:
       stats.inte += 4;
       break;
-    case CharacterPrototype::LIBRARIAN:
+    case Occupation::LIBRARIAN:
       stats.inte += 2;
       break;
-    case CharacterPrototype::MERCENARY:
+    case Occupation::MERCENARY:
       stats.atk += 2;
       stats.def += 2;
       break;
-    case CharacterPrototype::SHOPKEEPER:
+    case Occupation::SHOPKEEPER:
       stats.atk += 10;
       break;
-    case CharacterPrototype::THIEF:
+    case Occupation::THIEF:
       stats.ste += 2;
       break;
-    case CharacterPrototype::TOURIST:
+    case Occupation::TOURIST:
       stats.def += 2;
       break;
   }

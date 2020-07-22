@@ -1,3 +1,4 @@
+add_subdirectory(entity-aux)
 add_subdirectory(entity)
 add_subdirectory(event)
 add_subdirectory(factory)

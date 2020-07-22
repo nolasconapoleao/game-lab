@@ -7,18 +7,18 @@
 #include <memory>
 
 #include "datatypes/GameTypes.h"
-#include "datatypes/entity/Info.h"
-#include "datatypes/entity/Stats.h"
-#include "datatypes/factory/AttackType.h"
+#include "datatypes/entity-aux/AttackType.h"
+#include "datatypes/entity-aux/Info.h"
+#include "datatypes/entity-aux/Occupation.h"
+#include "datatypes/entity-aux/Race.h"
+#include "datatypes/entity-aux/Stats.h"
 #include "datatypes/factory/BuildingPrototype.h"
-#include "datatypes/factory/CharacterPrototype.h"
 #include "datatypes/factory/ConnectorPrototype.h"
 #include "datatypes/factory/ConsumablePrototype.h"
 #include "datatypes/factory/EquipmentPrototype.h"
 #include "datatypes/factory/EventPrototype.h"
 #include "datatypes/factory/ExteriorPrototype.h"
 #include "datatypes/factory/QuestPrototype.h"
-#include "datatypes/factory/Race.h"
 #include "datatypes/factory/StaffPrototype.h"
 #include "datatypes/factory/StructurePrototype.h"
 #include "datatypes/factory/ThreatLevel.h"
@@ -40,7 +40,7 @@ class Factory {
 public:
   Factory(const std::shared_ptr<World> &world);
   CharacterId createCharacter(const ThreatLevel threat, AttackType weaponAffinity = AttackType::UNDEFINED,
-                              Race race = Race::UNDEFINED, CharacterPrototype type = CharacterPrototype::UNDEFINED);
+                              Race race = Race::UNDEFINED, Occupation type = Occupation::UNDEFINED);
   ItemId createEquipment(EquipmentPrototype type = EquipmentPrototype::UNDEFINED);
   ItemId createStaff(StaffPrototype type = StaffPrototype::UNDEFINED);
   ItemId createWeapon(WeaponPrototype type = WeaponPrototype::UNDEFINED);
@@ -53,7 +53,7 @@ public:
 
 private:
   Stats characterStats(const Info info, const ThreatLevel threat);
-  Stats rampupByOccupation(const CharacterPrototype occupation, Stats stats);
+  Stats rampupByOccupation(const Occupation occupation, Stats stats);
   Stats rampupByClass(const AttackType weaponAffinity, Stats stats);
   Stats rampupByRace(const Race race, Stats stats);
   Stats randomizeStats(Stats stats);
