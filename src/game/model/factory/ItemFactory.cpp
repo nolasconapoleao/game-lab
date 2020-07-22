@@ -16,7 +16,7 @@ ItemId Factory::createEquipment(EquipmentPrototype type) {
 
   ItemEffect specs = equipmentSpecs(type);
   entity::Equipable creation{
-      Random::fromVec(world->characterNames) + "'s " + magic_enum::enum_name(type).data(), specs, 3, 5, 50, false};
+      Random::fromVec(world->characterNames) + "'s " + magic_enum::enum_name(type).data(), specs, 1, 3, 5, 50};
 
   world->equipables.emplace(entityCounter++, creation);
   return entityCounter;
@@ -29,7 +29,7 @@ ItemId Factory::createStaff(StaffPrototype type) {
 
   ItemEffect specs = staffSpecs(type);
   entity::Equipable creation{
-      Random::fromVec(world->characterNames) + "'s " + magic_enum::enum_name(type).data(), specs, 2, 10, 25, false};
+      Random::fromVec(world->characterNames) + "'s " + magic_enum::enum_name(type).data(), specs, 1, 2, 10, 25};
 
   world->equipables.emplace(entityCounter++, creation);
   return entityCounter;
@@ -42,7 +42,7 @@ ItemId Factory::createWeapon(WeaponPrototype type) {
 
   ItemEffect specs = weaponSpecs(type);
   entity::Equipable creation{
-      Random::fromVec(world->characterNames) + "'s " + magic_enum::enum_name(type).data(), specs, 10, 25, 50, false};
+      Random::fromVec(world->characterNames) + "'s " + magic_enum::enum_name(type).data(), specs, 1, 10, 25, 50};
 
   world->equipables.emplace(entityCounter++, creation);
   return entityCounter;
@@ -54,8 +54,8 @@ ItemId Factory::createConsumable(ConsumablePrototype type, const Quantity quanti
   }
 
   ItemEffect specs = consumableSpecs(type);
-  entity::Consumable creation{Random::fromVec(world->characterNames) + "'s " + magic_enum::enum_name(type).data(),
-                              specs, 1, 3, quantity};
+  entity::Consumable creation{
+      Random::fromVec(world->characterNames) + "'s " + magic_enum::enum_name(type).data(), specs, quantity, 1, 3, 2};
 
   world->consumables.emplace(entityCounter++, creation);
   return entityCounter;

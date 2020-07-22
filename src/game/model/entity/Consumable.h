@@ -10,10 +10,11 @@ namespace entity {
 
 class Consumable : public Item {
 public:
-  Consumable(const std::string &name, const ItemEffect &effect, Number unitaryWeight, Number unitaryPrice,
-             Number quantity);
+  Consumable(const std::string &name, const ItemEffect &effect, Quantity quantity, Number unitWeight, Number unitPrice,
+             Quantity duration);
 
-  Number quantity;
+  Quantity duration;
+  bool consumed;
 };
 
 } // namespace entity

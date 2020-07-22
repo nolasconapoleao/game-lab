@@ -6,9 +6,9 @@
 
 namespace entity {
 
-Consumable::Consumable(const std::string &name, const ItemEffect &effect, Number unitaryWeight, Number unitaryPrice,
-                       Number quantity)
-    : Item(name, effect, unitaryWeight, unitaryPrice), quantity(quantity) {
+Consumable::Consumable(const std::string &name, const ItemEffect &effect, Quantity quantity, Number unitWeight,
+                       Number unitPrice, Quantity duration)
+    : Item(name, effect, quantity, unitWeight, unitPrice), duration(duration), consumed(false) {
 }
 
 } // namespace entity
