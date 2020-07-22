@@ -12,7 +12,7 @@ namespace model {
 
 StructureId Factory::createStructure(StructurePrototype type) {
   if (type == StructurePrototype::UNDEFINED) {
-    type = StructurePrototype{Random::rand(0, static_cast<Quantity>(StructurePrototype::UNDEFINED))};
+    type = StructurePrototype{Random::rand(0, static_cast<Quantity>(StructurePrototype::UNDEFINED) - 1)};
   }
 
   Size size = structureSize(type);

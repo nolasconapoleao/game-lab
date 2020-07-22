@@ -13,4 +13,10 @@ Handler::Handler(const std::shared_ptr<World> &world, const std::shared_ptr<Fact
     : world(world), factory(factory), cleaner(cleaner) {
 }
 
+void Handler::travel(const CharacterId &characterId, LocationId locationId) {
+}
+
+void Handler::possess(CharacterId mageId, CharacterId possessedId) {
+}
+
 } // namespace model

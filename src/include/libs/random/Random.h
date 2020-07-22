@@ -22,12 +22,21 @@ namespace Random {
                             Quantity upperBound = std::numeric_limits<Quantity>::max());
 
 /**
+ * @brief Generates a random number around a number.
+ * @param number for generation
+ * @param range for generation
+ * @return random number
+ */
+[[nodiscard]] Quantity rand_range(Quantity number, Quantity range);
+
+/**
  * @brief Generates a set of non repeating number between lowerBound and upperBound.
  * @param lowerBound for generation
  * @param upperBound for generation
  * @return set of random numbers
  */
-[[nodiscard]] std::unordered_set<Number> multipleNonRepeated(Number quantity, Number lowerBound, Number upperBound);
+[[nodiscard]] std::unordered_set<Quantity> multipleNonRepeated(Quantity quantity, Quantity lowerBound,
+                                                               Number upperBound);
 
 /**
  * @brief Generates a random number from the vector of given options.

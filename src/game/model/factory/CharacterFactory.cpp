@@ -17,15 +17,15 @@ constexpr Quantity randomRange = 4;
 CharacterId Factory::createCharacter(ThreatLevel threat, AttackType weaponAffinity, Race race,
                                      CharacterPrototype type) {
   if (type == CharacterPrototype::UNDEFINED) {
-    type = CharacterPrototype{Random::rand(0, static_cast<Quantity>(CharacterPrototype::UNDEFINED))};
+    type = CharacterPrototype{Random::rand(0, static_cast<Quantity>(CharacterPrototype::UNDEFINED) - 1)};
   }
 
   if (weaponAffinity == AttackType::UNDEFINED) {
-    weaponAffinity = AttackType{Random::rand(0, static_cast<Quantity>(AttackType::UNDEFINED))};
+    weaponAffinity = AttackType{Random::rand(0, static_cast<Quantity>(AttackType::UNDEFINED) - 1)};
   }
 
   if (race == Race::UNDEFINED) {
-    race = Race{Random::rand(0, static_cast<Quantity>(Race::UNDEFINED))};
+    race = Race{Random::rand(0, static_cast<Quantity>(Race::UNDEFINED) - 1)};
   }
 
   Info info{Ghost::COMPUTER, race, weaponAffinity, type};
@@ -164,18 +164,18 @@ Stats Factory::characterStats(Info info, const ThreatLevel threat) {
 }
 
 Stats Factory::randomizeStats(Stats stats) {
-  stats.mhp = Random::rand(cSub(stats.mhp, randomRange), cAdd(stats.mhp, randomRange));
+  stats.mhp = Random::rand_range(stats.mhp, randomRange);
   stats.hp = Random::rand(cSub(stats.hp, randomRange), stats.mhp);
-  stats.atk = Random::rand(cSub(stats.atk, randomRange), cAdd(stats.atk, randomRange));
-  stats.def = Random::rand(cSub(stats.def, randomRange), cAdd(stats.def, randomRange));
-  stats.mAtk = Random::rand(cSub(stats.mAtk, randomRange), cAdd(stats.mAtk, randomRange));
-  stats.mDef = Random::rand(cSub(stats.mDef, randomRange), cAdd(stats.mDef, randomRange));
-  stats.spd = Random::rand(cSub(stats.spd, randomRange), cAdd(stats.spd, randomRange));
-  stats.inte = Random::rand(cSub(stats.inte, randomRange), cAdd(stats.inte, randomRange));
-  stats.acc = Random::rand(cSub(stats.acc, randomRange), cAdd(stats.acc, randomRange));
-  stats.ste = Random::rand(cSub(stats.ste, randomRange), cAdd(stats.ste, randomRange));
-  stats.mana = Random::rand(cSub(stats.mana, randomRange), cAdd(stats.mana, randomRange));
-  stats.cst = Random::rand(cSub(stats.cst, randomRange), cAdd(stats.cst, randomRange));
+  stats.atk = Random::rand_range(stats.atk, randomRange);
+  stats.def = Random::rand_range(stats.def, randomRange);
+  stats.mAtk = Random::rand_range(stats.mAtk, randomRange);
+  stats.mDef = Random::rand_range(stats.mDef, randomRange);
+  stats.spd = Random::rand_range(stats.spd, randomRange);
+  stats.inte = Random::rand_range(stats.inte, randomRange);
+  stats.acc = Random::rand_range(stats.acc, randomRange);
+  stats.ste = Random::rand_range(stats.ste, randomRange);
+  stats.mana = Random::rand_range(stats.mana, randomRange);
+  stats.cst = Random::rand_range(stats.cst, randomRange);
   return stats;
 }
 

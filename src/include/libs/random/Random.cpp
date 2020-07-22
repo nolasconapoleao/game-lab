@@ -26,14 +26,26 @@ Quantity rand(Quantity lowerBound, Quantity upperBound) {
   return distribution(generator);
 }
 
-std::unordered_set<Number> multipleNonRepeated(Number quantity, Number lowerBound, Number upperBound) {
+Quantity rand_range(Quantity number, Quantity range) {
+  Quantity lower = 0;
+  Quantity upper = std::numeric_limits<Quantity>::max();
+  if (number > range) {
+    lower = number - range;
+  }
+  if (number + range < std::numeric_limits<Quantity>::max()) {
+    upper = number + range;
+  }
+  return rand(lower, upper);
+}
+
+std::unordered_set<Quantity> multipleNonRepeated(Quantity quantity, Quantity lowerBound, Quantity upperBound) {
 
   if (lowerBound > upperBound) {
     std::cerr << "Lower bound has to be smaller than upper bound.\n";
     throw std::runtime_error("Invalid bounds for random generation");
   }
 
-  Number range = upperBound - lowerBound;
+  Quantity range = upperBound - lowerBound;
   if (range < quantity) {
     std::cerr << "Cannot generate n distinct numbers from a pool with size less than n.\n";
     throw std::runtime_error("Invalid random generation");
@@ -43,9 +55,9 @@ std::unordered_set<Number> multipleNonRepeated(Number quantity, Number lowerBoun
   std::mt19937 generator;
 
   generator.seed(static_cast<unsigned int>(t));
-  std::uniform_int_distribution<Number> distribution(lowerBound, upperBound);
+  std::uniform_int_distribution<Quantity> distribution(lowerBound, upperBound);
 
-  std::unordered_set<Number> generated;
+  std::unordered_set<Quantity> generated;
   while (generated.size() < quantity) {
     generated.insert(distribution(generator));
   }

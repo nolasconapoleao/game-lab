@@ -8,7 +8,8 @@
 
 namespace entity {
 
-Structure::Structure(const std::string &name, const Size &size) : Entity(name), size(size) {
+Structure::Structure(const std::string &name, const Size &size)
+    : Entity(name), size(size), health(size.height * size.width) {
 }
 
 } // namespace entity

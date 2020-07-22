@@ -11,7 +11,7 @@
 namespace model {
 ItemId Factory::createEquipment(EquipmentPrototype type) {
   if (type == EquipmentPrototype::UNDEFINED) {
-    type = EquipmentPrototype{Random::rand(0, static_cast<Quantity>(EquipmentPrototype::UNDEFINED))};
+    type = EquipmentPrototype{Random::rand(0, static_cast<Quantity>(EquipmentPrototype::UNDEFINED) - 1)};
   }
 
   ItemEffect specs = equipmentSpecs(type);
@@ -24,7 +24,7 @@ ItemId Factory::createEquipment(EquipmentPrototype type) {
 
 ItemId Factory::createStaff(StaffPrototype type) {
   if (type == StaffPrototype::UNDEFINED) {
-    type = StaffPrototype{Random::rand(0, static_cast<Quantity>(StaffPrototype::UNDEFINED))};
+    type = StaffPrototype{Random::rand(0, static_cast<Quantity>(StaffPrototype::UNDEFINED) - 1)};
   }
 
   ItemEffect specs = staffSpecs(type);
@@ -37,7 +37,7 @@ ItemId Factory::createStaff(StaffPrototype type) {
 
 ItemId Factory::createWeapon(WeaponPrototype type) {
   if (type == WeaponPrototype::UNDEFINED) {
-    type = WeaponPrototype{Random::rand(0, static_cast<Quantity>(WeaponPrototype::UNDEFINED))};
+    type = WeaponPrototype{Random::rand(0, static_cast<Quantity>(WeaponPrototype::UNDEFINED) - 1)};
   }
 
   ItemEffect specs = weaponSpecs(type);
@@ -50,7 +50,7 @@ ItemId Factory::createWeapon(WeaponPrototype type) {
 
 ItemId Factory::createConsumable(ConsumablePrototype type, Quantity quantity) {
   if (type == ConsumablePrototype::UNDEFINED) {
-    type = ConsumablePrototype{Random::rand(0, static_cast<Quantity>(ConsumablePrototype::UNDEFINED))};
+    type = ConsumablePrototype{Random::rand(0, static_cast<Quantity>(ConsumablePrototype::UNDEFINED) - 1)};
   }
 
   ItemEffect specs = consumableSpecs(type);

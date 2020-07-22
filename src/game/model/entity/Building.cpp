@@ -6,7 +6,8 @@
 
 namespace entity {
 
-Building::Building(const std::string &name, const Size &size, Quantity floors) : Location(name, size), floors(floors) {
+Building::Building(const std::string &name, const Size &size, Quantity floors)
+    : Location(name, size), health(size.height * size.width), floors(floors) {
 }
 
 } // namespace entity

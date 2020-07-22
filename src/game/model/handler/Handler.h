@@ -7,6 +7,7 @@
 #include <memory>
 
 #include "datatypes/GameTypes.h"
+#include "datatypes/factory/ThreatLevel.h"
 #include "datatypes/logger/AttackResult.h"
 
 namespace model {
@@ -35,17 +36,19 @@ public:
   void sellItem(const ItemId itemId, const CharacterId characterId, const Quantity quantity = 0);
 
   void travel(const CharacterId &characterId, const LocationId locationId);
-
-  void possessCharacter(const CharacterId mageId, const CharacterId possessedId);
+  void possess(CharacterId mageId, CharacterId possessedId);
+  void renameCharacter(CharacterId characterId, const std::string &newName);
+  void renameTeam(TeamId teamId, const std::string &newName);
 
 private:
-  void demolishBuilding(LocationId buildingId);
-  void crumbleStructure(StructureId structureId);
-  void fillLocation(LocationId locationId);
-  void fillInventory(CharacterId characterId);
+  void demolishBuilding(const LocationId buildingId);
+  void demolishStructure(const StructureId structureId);
+  void fillLocation(const LocationId locationId, const ThreatLevel threat);
+  void fillInventory(const CharacterId characterId, const ThreatLevel threat);
 
   void transferItem(const ItemId itemId, const ResourceId locationId, const Quantity quantity = 0);
   void transferMoney(const CharacterId origin, const CharacterId destination, const Quantity quantity = 0);
+  Quantity compare(const Quantity attacker, const Quantity defender);
   std::shared_ptr<World> world;
   std::shared_ptr<Factory> factory;
   std::shared_ptr<Cleaner> cleaner;

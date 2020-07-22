@@ -18,7 +18,7 @@ void Factory::initCharacterNames() {
   world->characterNames.emplace_back("Charles");
   world->characterNames.emplace_back("Cornelius");
   world->characterNames.emplace_back("Fred");
-  world->characterNames.emplace_back("Guiliam");
+  world->characterNames.emplace_back("Gilliam");
   world->characterNames.emplace_back("Jake");
   world->characterNames.emplace_back("Louis");
   world->characterNames.emplace_back("Mike");
@@ -33,9 +33,9 @@ void Factory::initLocationNames() {
   world->locationNames.emplace_back("Big Boulder");
   world->locationNames.emplace_back("Buddy");
   world->locationNames.emplace_back("Dark abyss");
-  world->locationNames.emplace_back("Finegan's");
+  world->locationNames.emplace_back("Finegan");
   world->locationNames.emplace_back("Furiosa");
-  world->locationNames.emplace_back("Intersticion");
+  world->locationNames.emplace_back("Interstice");
   world->locationNames.emplace_back("Lord of The Flies");
   world->locationNames.emplace_back("Lordelo");
   world->locationNames.emplace_back("Obelisk");

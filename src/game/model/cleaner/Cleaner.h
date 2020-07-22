@@ -4,8 +4,9 @@
 
 #pragma once
 
-#include <datatypes/GameTypes.h>
 #include <memory>
+
+#include "datatypes/GameTypes.h"
 
 namespace model {
 

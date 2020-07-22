@@ -11,7 +11,7 @@
 namespace model {
 LocationId Factory::createConnector(ConnectorPrototype type) {
   if (type == ConnectorPrototype::UNDEFINED) {
-    type = ConnectorPrototype{Random::rand(0, static_cast<Quantity>(ConnectorPrototype::UNDEFINED))};
+    type = ConnectorPrototype{Random::rand(0, static_cast<Quantity>(ConnectorPrototype::UNDEFINED) - 1)};
   }
 
   Size size = connectorSize(type);
@@ -23,7 +23,7 @@ LocationId Factory::createConnector(ConnectorPrototype type) {
 
 LocationId Factory::createBuilding(BuildingPrototype type) {
   if (type == BuildingPrototype::UNDEFINED) {
-    type = BuildingPrototype{Random::rand(0, static_cast<Quantity>(BuildingPrototype::UNDEFINED))};
+    type = BuildingPrototype{Random::rand(0, static_cast<Quantity>(BuildingPrototype::UNDEFINED) - 1)};
   }
 
   auto [size, floors] = buildingSpecs(type);
@@ -36,7 +36,7 @@ LocationId Factory::createBuilding(BuildingPrototype type) {
 
 LocationId Factory::createLocation(ExteriorPrototype type) {
   if (type == ExteriorPrototype::UNDEFINED) {
-    type = ExteriorPrototype{Random::rand(0, static_cast<Quantity>(ExteriorPrototype::UNDEFINED))};
+    type = ExteriorPrototype{Random::rand(0, static_cast<Quantity>(ExteriorPrototype::UNDEFINED) - 1)};
   }
 
   Size size = exteriorSize(type);
