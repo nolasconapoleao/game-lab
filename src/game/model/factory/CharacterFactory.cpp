@@ -71,16 +71,22 @@ Stats Factory::growStats(ThreatLevel level, Stats stats) {
   switch (level) {
     case ThreatLevel::ACE:
       multiplier = 5;
+      break;
     case ThreatLevel::GOD:
       multiplier = 50;
+      break;
     case ThreatLevel::MONSTER:
       multiplier = 20;
+      break;
     case ThreatLevel::NOVICE:
       return stats;
+      break;
     case ThreatLevel::SCARECROW:
       multiplier = 0;
+      break;
     case ThreatLevel::VETERAN:
       multiplier = 10;
+      break;
   }
   return stats * multiplier;
 }

@@ -49,7 +49,7 @@ Quantity diff(Quantity num1, Quantity num2);
 ItemEffect operator+(const ItemEffect &a1, ItemEffect &a2);
 ItemEffect operator-(const ItemEffect &effect, ItemEffect &subtraction);
 Stats operator+(const Stats &base, const ItemEffect &temp);
-Stats operator*(const Stats &base, Quantity multiplier);
+Stats operator*(Stats &base, Quantity multiplier);
 
 /**
  * @brief Given level and experience, calculate accumulated experience.

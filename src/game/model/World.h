@@ -6,6 +6,7 @@
 
 #include <map>
 #include <set>
+#include <vector>
 
 #include "model/entity/Building.h"
 #include "model/entity/Character.h"
@@ -39,7 +40,6 @@ public:
   std::vector<std::string> characterNames;
   std::vector<std::string> locationNames;
   std::vector<std::string> teamNames;
-  std::vector<std::string> idleTalk;
 
   friend class Cleaner;
   friend class Factory;

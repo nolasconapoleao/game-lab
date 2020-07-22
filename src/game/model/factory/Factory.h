@@ -72,6 +72,10 @@ private:
   ItemEffect staffSpecs(const StaffPrototype type);
   ItemEffect weaponSpecs(const WeaponPrototype type);
   ItemEffect consumableSpecs(const ConsumablePrototype type);
+
+  void initCharacterNames();
+  void initLocationNames();
+  void initTeamNames();
 };
 
 } // namespace model

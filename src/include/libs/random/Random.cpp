@@ -10,7 +10,7 @@
 
 namespace Random {
 
-Number rand(Number lowerBound, Number upperBound) {
+Quantity rand(Quantity lowerBound, Quantity upperBound) {
 
   if (lowerBound > upperBound) {
     std::cerr << "Lower bound has to be smaller than upper bound.\n";
@@ -21,7 +21,7 @@ Number rand(Number lowerBound, Number upperBound) {
   std::mt19937 generator;
 
   generator.seed(static_cast<unsigned int>(t));
-  std::uniform_int_distribution<Number> distribution(lowerBound, upperBound);
+  std::uniform_int_distribution<Quantity> distribution(lowerBound, upperBound);
 
   return distribution(generator);
 }
