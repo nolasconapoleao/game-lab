@@ -21,10 +21,12 @@ void Cleaner::deleteCharacter(const CharacterId characterId) {
 
 void Cleaner::deleteEquipable(const ItemId equipableId) {
   world->equipables.erase(equipableId);
+  world->possessions.erase(equipableId);
 }
 
 void Cleaner::deleteConsumable(const ItemId consumableId) {
   world->consumables.erase(consumableId);
+  world->possessions.erase(consumableId);
 }
 
 void Cleaner::deleteLocation(const LocationId locationId) {

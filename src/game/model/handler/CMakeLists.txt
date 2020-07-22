@@ -8,6 +8,7 @@ target_sources(${PROJECT_NAME}
         ${CMAKE_CURRENT_SOURCE_DIR}/Handler.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/InventoryHandler.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/ShopHandler.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/TransferenceHandler.cpp
     PUBLIC
         # Headers
         ${CMAKE_CURRENT_SOURCE_DIR}/Handler.h

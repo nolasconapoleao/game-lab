@@ -47,13 +47,14 @@ private:
   void demolishBuilding(const LocationId buildingId);
   void demolishStructure(const StructureId structureId);
   void killCharacter(const CharacterId characterId);
+  void destroyItem(ItemId itemId);
   void fillLocation(const LocationId locationId, const ThreatLevel threat);
   void fillInventory(const CharacterId characterId, const ThreatLevel threat);
   void fillExterior(const LocationId locationId, const ThreatLevel threat);
   LocationId createNeighbour(const LocationId locationId, const ThreatLevel threat);
 
   void transferItem(const ItemId itemId, const ResourceId resourceId, const Quantity quantity);
-  void transferMoney(const CharacterId origin, const CharacterId destination, Number quantity);
+  void transferMoney(const CharacterId originId, const CharacterId destinationId, Number amount);
   Quantity maximumBuyable(const CharacterId characterId, const ItemId itemId);
   int compare(const Quantity attacker, const Quantity defender);
 

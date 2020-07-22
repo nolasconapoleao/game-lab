@@ -3,8 +3,8 @@
 //
 
 #include "Handler.h"
-#include "libs/random/Random.h"
 #include "model/World.h"
+#include "model/lookup/Lookup.h"
 
 namespace model {
 
@@ -25,16 +25,13 @@ void Handler::pickupItem(const ItemId itemId, const CharacterId characterId, Qua
 }
 
 void Handler::useItem(const CharacterId characterId, const ItemId itemId) {
-}
-
-void Handler::transferItem(const ItemId itemId, const ResourceId resourceId, Quantity quantity) {
-}
-
-void Handler::transferMoney(const CharacterId origin, const CharacterId destination, Number quantity) {
-}
-
-int Handler::compare(const Quantity attacker, const Quantity defender) {
-  return Random::rand(attacker) - Random::rand(defender);
+  if (world->consumables.contains(itemId)) {
+    auto &consumable = world->consumables.find(itemId)->second;
+    consumable.consumed = true;
+  } else if (world->equipables.contains(itemId)) {
+    auto &equipable = world->equipables.find(itemId)->second;
+    equipable.equipped = !equipable.equipped;
+  }
 }
 
 } // namespace model

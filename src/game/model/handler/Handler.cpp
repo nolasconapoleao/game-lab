@@ -4,6 +4,7 @@
 
 #include "Handler.h"
 
+#include "libs/random/Random.h"
 #include "model/World.h"
 
 namespace model {
@@ -18,10 +19,10 @@ void Handler::travel(const CharacterId &characterId, const LocationId locationId
 }
 
 void Handler::possess(const CharacterId mageId, const CharacterId possessedId) {
-  const auto mage = world->characters.find(mageId)->second;
-  const auto possessed = world->characters.find(possessedId)->second;
+  const auto &mage = world->characters.find(mageId)->second;
+  auto &possessed = world->characters.find(possessedId)->second;
   if (compare(mage.stats().mAtk, possessed.stats().mDef)) {
-    world->characters.find(possessedId)->second.info.ghost = Ghost::PLAYER;
+    possessed.info.ghost = Ghost::PLAYER;
   }
 }
 
@@ -39,6 +40,10 @@ const std::shared_ptr<entity::Location> Handler::getLocation(LocationId location
   } else if (world->buildings.contains(locationId)) {
     return std::make_shared<entity::Building>(world->buildings.find(locationId)->second);
   }
+}
+
+int Handler::compare(const Quantity attacker, const Quantity defender) {
+  return Random::rand(attacker) - Random::rand(defender);
 }
 
 } // namespace model

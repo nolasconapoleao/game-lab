@@ -8,7 +8,7 @@
 namespace model {
 
 void Handler::buyItem(const ItemId itemId, const CharacterId buyerId, Quantity quantity) {
-  const auto seller = world->possessions.find(itemId);
+  const auto &seller = world->possessions.find(itemId);
   if (0 == quantity) {
     quantity = maximumBuyable(buyerId, itemId);
   }
@@ -19,7 +19,7 @@ void Handler::buyItem(const ItemId itemId, const CharacterId buyerId, Quantity q
 }
 
 void Handler::sellItem(const ItemId itemId, const CharacterId sellerId, Quantity quantity) {
-  const auto buyer = world->possessions.find(itemId);
+  const auto &buyer = world->possessions.find(itemId);
   if (0 == quantity) {
     quantity = getItem(itemId)->quantity;
   }
