@@ -19,4 +19,5 @@ struct ItemEffect {
   Quantity acc = 0;  // Accuracy
   Quantity ste = 0;  // Stealth
   Quantity mana = 0; // Mana
+  Quantity ran = 0;  // Range
 };

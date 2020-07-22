@@ -10,7 +10,6 @@ namespace entity {
 class Building : public Location {
 public:
   Building(const std::string &name, const Size &size, Quantity floors);
-
   Number health;
   Number floors;
 };

@@ -56,11 +56,32 @@ void Handler::fillLocation(const LocationId locationId, const ThreatLevel threat
 }
 
 void Handler::fillInventory(const CharacterId characterId, const ThreatLevel threat) {
-  for (auto k = 0; k < (Quantity)threat; k += 4) {
-    auto equipmentId = factory->createEquipment();
-    world->possessions.emplace(equipmentId, characterId);
-    auto consumableId = factory->createConsumable();
-    world->possessions.emplace(consumableId, characterId);
+  auto itemId = factory->createConsumable();
+
+  switch (threat) {
+    case ThreatLevel::SCARECROW:
+      world->possessions.emplace(itemId, characterId);
+      [[fallthrough]];
+    case ThreatLevel::NOVICE:
+      itemId = factory->createWeapon();
+      world->possessions.emplace(itemId, characterId);
+      [[fallthrough]];
+    case ThreatLevel::ACE:
+      itemId = factory->createConsumable();
+      world->possessions.emplace(itemId, characterId);
+      [[fallthrough]];
+    case ThreatLevel::VETERAN:
+      itemId = factory->createStaff();
+      world->possessions.emplace(itemId, characterId);
+      [[fallthrough]];
+    case ThreatLevel::MONSTER:
+      itemId = factory->createStaff();
+      world->possessions.emplace(itemId, characterId);
+      [[fallthrough]];
+    case ThreatLevel::GOD:
+      itemId = factory->createStaff();
+      world->possessions.emplace(itemId, characterId);
+      break;
   }
 }
 

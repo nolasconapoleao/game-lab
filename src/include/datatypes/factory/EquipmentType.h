@@ -4,10 +4,10 @@
 
 #pragma once
 
-enum class StaffPrototype : Quantity {
-  CONJURING,
-  DARK,
-  SUPPORT,
+enum class EquipmentType : Quantity {
+  COAT,
+  SHIELD,
+  SKATE,
 
   UNDEFINED,
 };

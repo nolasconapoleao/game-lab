@@ -4,7 +4,7 @@
 
 #pragma once
 
-enum class QuestPrototype : Quantity {
+enum class QuestType : Quantity {
   DELIVERY,
   ESCORT,
   HITMAN,

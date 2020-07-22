@@ -4,7 +4,7 @@
 
 #pragma once
 
-enum class WeaponPrototype : Quantity {
+enum class WeaponType : Quantity {
   AXE,
   BOW,
   DAGGER,

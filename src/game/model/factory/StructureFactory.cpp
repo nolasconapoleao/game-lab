@@ -10,9 +10,9 @@
 
 namespace model {
 
-StructureId Factory::createStructure(StructurePrototype type) {
-  if (type == StructurePrototype::UNDEFINED) {
-    type = StructurePrototype{Random::rand(0, static_cast<Quantity>(StructurePrototype::UNDEFINED) - 1)};
+StructureId Factory::createStructure(StructureType type) {
+  if (type == StructureType::UNDEFINED) {
+    type = StructureType{Random::rand(0, static_cast<Quantity>(StructureType::UNDEFINED) - 1)};
   }
 
   Size size = structureSize(type);
@@ -22,14 +22,14 @@ StructureId Factory::createStructure(StructurePrototype type) {
   return entityCounter;
 }
 
-Size Factory::structureSize(const StructurePrototype type) {
+Size Factory::structureSize(const StructureType type) {
   Size size;
   switch (type) {
-    case StructurePrototype::MAILBOX:
+    case StructureType::MAILBOX:
       size.width = 2;
       size.height = 2;
       break;
-    case StructurePrototype::PHONEBOOTH:
+    case StructureType::PHONEBOOTH:
       size.width = 3;
       size.height = 2;
       break;

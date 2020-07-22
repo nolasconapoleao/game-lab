@@ -2,10 +2,10 @@
 // Created by nolasco on 21/06/20.
 //
 
+#include "datatypes/entity-aux/ConsumableType.h"
+#include "datatypes/entity-aux/StructureType.h"
 #include "datatypes/entity/ItemType.h"
-#include "datatypes/factory/ConnectorPrototype.h"
-#include "datatypes/factory/ConsumablePrototype.h"
-#include "datatypes/factory/StructurePrototype.h"
+#include "datatypes/factory/ConnectorType.h"
 #include "datatypes/factory/ThreatLevel.h"
 #include "interface/entity/Item.h"
 #include "interface/entity/Location.h"

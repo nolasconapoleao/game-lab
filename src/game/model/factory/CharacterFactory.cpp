@@ -73,16 +73,19 @@ Stats Factory::rampupByClass(const AttackType weaponAffinity, Stats stats) {
   switch (weaponAffinity) {
     case AttackType::CONJURING:
       stats.mana += 8;
+      stats.ran += 1;
       break;
     case AttackType::ELEMENTAL:
       stats.mana += 2;
       stats.mAtk += 2;
       stats.mDef += 3;
+      stats.ran += 2;
       break;
     case AttackType::MAGIC:
       stats.mana += 5;
       stats.mAtk += 2;
       stats.mDef += 1;
+      stats.ran += 1;
       break;
     case AttackType::PHYSICAL:
       stats.atk += 2;
@@ -90,6 +93,7 @@ Stats Factory::rampupByClass(const AttackType weaponAffinity, Stats stats) {
       break;
     case AttackType::SUPPORT:
       stats.mana += 2;
+      stats.ran += 1;
       break;
   }
   return stats;
@@ -105,6 +109,7 @@ Stats Factory::rampupByRace(const Race race, Stats stats) {
       stats.mDef += 8;
       stats.mAtk += 8;
       stats.cst += 8;
+      stats.ran += 5;
       break;
     case Race::ELF:
       stats.mDef += 2;
@@ -113,6 +118,7 @@ Stats Factory::rampupByRace(const Race race, Stats stats) {
     case Race::GIANT:
       stats.mDef += 10;
       stats.mAtk += 4;
+      stats.ran += 1;
       break;
     case Race::HUMAN:
       stats.spd += 5;
@@ -152,6 +158,7 @@ Stats Factory::randomizeStats(Stats stats) {
   stats.inte = Random::rand_range(stats.inte, randomRange);
   stats.acc = Random::rand_range(stats.acc, randomRange);
   stats.ste = Random::rand_range(stats.ste, randomRange);
+  stats.ran = Random::rand_range(stats.ran, randomRange);
   stats.mana = Random::rand_range(stats.mana, randomRange);
   stats.cst = Random::rand_range(stats.cst, randomRange);
   return stats;
@@ -168,6 +175,7 @@ constexpr Stats Factory::minimalStats() {
   result.inte = 3;
   result.acc = 2;
   result.ste = 0;
+  result.ran = 1;
   result.mana = 0;
   result.mhp = 8;
   result.cst = 10;

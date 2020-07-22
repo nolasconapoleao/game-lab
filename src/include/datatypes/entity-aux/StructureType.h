@@ -4,10 +4,9 @@
 
 #pragma once
 
-enum class ExteriorPrototype : Quantity {
-  CITY,
-  TOWN,
-  VILLAGE,
+enum class StructureType : Quantity {
+  MAILBOX,
+  PHONEBOOTH,
 
   UNDEFINED,
 };

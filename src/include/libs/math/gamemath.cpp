@@ -56,6 +56,7 @@ ItemEffect operator+(ItemEffect &a1, ItemEffect &a2) {
   a1.inte = cAdd(a1.inte, a2.inte);
   a1.acc = cAdd(a1.acc, a2.acc);
   a1.ste = cAdd(a1.ste, a2.ste);
+  a1.ran = cAdd(a1.ran, a2.ran);
   a1.mana = cAdd(a1.mana, a2.mana);
   return a1;
 }
@@ -71,6 +72,7 @@ ItemEffect operator-(ItemEffect &effect, ItemEffect &subtraction) {
   result.inte = cSub(effect.inte, subtraction.inte);
   result.acc = cSub(effect.acc, subtraction.acc);
   result.ste = cSub(effect.ste, subtraction.ste);
+  result.ran = cSub(effect.ran, subtraction.ran);
   result.mana = cSub(effect.mana, subtraction.mana);
   return result;
 }
@@ -87,6 +89,7 @@ Stats operator*(Stats &base, Quantity multiplier) {
   base.inte = cMult(base.inte, multiplier);
   base.acc = cMult(base.acc, multiplier);
   base.ste = cMult(base.ste, multiplier);
+  base.ran = cMult(base.ran, multiplier);
   base.mana = cMult(base.mana, multiplier);
   return base;
 }

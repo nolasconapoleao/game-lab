@@ -26,7 +26,7 @@ void Handler::possess(const CharacterId mageId, const CharacterId possessedId) {
   }
 }
 
-const std::shared_ptr<entity::Item> Handler::getItem(ItemId itemId) {
+const std::shared_ptr<entity::Item> &Handler::getItem(ItemId itemId) {
   if (world->consumables.contains(itemId)) {
     return std::make_shared<entity::Consumable>(world->consumables.find(itemId)->second);
   } else if (world->equipables.contains(itemId)) {
@@ -34,7 +34,7 @@ const std::shared_ptr<entity::Item> Handler::getItem(ItemId itemId) {
   }
 }
 
-const std::shared_ptr<entity::Location> Handler::getLocation(LocationId locationId) {
+const std::shared_ptr<entity::Location> &Handler::getLocation(LocationId locationId) {
   if (world->exteriors.contains(locationId)) {
     return std::make_shared<entity::Exterior>(world->exteriors.find(locationId)->second);
   } else if (world->buildings.contains(locationId)) {

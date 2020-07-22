@@ -34,6 +34,7 @@ public:
   void dropItem(const ItemId itemId, const ResourceId locationId, const Quantity quantity = 0);
   void pickupItem(const ItemId itemId, const CharacterId characterId, const Quantity quantity = 0);
   void useItem(const CharacterId characterId, const ItemId itemId);
+  void depleteItem(const ItemId itemId);
 
   void buyItem(const ItemId itemId, const CharacterId buyerId, Quantity quantity = 0);
   void sellItem(const ItemId itemId, const CharacterId sellerId, Quantity quantity = 0);
@@ -58,8 +59,8 @@ private:
   Quantity maximumBuyable(const CharacterId characterId, const ItemId itemId);
   int compare(const Quantity attacker, const Quantity defender);
 
-  const std::shared_ptr<entity::Item> getItem(ItemId itemId);
-  const std::shared_ptr<entity::Location> getLocation(LocationId locationId);
+  const std::shared_ptr<entity::Item> &getItem(ItemId itemId);
+  const std::shared_ptr<entity::Location> &getLocation(LocationId locationId);
 
   std::shared_ptr<World> world;
   std::shared_ptr<Factory> factory;

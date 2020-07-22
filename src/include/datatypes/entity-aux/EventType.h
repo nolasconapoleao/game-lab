@@ -4,7 +4,7 @@
 
 #pragma once
 
-enum class EventPrototype : Quantity {
+enum class EventType : Quantity {
   GHOST,
   KIDNAPPING,
   RIDDLE,

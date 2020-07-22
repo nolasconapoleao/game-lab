@@ -9,9 +9,9 @@
 #include "model/World.h"
 
 namespace model {
-LocationId Factory::createConnector(ConnectorPrototype type) {
-  if (type == ConnectorPrototype::UNDEFINED) {
-    type = ConnectorPrototype{Random::rand(0, static_cast<Quantity>(ConnectorPrototype::UNDEFINED) - 1)};
+LocationId Factory::createConnector(ConnectorType type) {
+  if (type == ConnectorType::UNDEFINED) {
+    type = ConnectorType{Random::rand(0, static_cast<Quantity>(ConnectorType::UNDEFINED) - 1)};
   }
 
   Size size = connectorSize(type);
@@ -21,9 +21,9 @@ LocationId Factory::createConnector(ConnectorPrototype type) {
   return entityCounter;
 }
 
-LocationId Factory::createBuilding(BuildingPrototype type) {
-  if (type == BuildingPrototype::UNDEFINED) {
-    type = BuildingPrototype{Random::rand(0, static_cast<Quantity>(BuildingPrototype::UNDEFINED) - 1)};
+LocationId Factory::createBuilding(BuildingType type) {
+  if (type == BuildingType::UNDEFINED) {
+    type = BuildingType{Random::rand(0, static_cast<Quantity>(BuildingType::UNDEFINED) - 1)};
   }
 
   auto [size, floors] = buildingSpecs(type);
@@ -34,9 +34,9 @@ LocationId Factory::createBuilding(BuildingPrototype type) {
   return entityCounter;
 }
 
-LocationId Factory::createLocation(ExteriorPrototype type) {
-  if (type == ExteriorPrototype::UNDEFINED) {
-    type = ExteriorPrototype{Random::rand(0, static_cast<Quantity>(ExteriorPrototype::UNDEFINED) - 1)};
+LocationId Factory::createLocation(ExteriorType type) {
+  if (type == ExteriorType::UNDEFINED) {
+    type = ExteriorType{Random::rand(0, static_cast<Quantity>(ExteriorType::UNDEFINED) - 1)};
   }
 
   Size size = exteriorSize(type);
@@ -46,22 +46,22 @@ LocationId Factory::createLocation(ExteriorPrototype type) {
   return entityCounter;
 }
 
-Size Factory::connectorSize(const ConnectorPrototype type) {
+Size Factory::connectorSize(const ConnectorType type) {
   Size size;
   switch (type) {
-    case ConnectorPrototype::BRIDGE:
+    case ConnectorType::BRIDGE:
       size.width = 20;
       size.height = 4;
       break;
-    case ConnectorPrototype::CAVE:
+    case ConnectorType::CAVE:
       size.width = 20;
       size.height = 30;
       break;
-    case ConnectorPrototype::RIVER:
+    case ConnectorType::RIVER:
       size.width = 30;
       size.height = 15;
       break;
-    case ConnectorPrototype::TUNNEL:
+    case ConnectorType::TUNNEL:
       size.width = 50;
       size.height = 10;
       break;
@@ -69,55 +69,55 @@ Size Factory::connectorSize(const ConnectorPrototype type) {
   return size;
 }
 
-BuildingSpecs Factory::buildingSpecs(const BuildingPrototype type) {
+BuildingSpecs Factory::buildingSpecs(const BuildingType type) {
   BuildingSpecs specs;
   switch (type) {
-    case BuildingPrototype::ARENA:
+    case BuildingType::ARENA:
       specs.floors = 2;
       specs.size.width = 30;
       specs.size.height = 50;
       break;
-    case BuildingPrototype::BARN:
+    case BuildingType::BARN:
       specs.floors = 2;
       specs.size.width = 10;
       specs.size.height = 50;
       break;
-    case BuildingPrototype::HOME:
+    case BuildingType::HOME:
       specs.floors = 3;
       specs.size.width = 20;
       specs.size.height = 20;
       break;
-    case BuildingPrototype::HOSPITAL:
+    case BuildingType::HOSPITAL:
       specs.floors = 8;
       specs.size.width = 50;
       specs.size.height = 60;
       break;
-    case BuildingPrototype::LIBRARY:
+    case BuildingType::LIBRARY:
       specs.floors = 3;
       specs.size.width = 25;
       specs.size.height = 35;
       break;
-    case BuildingPrototype::MUSEUM:
+    case BuildingType::MUSEUM:
       specs.floors = 1;
       specs.size.width = 40;
       specs.size.height = 20;
       break;
-    case BuildingPrototype::SALOON:
+    case BuildingType::SALOON:
       specs.floors = 1;
       specs.size.width = 35;
       specs.size.height = 35;
       break;
-    case BuildingPrototype::SHOP:
+    case BuildingType::SHOP:
       specs.floors = 1;
       specs.size.width = 20;
       specs.size.height = 10;
       break;
-    case BuildingPrototype::SKYSCRAPER:
+    case BuildingType::SKYSCRAPER:
       specs.floors = 10;
       specs.size.width = 25;
       specs.size.height = 15;
       break;
-    case BuildingPrototype::STORAGE:
+    case BuildingType::STORAGE:
       specs.floors = 1;
       specs.size.width = 18;
       specs.size.height = 53;
@@ -126,18 +126,18 @@ BuildingSpecs Factory::buildingSpecs(const BuildingPrototype type) {
   return specs;
 }
 
-Size Factory::exteriorSize(const ExteriorPrototype type) {
+Size Factory::exteriorSize(const ExteriorType type) {
   Size size;
   switch (type) {
-    case ExteriorPrototype::CITY:
+    case ExteriorType::CITY:
       size.width = 220;
       size.height = 180;
       break;
-    case ExteriorPrototype::TOWN:
+    case ExteriorType::TOWN:
       size.width = 150;
       size.height = 120;
       break;
-    case ExteriorPrototype::VILLAGE:
+    case ExteriorType::VILLAGE:
       size.width = 180;
       size.height = 180;
       break;
