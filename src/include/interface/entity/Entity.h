@@ -13,7 +13,6 @@ public:
   Entity(const std::string &name) : name(name) {
   }
 
-private:
   std::string name;
 };
 
