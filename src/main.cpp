@@ -21,7 +21,8 @@ int main() {
   model::Factory factory{std::make_shared<model::World>(world)};
   model::Cleaner cleaner{std::make_shared<model::World>(world), std::make_shared<model::Lookup>(lookup)};
   model::Handler handler{std::make_shared<model::World>(world), std::make_shared<model::Factory>(factory),
-                         std::make_shared<model::Cleaner>(cleaner)};
+                         std::make_shared<model::Cleaner>(cleaner)}(<#initializer #>, <#initializer #>,
+                                                                    <#initializer #>, std::shared_ptr<Lookup>());
   model::GigaBrain gigaBrain{std::make_shared<model::Handler>(handler), {std::make_shared<model::Lookup>(lookup)}};
 
   // View classes

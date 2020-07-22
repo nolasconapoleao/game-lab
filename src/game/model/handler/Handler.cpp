@@ -9,8 +9,8 @@
 namespace model {
 
 Handler::Handler(const std::shared_ptr<World> &world, const std::shared_ptr<Factory> &factory,
-                 const std::shared_ptr<Cleaner> &cleaner)
-    : world(world), factory(factory), cleaner(cleaner) {
+                 const std::shared_ptr<Cleaner> &cleaner, std::shared_ptr<Lookup> lookup)
+    : world(world), factory(factory), cleaner(cleaner), lookup(lookup) {
 }
 
 void Handler::travel(const CharacterId &characterId, const LocationId locationId) {

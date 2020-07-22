@@ -4,6 +4,8 @@
 
 #include "Handler.h"
 #include "model/World.h"
+#include "model/cleaner/Cleaner.h"
+#include "model/lookup/Lookup.h"
 
 namespace model {
 
@@ -23,9 +25,27 @@ void Handler::destroyWorld() {
 }
 
 void Handler::demolishBuilding(const LocationId buildingId) {
+  for (auto character : lookup->charactersIn(buildingId)) {
+    killCharacter(character.id);
+    cleaner->deleteCharacter(character.id);
+  };
+
+  for (auto item : lookup->itemsIn(buildingId)) {
+    transferItem(item.id, world->locatedIn[buildingId], 0);
+  };
 }
 
 void Handler::demolishStructure(const StructureId structureId) {
+  for (auto item : lookup->itemsIn(structureId)) {
+    transferItem(item.id, world->locatedIn[structureId], 0);
+  };
+}
+
+void Handler::killCharacter(CharacterId characterId) {
+  world->characters[characterId].effects.emplace(StatusEffect::DEAD);
+  for (auto item : lookup->itemsIn(characterId)) {
+    transferItem(item.id, world->locatedIn[characterId], 0);
+  };
 }
 
 } // namespace model

@@ -18,11 +18,12 @@ namespace model {
 class World;
 class Factory;
 class Cleaner;
+class Lookup;
 
 class Handler {
 public:
   Handler(const std::shared_ptr<World> &world, const std::shared_ptr<Factory> &factory,
-          const std::shared_ptr<Cleaner> &cleaner);
+          const std::shared_ptr<Cleaner> &cleaner, std::shared_ptr<Lookup> lookup);
   void createWorld();
   void destroyWorld();
 
@@ -45,6 +46,7 @@ public:
 private:
   void demolishBuilding(const LocationId buildingId);
   void demolishStructure(const StructureId structureId);
+  void killCharacter(const CharacterId characterId);
   void fillLocation(const LocationId locationId, const ThreatLevel threat);
   void fillInventory(const CharacterId characterId, const ThreatLevel threat);
   void fillExterior(const LocationId locationId, const ThreatLevel threat);
@@ -61,6 +63,7 @@ private:
   std::shared_ptr<World> world;
   std::shared_ptr<Factory> factory;
   std::shared_ptr<Cleaner> cleaner;
+  std::shared_ptr<Lookup> lookup;
 };
 
 } // namespace model

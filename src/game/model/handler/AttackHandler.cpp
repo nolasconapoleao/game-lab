@@ -16,7 +16,7 @@ AttackResult Handler::attackCharacter(const CharacterId attackerId, const Charac
   attacked.base.hp = gamemath::cSub(attacked.base.hp, fightResult);
 
   if (attacked.base.hp == 0) {
-    attacked.effects.emplace(StatusEffect::DEAD);
+    killCharacter(attackedId);
   }
 
   AttackResult result;
