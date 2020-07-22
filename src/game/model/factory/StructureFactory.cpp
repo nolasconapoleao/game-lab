@@ -22,7 +22,7 @@ StructureId Factory::createStructure(StructurePrototype type) {
   return entityCounter;
 }
 
-Size Factory::structureSize(StructurePrototype type) {
+Size Factory::structureSize(const StructurePrototype type) {
   Size size;
   switch (type) {
     case StructurePrototype::MAILBOX:

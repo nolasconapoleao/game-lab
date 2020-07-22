@@ -9,6 +9,8 @@
 #include "datatypes/GameTypes.h"
 #include "datatypes/factory/ThreatLevel.h"
 #include "datatypes/logger/AttackResult.h"
+#include "interface/entity/Item.h"
+#include "interface/entity/Location.h"
 
 namespace model {
 
@@ -32,13 +34,13 @@ public:
   void pickupItem(const ItemId itemId, const CharacterId characterId, const Quantity quantity = 0);
   void useItem(const CharacterId characterId, const ItemId itemId);
 
-  void buyItem(const ItemId itemId, const CharacterId characterId, const Quantity quantity = 0);
-  void sellItem(const ItemId itemId, const CharacterId characterId, const Quantity quantity = 0);
+  void buyItem(const ItemId itemId, const CharacterId buyerId, Quantity quantity = 0);
+  void sellItem(const ItemId itemId, const CharacterId sellerId, Quantity quantity = 0);
 
   void travel(const CharacterId &characterId, const LocationId locationId);
-  void possess(CharacterId mageId, CharacterId possessedId);
-  void renameCharacter(CharacterId characterId, const std::string &newName);
-  void renameTeam(TeamId teamId, const std::string &newName);
+  void possess(const CharacterId mageId, const CharacterId possessedId);
+  void renameCharacter(const CharacterId characterId, const std::string &newName);
+  void renameTeam(const TeamId teamId, const std::string &newName);
 
 private:
   void demolishBuilding(const LocationId buildingId);
@@ -46,9 +48,14 @@ private:
   void fillLocation(const LocationId locationId, const ThreatLevel threat);
   void fillInventory(const CharacterId characterId, const ThreatLevel threat);
 
-  void transferItem(const ItemId itemId, const ResourceId locationId, const Quantity quantity = 0);
-  void transferMoney(const CharacterId origin, const CharacterId destination, const Quantity quantity = 0);
+  void transferItem(const ItemId itemId, const ResourceId resourceId, const Quantity quantity);
+  void transferMoney(const CharacterId origin, const CharacterId destination, Number quantity);
+  Quantity maximumBuyable(const CharacterId characterId, const ItemId itemId);
   Quantity compare(const Quantity attacker, const Quantity defender);
+
+  const std::shared_ptr<entity::Item> getItem(ItemId itemId);
+  const std::shared_ptr<entity::Location> getLocation(LocationId locationId);
+
   std::shared_ptr<World> world;
   std::shared_ptr<Factory> factory;
   std::shared_ptr<Cleaner> cleaner;

@@ -14,7 +14,6 @@ public:
   Location(const std::string &name, const Size &size) : Entity(name), size(size) {
   }
 
-private:
   Size size;
 };
 

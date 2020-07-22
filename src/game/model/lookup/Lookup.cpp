@@ -11,7 +11,7 @@ namespace model {
 Lookup::Lookup(const std::shared_ptr<World> &world) : world(world) {
 }
 
-const std::vector<ItemEntry> &Lookup::itemsIn(ResourceId resourceId) {
+const std::vector<ItemEntry> &Lookup::itemsIn(const ResourceId resourceId) {
   std::vector<ItemEntry> result;
   const auto findItem = [this, &result, resourceId](const auto &entry) {
     if (entry.second == resourceId) {
@@ -28,7 +28,7 @@ const std::vector<ItemEntry> &Lookup::itemsIn(ResourceId resourceId) {
   return std::move(result);
 }
 
-const std::vector<CharacterEntry> &Lookup::charactersIn(LocationId locationId) {
+const std::vector<CharacterEntry> &Lookup::charactersIn(const LocationId locationId) {
   std::vector<CharacterEntry> result;
   const auto findCharacter = [this, &result, locationId](const auto &entry) {
     if (entry.second == locationId) {
@@ -40,7 +40,7 @@ const std::vector<CharacterEntry> &Lookup::charactersIn(LocationId locationId) {
   return std::move(result);
 }
 
-const std::vector<StructureEntry> &Lookup::structuresIn(LocationId locationId) {
+const std::vector<StructureEntry> &Lookup::structuresIn(const LocationId locationId) {
   std::vector<StructureEntry> result;
   const auto findStructure = [this, &result, locationId](const auto &entry) {
     if (entry.second == locationId) {
@@ -52,14 +52,14 @@ const std::vector<StructureEntry> &Lookup::structuresIn(LocationId locationId) {
   return std::move(result);
 }
 
-const std::vector<LocationEntry> &Lookup::neighbourLocations(LocationId locationId) {
+const std::vector<LocationEntry> &Lookup::neighbourLocations(const LocationId locationId) {
   std::vector<LocationEntry> result = neighbourStartingIn(locationId);
   std::vector<LocationEntry> endsIn = neighboursEndingIn(locationId);
   result.insert(std::end(result), std::begin(endsIn), std::end(endsIn));
   return std::move(result);
 }
 
-const std::vector<LocationEntry> &Lookup::neighboursEndingIn(LocationId locationId) {
+const std::vector<LocationEntry> &Lookup::neighboursEndingIn(const LocationId locationId) {
   std::vector<LocationEntry> result;
   const auto findNeighbour = [this, &result, locationId](const auto &entry) {
     if (entry.second == locationId) {
@@ -76,7 +76,7 @@ const std::vector<LocationEntry> &Lookup::neighboursEndingIn(LocationId location
   return std::move(result);
 }
 
-const std::vector<LocationEntry> &Lookup::neighbourStartingIn(LocationId locationId) {
+const std::vector<LocationEntry> &Lookup::neighbourStartingIn(const LocationId locationId) {
   std::vector<LocationEntry> result;
   const auto findNeighbour = [this, &result, locationId](const auto &entry) {
     if (entry.first == locationId) {

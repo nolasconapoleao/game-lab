@@ -11,8 +11,4 @@ Consumable::Consumable(const std::string &name, const ItemEffect &effect, Number
     : Item(name, effect, unitaryWeight, unitaryPrice), quantity(quantity) {
 }
 
-void Consumable::deplete(Number amount) {
-  quantity -= amount;
-}
-
 } // namespace entity

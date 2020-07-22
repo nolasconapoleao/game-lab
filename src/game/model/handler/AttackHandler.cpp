@@ -7,14 +7,14 @@
 
 namespace model {
 
-AttackResult Handler::attackCharacter(CharacterId attackerId, CharacterId attackedId) {
+AttackResult Handler::attackCharacter(const CharacterId attackerId, const CharacterId attackedId) {
   return AttackResult::Critical;
 }
 
-void Handler::attackStructure(CharacterId attackerId, StructureId structureId) {
+void Handler::attackStructure(const CharacterId attackerId, const StructureId structureId) {
 }
 
-void Handler::attackBuilding(CharacterId attackerId, LocationId inLocationId) {
+void Handler::attackBuilding(const CharacterId attackerId, const LocationId inLocationId) {
 }
 
 } // namespace model

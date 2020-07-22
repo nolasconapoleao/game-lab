@@ -7,19 +7,19 @@
 
 namespace model {
 
-void Handler::dropItem(ItemId itemId, ResourceId locationId, Quantity quantity) {
+void Handler::dropItem(const ItemId itemId, const ResourceId locationId, Quantity quantity) {
 }
 
-void Handler::pickupItem(ItemId itemId, CharacterId characterId, Quantity quantity) {
+void Handler::pickupItem(const ItemId itemId, const CharacterId characterId, Quantity quantity) {
 }
 
-void Handler::useItem(CharacterId characterId, ItemId itemId) {
+void Handler::useItem(const CharacterId characterId, const ItemId itemId) {
 }
 
-void Handler::transferItem(ItemId itemId, ResourceId locationId, Quantity quantity) {
+void Handler::transferItem(const ItemId itemId, const ResourceId resourceId, Quantity quantity) {
 }
 
-void Handler::transferMoney(CharacterId origin, CharacterId destination, Quantity quantity) {
+void Handler::transferMoney(const CharacterId origin, const CharacterId destination, Number quantity) {
 }
 
 Quantity Handler::compare(const Quantity attacker, const Quantity defender) {

@@ -11,8 +11,4 @@ Equipable::Equipable(const std::string &name, const ItemEffect &effect, Number u
     : Item(name, effect, unitaryWeight, unitaryPrice), uses(uses), equipped(equipped) {
 }
 
-void Equipable::deplete(Number amount) {
-  uses -= amount;
-}
-
 } // namespace entity

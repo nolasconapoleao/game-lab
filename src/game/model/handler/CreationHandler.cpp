@@ -10,10 +10,10 @@ namespace model {
 void Handler::createWorld() {
 }
 
-void Handler::fillLocation(LocationId locationId, ThreatLevel threat) {
+void Handler::fillLocation(const LocationId locationId, const ThreatLevel threat) {
 }
 
-void Handler::fillInventory(CharacterId characterId, ThreatLevel threat) {
+void Handler::fillInventory(const CharacterId characterId, const ThreatLevel threat) {
 }
 
 } // namespace model

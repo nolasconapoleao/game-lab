@@ -48,7 +48,7 @@ ItemId Factory::createWeapon(WeaponPrototype type) {
   return entityCounter;
 }
 
-ItemId Factory::createConsumable(ConsumablePrototype type, Quantity quantity) {
+ItemId Factory::createConsumable(ConsumablePrototype type, const Quantity quantity) {
   if (type == ConsumablePrototype::UNDEFINED) {
     type = ConsumablePrototype{Random::rand(0, static_cast<Quantity>(ConsumablePrototype::UNDEFINED) - 1)};
   }
@@ -61,7 +61,7 @@ ItemId Factory::createConsumable(ConsumablePrototype type, Quantity quantity) {
   return entityCounter;
 }
 
-ItemEffect Factory::equipmentSpecs(EquipmentPrototype type) {
+ItemEffect Factory::equipmentSpecs(const EquipmentPrototype type) {
   ItemEffect specs;
   switch (type) {
     case EquipmentPrototype::COAT:
@@ -78,7 +78,7 @@ ItemEffect Factory::equipmentSpecs(EquipmentPrototype type) {
   return specs;
 }
 
-ItemEffect Factory::staffSpecs(StaffPrototype type) {
+ItemEffect Factory::staffSpecs(const StaffPrototype type) {
   ItemEffect specs;
   switch (type) {
     case StaffPrototype::CONJURING:
@@ -94,7 +94,7 @@ ItemEffect Factory::staffSpecs(StaffPrototype type) {
   return specs;
 }
 
-ItemEffect Factory::weaponSpecs(WeaponPrototype type) {
+ItemEffect Factory::weaponSpecs(const WeaponPrototype type) {
   ItemEffect specs;
   switch (type) {
     case WeaponPrototype::AXE:
@@ -119,7 +119,7 @@ ItemEffect Factory::weaponSpecs(WeaponPrototype type) {
   return specs;
 }
 
-ItemEffect Factory::consumableSpecs(ConsumablePrototype type) {
+ItemEffect Factory::consumableSpecs(const ConsumablePrototype type) {
   ItemEffect specs;
   switch (type) {
     case ConsumablePrototype::COIN:

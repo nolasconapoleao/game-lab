@@ -12,7 +12,6 @@ class Consumable : public Item {
 public:
   Consumable(const std::string &name, const ItemEffect &effect, Number unitaryWeight, Number unitaryPrice,
              Number quantity);
-  void deplete(const Number amount) override;
 
   Number quantity;
 };

@@ -14,7 +14,7 @@ namespace model {
 
 constexpr Quantity randomRange = 4;
 
-CharacterId Factory::createCharacter(ThreatLevel threat, AttackType weaponAffinity, Race race,
+CharacterId Factory::createCharacter(const ThreatLevel threat, AttackType weaponAffinity, Race race,
                                      CharacterPrototype type) {
   if (type == CharacterPrototype::UNDEFINED) {
     type = CharacterPrototype{Random::rand(0, static_cast<Quantity>(CharacterPrototype::UNDEFINED) - 1)};
@@ -67,31 +67,10 @@ Stats Factory::rampupByOccupation(const CharacterPrototype occupation, Stats sta
 }
 
 Stats Factory::growStats(ThreatLevel level, Stats stats) {
-  Quantity multiplier = 0;
-  switch (level) {
-    case ThreatLevel::ACE:
-      multiplier = 5;
-      break;
-    case ThreatLevel::GOD:
-      multiplier = 50;
-      break;
-    case ThreatLevel::MONSTER:
-      multiplier = 20;
-      break;
-    case ThreatLevel::NOVICE:
-      return stats;
-      break;
-    case ThreatLevel::SCARECROW:
-      multiplier = 0;
-      break;
-    case ThreatLevel::VETERAN:
-      multiplier = 10;
-      break;
-  }
-  return stats * multiplier;
+  return stats * static_cast<Quantity>(level);
 }
 
-Stats Factory::rampupByClass(AttackType weaponAffinity, Stats stats) {
+Stats Factory::rampupByClass(const AttackType weaponAffinity, Stats stats) {
   switch (weaponAffinity) {
     case AttackType::CONJURING:
       stats.mana += 8;
@@ -117,7 +96,7 @@ Stats Factory::rampupByClass(AttackType weaponAffinity, Stats stats) {
   return stats;
 }
 
-Stats Factory::rampupByRace(Race race, Stats stats) {
+Stats Factory::rampupByRace(const Race race, Stats stats) {
   switch (race) {
     case Race::DEMON:
       stats.mDef += 5;
@@ -153,7 +132,7 @@ Stats Factory::rampupByRace(Race race, Stats stats) {
   return stats;
 }
 
-Stats Factory::characterStats(Info info, const ThreatLevel threat) {
+Stats Factory::characterStats(const Info info, const ThreatLevel threat) {
   Stats stats = minimalStats();
   stats = rampupByOccupation(info.occupation, stats);
   stats = rampupByClass(info.attackType, stats);

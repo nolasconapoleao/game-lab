@@ -16,9 +16,10 @@ namespace entity {
 class Character : public Entity {
 public:
   Character(const std::string &name, const Stats &baseStats, const Info &info);
+  Stats stats() const;
 
-  Stats baseStats;
-  ItemEffect tempStats;
+  Stats base;
+  ItemEffect temp;
   Info info;
   std::unordered_set<StatusEffect> effects;
 };

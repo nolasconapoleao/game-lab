@@ -39,24 +39,23 @@ class World;
 class Factory {
 public:
   Factory(const std::shared_ptr<World> &world);
-  CharacterId createCharacter(const ThreatLevel threat, const AttackType weaponAffinity = AttackType::UNDEFINED,
-                              const Race race = Race::UNDEFINED,
-                              const CharacterPrototype type = CharacterPrototype::UNDEFINED);
-  ItemId createEquipment(const EquipmentPrototype type = EquipmentPrototype::UNDEFINED);
-  ItemId createStaff(const StaffPrototype type = StaffPrototype::UNDEFINED);
-  ItemId createWeapon(const WeaponPrototype type = WeaponPrototype::UNDEFINED);
-  ItemId createConsumable(const ConsumablePrototype type, const Quantity quantity);
-  LocationId createConnector(const ConnectorPrototype type = ConnectorPrototype::UNDEFINED);
-  LocationId createBuilding(const BuildingPrototype type = BuildingPrototype::UNDEFINED);
-  LocationId createLocation(const ExteriorPrototype type = ExteriorPrototype::UNDEFINED);
-  StructureId createStructure(const StructurePrototype type = StructurePrototype::UNDEFINED);
+  CharacterId createCharacter(const ThreatLevel threat, AttackType weaponAffinity = AttackType::UNDEFINED,
+                              Race race = Race::UNDEFINED, CharacterPrototype type = CharacterPrototype::UNDEFINED);
+  ItemId createEquipment(EquipmentPrototype type = EquipmentPrototype::UNDEFINED);
+  ItemId createStaff(StaffPrototype type = StaffPrototype::UNDEFINED);
+  ItemId createWeapon(WeaponPrototype type = WeaponPrototype::UNDEFINED);
+  ItemId createConsumable(ConsumablePrototype type = ConsumablePrototype::UNDEFINED, const Quantity quantity = 1);
+  LocationId createConnector(ConnectorPrototype type = ConnectorPrototype::UNDEFINED);
+  LocationId createBuilding(BuildingPrototype type = BuildingPrototype::UNDEFINED);
+  LocationId createLocation(ExteriorPrototype type = ExteriorPrototype::UNDEFINED);
+  StructureId createStructure(StructurePrototype type = StructurePrototype::UNDEFINED);
   Stats growStats(ThreatLevel level, Stats stats);
 
 private:
   Stats characterStats(const Info info, const ThreatLevel threat);
   Stats rampupByOccupation(const CharacterPrototype occupation, Stats stats);
-  Stats rampupByClass(AttackType weaponAffinity, Stats stats);
-  Stats rampupByRace(Race race, Stats stats);
+  Stats rampupByClass(const AttackType weaponAffinity, Stats stats);
+  Stats rampupByRace(const Race race, Stats stats);
   Stats randomizeStats(Stats stats);
   constexpr Stats minimalStats();
 
