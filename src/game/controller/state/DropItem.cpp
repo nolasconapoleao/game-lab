@@ -6,7 +6,7 @@
 
 #include "controller/input/Input.h"
 #include "datatypes/state/Substate.h"
-#include "view/entity/StreamConverter.h"
+#include "view/entity/Converter.h"
 
 namespace controller {
 

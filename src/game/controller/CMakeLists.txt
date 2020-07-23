@@ -1,5 +1,4 @@
 add_subdirectory(event)
-add_subdirectory(input)
 add_subdirectory(state)
 
 target_sources(${PROJECT_NAME}

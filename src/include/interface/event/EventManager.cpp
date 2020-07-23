@@ -10,7 +10,7 @@
 #include "controller/state/Start.h"
 #include "datatypes/state/Substate.h"
 #include "datatypes/state/Transition.h"
-#include "view/entity/StreamConverter.h"
+#include "view/entity/Converter.h"
 
 namespace controller {
 

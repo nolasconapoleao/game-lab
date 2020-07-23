@@ -5,8 +5,9 @@
 #include <model/giga-brain/GigaBrain.h>
 #include <model/lookup/Lookup.h>
 
+#include "view/input/Signal_Handler.h"
+
 //#include "controller/GameEngine.h"
-#include "controller/input/Signal_Handler.h"
 
 // TODO: using namespace model;
 // TODO: using namespace view;

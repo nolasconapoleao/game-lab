@@ -5,4 +5,5 @@ target_sources(${PROJECT_NAME}
     PUBLIC
         # Headers
         ${CMAKE_CURRENT_SOURCE_DIR}/Input.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/Signal_Handler.h
 )

@@ -9,7 +9,7 @@
 #include "interface/state-machine/StateMachine.h"
 #include "model/handler/Handler.h"
 #include "view/Printer.h"
-#include "view/entity/StreamConverter.h"
+#include "view/entity/Converter.h"
 
 namespace controller {
 
