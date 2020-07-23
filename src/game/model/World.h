@@ -21,25 +21,25 @@ namespace model {
 class World {
 public:
   // Entity storage
-  static std::map<ResourceId, entity::Character> characters;
-  static std::map<ResourceId, entity::Consumable> consumables;
-  static std::map<ResourceId, entity::Equippable> equippables;
-  static std::map<ResourceId, entity::Exterior> exteriors;
-  static std::map<ResourceId, entity::Building> buildings;
-  static std::map<ResourceId, entity::Structure> structures;
-  static std::map<ResourceId, entity::Team> teams;
+  std::map<ResourceId, entity::Character> characters;
+  std::map<ResourceId, entity::Consumable> consumables;
+  std::map<ResourceId, entity::Equippable> equippables;
+  std::map<ResourceId, entity::Exterior> exteriors;
+  std::map<ResourceId, entity::Building> buildings;
+  std::map<ResourceId, entity::Structure> structures;
+  std::map<ResourceId, entity::Team> teams;
   // TODO: Add quests and events
 
   // Entity relationships
-  static std::multimap<LocationId, LocationId> neighbours;
-  static std::map<ItemId, ResourceId> possessions;
-  static std::map<ResourceId, LocationId> locatedIn;
-  static std::map<CharacterId, TeamId> memberships;
+  std::multimap<LocationId, LocationId> neighbours;
+  std::map<ItemId, ResourceId> possessions;
+  std::map<ResourceId, LocationId> locatedIn;
+  std::map<CharacterId, TeamId> memberships;
 
   // Resource names
-  static std::vector<std::string> characterNames;
-  static std::vector<std::string> locationNames;
-  static std::vector<std::string> teamNames;
+  std::vector<std::string> characterNames;
+  std::vector<std::string> locationNames;
+  std::vector<std::string> teamNames;
 
   friend class Cleaner;
   friend class Factory;

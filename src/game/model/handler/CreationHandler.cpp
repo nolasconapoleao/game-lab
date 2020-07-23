@@ -62,21 +62,9 @@ void Handler::fillLocation(const LocationId locationId, const ThreatLevel threat
 }
 
 void Handler::fillInventory(const CharacterId characterId, const ThreatLevel threat) {
-  auto itemId = factory->createConsumable();
-
+  ItemId itemId;
   switch (threat) {
-    case ThreatLevel::SCARECROW:
-      world->possessions.emplace(itemId, characterId);
-      [[fallthrough]];
-    case ThreatLevel::NOVICE:
-      itemId = factory->createWeapon();
-      world->possessions.emplace(itemId, characterId);
-      [[fallthrough]];
-    case ThreatLevel::ACE:
-      itemId = factory->createEquipment();
-      world->possessions.emplace(itemId, characterId);
-      [[fallthrough]];
-    case ThreatLevel::VETERAN:
+    case ThreatLevel::GOD:
       itemId = factory->createStaff();
       world->possessions.emplace(itemId, characterId);
       [[fallthrough]];
@@ -84,8 +72,20 @@ void Handler::fillInventory(const CharacterId characterId, const ThreatLevel thr
       itemId = factory->createStaff();
       world->possessions.emplace(itemId, characterId);
       [[fallthrough]];
-    case ThreatLevel::GOD:
+    case ThreatLevel::VETERAN:
       itemId = factory->createStaff();
+      world->possessions.emplace(itemId, characterId);
+      [[fallthrough]];
+    case ThreatLevel::ACE:
+      itemId = factory->createEquipment();
+      world->possessions.emplace(itemId, characterId);
+      [[fallthrough]];
+    case ThreatLevel::NOVICE:
+      itemId = factory->createWeapon();
+      world->possessions.emplace(itemId, characterId);
+      [[fallthrough]];
+    case ThreatLevel::SCARECROW:
+      itemId = factory->createConsumable();
       world->possessions.emplace(itemId, characterId);
       break;
   }

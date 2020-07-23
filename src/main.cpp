@@ -17,13 +17,13 @@ int main() {
   signal(SIGINT, Input::signal_callback_handler);
 
   // Model classes
-  model::World world;
-  model::Lookup lookup{std::make_shared<model::World>(world)};
-  model::Factory factory{std::make_shared<model::World>(world)};
-  model::Cleaner cleaner{std::make_shared<model::World>(world), std::make_shared<model::Lookup>(lookup)};
-  model::Handler handler{std::make_shared<model::World>(world), std::make_shared<model::Factory>(factory),
-                         std::make_shared<model::Cleaner>(cleaner), std::make_shared<model::Lookup>(lookup)};
-  model::GigaBrain gigaBrain{std::make_shared<model::Handler>(handler), {std::make_shared<model::Lookup>(lookup)}};
+  auto world = std::make_shared<model::World>();
+  auto lookup = std::make_shared<model::Lookup>(world);
+  auto factory = std::make_shared<model::Factory>(world);
+  auto cleaner = std::make_shared<model::Cleaner>(world, lookup);
+  auto handler = std::make_shared<model::Handler>(world, factory, cleaner, lookup);
+  auto gigaBrain = std::make_shared<model::GigaBrain>(handler, lookup);
+  handler->createWorld();
 
   // View classes
   //  view::Printer::setVerboseLevel(Verbose::INFO);

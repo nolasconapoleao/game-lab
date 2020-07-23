@@ -30,7 +30,7 @@ CharacterId Factory::createCharacter(const ThreatLevel threat, AttackType weapon
   Info info{0, Ghost::COMPUTER, race, weaponAffinity, type};
   entity::Character creation(Random::fromVec(world->characterNames), characterStats(info, threat), info);
 
-  world->characters.emplace(entityCounter++, creation);
+  world->characters.emplace(++entityCounter, creation);
   return entityCounter;
 }
 
