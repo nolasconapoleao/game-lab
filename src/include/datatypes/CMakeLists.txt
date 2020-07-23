@@ -1,8 +1,9 @@
-add_subdirectory(entity-aux)
 add_subdirectory(entity)
+add_subdirectory(entity-aux)
 add_subdirectory(event)
 add_subdirectory(factory)
 add_subdirectory(logger)
+add_subdirectory(lookup)
 add_subdirectory(state)
 
 target_sources(${PROJECT_NAME}

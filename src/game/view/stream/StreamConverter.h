@@ -4,6 +4,7 @@
 
 #pragma once
 
+#include <memory>
 #include <vector>
 
 #include "datatypes/entity/Building.h"
@@ -48,6 +49,11 @@ std::ostream &operator<<(std::ostream &os, const StatusEffect &value);
 std::ostream &operator<<(std::ostream &os, const StructureType &value);
 
 // Containers
+template <class T> std::ostream &operator<<(std::ostream &os, const std::shared_ptr<T> &value) {
+  os << *value.get();
+  return os;
+}
+
 template <class T> std::ostream &operator<<(std::ostream &os, const std::vector<T> &container) {
   for (const auto &it : container) {
     os << it << ", ";

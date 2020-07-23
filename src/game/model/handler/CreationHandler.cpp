@@ -16,6 +16,7 @@ void Handler::createWorld() {
   world->characters.find(playerId)->second.info.ghost = Ghost::PLAYER;
 
   auto seed = factory->createLocation();
+  world->locatedIn[playerId] = seed;
   auto newSeed = createNeighbour(seed, ThreatLevel::SCARECROW);
 
   for (auto k = 0; k < NUM_EXTERIORS; k++) {
@@ -56,7 +57,7 @@ void Handler::fillExterior(const LocationId locationId, const ThreatLevel threat
 void Handler::fillLocation(const LocationId locationId, const ThreatLevel threat) {
   for (auto k = 0; k < (Quantity)threat; k += 4) {
     auto characterId = factory->createCharacter(threat);
-    world->possessions.emplace(characterId, locationId);
+    world->locatedIn.emplace(characterId, locationId);
     fillInventory(characterId, threat);
   }
 }
@@ -66,27 +67,27 @@ void Handler::fillInventory(const CharacterId characterId, const ThreatLevel thr
   switch (threat) {
     case ThreatLevel::GOD:
       itemId = factory->createStaff();
-      world->possessions.emplace(itemId, characterId);
+      world->locatedIn.emplace(itemId, characterId);
       [[fallthrough]];
     case ThreatLevel::MONSTER:
       itemId = factory->createStaff();
-      world->possessions.emplace(itemId, characterId);
+      world->locatedIn.emplace(itemId, characterId);
       [[fallthrough]];
     case ThreatLevel::VETERAN:
       itemId = factory->createStaff();
-      world->possessions.emplace(itemId, characterId);
+      world->locatedIn.emplace(itemId, characterId);
       [[fallthrough]];
     case ThreatLevel::ACE:
       itemId = factory->createEquipment();
-      world->possessions.emplace(itemId, characterId);
+      world->locatedIn.emplace(itemId, characterId);
       [[fallthrough]];
     case ThreatLevel::NOVICE:
       itemId = factory->createWeapon();
-      world->possessions.emplace(itemId, characterId);
+      world->locatedIn.emplace(itemId, characterId);
       [[fallthrough]];
     case ThreatLevel::SCARECROW:
       itemId = factory->createConsumable();
-      world->possessions.emplace(itemId, characterId);
+      world->locatedIn.emplace(itemId, characterId);
       break;
   }
 }

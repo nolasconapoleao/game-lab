@@ -16,18 +16,18 @@ Cleaner::Cleaner(const std::shared_ptr<World> &world, std::shared_ptr<Lookup> lo
 void Cleaner::deleteCharacter(const CharacterId characterId) {
   world->characters.erase(characterId);
   for (auto itemEntry : lookup->itemsIn(characterId)) {
-    world->possessions.erase(itemEntry.id);
+    world->locatedIn.erase(itemEntry.id);
   }
 }
 
 void Cleaner::deleteEquipable(const ItemId equipableId) {
   world->equippables.erase(equipableId);
-  world->possessions.erase(equipableId);
+  world->locatedIn.erase(equipableId);
 }
 
 void Cleaner::deleteConsumable(const ItemId consumableId) {
   world->consumables.erase(consumableId);
-  world->possessions.erase(consumableId);
+  world->locatedIn.erase(consumableId);
 }
 
 void Cleaner::deleteLocation(const LocationId locationId) {
@@ -42,14 +42,14 @@ void Cleaner::deleteBuilding(const LocationId buildingId) {
 
 void Cleaner::deleteStructure(const StructureId structureId) {
   for (auto itemEntry : lookup->itemsIn(structureId)) {
-    world->possessions.erase(itemEntry.id);
+    world->locatedIn.erase(itemEntry.id);
   }
   world->structures.erase(structureId);
 }
 
 void Cleaner::cleanupLocation(const LocationId locationId) {
   for (auto itemEntry : lookup->itemsIn(locationId)) {
-    world->possessions.erase(itemEntry.id);
+    world->locatedIn.erase(itemEntry.id);
   }
 
   for (auto characterEntry : lookup->charactersIn(locationId)) {

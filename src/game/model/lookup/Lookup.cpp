@@ -8,172 +8,148 @@
 
 namespace model {
 
-Lookup::Lookup(const std::shared_ptr<World> &world) : world(std::move(world)) {
+Lookup::Lookup(const std::shared_ptr<World> &world) : world(world) {
 }
 
-const std::vector<ItemEntry> &Lookup::itemsIn(const ResourceId resourceId) {
+const std::vector<ItemEntry> Lookup::itemsIn(const ResourceId resourceId) {
   std::vector<ItemEntry> result;
-  const auto addConsumable = [this, &result](const auto &entry) {
+  const auto &consumables = consumablesIn(resourceId);
+  for (const auto &entry : consumables) {
     result.emplace_back(
         ItemEntry{entry.id, std::make_shared<entity::Consumable>(world->consumables.find(entry.id)->second)});
   };
-  const auto addEquippable = [this, &result](const auto &entry) {
+
+  const auto &equippables = equippablesIn(resourceId);
+  for (const auto &entry : equippables) {
     result.emplace_back(
         ItemEntry{entry.id, std::make_shared<entity::Equippable>(world->equippables.find(entry.id)->second)});
   };
-  const auto &consumables = consumablesIn(resourceId);
-  const auto &equippables = equippablesIn(resourceId);
-  std::for_each(consumables.begin(), consumables.end(), addConsumable);
-  std::for_each(equippables.begin(), equippables.end(), addEquippable);
-  return std::move(result);
+  return result;
 }
 
-const std::vector<ConsumableEntry> &Lookup::consumablesIn(const ResourceId resourceId) {
+const std::vector<ConsumableEntry> Lookup::consumablesIn(const ResourceId resourceId) {
   std::vector<ConsumableEntry> result;
-  const auto findItem = [this, &result, resourceId](const auto &entry) {
-    if (entry.second == resourceId) {
-      if (world->consumables.contains(resourceId)) {
-        result.emplace_back(ConsumableEntry{
-            entry.first, std::make_shared<entity::Consumable>(world->consumables.find(entry.second)->second)});
-      }
+  for (const auto &[itemId, ownerId] : world->locatedIn) {
+    if (ownerId == resourceId && CONSUMABLE == type(itemId)) {
+      result.emplace_back(
+          ConsumableEntry{itemId, std::make_shared<entity::Consumable>(world->consumables.find(itemId)->second)});
     }
-  };
-  std::for_each(world->possessions.begin(), world->possessions.end(), findItem);
-  return std::move(result);
+  }
+  return result;
 }
 
-const std::vector<EquippableEntry> &Lookup::equippablesIn(const ResourceId resourceId) {
+const std::vector<EquippableEntry> Lookup::equippablesIn(const ResourceId resourceId) {
   std::vector<EquippableEntry> result;
-  const auto findItem = [this, &result, resourceId](const auto &entry) {
-    if (entry.second == resourceId) {
-      if (world->equippables.contains(resourceId)) {
-        result.emplace_back(EquippableEntry{
-            entry.first, std::make_shared<entity::Equippable>(world->equippables.find(entry.second)->second)});
-      }
+  for (const auto &[itemId, ownerId] : world->locatedIn) {
+    if (ownerId == resourceId && EQUIPPABLE == type(itemId)) {
+      result.emplace_back(
+          EquippableEntry{itemId, std::make_shared<entity::Equippable>(world->equippables.find(itemId)->second)});
     }
-  };
-  std::for_each(world->possessions.begin(), world->possessions.end(), findItem);
-  return std::move(result);
+  }
+  return result;
 }
 
-const std::vector<CharacterEntry> &Lookup::charactersIn(const LocationId locationId) {
+const std::vector<CharacterEntry> Lookup::charactersIn(const LocationId locationId) {
   std::vector<CharacterEntry> result;
-  const auto findCharacter = [this, &result, locationId](const auto &entry) {
-    if (entry.second == locationId) {
-      result.emplace_back(CharacterEntry{
-          entry.first, std::make_shared<entity::Character>(world->characters.find(entry.second)->second)});
+  for (const auto &[resourceId, locatedInId] : world->locatedIn) {
+    if (locatedInId == locationId && CHARACTER == type(resourceId)) {
+      result.emplace_back(
+          CharacterEntry{resourceId, std::make_shared<entity::Character>(world->characters.find(resourceId)->second)});
     }
   };
-  std::for_each(world->locatedIn.begin(), world->locatedIn.end(), findCharacter);
-  return std::move(result);
+  return result;
 }
 
-const std::vector<StructureEntry> &Lookup::structuresIn(const LocationId locationId) {
+const std::vector<StructureEntry> Lookup::structuresIn(const LocationId locationId) {
   std::vector<StructureEntry> result;
-  const auto findStructure = [this, &result, locationId](const auto &entry) {
-    if (entry.second == locationId) {
-      result.emplace_back(StructureEntry{
-          entry.first, std::make_shared<entity::Structure>(world->structures.find(entry.second)->second)});
+  for (const auto &[resourceId, locatedInId] : world->locatedIn) {
+    if (locatedInId == locationId && STRUCTURE == type(resourceId)) {
+      result.emplace_back(
+          StructureEntry{resourceId, std::make_shared<entity::Structure>(world->structures.find(resourceId)->second)});
     }
   };
-  std::for_each(world->locatedIn.begin(), world->locatedIn.end(), findStructure);
-  return std::move(result);
+  return result;
 }
 
-const std::vector<ExteriorEntry> &Lookup::neighbourExteriors(LocationId locationId) {
+const std::vector<ExteriorEntry> Lookup::neighbourExteriors(LocationId locationId) {
   std::vector<ExteriorEntry> result;
-  const auto findNeighbour = [this, &result, locationId](const auto &entry) {
-    if (entry.first == locationId) {
-      if (world->exteriors.contains(locationId)) {
-        result.emplace_back(ExteriorEntry{
-            entry.second, std::make_shared<entity::Exterior>(world->exteriors.find(entry.first)->second)});
-      }
+  for (const auto &[startId, endId] : world->neighbours) {
+    if (endId == locationId && EXTERIOR == type(startId)) {
+      result.emplace_back(
+          ExteriorEntry{startId, std::make_shared<entity::Exterior>(world->exteriors.find(startId)->second)});
     }
   };
-  std::for_each(world->neighbours.begin(), world->neighbours.end(), findNeighbour);
-  return std::move(result);
+  return result;
 }
 
-const std::vector<BuildingEntry> &Lookup::neighbourBuildings(LocationId locationId) {
+const std::vector<BuildingEntry> Lookup::neighbourBuildings(LocationId locationId) {
   std::vector<BuildingEntry> result;
-  const auto findNeighbour = [this, &result, locationId](const auto &entry) {
-    if (entry.first == locationId) {
-      if (world->buildings.contains(locationId)) {
-        result.emplace_back(BuildingEntry{
-            entry.second, std::make_shared<entity::Building>(world->buildings.find(entry.first)->second)});
-      }
+  for (const auto &[startId, endId] : world->neighbours) {
+    if (endId == locationId && BUILDING == type(startId)) {
+      result.emplace_back(
+          BuildingEntry{startId, std::make_shared<entity::Building>(world->buildings.find(startId)->second)});
     }
   };
-  std::for_each(world->neighbours.begin(), world->neighbours.end(), findNeighbour);
-  return std::move(result);
+  return result;
 }
 
-const std::vector<LocationEntry> &Lookup::neighbourLocations(const LocationId locationId) {
-  std::vector<LocationEntry> result = neighbourStartingIn(locationId);
-  std::vector<LocationEntry> endsIn = neighboursEndingIn(locationId);
-  result.insert(std::end(result), std::begin(endsIn), std::end(endsIn));
-  return std::move(result);
-}
-
-const std::vector<LocationEntry> &Lookup::neighboursEndingIn(const LocationId locationId) {
+const std::vector<LocationEntry> Lookup::neighbourLocations(const LocationId locationId) {
   std::vector<LocationEntry> result;
-  const auto findNeighbour = [this, &result, locationId](const auto &entry) {
-    if (entry.second == locationId) {
-      if (world->exteriors.contains(locationId)) {
-        result.emplace_back(LocationEntry{
-            entry.first, std::make_shared<entity::Exterior>(world->exteriors.find(entry.second)->second)});
-      } else if (world->buildings.contains(locationId)) {
-        result.emplace_back(LocationEntry{
-            entry.first, std::make_shared<entity::Building>(world->buildings.find(entry.second)->second)});
-      }
-    }
+  const auto &buildings = neighbourBuildings(locationId);
+  for (const auto &entry : buildings) {
+    result.emplace_back(
+        LocationEntry{entry.id, std::make_shared<entity::Location>(world->buildings.find(entry.id)->second)});
   };
-  std::for_each(world->neighbours.begin(), world->neighbours.end(), findNeighbour);
-  return std::move(result);
-}
 
-const std::vector<LocationEntry> &Lookup::neighbourStartingIn(const LocationId locationId) {
-  std::vector<LocationEntry> result;
-  const auto addExterior = [this, &result](const auto &entry) {
-    result.emplace_back(
-        LocationEntry{entry.id, std::make_shared<entity::Exterior>(world->exteriors.find(entry.id)->second)});
-  };
-  const auto addBuilding = [this, &result](const auto &entry) {
-    result.emplace_back(
-        LocationEntry{entry.id, std::make_shared<entity::Building>(world->buildings.find(entry.id)->second)});
-  };
   const auto &exteriors = neighbourExteriors(locationId);
-  const auto &buildings = neighbourExteriors(locationId);
-  std::for_each(exteriors.begin(), exteriors.end(), addExterior);
-  std::for_each(buildings.begin(), buildings.end(), addBuilding);
-  return std::move(result);
+  for (const auto &entry : exteriors) {
+    result.emplace_back(
+        LocationEntry{entry.id, std::make_shared<entity::Location>(world->exteriors.find(entry.id)->second)});
+  };
+  return result;
 }
 
-const std::vector<LocationEntry> &Lookup::withinWalkingDistance(CharacterId characterId) {
+const std::vector<LocationEntry> Lookup::neighboursEndingIn(const LocationId locationId) {
+  std::vector<LocationEntry> result;
+  for (const auto &[startId, endId] : world->neighbours) {
+    if (endId == locationId) {
+      if (EXTERIOR == type(locationId)) {
+        result.emplace_back(
+            LocationEntry{startId, std::make_shared<entity::Exterior>(world->exteriors.find(endId)->second)});
+      } else if (BUILDING == type(locationId)) {
+        result.emplace_back(
+            LocationEntry{startId, std::make_shared<entity::Building>(world->buildings.find(endId)->second)});
+      }
+    }
+  };
+  return result;
+}
+
+const std::vector<LocationEntry> Lookup::withinWalkingDistance(CharacterId characterId) {
   const auto locationId = world->locatedIn[characterId];
-  return neighbourStartingIn(locationId);
+  return neighbourLocations(locationId);
 }
 
-const std::vector<CharacterEntry> &Lookup::closeByCharacters(CharacterId characterId) {
+const std::vector<CharacterEntry> Lookup::closeByCharacters(CharacterId characterId) {
   const auto locationId = world->locatedIn[characterId];
   auto characters = charactersIn(locationId);
   std::erase_if(characters, [characterId](const auto &character) { return character.id == characterId; });
   return characters;
 }
 
-const std::vector<StructureEntry> &Lookup::closeByStructures(CharacterId characterId) {
+const std::vector<StructureEntry> Lookup::closeByStructures(CharacterId characterId) {
   const auto locationId = world->locatedIn[characterId];
   return structuresIn(locationId);
 }
 
-const std::vector<BuildingEntry> &Lookup::closeByBuildings(CharacterId characterId) {
+const std::vector<BuildingEntry> Lookup::closeByBuildings(CharacterId characterId) {
   const auto locationId = world->locatedIn[characterId];
   return neighbourBuildings(locationId);
 }
 
 std::optional<ItemId> Lookup::consumableTypeIn(ResourceId resourceId, ConsumableType type) {
   const auto findConsumable = [this, resourceId, type](const auto &entry) {
-    if (entry.second.type == type && world->possessions[entry.first] == resourceId) {
+    if (entry.second.type == type && world->locatedIn[entry.first] == resourceId) {
       return entry.first;
     }
   };
@@ -181,20 +157,22 @@ std::optional<ItemId> Lookup::consumableTypeIn(ResourceId resourceId, Consumable
   return {};
 }
 
-bool Lookup::isEquippable(ItemId itemId) {
-  return world->equippables.contains(itemId);
-}
-
-bool Lookup::isConsumable(ItemId itemId) {
-  return world->consumables.contains(itemId);
-}
-
-bool Lookup::isExterior(LocationId locationId) {
-  return world->exteriors.contains(locationId);
-}
-
-bool Lookup::isBuilding(LocationId locationId) {
-  return world->buildings.contains(locationId);
+ResourceType Lookup::type(const ResourceId resourceId) {
+  if (world->equippables.contains(resourceId)) {
+    return ResourceType::EQUIPPABLE;
+  } else if (world->consumables.contains(resourceId)) {
+    return ResourceType::CONSUMABLE;
+  } else if (world->exteriors.contains(resourceId)) {
+    return ResourceType::EXTERIOR;
+  } else if (world->buildings.contains(resourceId)) {
+    return ResourceType::BUILDING;
+  } else if (world->characters.contains(resourceId)) {
+    return ResourceType::CHARACTER;
+  } else if (world->structures.contains(resourceId)) {
+    return ResourceType::STRUCTURE;
+  } else if (world->teams.contains(resourceId)) {
+    return ResourceType::TEAM;
+  }
 }
 
 const std::shared_ptr<entity::Character> &Lookup::character(CharacterId characterId) {

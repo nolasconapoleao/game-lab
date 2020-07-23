@@ -29,7 +29,7 @@ void Handler::pickupItem(const ItemId itemId, const CharacterId characterId, Qua
 
 void Handler::stealItem(const ItemId itemId, const CharacterId roberId) {
   const auto &robber = world->characters.find(roberId)->second;
-  const auto &robbedId = world->possessions.find(itemId)->second;
+  const auto &robbedId = world->locatedIn.find(itemId)->second;
   const auto &robbed = world->characters.find(robbedId)->second;
   const auto robberyResult = compare(robber.stats().ste, robbed.stats().inte);
 
@@ -39,13 +39,13 @@ void Handler::stealItem(const ItemId itemId, const CharacterId roberId) {
 }
 
 void Handler::useItem(const CharacterId characterId, const ItemId itemId) {
-  if (lookup->isConsumable(itemId)) {
+  if (CONSUMABLE == lookup->type(itemId)) {
     auto &consumable = world->consumables.find(itemId)->second;
     if (!consumable.consumed) {
       consumable.consumed = true;
       applyItemEffect(itemId);
     }
-  } else if (lookup->isEquippable(itemId)) {
+  } else if (EQUIPPABLE == lookup->type(itemId)) {
     auto &equipable = world->equippables.find(itemId)->second;
     if (equipable.equipped) {
       equipable.equipped = false;
@@ -58,7 +58,7 @@ void Handler::useItem(const CharacterId characterId, const ItemId itemId) {
 }
 
 void Handler::depleteItem(const ItemId itemId) {
-  if (lookup->isConsumable(itemId)) {
+  if (CONSUMABLE == lookup->type(itemId)) {
     auto &consumable = world->consumables.find(itemId)->second;
     if (consumable.consumed) {
       consumable.duration--;
@@ -66,7 +66,7 @@ void Handler::depleteItem(const ItemId itemId) {
     if (consumable.duration) {
       consumable.quantity--;
     }
-  } else if (lookup->isEquippable(itemId)) {
+  } else if (EQUIPPABLE == lookup->type(itemId)) {
     auto &equipable = world->equippables.find(itemId)->second;
     if (equipable.equipped) {
       equipable.uses--;
@@ -90,7 +90,7 @@ void Handler::characterItemDepletion(const CharacterId characterId) {
 }
 
 void Handler::applyItemEffect(ItemId itemId) {
-  const auto itemOwner = world->possessions.find(itemId)->second;
+  const auto itemOwner = world->locatedIn.find(itemId)->second;
   if (world->characters.contains(itemOwner)) {
     auto &character = world->characters.find(itemOwner)->second;
     character.temp = character.temp + lookup->item(itemId)->effect;
@@ -98,7 +98,7 @@ void Handler::applyItemEffect(ItemId itemId) {
 }
 
 void Handler::revertItemEffect(ItemId itemId) {
-  const auto itemOwner = world->possessions.find(itemId)->second;
+  const auto itemOwner = world->locatedIn.find(itemId)->second;
   if (world->characters.contains(itemOwner)) {
     auto &character = world->characters.find(itemOwner)->second;
     character.temp = character.temp - lookup->item(itemId)->effect;

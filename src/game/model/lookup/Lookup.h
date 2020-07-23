@@ -14,6 +14,7 @@
 #include "datatypes/entity/Exterior.h"
 #include "datatypes/entity/Structure.h"
 #include "datatypes/entity/Team.h"
+#include "datatypes/lookup/ResourceType.h"
 #include "interface/entity/Item.h"
 #include "interface/entity/Location.h"
 
@@ -62,27 +63,23 @@ class World;
 class Lookup {
 public:
   Lookup(const std::shared_ptr<World> &world);
-  const std::vector<ItemEntry> &itemsIn(const ResourceId resourceId);
-  const std::vector<ConsumableEntry> &consumablesIn(const ResourceId resourceId);
-  const std::vector<EquippableEntry> &equippablesIn(const ResourceId resourceId);
-  const std::vector<CharacterEntry> &charactersIn(const LocationId locationId);
-  const std::vector<StructureEntry> &structuresIn(const LocationId locationId);
-  const std::vector<ExteriorEntry> &neighbourExteriors(const LocationId locationId);
-  const std::vector<BuildingEntry> &neighbourBuildings(const LocationId locationId);
-  const std::vector<LocationEntry> &neighbourLocations(const LocationId locationId);
-  const std::vector<LocationEntry> &neighboursEndingIn(const LocationId locationId);
-  const std::vector<LocationEntry> &neighbourStartingIn(const LocationId locationId);
+  const std::vector<ItemEntry> itemsIn(const ResourceId resourceId);
+  const std::vector<ConsumableEntry> consumablesIn(const ResourceId resourceId);
+  const std::vector<EquippableEntry> equippablesIn(const ResourceId resourceId);
+  const std::vector<CharacterEntry> charactersIn(const LocationId locationId);
+  const std::vector<StructureEntry> structuresIn(const LocationId locationId);
+  const std::vector<ExteriorEntry> neighbourExteriors(const LocationId locationId);
+  const std::vector<BuildingEntry> neighbourBuildings(const LocationId locationId);
+  const std::vector<LocationEntry> neighbourLocations(const LocationId locationId);
+  const std::vector<LocationEntry> neighboursEndingIn(const LocationId locationId);
 
-  const std::vector<LocationEntry> &withinWalkingDistance(const CharacterId characterId);
-  const std::vector<CharacterEntry> &closeByCharacters(const CharacterId characterId);
-  const std::vector<StructureEntry> &closeByStructures(const CharacterId characterId);
-  const std::vector<BuildingEntry> &closeByBuildings(const CharacterId characterId);
+  const std::vector<LocationEntry> withinWalkingDistance(const CharacterId characterId);
+  const std::vector<CharacterEntry> closeByCharacters(const CharacterId characterId);
+  const std::vector<StructureEntry> closeByStructures(const CharacterId characterId);
+  const std::vector<BuildingEntry> closeByBuildings(const CharacterId characterId);
 
   std::optional<ItemId> consumableTypeIn(const ResourceId resourceId, const ConsumableType type);
-  bool isEquippable(const ItemId itemId);
-  bool isConsumable(const ItemId itemId);
-  bool isExterior(const LocationId locationId);
-  bool isBuilding(const LocationId locationId);
+  ResourceType type(const ResourceId resourceId);
 
   const std::shared_ptr<entity::Character> &character(const CharacterId characterId);
   const std::shared_ptr<entity::Item> &item(const ItemId itemId);

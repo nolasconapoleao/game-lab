@@ -12,16 +12,16 @@
 namespace model {
 
 void Handler::transferItem(const ItemId itemId, const ResourceId destinationId, Quantity quantity) {
-  if (lookup->isConsumable(itemId)) {
+  if (CONSUMABLE == lookup->type(itemId)) {
     auto &consumable = world->consumables.find(itemId)->second;
     if (consumable.consumed) {
       destroyItem(itemId);
     }
     stackConsumable(itemId, destinationId, quantity);
-  } else if (lookup->isEquippable(itemId)) {
+  } else if (EQUIPPABLE == lookup->type(itemId)) {
     auto &equipable = world->equippables.find(itemId)->second;
     equipable.equipped = false;
-    world->possessions[itemId] = destinationId;
+    world->locatedIn[itemId] = destinationId;
   }
 }
 
@@ -36,10 +36,10 @@ void Handler::stackConsumable(const ItemId itemId, const ResourceId destinationI
     }
   } else {
     if (consumable.quantity == quantity) {
-      world->possessions[itemId] = destinationId;
+      world->locatedIn[itemId] = destinationId;
     } else {
       const auto newItemId = factory->createConsumable(consumable.type, quantity);
-      world->possessions.emplace(newItemId, destinationId);
+      world->locatedIn.emplace(newItemId, destinationId);
     }
   }
 }

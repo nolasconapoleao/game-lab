@@ -32,8 +32,7 @@ public:
 
   // Entity relationships
   std::multimap<LocationId, LocationId> neighbours;
-  std::map<ItemId, ResourceId> possessions;
-  std::map<ResourceId, LocationId> locatedIn;
+  std::map<ResourceId, ResourceId> locatedIn;
   std::map<CharacterId, TeamId> memberships;
 
   // Resource names

@@ -19,7 +19,7 @@ void Handler::destroyWorld() {
   world->teams.clear();
 
   world->neighbours.clear();
-  world->possessions.clear();
+  world->locatedIn.clear();
   world->locatedIn.clear();
   world->memberships.clear();
 }
@@ -55,9 +55,9 @@ void Handler::killCharacter(CharacterId characterId) {
 }
 
 void Handler::destroyItem(ItemId itemId) {
-  if (lookup->isConsumable(itemId)) {
+  if (CONSUMABLE == lookup->type(itemId)) {
     cleaner->deleteConsumable(itemId);
-  } else if (lookup->isEquippable(itemId)) {
+  } else if (EQUIPPABLE == lookup->type(itemId)) {
     cleaner->deleteEquipable(itemId);
   }
 }
