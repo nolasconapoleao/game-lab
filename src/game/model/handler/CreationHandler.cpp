@@ -11,6 +11,10 @@ namespace model {
 constexpr Quantity NUM_EXTERIORS = 3;
 
 void Handler::createWorld() {
+  auto playerId = factory->createCharacter(ThreatLevel::NOVICE);
+  fillInventory(playerId, ThreatLevel::NOVICE);
+  world->characters.find(playerId)->second.info.ghost = Ghost::PLAYER;
+
   auto seed = factory->createLocation();
   auto newSeed = createNeighbour(seed, ThreatLevel::SCARECROW);
 

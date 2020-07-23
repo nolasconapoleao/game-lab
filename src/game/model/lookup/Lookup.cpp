@@ -8,7 +8,7 @@
 
 namespace model {
 
-Lookup::Lookup(const std::shared_ptr<World> &world) : world(world) {
+Lookup::Lookup(const std::shared_ptr<World> &world) : world(std::move(world)) {
 }
 
 const std::vector<ItemEntry> &Lookup::itemsIn(const ResourceId resourceId) {

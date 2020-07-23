@@ -13,7 +13,7 @@ using namespace Random;
 namespace model {
 
 GigaBrain::GigaBrain(const std::shared_ptr<model::Handler> &handler, const std::shared_ptr<model::Lookup> &lookup)
-    : handler(handler), lookup(lookup) {
+    : handler(std::move(handler)), lookup(std::move(lookup)) {
 }
 
 void GigaBrain::characterThink(const CharacterId characterId) {
