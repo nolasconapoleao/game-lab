@@ -19,14 +19,10 @@ public:
   void characterThink(const CharacterId characterId);
 
 private:
-  void beggarThink(const CharacterId characterId);
-  void blacksmithThink(const CharacterId characterId);
-  void jesterThink(const CharacterId characterId);
-  void librarianThink(const CharacterId characterId);
-  void mercenaryThink(const CharacterId characterId);
-  void shopkeeperThink(const CharacterId characterId);
-  void thiefThink(const CharacterId characterId);
-  void touristThink(const CharacterId characterId);
+  bool attackThought(const CharacterId characterId);
+  bool inventoryThought(const CharacterId characterId);
+  bool thiefThought(const CharacterId characterId);
+  bool touristThought(const CharacterId characterId);
   std::shared_ptr<Handler> handler;
   std::shared_ptr<Lookup> lookup;
 };

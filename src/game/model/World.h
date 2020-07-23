@@ -11,7 +11,7 @@
 #include "datatypes/entity/Building.h"
 #include "datatypes/entity/Character.h"
 #include "datatypes/entity/Consumable.h"
-#include "datatypes/entity/Equipable.h"
+#include "datatypes/entity/Equippable.h"
 #include "datatypes/entity/Exterior.h"
 #include "datatypes/entity/Structure.h"
 #include "datatypes/entity/Team.h"
@@ -23,7 +23,7 @@ public:
   // Entity storage
   std::map<ResourceId, entity::Character> characters;
   std::map<ResourceId, entity::Consumable> consumables;
-  std::map<ResourceId, entity::Equipable> equipables;
+  std::map<ResourceId, entity::Equippable> equippables;
   std::map<ResourceId, entity::Exterior> exteriors;
   std::map<ResourceId, entity::Building> buildings;
   std::map<ResourceId, entity::Structure> structures;

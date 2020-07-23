@@ -12,14 +12,14 @@
 namespace model {
 
 void Handler::transferItem(const ItemId itemId, const ResourceId destinationId, Quantity quantity) {
-  if (world->consumables.contains(itemId)) {
+  if (lookup->isConsumable(itemId)) {
     auto &consumable = world->consumables.find(itemId)->second;
     if (consumable.consumed) {
       destroyItem(itemId);
     }
     stackConsumable(itemId, destinationId, quantity);
-  } else if (world->equipables.contains(itemId)) {
-    auto &equipable = world->equipables.find(itemId)->second;
+  } else if (lookup->isEquippable(itemId)) {
+    auto &equipable = world->equippables.find(itemId)->second;
     equipable.equipped = false;
     world->possessions[itemId] = destinationId;
   }

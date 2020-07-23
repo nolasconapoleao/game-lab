@@ -13,7 +13,7 @@ namespace model {
 
 void Handler::dropItem(const ItemId itemId, const ResourceId locationId, Quantity quantity) {
   if (0 == quantity) {
-    quantity = getItem(itemId)->quantity;
+    quantity = lookup->item(itemId)->quantity;
   }
 
   transferItem(itemId, locationId, quantity);
@@ -21,21 +21,32 @@ void Handler::dropItem(const ItemId itemId, const ResourceId locationId, Quantit
 
 void Handler::pickupItem(const ItemId itemId, const CharacterId characterId, Quantity quantity) {
   if (0 == quantity) {
-    quantity = getItem(itemId)->quantity;
+    quantity = lookup->item(itemId)->quantity;
   }
 
   transferItem(itemId, characterId, quantity);
 }
 
+void Handler::stealItem(const ItemId itemId, const CharacterId roberId) {
+  const auto &robber = world->characters.find(roberId)->second;
+  const auto &robbedId = world->possessions.find(itemId)->second;
+  const auto &robbed = world->characters.find(robbedId)->second;
+  const auto robberyResult = compare(robber.stats().ste, robbed.stats().inte);
+
+  if (robberyResult > 0) {
+    transferItem(itemId, roberId, lookup->item(itemId)->quantity);
+  }
+}
+
 void Handler::useItem(const CharacterId characterId, const ItemId itemId) {
-  if (world->consumables.contains(itemId)) {
+  if (lookup->isConsumable(itemId)) {
     auto &consumable = world->consumables.find(itemId)->second;
     if (!consumable.consumed) {
       consumable.consumed = true;
       applyItemEffect(itemId);
     }
-  } else if (world->equipables.contains(itemId)) {
-    auto &equipable = world->equipables.find(itemId)->second;
+  } else if (lookup->isEquippable(itemId)) {
+    auto &equipable = world->equippables.find(itemId)->second;
     if (equipable.equipped) {
       equipable.equipped = false;
       revertItemEffect(itemId);
@@ -47,7 +58,7 @@ void Handler::useItem(const CharacterId characterId, const ItemId itemId) {
 }
 
 void Handler::depleteItem(const ItemId itemId) {
-  if (world->consumables.contains(itemId)) {
+  if (lookup->isConsumable(itemId)) {
     auto &consumable = world->consumables.find(itemId)->second;
     if (consumable.consumed) {
       consumable.duration--;
@@ -55,8 +66,8 @@ void Handler::depleteItem(const ItemId itemId) {
     if (consumable.duration) {
       consumable.quantity--;
     }
-  } else if (world->equipables.contains(itemId)) {
-    auto &equipable = world->equipables.find(itemId)->second;
+  } else if (lookup->isEquippable(itemId)) {
+    auto &equipable = world->equippables.find(itemId)->second;
     if (equipable.equipped) {
       equipable.uses--;
     }
@@ -66,7 +77,7 @@ void Handler::depleteItem(const ItemId itemId) {
     equipable.equipped = !equipable.equipped;
   }
 
-  if (getItem(itemId)->quantity == 0) {
+  if (lookup->item(itemId)->quantity == 0) {
     revertItemEffect(itemId);
     destroyItem(itemId);
   }
@@ -82,7 +93,7 @@ void Handler::applyItemEffect(ItemId itemId) {
   const auto itemOwner = world->possessions.find(itemId)->second;
   if (world->characters.contains(itemOwner)) {
     auto &character = world->characters.find(itemOwner)->second;
-    character.temp = character.temp + getItem(itemId)->effect;
+    character.temp = character.temp + lookup->item(itemId)->effect;
   }
 }
 
@@ -90,7 +101,7 @@ void Handler::revertItemEffect(ItemId itemId) {
   const auto itemOwner = world->possessions.find(itemId)->second;
   if (world->characters.contains(itemOwner)) {
     auto &character = world->characters.find(itemOwner)->second;
-    character.temp = character.temp - getItem(itemId)->effect;
+    character.temp = character.temp - lookup->item(itemId)->effect;
   }
 }
 

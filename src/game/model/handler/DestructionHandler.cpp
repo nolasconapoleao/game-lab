@@ -12,7 +12,7 @@ namespace model {
 void Handler::destroyWorld() {
   world->characters.clear();
   world->consumables.clear();
-  world->equipables.clear();
+  world->equippables.clear();
   world->exteriors.clear();
   world->buildings.clear();
   world->structures.clear();
@@ -27,18 +27,23 @@ void Handler::destroyWorld() {
 void Handler::demolishBuilding(const LocationId buildingId) {
   for (auto &character : lookup->charactersIn(buildingId)) {
     killCharacter(character.id);
-    cleaner->deleteCharacter(character.id);
   };
 
   for (auto &item : lookup->itemsIn(buildingId)) {
     transferItem(item.id, world->locatedIn[buildingId], 0);
   };
+
+  for (auto &structure : lookup->structuresIn(buildingId)) {
+    demolishStructure(structure.id);
+  };
+  cleaner->deleteBuilding(buildingId);
 }
 
 void Handler::demolishStructure(const StructureId structureId) {
   for (auto &item : lookup->itemsIn(structureId)) {
     transferItem(item.id, world->locatedIn[structureId], 0);
   };
+  cleaner->deleteStructure(structureId);
 }
 
 void Handler::killCharacter(CharacterId characterId) {
@@ -46,12 +51,13 @@ void Handler::killCharacter(CharacterId characterId) {
   for (auto &item : lookup->itemsIn(characterId)) {
     transferItem(item.id, world->locatedIn[characterId], 0);
   };
+  cleaner->deleteCharacter(characterId);
 }
 
 void Handler::destroyItem(ItemId itemId) {
-  if (world->consumables.contains(itemId)) {
+  if (lookup->isConsumable(itemId)) {
     cleaner->deleteConsumable(itemId);
-  } else if (world->equipables.contains(itemId)) {
+  } else if (lookup->isEquippable(itemId)) {
     cleaner->deleteEquipable(itemId);
   }
 }

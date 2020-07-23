@@ -20,7 +20,7 @@ void Cleaner::deleteCharacter(const CharacterId characterId) {
 }
 
 void Cleaner::deleteEquipable(const ItemId equipableId) {
-  world->equipables.erase(equipableId);
+  world->equippables.erase(equipableId);
   world->possessions.erase(equipableId);
 }
 
@@ -30,20 +30,20 @@ void Cleaner::deleteConsumable(const ItemId consumableId) {
 }
 
 void Cleaner::deleteLocation(const LocationId locationId) {
-  world->exteriors.erase(locationId);
   cleanupLocation(locationId);
+  world->exteriors.erase(locationId);
 }
 
 void Cleaner::deleteBuilding(const LocationId buildingId) {
-  world->buildings.erase(buildingId);
   cleanupLocation(buildingId);
+  world->buildings.erase(buildingId);
 }
 
 void Cleaner::deleteStructure(const StructureId structureId) {
-  world->structures.erase(structureId);
   for (auto itemEntry : lookup->itemsIn(structureId)) {
     world->possessions.erase(itemEntry.id);
   }
+  world->structures.erase(structureId);
 }
 
 void Cleaner::cleanupLocation(const LocationId locationId) {

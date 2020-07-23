@@ -45,6 +45,8 @@ void Handler::fillExterior(const LocationId locationId, const ThreatLevel threat
     world->locatedIn.emplace(locationId, interiorId);
     world->locatedIn.emplace(interiorId, locationId);
   }
+  auto structureId = factory->createStructure();
+  world->locatedIn.emplace(structureId, locationId);
 }
 
 void Handler::fillLocation(const LocationId locationId, const ThreatLevel threat) {
@@ -67,7 +69,7 @@ void Handler::fillInventory(const CharacterId characterId, const ThreatLevel thr
       world->possessions.emplace(itemId, characterId);
       [[fallthrough]];
     case ThreatLevel::ACE:
-      itemId = factory->createConsumable();
+      itemId = factory->createEquipment();
       world->possessions.emplace(itemId, characterId);
       [[fallthrough]];
     case ThreatLevel::VETERAN:
