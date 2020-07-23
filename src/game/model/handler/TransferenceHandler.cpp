@@ -7,28 +7,40 @@
 #include "libs/random/Random.h"
 #include "model/World.h"
 #include "model/factory/Factory.h"
+#include "model/lookup/Lookup.h"
 
 namespace model {
 
-// TODO: consumables should stack
-void Handler::transferItem(const ItemId itemId, const ResourceId resourceId, Quantity quantity) {
+void Handler::transferItem(const ItemId itemId, const ResourceId destinationId, Quantity quantity) {
   if (world->consumables.contains(itemId)) {
     auto &consumable = world->consumables.find(itemId)->second;
     if (consumable.consumed) {
       destroyItem(itemId);
     }
-
-    if (consumable.quantity == quantity) {
-      world->possessions[itemId] = resourceId;
-    } else {
-      // TODO: add type to parameters
-      // factory->createConsumable(consumable.type, quantity);
-      consumable.quantity = gamemath::cSub(consumable.quantity, quantity);
-    }
+    stackConsumable(itemId, destinationId, quantity);
   } else if (world->equipables.contains(itemId)) {
     auto &equipable = world->equipables.find(itemId)->second;
     equipable.equipped = false;
-    world->possessions[itemId] = resourceId;
+    world->possessions[itemId] = destinationId;
+  }
+}
+
+void Handler::stackConsumable(const ItemId itemId, const ResourceId destinationId, Quantity quantity) {
+  auto &consumable = world->consumables.find(itemId)->second;
+  auto foundItemId = lookup->consumableTypeIn(destinationId, consumable.type);
+  if (foundItemId.has_value()) {
+    auto &foundItem = world->consumables.find(foundItemId.value())->second;
+    foundItem.quantity = gamemath::cAdd(foundItem.quantity, quantity);
+    if (consumable.quantity == quantity) {
+      destroyItem(itemId);
+    }
+  } else {
+    if (consumable.quantity == quantity) {
+      world->possessions[itemId] = destinationId;
+    } else {
+      const auto newItemId = factory->createConsumable(consumable.type, quantity);
+      world->possessions.emplace(newItemId, destinationId);
+    }
   }
 }
 

@@ -54,8 +54,13 @@ ItemId Factory::createConsumable(ConsumableType type, const Quantity quantity) {
   }
 
   ItemEffect specs = consumableSpecs(type);
-  entity::Consumable creation{
-      Random::fromVec(world->characterNames) + "'s " + magic_enum::enum_name(type).data(), specs, quantity, 1, 3, 2};
+  entity::Consumable creation{Random::fromVec(world->characterNames) + "'s " + magic_enum::enum_name(type).data(),
+                              specs,
+                              quantity,
+                              1,
+                              3,
+                              type,
+                              2};
 
   world->consumables.emplace(entityCounter++, creation);
   return entityCounter;
@@ -91,7 +96,7 @@ ItemEffect Factory::staffSpecs(const StaffType type) {
       specs.mana = 5;
       break;
   }
-  specs.ran = 2;
+  specs.ran = 1;
   return specs;
 }
 

@@ -4,6 +4,7 @@
 
 #pragma once
 
+#include "datatypes/entity-aux/ConsumableType.h"
 #include "interface/entity/Item.h"
 
 namespace entity {
@@ -11,8 +12,9 @@ namespace entity {
 class Consumable : public Item {
 public:
   Consumable(const std::string &name, const ItemEffect &effect, Quantity quantity, Number unitWeight, Number unitPrice,
-             Quantity duration);
+             ConsumableType type, Quantity duration);
 
+  ConsumableType type;
   Quantity duration;
   bool consumed;
 };

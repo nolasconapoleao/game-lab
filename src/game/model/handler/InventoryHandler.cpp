@@ -3,8 +3,11 @@
 //
 
 #include "Handler.h"
+#include "libs/math/gamemath.h"
 #include "model/World.h"
 #include "model/lookup/Lookup.h"
+
+using namespace gamemath;
 
 namespace model {
 
@@ -27,10 +30,19 @@ void Handler::pickupItem(const ItemId itemId, const CharacterId characterId, Qua
 void Handler::useItem(const CharacterId characterId, const ItemId itemId) {
   if (world->consumables.contains(itemId)) {
     auto &consumable = world->consumables.find(itemId)->second;
-    consumable.consumed = true;
+    if (!consumable.consumed) {
+      consumable.consumed = true;
+      applyItemEffect(itemId);
+    }
   } else if (world->equipables.contains(itemId)) {
     auto &equipable = world->equipables.find(itemId)->second;
-    equipable.equipped = !equipable.equipped;
+    if (equipable.equipped) {
+      equipable.equipped = false;
+      revertItemEffect(itemId);
+    } else {
+      equipable.equipped = true;
+      applyItemEffect(itemId);
+    }
   }
 }
 
@@ -55,7 +67,30 @@ void Handler::depleteItem(const ItemId itemId) {
   }
 
   if (getItem(itemId)->quantity == 0) {
+    revertItemEffect(itemId);
     destroyItem(itemId);
+  }
+}
+
+void Handler::characterItemDepletion(const CharacterId characterId) {
+  for (auto &item : lookup->itemsIn(characterId)) {
+    depleteItem(item.id);
+  };
+}
+
+void Handler::applyItemEffect(ItemId itemId) {
+  const auto itemOwner = world->possessions.find(itemId)->second;
+  if (world->characters.contains(itemOwner)) {
+    auto &character = world->characters.find(itemOwner)->second;
+    character.temp = character.temp + getItem(itemId)->effect;
+  }
+}
+
+void Handler::revertItemEffect(ItemId itemId) {
+  const auto itemOwner = world->possessions.find(itemId)->second;
+  if (world->characters.contains(itemOwner)) {
+    auto &character = world->characters.find(itemOwner)->second;
+    character.temp = character.temp - getItem(itemId)->effect;
   }
 }
 

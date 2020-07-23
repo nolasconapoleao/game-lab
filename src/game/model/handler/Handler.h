@@ -35,6 +35,7 @@ public:
   void pickupItem(const ItemId itemId, const CharacterId characterId, const Quantity quantity = 0);
   void useItem(const CharacterId characterId, const ItemId itemId);
   void depleteItem(const ItemId itemId);
+  void characterItemDepletion(const CharacterId characterId);
 
   void buyItem(const ItemId itemId, const CharacterId buyerId, Quantity quantity = 0);
   void sellItem(const ItemId itemId, const CharacterId sellerId, Quantity quantity = 0);
@@ -54,7 +55,10 @@ private:
   void fillExterior(const LocationId locationId, const ThreatLevel threat);
   LocationId createNeighbour(const LocationId locationId, const ThreatLevel threat);
 
-  void transferItem(const ItemId itemId, const ResourceId resourceId, const Quantity quantity);
+  void transferItem(const ItemId itemId, const ResourceId destinationId, Quantity quantity);
+  void stackConsumable(const ItemId itemId, const ResourceId destinationId, Quantity quantity);
+  void applyItemEffect(const ItemId itemId);
+  void revertItemEffect(const ItemId itemId);
   void transferMoney(const CharacterId originId, const CharacterId destinationId, Number amount);
   Quantity maximumBuyable(const CharacterId characterId, const ItemId itemId);
   int compare(const Quantity attacker, const Quantity defender);

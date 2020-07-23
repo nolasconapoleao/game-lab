@@ -4,6 +4,8 @@
 
 #pragma once
 
+#include "datatypes/GameTypes.h"
+
 enum class BuildingType : Quantity {
   ARENA,
   BARN,

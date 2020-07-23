@@ -45,8 +45,8 @@ Quantity cMult(Quantity num, Quantity mult, Quantity upperBound = std::numeric_l
  */
 Quantity diff(Quantity num1, Quantity num2);
 
-ItemEffect operator+(const ItemEffect &a1, ItemEffect &a2);
-ItemEffect operator-(const ItemEffect &effect, ItemEffect &subtraction);
+ItemEffect operator+(ItemEffect &a1, const ItemEffect &a2);
+ItemEffect operator-(ItemEffect &effect, const ItemEffect &subtraction);
 Stats operator*(Stats &base, Quantity multiplier);
 
 /**

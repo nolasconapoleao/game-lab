@@ -5,14 +5,16 @@
 #pragma once
 
 #include "datatypes/GameTypes.h"
+#include "datatypes/entity-aux/StructureType.h"
 #include "interface/entity/Entity.h"
 
 namespace entity {
 
 class Structure : public Entity {
 public:
-  Structure(const std::string &name, const Size &size);
+  Structure(const std::string &name, StructureType type, const Size &size);
 
+  StructureType type;
   Number health;
   Size size;
 };

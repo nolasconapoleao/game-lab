@@ -27,8 +27,8 @@ LocationId Factory::createBuilding(BuildingType type) {
   }
 
   auto [size, floors] = buildingSpecs(type);
-  entity::Building creation{Random::fromVec(world->locationNames) + " " + magic_enum::enum_name(type).data(), size,
-                            floors};
+  entity::Building creation{Random::fromVec(world->locationNames) + " " + magic_enum::enum_name(type).data(), type,
+                            size, floors};
 
   world->buildings.emplace(entityCounter++, creation);
   return entityCounter;

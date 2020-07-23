@@ -46,7 +46,7 @@ Quantity diff(Quantity num1, Quantity num2) {
   return abs(num1 - num2);
 }
 
-ItemEffect operator+(ItemEffect &a1, ItemEffect &a2) {
+ItemEffect operator+(ItemEffect &a1, const ItemEffect &a2) {
   a1.hp = cAdd(a1.hp, a2.hp);
   a1.atk = cAdd(a1.atk, a2.atk);
   a1.def = cAdd(a1.def, a2.def);
@@ -61,7 +61,7 @@ ItemEffect operator+(ItemEffect &a1, ItemEffect &a2) {
   return a1;
 }
 
-ItemEffect operator-(ItemEffect &effect, ItemEffect &subtraction) {
+ItemEffect operator-(ItemEffect &effect, const ItemEffect &subtraction) {
   ItemEffect result;
   result.hp = cSub(effect.hp, subtraction.hp);
   result.atk = cSub(effect.atk, subtraction.atk);

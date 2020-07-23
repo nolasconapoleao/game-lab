@@ -73,19 +73,16 @@ Stats Factory::rampupByClass(const AttackType weaponAffinity, Stats stats) {
   switch (weaponAffinity) {
     case AttackType::CONJURING:
       stats.mana += 8;
-      stats.ran += 1;
       break;
     case AttackType::ELEMENTAL:
       stats.mana += 2;
       stats.mAtk += 2;
       stats.mDef += 3;
-      stats.ran += 2;
       break;
     case AttackType::MAGIC:
       stats.mana += 5;
       stats.mAtk += 2;
       stats.mDef += 1;
-      stats.ran += 1;
       break;
     case AttackType::PHYSICAL:
       stats.atk += 2;
@@ -93,7 +90,6 @@ Stats Factory::rampupByClass(const AttackType weaponAffinity, Stats stats) {
       break;
     case AttackType::SUPPORT:
       stats.mana += 2;
-      stats.ran += 1;
       break;
   }
   return stats;

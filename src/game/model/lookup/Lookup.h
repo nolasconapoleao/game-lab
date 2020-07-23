@@ -52,6 +52,7 @@ public:
   const std::vector<LocationEntry> &neighbourLocations(const LocationId locationId);
   const std::vector<LocationEntry> &neighboursEndingIn(const LocationId locationId);
   const std::vector<LocationEntry> &neighbourStartingIn(const LocationId locationId);
+  std::optional<ItemId> consumableTypeIn(const ResourceId resourceId, const ConsumableType type);
 
 private:
   std::shared_ptr<World> world;

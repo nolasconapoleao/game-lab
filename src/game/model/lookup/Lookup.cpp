@@ -93,4 +93,15 @@ const std::vector<LocationEntry> &Lookup::neighbourStartingIn(const LocationId l
   return std::move(result);
 }
 
+std::optional<ItemId> Lookup::consumableTypeIn(ResourceId resourceId, ConsumableType type) {
+  const auto findConsumable = [this, resourceId, type](const auto &entry) {
+    if (entry.second.type == type && world->possessions[entry.first] == resourceId) {
+      return entry.first;
+    }
+  };
+  std::for_each(world->consumables.begin(), world->consumables.end(), findConsumable);
+
+  return {};
+}
+
 } // namespace model
