@@ -9,6 +9,8 @@
 
 #include "datatypes/GameTypes.h"
 
+using Option = std::pair<char, std::string>;
+
 namespace input {
 
 [[nodiscard]] const std::string readSentence(bool flushFirst = false);
@@ -21,5 +23,5 @@ namespace input {
 [[nodiscard]] const char readAlphaNum(const std::string options);
 
 [[nodiscard]] const Quantity readNum(const Quantity lowerBound, const Quantity upperBound);
-
+static std::vector<Option> options;
 } // namespace input
