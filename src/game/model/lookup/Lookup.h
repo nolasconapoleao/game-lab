@@ -77,6 +77,7 @@ public:
   const std::vector<CharacterEntry> closeByCharacters(const CharacterId characterId);
   const std::vector<StructureEntry> closeByStructures(const CharacterId characterId);
   const std::vector<BuildingEntry> closeByBuildings(const CharacterId characterId);
+  const std::vector<ExteriorEntry> closeByExteriors(const CharacterId characterId);
 
   std::optional<ItemId> consumableTypeIn(const ResourceId resourceId, const ConsumableType type);
   ResourceType type(const ResourceId resourceId);

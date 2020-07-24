@@ -30,6 +30,9 @@ private:
   std::vector<std::string> roundHistory;
 
   std::shared_ptr<model::Lookup> lookup;
+
+public:
+  Printer(const std::shared_ptr<model::Lookup> &lookup);
 };
 
 } // namespace view

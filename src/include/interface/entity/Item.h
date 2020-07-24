@@ -11,14 +11,14 @@ namespace entity {
 
 class Item : public Entity {
 public:
-  Item(const std::string &name, const ItemEffect &effect, Quantity quantity, Number unitWeight, Number unitPrice)
+  Item(const std::string &name, const ItemEffect &effect, Quantity quantity, Quantity unitWeight, Quantity unitPrice)
       : Entity(name), effect(effect), quantity(quantity), unitWeight(unitWeight), unitPrice(unitPrice) {
   }
 
   ItemEffect effect;
   Quantity quantity;
-  Number unitWeight;
-  Number unitPrice;
+  Quantity unitWeight;
+  Quantity unitPrice;
 };
 
 } // namespace entity

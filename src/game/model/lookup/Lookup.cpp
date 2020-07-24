@@ -147,6 +147,11 @@ const std::vector<BuildingEntry> Lookup::closeByBuildings(CharacterId characterI
   return neighbourBuildings(locationId);
 }
 
+const std::vector<ExteriorEntry> Lookup::closeByExteriors(CharacterId characterId) {
+  const auto locationId = world->locatedIn[characterId];
+  return neighbourExteriors(locationId);
+}
+
 std::optional<ItemId> Lookup::consumableTypeIn(ResourceId resourceId, ConsumableType type) {
   const auto findConsumable = [this, resourceId, type](const auto &entry) {
     if (entry.second.type == type && world->locatedIn[entry.first] == resourceId) {

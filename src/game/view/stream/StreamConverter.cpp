@@ -7,60 +7,63 @@
 #include <iomanip>
 #include <magic_enum/include/magic_enum.hpp>
 
+#include "StreamFormatter.h"
+
 namespace view::stream {
 
 std::ostream &operator<<(std::ostream &os, const Quantity &value) {
-  os << std::setw(3) << std::to_string(value);
+  os << std::setw(STAT_LEN) << std::to_string(value);
   return os;
 }
 
 std::ostream &operator<<(std::ostream &os, const Size &value) {
-  os << value.width << "x" << value.height;
+  os << std::right << value.width << "x" << std::left << value.height;
   return os;
 }
 
 std::ostream &operator<<(std::ostream &os, const entity::Entity &value) {
-  os << value.name;
+  os << std::setw(NAME_LEN) << value.name;
   return os;
 }
 
 std::ostream &operator<<(std::ostream &os, const entity::Item &value) {
-  os << static_cast<const entity::Entity &>(value) << " effect: " << value.effect << " quantity: " << value.quantity
-     << " unitWeight: " << value.unitWeight << " unitPrice: " << value.unitPrice;
+  os << static_cast<const entity::Entity &>(value) << std::string(ITEM_PADDING, ' ') << value.effect << value.quantity
+     << value.unitWeight << value.unitPrice;
   return os;
 }
 
 std::ostream &operator<<(std::ostream &os, const entity::Location &value) {
-  os << static_cast<const entity::Entity &>(value) << " size: " << value.size;
+  os << static_cast<const entity::Entity &>(value) << value.size;
   return os;
 }
 
 std::ostream &operator<<(std::ostream &os, const entity::Building &value) {
-  os << static_cast<const entity::Location &>(value) << " type: " << value.type << " health: " << value.health
-     << " floors: " << value.floors;
+  os << static_cast<const entity::Location &>(value) << value.type << value.health << value.floors;
+  return os;
+}
+
+std::ostream &operator<<(std::ostream &os, const entity::Exterior &value) {
+  os << static_cast<const entity::Location &>(value);
   return os;
 }
 
 std::ostream &operator<<(std::ostream &os, const entity::Character &value) {
-  os << static_cast<const entity::Entity &>(value) << " base: " << value.base << " temp: " << value.temp
-     << " info: " << value.info << " effects: " << value.effects;
+  os << static_cast<const entity::Entity &>(value) << value.stats() << value.info << value.effects;
   return os;
 }
 
 std::ostream &operator<<(std::ostream &os, const entity::Consumable &value) {
-  os << static_cast<const entity::Item &>(value) << " type: " << value.type << " duration: " << value.duration
-     << " consumed: " << value.consumed;
+  os << static_cast<const entity::Item &>(value) << value.type << value.duration << value.consumed;
   return os;
 }
 
 std::ostream &operator<<(std::ostream &os, const entity::Equippable &value) {
-  os << static_cast<const entity::Item &>(value) << " uses: " << value.uses << " equipped: " << value.equipped;
+  os << static_cast<const entity::Item &>(value) << value.uses << value.equipped;
   return os;
 }
 
 std::ostream &operator<<(std::ostream &os, const entity::Structure &value) {
-  os << static_cast<const entity::Entity &>(value) << " type: " << value.type << " health: " << value.health
-     << " size: " << value.size;
+  os << static_cast<const entity::Entity &>(value) << std::string(2, ' ') << value.health << value.size;
   return os;
 }
 
@@ -90,15 +93,14 @@ std::ostream &operator<<(std::ostream &os, const Ghost &value) {
 }
 
 std::ostream &operator<<(std::ostream &os, const Info &value) {
-  os << "cash: " << value.cash << " ghost: " << value.ghost << " race: " << value.race
-     << " attackType: " << value.attackType << " occupation: " << value.occupation;
+  os << std::setw(STAT_LEN) << value.cash << " " << value.ghost << " " << value.race << " " << value.attackType << " "
+     << value.occupation;
   return os;
 }
 
 std::ostream &operator<<(std::ostream &os, const ItemEffect &value) {
-  os << "hp: " << value.hp << " atk: " << value.atk << " def: " << value.def << " mAtk: " << value.mAtk
-     << " mDef: " << value.mDef << " spd: " << value.spd << " inte: " << value.inte << " acc: " << value.acc
-     << " ste: " << value.ste << " mana: " << value.mana << " ran: " << value.ran;
+  os << value.hp << value.atk << value.def << value.mAtk << value.mDef << value.spd << value.inte << value.acc
+     << value.ste << value.mana << value.ran;
   return os;
 }
 
@@ -113,8 +115,7 @@ std::ostream &operator<<(std::ostream &os, const Race &value) {
 }
 
 std::ostream &operator<<(std::ostream &os, const Stats &value) {
-  os << static_cast<const ItemEffect &>(value) << " mhp: " << value.mhp << " cst: " << value.cst
-     << " lvl: " << value.lvl << " xp: " << value.xp;
+  os << static_cast<const ItemEffect &>(value) << value.mhp << value.cst << value.lvl << value.xp;
   return os;
 }
 

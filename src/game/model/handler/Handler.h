@@ -47,14 +47,16 @@ public:
   void renameTeam(const TeamId teamId, const std::string &newName);
 
 private:
+  LocationId createGroundZero();
+  LocationId createNeighbour(const LocationId locationId, const ThreatLevel threat);
+  void fillLocation(const LocationId locationId, const ThreatLevel threat);
+  void fillInventory(const CharacterId characterId, const ThreatLevel threat);
+  void fillExterior(const LocationId locationId, const ThreatLevel threat);
+
   void demolishBuilding(const LocationId buildingId);
   void demolishStructure(const StructureId structureId);
   void killCharacter(const CharacterId characterId);
   void destroyItem(ItemId itemId);
-  void fillLocation(const LocationId locationId, const ThreatLevel threat);
-  void fillInventory(const CharacterId characterId, const ThreatLevel threat);
-  void fillExterior(const LocationId locationId, const ThreatLevel threat);
-  LocationId createNeighbour(const LocationId locationId, const ThreatLevel threat);
 
   void transferItem(const ItemId itemId, const ResourceId destinationId, Quantity quantity);
   void stackConsumable(const ItemId itemId, const ResourceId destinationId, Quantity quantity);

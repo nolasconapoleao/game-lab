@@ -4,4 +4,6 @@
 
 #pragma once
 
-enum class LogicState {};
+enum class LogicState {
+  ATTACK,
+};

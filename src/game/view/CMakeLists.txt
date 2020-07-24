@@ -1,4 +1,3 @@
-#add_subdirectory(cases)
 add_subdirectory(stream)
 #add_subdirectory(input)
 

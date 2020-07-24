@@ -11,12 +11,7 @@ namespace model {
 constexpr Quantity NUM_EXTERIORS = 3;
 
 void Handler::createWorld() {
-  auto playerId = factory->createCharacter(ThreatLevel::NOVICE);
-  fillInventory(playerId, ThreatLevel::NOVICE);
-  world->characters.find(playerId)->second.info.ghost = Ghost::PLAYER;
-
-  auto seed = factory->createLocation();
-  world->locatedIn[playerId] = seed;
+  auto seed = createGroundZero();
   auto newSeed = createNeighbour(seed, ThreatLevel::SCARECROW);
 
   for (auto k = 0; k < NUM_EXTERIORS; k++) {
@@ -28,6 +23,19 @@ void Handler::createWorld() {
     world->neighbours.emplace(seed, newSeed);
   }
   seed = createNeighbour(seed, ThreatLevel::ACE);
+}
+
+LocationId Handler::createGroundZero() {
+  auto playerId = factory->createCharacter(ThreatLevel::NOVICE);
+  fillInventory(playerId, ThreatLevel::NOVICE);
+  world->characters.find(playerId)->second.info.ghost = Ghost::PLAYER;
+
+  auto locationId = factory->createLocation();
+  fillLocation(locationId, ThreatLevel::NOVICE);
+  world->locatedIn[playerId] = locationId;
+
+  auto structureId = factory->createStructure();
+  world->locatedIn.emplace(structureId, locationId);
 }
 
 LocationId Handler::createNeighbour(const LocationId locationId, const ThreatLevel threat) {
