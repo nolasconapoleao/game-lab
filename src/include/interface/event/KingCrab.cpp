@@ -19,13 +19,13 @@ KingCrab::KingCrab(bool isMaze, CrabDifficulty difficulty, ResourceId origin, in
 }
 
 void KingCrab::createNetwork() {
-  addState(IDLE, "Macro state is standing bye");
-  addState(TERMINATED, "Macro state was terminated");
+  addState(IDLE, "Macro player-brain is standing bye");
+  addState(TERMINATED, "Macro player-brain was terminated");
   addState(PUNISH, "Incorrect answer was received");
   addState(REWARD, "Event finished successfully");
 
   if (!mIsMaze) {
-    addState(Cancel, "Macro state was terminated by user");
+    addState(Cancel, "Macro player-brain was terminated by user");
     addTransition(Cancel, IDLE, RESET);
   }
 

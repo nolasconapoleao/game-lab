@@ -1,5 +1,5 @@
-add_subdirectory(event)
-add_subdirectory(state)
+add_subdirectory(player-brain)
+add_subdirectory(comuter-brain)
 
 target_sources(${PROJECT_NAME}
     PRIVATE

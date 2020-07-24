@@ -2,7 +2,7 @@
 // Created by nolasco on 21/07/20.
 //
 
-#include "GigaBrain.h"
+#include "ComputerBrain.h"
 
 #include "libs/random/Random.h"
 #include "model/World.h"

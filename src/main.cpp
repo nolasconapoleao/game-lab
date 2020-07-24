@@ -2,7 +2,7 @@
 #include <model/World.h>
 #include <model/cleaner/Cleaner.h>
 #include <model/factory/Factory.h>
-#include <model/giga-brain/GigaBrain.h>
+#include <model/handler/Handler.h>
 #include <model/lookup/Lookup.h>
 #include <view/Printer.h>
 #include <view/input/Signal_Handler.h>
@@ -21,7 +21,6 @@ int main() {
   auto factory = std::make_shared<model::Factory>(world);
   auto cleaner = std::make_shared<model::Cleaner>(world, lookup);
   auto handler = std::make_shared<model::Handler>(world, factory, cleaner, lookup);
-  auto gigaBrain = std::make_shared<model::GigaBrain>(handler, lookup);
   handler->createWorld();
 
   // View classes

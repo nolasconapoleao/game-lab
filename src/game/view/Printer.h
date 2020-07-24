@@ -8,7 +8,7 @@
 #include <string>
 #include <vector>
 
-#include "datatypes/logger/LogicState.h"
+#include "datatypes/state/LogicState.h"
 
 // Foward declaration
 namespace model {
