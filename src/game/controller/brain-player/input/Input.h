@@ -9,19 +9,17 @@
 
 #include "datatypes/GameTypes.h"
 
-using Option = std::pair<char, std::string>;
+namespace controller::input {
 
-namespace input {
-
-[[nodiscard]] const std::string readSentence(bool flushFirst = false);
+[[nodiscard]] const std::string sentence(bool flushFirst = false);
 
 /**
  *  Reads input from the console, reading must exist in the allowed options
  * @param options allowed options
  * @return consoleInput
  */
-[[nodiscard]] const char readAlphaNum(const std::string options);
+[[nodiscard]] const char alphanum(const std::string options);
 
-[[nodiscard]] const Quantity readNum(const Quantity lowerBound, const Quantity upperBound);
-static std::vector<Option> options;
-} // namespace input
+[[nodiscard]] const Quantity numeric(const Quantity upperBound);
+
+} // namespace controller::input

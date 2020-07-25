@@ -33,6 +33,7 @@ private:
 
   std::shared_ptr<model::Handler> handler;
   std::shared_ptr<model::Lookup> lookup;
+  std::vector<std::string> history;
 };
 
 } // namespace controller

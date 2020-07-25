@@ -31,7 +31,7 @@ const std::string itemHeader() {
 }
 
 const std::string infoHeader() {
-  return " Cash  Ghost  Race  Class  Occupation";
+  return "HP Cash             Race  Class  Occupation";
 }
 
 const std::string statDesc(const std::string &value) {

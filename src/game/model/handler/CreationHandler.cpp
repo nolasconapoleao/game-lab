@@ -33,9 +33,7 @@ LocationId Handler::createGroundZero() {
   auto locationId = factory->createLocation();
   fillLocation(locationId, ThreatLevel::NOVICE);
   world->locatedIn[playerId] = locationId;
-
-  auto structureId = factory->createStructure();
-  world->locatedIn.emplace(structureId, locationId);
+  return locationId;
 }
 
 LocationId Handler::createNeighbour(const LocationId locationId, const ThreatLevel threat) {
@@ -47,8 +45,9 @@ LocationId Handler::createNeighbour(const LocationId locationId, const ThreatLev
   auto neighbourId = factory->createLocation();
   fillLocation(neighbourId, threat);
   fillExterior(neighbourId, threat);
-  world->neighbours.emplace(locationId, neighbourId);
-  world->neighbours.emplace(neighbourId, locationId);
+  world->neighbours.emplace(connectorId, neighbourId);
+  world->neighbours.emplace(neighbourId, connectorId);
+  return neighbourId;
 }
 
 void Handler::fillExterior(const LocationId locationId, const ThreatLevel threat) {
@@ -68,6 +67,9 @@ void Handler::fillLocation(const LocationId locationId, const ThreatLevel threat
     world->locatedIn.emplace(characterId, locationId);
     fillInventory(characterId, threat);
   }
+
+  auto structureId = factory->createStructure();
+  world->locatedIn.emplace(structureId, locationId);
 }
 
 void Handler::fillInventory(const CharacterId characterId, const ThreatLevel threat) {

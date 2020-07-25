@@ -60,19 +60,19 @@ void GameEngine::handleCharacterTurn(const Decision &decision) {
     case ActionType::SKIP_TURN:
       break;
     case ActionType::ATTACK_BUILDING:
-      handler->attackBuilding(decision.receiver, decision.sender);
+      handler->attackBuilding(decision.sender, decision.receiver);
       break;
     case ActionType::ATTACK_CHARACTER:
-      handler->attackCharacter(decision.receiver, decision.sender);
+      handler->attackCharacter(decision.sender, decision.receiver);
       break;
     case ActionType::ATTACK_STRUCTURE:
-      handler->attackStructure(decision.receiver, decision.sender);
+      handler->attackStructure(decision.sender, decision.receiver);
       break;
     case ActionType::ITEM_USE:
-      handler->useItem(decision.receiver, decision.sender);
+      handler->useItem(decision.sender, decision.receiver);
       break;
     case ActionType::LOCATION_TRAVEL:
-      handler->travel(decision.receiver, decision.sender);
+      handler->travel(decision.sender, decision.receiver);
       break;
   }
 }

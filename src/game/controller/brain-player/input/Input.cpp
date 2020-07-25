@@ -6,13 +6,13 @@
 
 #include <iostream>
 
-namespace input {
+namespace controller::input {
 
 const bool isInputValid(const char input, const std::string options) {
   return options.find(input) != std::string::npos;
 }
 
-const std::string readSentence(bool flushFirst) {
+const std::string sentence(bool flushFirst) {
   if (flushFirst) {
     std::cin.ignore();
   }
@@ -21,7 +21,7 @@ const std::string readSentence(bool flushFirst) {
   return readFromConsole;
 }
 
-const char readAlphaNum(const std::string options) {
+const char alphanum(const std::string options) {
   char input;
 
   do {
@@ -32,14 +32,15 @@ const char readAlphaNum(const std::string options) {
   return input;
 }
 
-const Quantity readNum(const Quantity lowerBound, const Quantity upperBound) {
+const Quantity numeric(const Quantity upperBound) {
   int input;
 
   do {
+    std::cout << "\t\t";
     std::cin >> input;
-  } while (input < lowerBound || input > upperBound);
+  } while (input < 1 || input > upperBound);
   Quantity result = input;
   return result;
 }
 
-} // namespace input
+} // namespace controller::input

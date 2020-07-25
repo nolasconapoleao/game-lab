@@ -17,11 +17,6 @@ int main() {
   auto factory = std::make_shared<model::Factory>(world);
   auto cleaner = std::make_shared<model::Cleaner>(world, lookup);
   auto handler = std::make_shared<model::Handler>(world, factory, cleaner, lookup);
-  handler->createWorld();
-
-  // View classes
-  auto printer = std::make_shared<view::Printer>(lookup);
-  printer->printScreen(LogicState::ATTACK);
 
   // Controller classes
   auto controller = std::make_shared<controller::GameEngine>(handler, lookup);

@@ -10,11 +10,8 @@
 
 #include "datatypes/state/LogicState.h"
 
-// Forward declaration
-class Snapshot;
+namespace view::input {
 
-namespace view::printer {
+void travel(const Snapshot &snap);
 
-void printScreen(const Snapshot &snapshot);
-
-} // namespace view::printer
+} // namespace view::input

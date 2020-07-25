@@ -1,3 +1,4 @@
+add_subdirectory(input-prompt)
 add_subdirectory(stream)
 
 target_sources(${PROJECT_NAME}

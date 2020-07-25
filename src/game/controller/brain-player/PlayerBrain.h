@@ -14,7 +14,7 @@ Decision think(const Snapshot &snap);
 
 namespace // anonymous namespace
 {
-bool inventoryThought(const Snapshot &snap);
+bool inventory(const Snapshot &snap);
 } // namespace
 
 } // namespace controller::brain::player
