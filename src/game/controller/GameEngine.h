@@ -4,44 +4,35 @@
 
 #pragma once
 
-#include <map>
+#include <datatypes/GameTypes.h>
+#include <datatypes/controller/Decision.h>
+#include <datatypes/lookup/ResourceEntry.h>
 #include <memory>
 #include <set>
 
-#include "interface//event/EventManager.h"
-#include "interface/state-machine/StateMachine.h"
-#include "model/World.h"
-#include "model/handler/Handler.h"
-#include "view/Printer.h"
+namespace model {
+
+// Forward declaration
+class Handler;
+class Lookup;
+} // namespace model
 
 namespace controller {
 
-class GameEngine : public StateMachine {
+class GameEngine {
 public:
-  using LinkId = StateMachine::LinkId;
-
-  GameEngine();
-  void run() override;
+  GameEngine(const std::shared_ptr<model::Handler> &handler, const std::shared_ptr<model::Lookup> &lookup);
+  void run();
   bool isTerminated();
-  void addState(const StateId stateId, std::shared_ptr<StateMachine> state);
-
-  // Active stream-aux
-  void loadNextCharacter();
-  CharacterId activeCharacter;
-  void updateCharacterQueue();
-  std::unordered_set<LocationId> activeLocations();
-  std::priority_queue<std::pair<int, CharacterId>> characterQueue;
 
 private:
-  void fillOptions();
-  void handleUserInput();
-  void updateViewVariables();
+  void updateCharacterQueue();
+  Snapshot createSceneSnapshot(const CharacterId characterId);
+  void handleCharacterTurn(const Decision &decision);
+  std::set<CharacterId> characterQueue;
 
-  Handler controller;
-  std::set<StateId> mNeighbours;
-  std::string mOptions;
-  std::map<StateId, std::shared_ptr<StateMachine>> gameStates;
-  EventManager eventManager;
+  std::shared_ptr<model::Handler> handler;
+  std::shared_ptr<model::Lookup> lookup;
 };
 
 } // namespace controller

@@ -1,3 +1,5 @@
+#include <controller/GameEngine.h>
+#include <controller/brain-player/input/Signal_Handler.h>
 #include <csignal>
 #include <model/World.h>
 #include <model/cleaner/Cleaner.h>
@@ -5,13 +7,7 @@
 #include <model/handler/Handler.h>
 #include <model/lookup/Lookup.h>
 #include <view/Printer.h>
-#include <view/input/Signal_Handler.h>
 
-//#include <controller/GameEngine.h>
-
-// TODO: using namespace model;
-// TODO: using namespace view;
-// TODO: using namespace controller;
 int main() {
   signal(SIGINT, Input::signal_callback_handler);
 
@@ -28,11 +24,11 @@ int main() {
   printer->printScreen(LogicState::ATTACK);
 
   // Controller classes
-  //  controller::GameEngine engine;
+  auto controller = std::make_shared<controller::GameEngine>(handler, lookup);
 
-  //  while (!engine.isTerminated()) {
-  //    engine.run();
-  //  }
+  while (!controller->isTerminated()) {
+    controller->run();
+  }
 
   return 0;
 }

@@ -125,7 +125,7 @@ const std::vector<LocationEntry> Lookup::neighboursEndingIn(const LocationId loc
   return result;
 }
 
-const std::vector<LocationEntry> Lookup::withinWalkingDistance(CharacterId characterId) {
+const std::vector<LocationEntry> Lookup::closeByLocations(const CharacterId characterId) {
   const auto locationId = world->locatedIn[characterId];
   return neighbourLocations(locationId);
 }
@@ -150,6 +150,16 @@ const std::vector<BuildingEntry> Lookup::closeByBuildings(CharacterId characterI
 const std::vector<ExteriorEntry> Lookup::closeByExteriors(CharacterId characterId) {
   const auto locationId = world->locatedIn[characterId];
   return neighbourExteriors(locationId);
+}
+
+const std::vector<CharacterEntry> Lookup::playableCharacters() {
+  std::vector<CharacterEntry> result;
+  for (const auto &[id, entity] : world->characters) {
+    if (Ghost::PLAYER == entity.info.ghost) {
+      result.emplace_back(CharacterEntry{id, std::make_shared<entity::Character>(entity)});
+    }
+  };
+  return result;
 }
 
 std::optional<ItemId> Lookup::consumableTypeIn(ResourceId resourceId, ConsumableType type) {
@@ -180,11 +190,11 @@ ResourceType Lookup::type(const ResourceId resourceId) {
   }
 }
 
-const std::shared_ptr<entity::Character> &Lookup::character(CharacterId characterId) {
+std::shared_ptr<entity::Character> Lookup::character(CharacterId characterId) {
   return std::make_shared<entity::Character>(world->characters.find(characterId)->second);
 }
 
-const std::shared_ptr<entity::Item> &Lookup::item(ItemId itemId) {
+std::shared_ptr<entity::Item> Lookup::item(const ItemId itemId) {
   if (world->consumables.contains(itemId)) {
     return std::make_shared<entity::Consumable>(world->consumables.find(itemId)->second);
   } else if (world->equippables.contains(itemId)) {
@@ -192,12 +202,16 @@ const std::shared_ptr<entity::Item> &Lookup::item(ItemId itemId) {
   }
 }
 
-const std::shared_ptr<entity::Location> &Lookup::location(LocationId locationId) {
+std::shared_ptr<entity::Location> Lookup::location(const LocationId locationId) {
   if (world->exteriors.contains(locationId)) {
     return std::make_shared<entity::Exterior>(world->exteriors.find(locationId)->second);
   } else if (world->buildings.contains(locationId)) {
     return std::make_shared<entity::Building>(world->buildings.find(locationId)->second);
   }
+}
+
+bool Lookup::characterExists(const CharacterId characterId) {
+  return world->characters.contains(characterId);
 }
 
 } // namespace model

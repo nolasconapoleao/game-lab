@@ -1,5 +1,5 @@
-add_subdirectory(player-brain)
-add_subdirectory(comuter-brain)
+add_subdirectory(brain-player)
+add_subdirectory(brain-computer)
 
 target_sources(${PROJECT_NAME}
     PRIVATE

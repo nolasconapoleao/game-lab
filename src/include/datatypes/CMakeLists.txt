@@ -1,3 +1,4 @@
+add_subdirectory(controller)
 add_subdirectory(entity)
 add_subdirectory(entity-aux)
 add_subdirectory(event)

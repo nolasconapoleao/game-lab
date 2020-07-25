@@ -15,7 +15,7 @@ AttackResult Handler::attackCharacter(const CharacterId attackerId, const Charac
 
   attacked.base.hp = gamemath::cSub(attacked.base.hp, fightResult);
 
-  if (attacked.base.hp == 0) {
+  if (attacked.stats().hp == 0) {
     killCharacter(attackedId);
   }
 

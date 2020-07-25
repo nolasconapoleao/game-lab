@@ -5,7 +5,6 @@
 #include "Printer.h"
 
 #include <iostream>
-#include <sstream>
 
 #include "datatypes/logger/PrintConstants.h"
 #include "model/lookup/Lookup.h"

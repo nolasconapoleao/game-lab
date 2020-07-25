@@ -15,6 +15,8 @@ Cleaner::Cleaner(const std::shared_ptr<World> &world, std::shared_ptr<Lookup> lo
 
 void Cleaner::deleteCharacter(const CharacterId characterId) {
   world->characters.erase(characterId);
+  world->locatedIn.erase(characterId);
+  world->memberships.erase(characterId);
   for (auto itemEntry : lookup->itemsIn(characterId)) {
     world->locatedIn.erase(itemEntry.id);
   }
