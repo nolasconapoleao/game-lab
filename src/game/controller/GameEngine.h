@@ -4,6 +4,7 @@
 
 #pragma once
 
+#include <controller/brain-player/PlayerBrain.h>
 #include <datatypes/GameTypes.h>
 #include <datatypes/controller/Decision.h>
 #include <datatypes/lookup/ResourceEntry.h>
@@ -26,6 +27,7 @@ public:
   bool isTerminated();
 
 private:
+  CharacterId loadNextCharacter();
   void updateCharacterQueue();
   Snapshot createSceneSnapshot(const CharacterId characterId);
   void handleCharacterTurn(const Decision &decision);
@@ -34,6 +36,7 @@ private:
   std::shared_ptr<model::Handler> handler;
   std::shared_ptr<model::Lookup> lookup;
   std::vector<std::string> history;
+  brain::player player;
 };
 
 } // namespace controller

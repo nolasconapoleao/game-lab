@@ -18,20 +18,27 @@ GameEngine::GameEngine(const std::shared_ptr<model::Handler> &handler, const std
 }
 
 void GameEngine::run() {
-  if (characterQueue.empty()) {
-    updateCharacterQueue();
-  }
-
-  const auto idTurn = *characterQueue.begin();
-  characterQueue.erase(idTurn);
+  const auto idTurn = loadNextCharacter();
   const auto snap = createSceneSnapshot(idTurn);
-  auto decision = lookup->character(idTurn)->info.ghost == Ghost::PLAYER ? brain::player::think(snap)
-                                                                         : brain::computer::think(snap);
+  auto decision
+      = lookup->character(idTurn)->info.ghost == Ghost::PLAYER ? player.think(snap) : brain::computer::think(snap);
   handleCharacterTurn(decision);
 }
 
 bool GameEngine::isTerminated() {
-  return characterQueue.empty() && lookup->playableCharacters().empty();
+  return characterQueue.empty();
+}
+
+CharacterId GameEngine::loadNextCharacter() {
+  CharacterId idTurn;
+  do {
+    idTurn = *characterQueue.begin();
+    characterQueue.erase(idTurn);
+    if (characterQueue.empty()) {
+      updateCharacterQueue();
+    }
+  } while (!lookup->characterExists(idTurn) && !characterQueue.empty());
+  return idTurn;
 }
 
 void GameEngine::updateCharacterQueue() {
@@ -64,21 +71,21 @@ Snapshot GameEngine::createSceneSnapshot(CharacterId characterId) {
 
 void GameEngine::handleCharacterTurn(const Decision &decision) {
   switch (decision.type) {
-    case ActionType::SKIP_TURN:
+    case Action::SKIP_TURN:
       break;
-    case ActionType::ATTACK_BUILDING:
+    case Action::ATTACK_BUILDING:
       handler->attackBuilding(decision.sender, decision.receiver);
       break;
-    case ActionType::ATTACK_CHARACTER:
+    case Action::ATTACK_CHARACTER:
       handler->attackCharacter(decision.sender, decision.receiver);
       break;
-    case ActionType::ATTACK_STRUCTURE:
+    case Action::ATTACK_STRUCTURE:
       handler->attackStructure(decision.sender, decision.receiver);
       break;
-    case ActionType::INVENTORY_USE:
+    case Action::INVENTORY_USE:
       handler->useItem(decision.sender, decision.receiver);
       break;
-    case ActionType::TRAVEL:
+    case Action::TRAVEL:
       handler->travel(decision.sender, decision.receiver);
       break;
   }

@@ -4,10 +4,10 @@
 
 #pragma once
 
-#include "ActionType.h"
+#include "Action.h"
 
 struct Decision {
-  ActionType type = ActionType::SKIP_TURN;
+  Action type = Action::SKIP_TURN;
   ResourceId sender = 0;
   ResourceId receiver = 0;
   Quantity quantity = 0;

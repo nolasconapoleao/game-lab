@@ -19,6 +19,11 @@
 #include "interface/entity/Item.h"
 #include "interface/entity/Location.h"
 
+struct EntityEntry {
+  ResourceId id;
+  std::shared_ptr<entity::Entity> entity;
+};
+
 struct CharacterEntry {
   CharacterId id;
   std::shared_ptr<entity::Character> entity;

@@ -8,13 +8,22 @@
 #include <datatypes/controller/Decision.h>
 #include <datatypes/lookup/ResourceEntry.h>
 
-namespace controller::brain::player {
+namespace controller::brain {
 
-Decision think(const Snapshot &snap);
+class player {
+public:
+  player();
+  Decision think(const Snapshot &snap);
 
-namespace // anonymous namespace
-{
-bool inventory(const Snapshot &snap);
-} // namespace
+private:
+  Decision travel();
+  Decision attack_characters();
+  void selectSubstate();
+  void makeBranch(Action start, std::initializer_list<Action> const &end);
 
-} // namespace controller::brain::player
+  std::map<Action, Action> decisionTree;
+  Action active;
+  Snapshot snap;
+};
+
+} // namespace controller::brain

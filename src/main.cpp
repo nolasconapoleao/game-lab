@@ -6,7 +6,6 @@
 #include <model/factory/Factory.h>
 #include <model/handler/Handler.h>
 #include <model/lookup/Lookup.h>
-#include <view/Printer.h>
 
 int main() {
   signal(SIGINT, Input::signal_callback_handler);

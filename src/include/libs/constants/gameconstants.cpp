@@ -2,6 +2,8 @@
 // Created by nolasco on 30/06/20.
 //
 
+#include "datatypes/controller/Action.h"
+#include "datatypes/controller/PlayerState.h"
 #include "datatypes/entity-aux/Stats.h"
 #include "datatypes/factory/CreationSpecs.h"
 #include "datatypes/factory/ThreatLevel.h"
@@ -97,6 +99,79 @@ constexpr CreationSpecs creationSpecs(const ThreatLevel level) {
       break;
   }
   return specs;
+}
+
+constexpr PlayerState stateInfo(Action action) {
+  switch (action) {
+    case Action::SKIP_TURN:
+      return {action, 'e', "Skip turn"};
+    case Action::MENU:
+      return {action, 'm', "Menu"};
+    case Action::MENU_SAVE:
+      return {action, 's', "Save"};
+    case Action::MENU_TUTORIAL:
+      return {action, 't', "Tutorial"};
+    case Action::MENU_TERMINATE:
+      return {action, 'x', "Terminate"};
+    case Action::ATTACK:
+      return {action, 'a', "Attack"};
+    case Action::ATTACK_CHARACTER:
+      return {action, 'c', "Attack character"};
+    case Action::ATTACK_BUILDING:
+      return {action, 'b', "Attack building"};
+    case Action::ATTACK_STRUCTURE:
+      return {action, 's', "Attack structure"};
+    case Action::INVENTORY:
+      return {action, 'i', "Inventory"};
+    case Action::INVENTORY_PICKUP:
+      return {action, 'p', "Inventory pickup"};
+    case Action::INVENTORY_DROP:
+      return {action, 'd', "Inventory drop"};
+    case Action::INVENTORY_USE:
+      return {action, 'u', "Inventory use"};
+    case Action::TEAM:
+      return {action, 't', "Team"};
+    case Action::TEAM_CREATE:
+      return {action, 'c', "Create team"};
+    case Action::TEAM_DISBAND:
+      return {action, 'd', "Disband team"};
+    case Action::TEAM_TRADE:
+      return {action, 't', "Trade with team member"};
+    case Action::TEAM_KICK:
+      return {action, 'k', "Kick team member"};
+    case Action::TEAM_INVITE:
+      return {action, 'i', "Invite to team"};
+    case Action::SHOP:
+      return {action, 's', "Shop"};
+    case Action::SHOP_BUY:
+      return {action, 'b', "Buy"};
+    case Action::SHOP_SELL:
+      return {action, 's', "Sell"};
+    case Action::QUEST:
+      return {action, 'q', "Quest"};
+    case Action::QUEST_ABANDON:
+      return {action, 'd', "Abandon quest"};
+    case Action::QUEST_FINISH:
+      return {action, 'f', "Finish quest"};
+    case Action::TRAVEL:
+      return {action, 'w', "Travel"};
+    case Action::SPECIAL:
+      return {action, '*', "Special"};
+    case Action::SPECIAL_SUMMON:
+      return {action, 'b', "Summon"};
+    case Action::SPECIAL_PICKPOCKET:
+      return {action, 'o', "Pickpocket"};
+    case Action::SPECIAL_POSSESS:
+      return {action, 'g', "Possess"};
+    case Action::SPECIAL_READ:
+      return {action, 'r', "Read"};
+    case Action::SPECIAL_CALL:
+      return {action, 'c', "Call"};
+    case Action::SPECIAL_CALL_REINFORCEMENT:
+      return {action, 'r', "Call reinforcement"};
+    case Action::SPECIAL_CALL_ENEMY:
+      return {action, 't', "Call enemy"};
+  }
 }
 
 } // namespace gameconstants
