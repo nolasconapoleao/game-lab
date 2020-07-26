@@ -9,14 +9,38 @@
 #include "model/World.h"
 
 namespace model {
+ItemId Factory::createEquippable(EquippableType type) {
+  if (type == EquippableType::UNDEFINED) {
+    type = EquippableType{Random::rand(0, static_cast<Quantity>(EquippableType::UNDEFINED) - 1)};
+  }
+
+  switch (type) {
+    case EquippableType::EQUIPMENT:
+      createEquippable();
+      break;
+    case EquippableType::STAFF:
+      createStaff();
+      break;
+    case EquippableType::WEAPON:
+      createWeapon();
+      break;
+  }
+  return entityCounter;
+}
+
 ItemId Factory::createEquipment(EquipmentType type) {
   if (type == EquipmentType::UNDEFINED) {
     type = EquipmentType{Random::rand(0, static_cast<Quantity>(EquipmentType::UNDEFINED) - 1)};
   }
 
   ItemEffect specs = equipmentSpecs(type);
-  entity::Equippable creation{
-      Random::fromVec(world->characterNames) + "'s " + magic_enum::enum_name(type).data(), specs, 1, 3, 5, 50};
+  entity::Equippable creation{Random::fromVec(world->characterNames) + "'s " + magic_enum::enum_name(type).data(),
+                              EquippableType::EQUIPMENT,
+                              specs,
+                              1,
+                              3,
+                              5,
+                              50};
 
   world->equippables.emplace(++entityCounter, creation);
   return entityCounter;
@@ -28,8 +52,13 @@ ItemId Factory::createStaff(StaffType type) {
   }
 
   ItemEffect specs = staffSpecs(type);
-  entity::Equippable creation{
-      Random::fromVec(world->characterNames) + "'s " + magic_enum::enum_name(type).data(), specs, 1, 2, 10, 25};
+  entity::Equippable creation{Random::fromVec(world->characterNames) + "'s " + magic_enum::enum_name(type).data(),
+                              EquippableType::STAFF,
+                              specs,
+                              1,
+                              2,
+                              10,
+                              25};
 
   world->equippables.emplace(++entityCounter, creation);
   return entityCounter;
@@ -41,8 +70,13 @@ ItemId Factory::createWeapon(WeaponType type) {
   }
 
   ItemEffect specs = weaponSpecs(type);
-  entity::Equippable creation{
-      Random::fromVec(world->characterNames) + "'s " + magic_enum::enum_name(type).data(), specs, 1, 10, 25, 50};
+  entity::Equippable creation{Random::fromVec(world->characterNames) + "'s " + magic_enum::enum_name(type).data(),
+                              EquippableType::WEAPON,
+                              specs,
+                              1,
+                              10,
+                              25,
+                              50};
 
   world->equippables.emplace(++entityCounter, creation);
   return entityCounter;

@@ -4,6 +4,7 @@ target_sources(${PROJECT_NAME}
         ${CMAKE_CURRENT_SOURCE_DIR}/AttackType.h
         ${CMAKE_CURRENT_SOURCE_DIR}/BuildingType.h
         ${CMAKE_CURRENT_SOURCE_DIR}/ConsumableType.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/EquippableType.h
         ${CMAKE_CURRENT_SOURCE_DIR}/EventType.h
         ${CMAKE_CURRENT_SOURCE_DIR}/Ghost.h
         ${CMAKE_CURRENT_SOURCE_DIR}/Info.h

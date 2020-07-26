@@ -8,8 +8,6 @@
 #include <string>
 #include <vector>
 
-#include "datatypes/state/LogicState.h"
-
 // Forward declaration
 class Snapshot;
 

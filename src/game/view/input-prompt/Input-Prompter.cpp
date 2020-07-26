@@ -19,11 +19,11 @@ void travel(const Snapshot &snap) {
   if (!snap.exteriors.empty() || !snap.buildings.empty()) {
     auto k = 1;
     for (const auto &it : snap.exteriors) {
-      std::cout << "\t\t" << k << ": " << it.entity->name << "\n";
+      std::cout << "\t" << k << ": " << it.entity->name << "\n";
       k++;
     }
     for (const auto &it : snap.buildings) {
-      std::cout << "\t\t" << k << ": " << it.entity->name << "\n";
+      std::cout << "\t" << k << ": " << it.entity->name << "\n";
       k++;
     }
   }

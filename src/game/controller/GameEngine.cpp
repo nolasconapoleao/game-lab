@@ -44,15 +44,22 @@ void GameEngine::updateCharacterQueue() {
 }
 
 Snapshot GameEngine::createSceneSnapshot(CharacterId characterId) {
-  return Snapshot{
+  auto snap = Snapshot{
       {characterId, lookup->character(characterId)},
+      lookup->whereIs(characterId),
       lookup->consumablesIn(characterId),
       lookup->equippablesIn(characterId),
       lookup->closeByCharacters(characterId),
       lookup->closeByStructures(characterId),
       lookup->closeByBuildings(characterId),
       lookup->closeByExteriors(characterId),
+      lookup->itemsIn(lookup->whereIs(characterId).id),
   };
+  snap.floor = lookup->itemsIn(snap.location.id);
+  for (const auto it : snap.characters) {
+    snap.ownedBy.emplace(it.id, lookup->itemsIn(it.id));
+  }
+  return snap;
 }
 
 void GameEngine::handleCharacterTurn(const Decision &decision) {
@@ -68,10 +75,10 @@ void GameEngine::handleCharacterTurn(const Decision &decision) {
     case ActionType::ATTACK_STRUCTURE:
       handler->attackStructure(decision.sender, decision.receiver);
       break;
-    case ActionType::ITEM_USE:
+    case ActionType::INVENTORY_USE:
       handler->useItem(decision.sender, decision.receiver);
       break;
-    case ActionType::LOCATION_TRAVEL:
+    case ActionType::TRAVEL:
       handler->travel(decision.sender, decision.receiver);
       break;
   }

@@ -43,6 +43,7 @@ std::ostream &operator<<(std::ostream &os, const entity::Team &value);
 std::ostream &operator<<(std::ostream &os, const AttackType &value);
 std::ostream &operator<<(std::ostream &os, const BuildingType &value);
 std::ostream &operator<<(std::ostream &os, const ConsumableType &value);
+std::ostream &operator<<(std::ostream &os, const EquippableType &value);
 std::ostream &operator<<(std::ostream &os, const Ghost &value);
 std::ostream &operator<<(std::ostream &os, const Info &value);
 std::ostream &operator<<(std::ostream &os, const ItemEffect &value);

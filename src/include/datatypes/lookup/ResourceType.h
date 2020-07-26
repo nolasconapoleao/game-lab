@@ -12,5 +12,4 @@ enum ResourceType {
   EXTERIOR,
   STRUCTURE,
   TEAM,
-  UNEXISTENT,
 };

@@ -10,6 +10,7 @@
 #include "datatypes/entity-aux/AttackType.h"
 #include "datatypes/entity-aux/BuildingType.h"
 #include "datatypes/entity-aux/ConsumableType.h"
+#include "datatypes/entity-aux/EquippableType.h"
 #include "datatypes/entity-aux/EventType.h"
 #include "datatypes/entity-aux/Info.h"
 #include "datatypes/entity-aux/Occupation.h"
@@ -44,6 +45,7 @@ public:
   ItemId createEquipment(EquipmentType type = EquipmentType::UNDEFINED);
   ItemId createStaff(StaffType type = StaffType::UNDEFINED);
   ItemId createWeapon(WeaponType type = WeaponType::UNDEFINED);
+  ItemId createEquippable(EquippableType type = EquippableType::UNDEFINED);
   ItemId createConsumable(ConsumableType type = ConsumableType::UNDEFINED, const Quantity quantity = 1);
   LocationId createConnector(ConnectorType type = ConnectorType::UNDEFINED);
   LocationId createBuilding(BuildingType type = BuildingType::UNDEFINED);
@@ -57,7 +59,6 @@ private:
   Stats rampupByClass(const AttackType weaponAffinity, Stats stats);
   Stats rampupByRace(const Race race, Stats stats);
   Stats randomizeStats(Stats stats);
-  constexpr Stats minimalStats();
 
   Size structureSize(const StructureType type);
   ResourceId entityCounter;

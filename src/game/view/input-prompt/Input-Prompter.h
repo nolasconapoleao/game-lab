@@ -8,8 +8,6 @@
 #include <string>
 #include <vector>
 
-#include "datatypes/state/LogicState.h"
-
 namespace view::input {
 
 void travel(const Snapshot &snap);

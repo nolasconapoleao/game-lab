@@ -65,11 +65,11 @@ Decision attack(const Snapshot &snap) {
 Decision inventory(const Snapshot &snap) {
   if (!snap.consumables.empty() && rand(0, 2) == 0) {
     const auto item = fromVec(snap.consumables);
-    return Decision{ActionType::ITEM_USE, snap.character.id, item.id};
+    return Decision{ActionType::INVENTORY_USE, snap.character.id, item.id};
   } else if (!snap.equippables.empty() && rand(0, 5) == 0) {
     const auto item = fromVec(snap.equippables);
     if (item.entity->equipped) {
-      return Decision{ActionType::ITEM_USE, snap.character.id, item.id};
+      return Decision{ActionType::INVENTORY_USE, snap.character.id, item.id};
     } else {
       return Decision{ActionType::SKIP_TURN};
     }
@@ -81,7 +81,7 @@ Decision inventory(const Snapshot &snap) {
 Decision tourist(const Snapshot &snap) {
   if (!snap.exteriors.empty() && rand(0, 15) == 0) {
     const auto locationId = fromVec(snap.exteriors).id;
-    return Decision{ActionType::LOCATION_TRAVEL, snap.character.id, locationId};
+    return Decision{ActionType::TRAVEL, snap.character.id, locationId};
   } else {
     return Decision{ActionType::SKIP_TURN};
   }

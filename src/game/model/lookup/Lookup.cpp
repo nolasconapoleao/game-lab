@@ -152,6 +152,11 @@ const std::vector<ExteriorEntry> Lookup::closeByExteriors(CharacterId characterI
   return neighbourExteriors(locationId);
 }
 
+LocationEntry Lookup::whereIs(CharacterId characterId) {
+  const auto locationId = world->locatedIn[characterId];
+  return LocationEntry{locationId, location(locationId)};
+}
+
 const std::vector<CharacterEntry> Lookup::playableCharacters() {
   std::vector<CharacterEntry> result;
   for (const auto &[id, entity] : world->characters) {

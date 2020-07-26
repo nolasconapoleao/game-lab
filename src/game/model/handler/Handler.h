@@ -7,6 +7,7 @@
 #include <memory>
 
 #include "datatypes/GameTypes.h"
+#include "datatypes/factory/CreationSpecs.h"
 #include "datatypes/factory/ThreatLevel.h"
 #include "datatypes/logger/AttackResult.h"
 #include "interface/entity/Item.h"
@@ -51,6 +52,7 @@ private:
   LocationId createNeighbour(const LocationId locationId, const ThreatLevel threat);
   void fillLocation(const LocationId locationId, const ThreatLevel threat);
   void fillInventory(const CharacterId characterId, const ThreatLevel threat);
+  void fillFloor(const ResourceId locationId, const ThreatLevel threat);
   void fillExterior(const LocationId locationId, const ThreatLevel threat);
 
   void demolishBuilding(const LocationId buildingId);

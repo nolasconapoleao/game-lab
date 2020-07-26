@@ -32,6 +32,7 @@ public:
   const std::vector<StructureEntry> closeByStructures(const CharacterId characterId);
   const std::vector<BuildingEntry> closeByBuildings(const CharacterId characterId);
   const std::vector<ExteriorEntry> closeByExteriors(const CharacterId characterId);
+  LocationEntry whereIs(CharacterId characterId);
 
   const std::vector<CharacterEntry> playableCharacters();
 

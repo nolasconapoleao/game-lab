@@ -1,0 +1,102 @@
+//
+// Created by nolasco on 30/06/20.
+//
+
+#include "datatypes/entity-aux/Stats.h"
+#include "datatypes/factory/CreationSpecs.h"
+#include "datatypes/factory/ThreatLevel.h"
+
+namespace gameconstants {
+
+constexpr Stats minimalStats() {
+  Stats result;
+  result.hp = 8;
+  result.atk = 0;
+  result.def = 0;
+  result.mAtk = 0;
+  result.mDef = 0;
+  result.spd = 2;
+  result.inte = 3;
+  result.acc = 2;
+  result.ste = 0;
+  result.ran = 1;
+  result.mana = 0;
+  result.mhp = 8;
+  result.cst = 10;
+  return result;
+}
+
+constexpr CreationSpecs creationSpecs(const ThreatLevel level) {
+  CreationSpecs specs;
+  switch (level) {
+    case ThreatLevel::SCARECROW:
+      specs.stats_multiplier = 1;
+      specs.num_characters = 1;
+      specs.num_character_consumables = 0;
+      specs.num_character_equippables = 0;
+      specs.num_exterior_consumables = 0;
+      specs.num_exterior_equippables = 0;
+      specs.num_exteriors = 1;
+      specs.num_buildings = 1;
+      specs.num_structures = 1;
+      break;
+    case ThreatLevel::NOVICE:
+      specs.stats_multiplier = 2;
+      specs.num_characters = 2;
+      specs.num_character_consumables = 1;
+      specs.num_character_equippables = 1;
+      specs.num_exterior_consumables = 1;
+      specs.num_exterior_equippables = 0;
+      specs.num_exteriors = 1;
+      specs.num_buildings = 2;
+      specs.num_structures = 2;
+      break;
+    case ThreatLevel::ACE:
+      specs.stats_multiplier = 5;
+      specs.num_characters = 5;
+      specs.num_character_consumables = 2;
+      specs.num_character_equippables = 2;
+      specs.num_exterior_consumables = 2;
+      specs.num_exterior_equippables = 1;
+      specs.num_exteriors = 3;
+      specs.num_buildings = 2;
+      specs.num_structures = 2;
+      break;
+    case ThreatLevel::VETERAN:
+      specs.stats_multiplier = 10;
+      specs.num_characters = 5;
+      specs.num_character_consumables = 3;
+      specs.num_character_equippables = 3;
+      specs.num_exterior_consumables = 3;
+      specs.num_exterior_equippables = 2;
+      specs.num_exteriors = 2;
+      specs.num_buildings = 3;
+      specs.num_structures = 2;
+      break;
+    case ThreatLevel::MONSTER:
+      specs.stats_multiplier = 20;
+      specs.num_characters = 12;
+      specs.num_character_consumables = 4;
+      specs.num_character_equippables = 4;
+      specs.num_exterior_consumables = 5;
+      specs.num_exterior_equippables = 1;
+      specs.num_exteriors = 3;
+      specs.num_buildings = 3;
+      specs.num_structures = 2;
+      break;
+    case ThreatLevel::GOD:
+      specs.stats_multiplier = 50;
+      specs.num_characters = 20;
+      specs.num_character_consumables = 5;
+      specs.num_character_equippables = 5;
+      specs.num_exterior_consumables = 5;
+      specs.num_exterior_equippables = 5;
+      specs.num_exteriors = 3;
+      specs.num_buildings = 4;
+      specs.num_structures = 2;
+      break;
+  }
+  return specs;
+}
+
+} // namespace gameconstants

@@ -58,7 +58,7 @@ std::ostream &operator<<(std::ostream &os, const entity::Consumable &value) {
 }
 
 std::ostream &operator<<(std::ostream &os, const entity::Equippable &value) {
-  os << static_cast<const entity::Item &>(value) << value.uses << value.equipped;
+  os << static_cast<const entity::Item &>(value) << value.type << value.uses << value.equipped;
   return os;
 }
 
@@ -83,6 +83,11 @@ std::ostream &operator<<(std::ostream &os, const BuildingType &value) {
 }
 
 std::ostream &operator<<(std::ostream &os, const ConsumableType &value) {
+  os << magic_enum::enum_name(value);
+  return os;
+}
+
+std::ostream &operator<<(std::ostream &os, const EquippableType &value) {
   os << magic_enum::enum_name(value);
   return os;
 }

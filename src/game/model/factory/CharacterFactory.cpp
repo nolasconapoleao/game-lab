@@ -4,11 +4,13 @@
 
 #include "Factory.h"
 #include "datatypes/entity/Character.h"
+#include "libs/constants/gameconstants.h"
 #include "libs/math/gamemath.h"
 #include "libs/random/Random.h"
 #include "model/World.h"
 
 using namespace gamemath;
+using namespace gameconstants;
 
 namespace model {
 
@@ -66,7 +68,7 @@ Stats Factory::rampupByOccupation(const Occupation occupation, Stats stats) {
 }
 
 Stats Factory::growStats(ThreatLevel level, Stats stats) {
-  return stats * static_cast<Quantity>(level);
+  return stats * creationSpecs(level).stats_multiplier;
 }
 
 Stats Factory::rampupByClass(const AttackType weaponAffinity, Stats stats) {
@@ -158,24 +160,6 @@ Stats Factory::randomizeStats(Stats stats) {
   stats.mana = Random::rand_range(stats.mana, randomRange);
   stats.cst = Random::rand_range(stats.cst, randomRange);
   return stats;
-}
-
-constexpr Stats Factory::minimalStats() {
-  Stats result;
-  result.hp = 8;
-  result.atk = 0;
-  result.def = 0;
-  result.mAtk = 0;
-  result.mDef = 0;
-  result.spd = 2;
-  result.inte = 3;
-  result.acc = 2;
-  result.ste = 0;
-  result.ran = 1;
-  result.mana = 0;
-  result.mhp = 8;
-  result.cst = 10;
-  return result;
 }
 
 } // namespace model

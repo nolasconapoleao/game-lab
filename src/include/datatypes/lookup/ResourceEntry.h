@@ -66,11 +66,13 @@ struct TeamEntry {
 
 struct Snapshot {
   CharacterEntry character;
+  LocationEntry location;
   std::vector<ConsumableEntry> consumables;
   std::vector<EquippableEntry> equippables;
   std::vector<CharacterEntry> characters;
   std::vector<StructureEntry> structures;
   std::vector<BuildingEntry> buildings;
   std::vector<ExteriorEntry> exteriors;
-  std::map<ResourceId, ResourceId> link;
+  std::vector<ItemEntry> floor;
+  std::map<CharacterId, std::vector<ItemEntry>> ownedBy;
 };

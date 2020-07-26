@@ -4,11 +4,11 @@
 
 #pragma once
 
-enum class ThreatLevel : Quantity {
-  SCARECROW = 0,
-  NOVICE = 1,
-  ACE = 5,
-  VETERAN = 10,
-  MONSTER = 20,
-  GOD = 50,
+enum class ThreatLevel {
+  SCARECROW,
+  NOVICE,
+  ACE,
+  VETERAN,
+  MONSTER,
+  GOD,
 };

@@ -36,7 +36,7 @@ const Quantity numeric(const Quantity upperBound) {
   int input;
 
   do {
-    std::cout << "\t\t";
+    std::cout << "\t";
     std::cin >> input;
   } while (input < 1 || input > upperBound);
   Quantity result = input;
