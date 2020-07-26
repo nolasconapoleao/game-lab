@@ -12,4 +12,5 @@ struct PlayerState {
   Action action;
   char transition;
   std::string_view prompt;
+  bool terminal = false;
 };

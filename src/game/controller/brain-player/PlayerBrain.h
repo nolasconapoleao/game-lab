@@ -16,8 +16,7 @@ public:
   Decision think(const Snapshot &snap);
 
 private:
-  Decision travel();
-  Decision attack_characters();
+  template <typename T> ResourceId selectFromVector(const std::vector<T> &vector);
   void selectSubstate();
   void makeBranch(Action start, std::initializer_list<Action> const &end);
 

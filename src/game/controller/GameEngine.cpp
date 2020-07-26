@@ -85,7 +85,9 @@ void GameEngine::handleCharacterTurn(const Decision &decision) {
     case Action::INVENTORY_USE:
       handler->useItem(decision.sender, decision.receiver);
       break;
-    case Action::TRAVEL:
+    case Action::TRAVEL_INTERIOR:
+      [[fallthrough]];
+    case Action::TRAVEL_EXTERIOR:
       handler->travel(decision.sender, decision.receiver);
       break;
   }

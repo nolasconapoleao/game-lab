@@ -26,6 +26,7 @@ player::player() : snap(snap), active(Action::UNDEFINED) {
   makeBranch(Action::QUEST, {Action::QUEST_ABANDON, Action::QUEST_FINISH});
   makeBranch(Action::SPECIAL, {Action::SPECIAL_SUMMON, Action::SPECIAL_PICKPOCKET, Action::SPECIAL_POSSESS,
                                Action::SPECIAL_READ, Action::SPECIAL_CALL});
+  makeBranch(Action::TRAVEL, {Action::TRAVEL_EXTERIOR, Action::TRAVEL_INTERIOR});
 
   makeBranch(Action::SPECIAL_CALL, {Action::SPECIAL_CALL_REINFORCEMENT, Action::SPECIAL_CALL_ENEMY});
 }
@@ -34,98 +35,104 @@ Decision player::think(const Snapshot &snapshot) {
   active = Action::UNDEFINED;
   snap = snapshot;
 
-  while (true) { // TODO: Change to have time termination
+  // TODO: Change to have time termination
+  // TODO: Change to disable invalid options
+  while (true) {
     view::printer::printScreen(snapshot);
-    switch (active) {
-      case Action::UNDEFINED:
-        [[fallthrough]];
-      case Action::MENU:
-        [[fallthrough]];
-      case Action::ATTACK:
-        [[fallthrough]];
-      case Action::INVENTORY:
-        [[fallthrough]];
-      case Action::TEAM:
-        [[fallthrough]];
-      case Action::SHOP:
-        [[fallthrough]];
-      case Action::QUEST:
-        [[fallthrough]];
-      case Action::SPECIAL:
-        [[fallthrough]];
-      case Action::SPECIAL_CALL:
-        selectSubstate();
-        break;
-      case Action::SKIP_TURN:
-        return Decision{Action::SKIP_TURN};
-      case Action::MENU_SAVE:
-        return Decision{Action::SKIP_TURN};
-      case Action::MENU_TUTORIAL:
-        return Decision{Action::SKIP_TURN};
-      case Action::MENU_TERMINATE:
-        return Decision{Action::SKIP_TURN};
-      case Action::ATTACK_CHARACTER:
-        return attack_characters();
-      case Action::ATTACK_BUILDING:
-        return Decision{Action::SKIP_TURN};
-      case Action::ATTACK_STRUCTURE:
-        return Decision{Action::SKIP_TURN};
-      case Action::INVENTORY_PICKUP:
-        return Decision{Action::SKIP_TURN};
-      case Action::INVENTORY_DROP:
-        return Decision{Action::SKIP_TURN};
-      case Action::INVENTORY_USE:
-        return Decision{Action::SKIP_TURN};
-      case Action::TEAM_CREATE:
-        return Decision{Action::SKIP_TURN};
-      case Action::TEAM_DISBAND:
-        return Decision{Action::SKIP_TURN};
-      case Action::TEAM_TRADE:
-        return Decision{Action::SKIP_TURN};
-      case Action::TEAM_KICK:
-        return Decision{Action::SKIP_TURN};
-      case Action::TEAM_INVITE:
-        return Decision{Action::SKIP_TURN};
-      case Action::SHOP_BUY:
-        return Decision{Action::SKIP_TURN};
-      case Action::SHOP_SELL:
-        return Decision{Action::SKIP_TURN};
-      case Action::QUEST_ABANDON:
-        return Decision{Action::SKIP_TURN};
-      case Action::QUEST_FINISH:
-        return Decision{Action::SKIP_TURN};
-      case Action::TRAVEL:
-        return travel();
-      case Action::SPECIAL_SUMMON:
-        return Decision{Action::SKIP_TURN};
-      case Action::SPECIAL_PICKPOCKET:
-        return Decision{Action::SKIP_TURN};
-      case Action::SPECIAL_POSSESS:
-        return Decision{Action::SKIP_TURN};
-      case Action::SPECIAL_READ:
-        return Decision{Action::SKIP_TURN};
-      case Action::SPECIAL_CALL_REINFORCEMENT:
-        return Decision{Action::SKIP_TURN};
-      case Action::SPECIAL_CALL_ENEMY:
-        return Decision{Action::SKIP_TURN};
+
+    if (!gameconstants::stateInfo(active).terminal) {
+      selectSubstate();
+    } else {
+      Decision decision;
+      switch (active) {
+        case Action::SKIP_TURN:
+          decision = Decision{Action::SKIP_TURN};
+          break;
+        case Action::MENU_SAVE:
+          decision = Decision{Action::SKIP_TURN};
+          break;
+        case Action::MENU_TUTORIAL:
+          decision = Decision{Action::SKIP_TURN};
+          break;
+        case Action::MENU_TERMINATE:
+          decision = Decision{Action::SKIP_TURN};
+          break;
+        case Action::ATTACK_CHARACTER:
+          decision = Decision{active, snap.character.id, selectFromVector(snap.characters)};
+          break;
+        case Action::ATTACK_BUILDING:
+          decision = Decision{active, snap.character.id, selectFromVector(snap.buildings)};
+          break;
+        case Action::ATTACK_STRUCTURE:
+          decision = Decision{Action::SKIP_TURN};
+          break;
+        case Action::INVENTORY_PICKUP:
+          decision = Decision{Action::SKIP_TURN};
+          break;
+        case Action::INVENTORY_DROP:
+          decision = Decision{Action::SKIP_TURN};
+          break;
+        case Action::INVENTORY_USE:
+          decision = Decision{Action::SKIP_TURN};
+          break;
+        case Action::TEAM_CREATE:
+          decision = Decision{Action::SKIP_TURN};
+          break;
+        case Action::TEAM_DISBAND:
+          decision = Decision{Action::SKIP_TURN};
+          break;
+        case Action::TEAM_TRADE:
+          decision = Decision{Action::SKIP_TURN};
+          break;
+        case Action::TEAM_KICK:
+          decision = Decision{Action::SKIP_TURN};
+          break;
+        case Action::TEAM_INVITE:
+          decision = Decision{Action::SKIP_TURN};
+          break;
+        case Action::SHOP_BUY:
+          decision = Decision{Action::SKIP_TURN};
+          break;
+        case Action::SHOP_SELL:
+          decision = Decision{Action::SKIP_TURN};
+          break;
+        case Action::QUEST_ABANDON:
+          decision = Decision{Action::SKIP_TURN};
+          break;
+        case Action::QUEST_FINISH:
+          decision = Decision{Action::SKIP_TURN};
+          break;
+        case Action::TRAVEL_INTERIOR:
+          decision = Decision{active, snap.character.id, selectFromVector(snap.buildings)};
+          break;
+        case Action::TRAVEL_EXTERIOR:
+          decision = Decision{active, snap.character.id, selectFromVector(snap.exteriors)};
+          break;
+        case Action::SPECIAL_SUMMON:
+          decision = Decision{Action::SKIP_TURN};
+          break;
+        case Action::SPECIAL_PICKPOCKET:
+          decision = Decision{Action::SKIP_TURN};
+          break;
+        case Action::SPECIAL_POSSESS:
+          decision = Decision{Action::SKIP_TURN};
+          break;
+        case Action::SPECIAL_READ:
+          decision = Decision{Action::SKIP_TURN};
+          break;
+        case Action::SPECIAL_CALL_REINFORCEMENT:
+          decision = Decision{Action::SKIP_TURN};
+          break;
+        case Action::SPECIAL_CALL_ENEMY:
+          decision = Decision{Action::SKIP_TURN};
+          break;
+      }
+
+      if (gameconstants::stateInfo(active).terminal) {
+        return decision;
+      }
     }
   }
-}
-
-Decision player::travel() {
-  view::input::travel(snap);
-  const auto bLen = snap.buildings.size();
-  const auto eLen = snap.exteriors.size();
-  const auto in = controller::input::numeric(bLen + eLen) - 1;
-  const auto destination = (in > bLen - 1) ? snap.buildings[in].id : snap.exteriors[in - bLen].id;
-  return Decision{Action::TRAVEL, snap.character.id, destination};
-}
-
-Decision player::attack_characters() {
-  view::input::generic(gameconstants::stateInfo(active).prompt, snap.characters);
-  const auto in = controller::input::numeric(snap.characters.size()) - 1;
-  const auto destination = snap.characters[in].id;
-  return Decision{active, snap.character.id, destination};
 }
 
 void player::selectSubstate() {
@@ -148,6 +155,19 @@ void player::makeBranch(Action start, const std::initializer_list<Action> &end) 
   for (auto it : end) {
     decisionTree.emplace(it, start);
   }
+}
+
+template <typename T> ResourceId player::selectFromVector(const std::vector<T> &vector) {
+  if (vector.size() == 0) {
+    view::input::invalid(gameconstants::stateInfo(active).prompt);
+    active = Action::UNDEFINED;
+    return 0;
+  }
+
+  view::input::generic(gameconstants::stateInfo(active).prompt, vector);
+  const auto in = controller::input::numeric(vector.size()) - 1;
+  const auto parsedInput = vector[in].id;
+  return parsedInput;
 }
 
 } // namespace controller::brain
