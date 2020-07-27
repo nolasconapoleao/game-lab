@@ -85,10 +85,28 @@ void GameEngine::handleCharacterTurn(const Decision &decision) {
     case Action::INVENTORY_USE:
       handler->useItem(decision.sender, decision.receiver);
       break;
+    case Action::INVENTORY_PICKUP:
+      handler->pickupItem(decision.sender, decision.receiver, decision.quantity);
+      break;
+    case Action::INVENTORY_DROP:
+      handler->dropItem(decision.sender, decision.receiver, decision.quantity);
+      break;
     case Action::TRAVEL_INTERIOR:
       [[fallthrough]];
     case Action::TRAVEL_EXTERIOR:
       handler->travel(decision.sender, decision.receiver);
+      break;
+    case Action::SHOP_BUY:
+      handler->buyItem(decision.receiver, decision.sender, decision.quantity);
+      break;
+    case Action::SHOP_SELL:
+      handler->sellItem(decision.receiver, decision.sender, decision.quantity);
+      break;
+    case Action::SPECIAL_PICKPOCKET:
+      handler->stealItem(decision.sender, decision.receiver);
+      break;
+    case Action::SPECIAL_POSSESS:
+      handler->possess(decision.sender, decision.receiver);
       break;
   }
 }

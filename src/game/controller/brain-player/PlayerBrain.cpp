@@ -58,22 +58,22 @@ Decision player::think(const Snapshot &snapshot) {
           decision = Decision{Action::SKIP_TURN};
           break;
         case Action::ATTACK_CHARACTER:
-          decision = Decision{active, snap.character.id, selectFromVector(snap.characters)};
+          decision = Decision{active, snap.character.id, selectFromVector(snap.characters).parsed};
           break;
         case Action::ATTACK_BUILDING:
-          decision = Decision{active, snap.character.id, selectFromVector(snap.buildings)};
+          decision = Decision{active, snap.character.id, selectFromVector(snap.buildings).parsed};
           break;
         case Action::ATTACK_STRUCTURE:
-          decision = Decision{Action::SKIP_TURN};
+          decision = Decision{active, snap.character.id, selectFromVector(snap.structures).parsed};
           break;
         case Action::INVENTORY_PICKUP:
-          decision = Decision{Action::SKIP_TURN};
+          decision = Decision{active, snap.character.id, selectFromVector(snap.floor).parsed};
           break;
         case Action::INVENTORY_DROP:
-          decision = Decision{Action::SKIP_TURN};
+          decision = drop_item();
           break;
         case Action::INVENTORY_USE:
-          decision = Decision{Action::SKIP_TURN};
+          decision = use_item();
           break;
         case Action::TEAM_CREATE:
           decision = Decision{Action::SKIP_TURN};
@@ -103,19 +103,22 @@ Decision player::think(const Snapshot &snapshot) {
           decision = Decision{Action::SKIP_TURN};
           break;
         case Action::TRAVEL_INTERIOR:
-          decision = Decision{active, snap.character.id, selectFromVector(snap.buildings)};
+          decision = Decision{active, snap.character.id, selectFromVector(snap.buildings).parsed};
           break;
         case Action::TRAVEL_EXTERIOR:
-          decision = Decision{active, snap.character.id, selectFromVector(snap.exteriors)};
+          decision = Decision{active, snap.character.id, selectFromVector(snap.exteriors).parsed};
           break;
         case Action::SPECIAL_SUMMON:
           decision = Decision{Action::SKIP_TURN};
           break;
-        case Action::SPECIAL_PICKPOCKET:
-          decision = Decision{Action::SKIP_TURN};
+        case Action::SPECIAL_PICKPOCKET: {
+          const auto who = selectFromVector(snap.characters).parsed;
+          const auto itemInput = selectFromVector(snap.ownedBy.find(who)->second);
+          decision = Decision{active, snap.character.id, itemInput.parsed};
           break;
+        }
         case Action::SPECIAL_POSSESS:
-          decision = Decision{Action::SKIP_TURN};
+          decision = Decision{active, snap.character.id, selectFromVector(snap.buildings).parsed};
           break;
         case Action::SPECIAL_READ:
           decision = Decision{Action::SKIP_TURN};
@@ -133,6 +136,49 @@ Decision player::think(const Snapshot &snapshot) {
       }
     }
   }
+}
+
+Decision player::use_item() {
+  const auto cLen = snap.consumables.size();
+  const auto eLen = snap.equippables.size();
+  if (cLen == 0 && eLen == 0) {
+    view::input::invalid(gameconstants::stateInfo(active).prompt);
+    active = Action::UNDEFINED;
+    return Decision{Action::UNDEFINED};
+  }
+
+  view::input::items(gameconstants::stateInfo(active).prompt, snap);
+  ResourceId parsedInput;
+  const auto in = controller::input::numeric(eLen + cLen);
+  if (in <= cLen) {
+    parsedInput = snap.consumables[in - 1].id;
+  } else {
+    parsedInput = snap.equippables[in - cLen - 1].id;
+  }
+  return Decision{active, snap.character.id, parsedInput};
+}
+
+Decision player::drop_item() {
+  const auto cLen = snap.consumables.size();
+  const auto eLen = snap.equippables.size();
+  if (cLen == 0 && eLen == 0) {
+    view::input::invalid(gameconstants::stateInfo(active).prompt);
+    active = Action::UNDEFINED;
+    return Decision{Action::UNDEFINED};
+  }
+
+  view::input::items(gameconstants::stateInfo(active).prompt, snap);
+  ResourceId parsedInput;
+  Quantity quantity;
+  const auto in = controller::input::numeric(eLen + cLen);
+  if (in <= cLen) {
+    parsedInput = snap.consumables[in - 1].id;
+    quantity = selectItemQuantity(snap.consumables, {static_cast<Quantity>(in - 1), parsedInput});
+  } else {
+    parsedInput = snap.equippables[in - cLen - 1].id;
+    quantity = selectItemQuantity(snap.equippables, {static_cast<Quantity>(in - cLen - 1), parsedInput});
+  }
+  return Decision{active, parsedInput, snap.location.id, quantity};
 }
 
 void player::selectSubstate() {
@@ -157,17 +203,32 @@ void player::makeBranch(Action start, const std::initializer_list<Action> &end) 
   }
 }
 
-template <typename T> ResourceId player::selectFromVector(const std::vector<T> &vector) {
+template <typename T> ConsoleIn player::selectFromVector(const std::vector<T> &vector) {
   if (vector.size() == 0) {
     view::input::invalid(gameconstants::stateInfo(active).prompt);
     active = Action::UNDEFINED;
-    return 0;
+    return {0, 0};
   }
 
   view::input::generic(gameconstants::stateInfo(active).prompt, vector);
   const auto in = controller::input::numeric(vector.size()) - 1;
   const auto parsedInput = vector[in].id;
-  return parsedInput;
+  return ConsoleIn{static_cast<Quantity>(in), parsedInput};
+}
+
+template <typename T> Quantity player::selectItemQuantity(const std::vector<T> &vector, ConsoleIn input) {
+  if (vector.size() == 0) {
+    view::input::invalid("No items available!");
+    active = Action::UNDEFINED;
+    return 0;
+  }
+
+  const auto max = vector[input.raw].entity->quantity;
+  if (max == 1) {
+    return 1;
+  }
+  view::input::quantity(max);
+  return controller::input::numeric(max);
 }
 
 } // namespace controller::brain

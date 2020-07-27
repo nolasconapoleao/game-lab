@@ -19,7 +19,7 @@ void Handler::dropItem(const ItemId itemId, const ResourceId locationId, Quantit
   transferItem(itemId, locationId, quantity);
 }
 
-void Handler::pickupItem(const ItemId itemId, const CharacterId characterId, Quantity quantity) {
+void Handler::pickupItem(const CharacterId characterId, const ItemId itemId, Quantity quantity) {
   if (0 == quantity) {
     quantity = lookup->item(itemId)->quantity;
   }
@@ -27,7 +27,7 @@ void Handler::pickupItem(const ItemId itemId, const CharacterId characterId, Qua
   transferItem(itemId, characterId, quantity);
 }
 
-void Handler::stealItem(const ItemId itemId, const CharacterId roberId) {
+void Handler::stealItem(const CharacterId roberId, const ItemId itemId) {
   const auto &robber = world->characters.find(roberId)->second;
   const auto &robbedId = world->locatedIn.find(itemId)->second;
   const auto &robbed = world->characters.find(robbedId)->second;

@@ -4,7 +4,9 @@
 
 #include "Input-Prompter.h"
 
-#include <datatypes/lookup/ResourceEntry.h>
+#include <view/stream/StreamConverter.h>
+
+using namespace view::stream;
 
 namespace view::input {
 
@@ -18,36 +20,21 @@ void invalid(const std::string_view &header) {
   std::cout << "Cannot " << header << "\n";
 }
 
-void generic_character(const std::string_view &header, std::vector<CharacterEntry> entities) {
-  std::cout << separatorClose << header << ":\n";
-  if (!entities.empty()) {
-    auto k = 1;
-    for (const auto &it : entities) {
-      std::cout << "\t" << k << ": " << it.entity->name << "\n";
-      k++;
-    }
-  }
+void quantity(Quantity max) {
+  std::cout << "How much do you want? Maximum is " << max << "\n";
 }
 
-void travel_exterior(const Snapshot &snap) {
-  std::cout << separatorClose << " Where to fellow traveller:\n";
-  if (!snap.exteriors.empty()) {
-    auto k = 1;
-    for (const auto &it : snap.exteriors) {
-      std::cout << "\t" << k << ": " << it.entity->name << "\n";
-      k++;
-    }
+void items(const std::string_view &header, const Snapshot snapshot) {
+  std::cout << separatorClose << " " << header << "\n";
+  std::cout << separatorClose << "Select item:\n";
+  auto k = 1;
+  for (const auto &it : snapshot.equippables) {
+    std::cout << "\t" << k << ": " << it.entity->name << "\n";
+    k++;
   }
-}
-
-void travel_interior(const Snapshot &snap) {
-  std::cout << separatorClose << " Where to fellow traveller:\n";
-  if (!snap.exteriors.empty()) {
-    auto k = 1;
-    for (const auto &it : snap.buildings) {
-      std::cout << "\t" << k << ": " << it.entity->name << "\n";
-      k++;
-    }
+  for (const auto &it : snapshot.consumables) {
+    std::cout << "\t" << k << ": " << it.entity->name << "\n";
+    k++;
   }
 }
 

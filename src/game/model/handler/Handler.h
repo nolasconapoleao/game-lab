@@ -33,14 +33,14 @@ public:
   void attackBuilding(const CharacterId attackerId, const LocationId buildingId);
 
   void dropItem(const ItemId itemId, const ResourceId locationId, const Quantity quantity = 0);
-  void pickupItem(const ItemId itemId, const CharacterId characterId, const Quantity quantity = 0);
-  void stealItem(const ItemId itemId, const CharacterId roberId);
+  void pickupItem(const CharacterId characterId, const ItemId itemId, Quantity quantity);
+  void stealItem(const CharacterId roberId, const ItemId itemId);
   void useItem(const CharacterId characterId, const ItemId itemId);
   void depleteItem(const ItemId itemId);
   void characterItemDepletion(const CharacterId characterId);
 
-  void buyItem(const ItemId itemId, const CharacterId buyerId, Quantity quantity = 0);
-  void sellItem(const ItemId itemId, const CharacterId sellerId, Quantity quantity = 0);
+  void buyItem(const CharacterId buyerId, const ItemId itemId, Quantity quantity);
+  void sellItem(const CharacterId sellerId, const ItemId itemId, Quantity quantity);
 
   void travel(const CharacterId &characterId, const LocationId locationId);
   void possess(const CharacterId mageId, const CharacterId possessedId);

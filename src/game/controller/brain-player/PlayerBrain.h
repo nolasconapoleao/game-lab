@@ -8,6 +8,11 @@
 #include <datatypes/controller/Decision.h>
 #include <datatypes/lookup/ResourceEntry.h>
 
+struct ConsoleIn {
+  Quantity raw;
+  ResourceId parsed;
+};
+
 namespace controller::brain {
 
 class player {
@@ -16,7 +21,10 @@ public:
   Decision think(const Snapshot &snap);
 
 private:
-  template <typename T> ResourceId selectFromVector(const std::vector<T> &vector);
+  Decision drop_item();
+  Decision use_item();
+  template <typename T> ConsoleIn selectFromVector(const std::vector<T> &vector);
+  template <typename T> Quantity selectItemQuantity(const std::vector<T> &vector, const ConsoleIn input);
   void selectSubstate();
   void makeBranch(Action start, std::initializer_list<Action> const &end);
 
