@@ -12,7 +12,7 @@
 
 namespace controller::brain {
 
-player::player() : snap(snap), active(Action::UNDEFINED) {
+player::player() : active(Action::UNDEFINED) {
   makeBranch(Action::UNDEFINED, {Action::SKIP_TURN, Action::MENU, Action::ATTACK, Action::INVENTORY, Action::TEAM,
                                  Action::SHOP, Action::QUEST, Action::TRAVEL, Action::SPECIAL});
 
