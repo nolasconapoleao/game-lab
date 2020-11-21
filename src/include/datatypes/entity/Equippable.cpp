@@ -8,7 +8,7 @@ namespace entity {
 
 Equippable::Equippable(const std::string &name, EquippableType type, const ItemEffect &effect, Quantity quantity,
                        Number unitWeight, Number unitPrice, Number uses)
-    : Item(name, effect, quantity, unitWeight, unitPrice), uses(uses), equipped(false), type(type) {
+    : Item(name, effect, quantity, unitWeight, unitPrice), type(type), uses(uses), equipped(false) {
 }
 
 } // namespace entity

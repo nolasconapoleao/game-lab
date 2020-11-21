@@ -65,6 +65,8 @@ constexpr Size Factory::connectorSize(const ConnectorType type) {
       size.width = 50;
       size.height = 10;
       break;
+    case ConnectorType::UNDEFINED:
+      throw std::invalid_argument("Invalid connector type");
   }
   return size;
 }
@@ -122,6 +124,8 @@ constexpr BuildingSpecs Factory::buildingSpecs(const BuildingType type) {
       specs.size.width = 18;
       specs.size.height = 53;
       break;
+    case BuildingType::UNDEFINED:
+      throw std::invalid_argument("Invalid building type");
   }
   return specs;
 }
@@ -141,6 +145,8 @@ constexpr Size Factory::exteriorSize(const ExteriorType type) {
       size.width = 180;
       size.height = 180;
       break;
+    case ExteriorType::UNDEFINED:
+      throw std::invalid_argument("Invalid exterior type");
   }
   return size;
 }

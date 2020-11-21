@@ -63,6 +63,8 @@ constexpr Stats Factory::rampupByOccupation(const Occupation occupation, Stats s
     case Occupation::TOURIST:
       stats.def += 2;
       break;
+    case Occupation::UNDEFINED:
+      throw std::invalid_argument("Invalid occupation");
   }
   return stats;
 }
@@ -93,6 +95,8 @@ constexpr Stats Factory::rampupByClass(const AttackType weaponAffinity, Stats st
     case AttackType::SUPPORT:
       stats.mana += 2;
       break;
+    case AttackType::UNDEFINED:
+      throw std::invalid_argument("Invalid attack type");
   }
   return stats;
 }
@@ -131,6 +135,8 @@ constexpr Stats Factory::rampupByRace(const Race race, Stats stats) {
     case Race::GOBLIN:
       stats.spd += 5;
       break;
+    case Race::UNDEFINED:
+      throw std::invalid_argument("Invalid race");
   }
   return stats;
 }

@@ -175,7 +175,7 @@ constexpr PlayerState stateInfo(Action action) {
       return {action, 'r', "Call reinforcement", true};
     case Action::SPECIAL_CALL_ENEMY:
       return {action, 't', "Call enemy", true};
-    case Action::UNDEFINED:
+    default:
       return {action, ' ', ""};
   }
 }

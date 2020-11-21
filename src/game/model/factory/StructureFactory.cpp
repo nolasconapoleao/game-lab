@@ -34,6 +34,8 @@ Size Factory::structureSize(const StructureType type) {
       size.width = 3;
       size.height = 2;
       break;
+    case StructureType::UNDEFINED:
+      throw std::invalid_argument("Invalid structure type");
   }
   return size;
 }

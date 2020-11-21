@@ -9,7 +9,7 @@
 namespace entity {
 
 Structure::Structure(const std::string &name, StructureType type, const Size &size)
-    : Entity(name), type(type), size(size), health(size.height * size.width) {
+    : Entity(name), type(type), health(size.height * size.width), size(size) {
 }
 
 } // namespace entity

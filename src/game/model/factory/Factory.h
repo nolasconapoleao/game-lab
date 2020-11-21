@@ -61,9 +61,6 @@ private:
   static Stats randomizeStats(Stats stats);
 
   Size structureSize(const StructureType type);
-  ResourceId entityCounter;
-  std::shared_ptr<World> world;
-
   constexpr Size connectorSize(ConnectorType type);
   constexpr BuildingSpecs buildingSpecs(BuildingType type);
   constexpr Size exteriorSize(ExteriorType type);
@@ -76,6 +73,9 @@ private:
   void initCharacterNames();
   void initLocationNames();
   void initTeamNames();
+
+  std::shared_ptr<World> world;
+  ResourceId entityCounter;
 };
 
 } // namespace model

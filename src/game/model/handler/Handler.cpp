@@ -21,7 +21,7 @@ void Handler::travel(const CharacterId &characterId, const LocationId locationId
 void Handler::possess(const CharacterId mageId, const CharacterId possessedId) {
   const auto &mage = world->characters.find(mageId)->second;
   auto &possessed = world->characters.find(possessedId)->second;
-  if (0 < compare(mage.stats().mAtk, possessed.stats().mDef) != 0) {
+  if (0 < compare(mage.stats().mAtk, possessed.stats().mDef)) {
     possessed.info.ghost = Ghost::PLAYER;
   }
 }

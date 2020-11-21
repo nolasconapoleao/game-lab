@@ -6,6 +6,7 @@
 
 #include <controller/brain-computer/ComputerBrain.h>
 #include <controller/brain-player/PlayerBrain.h>
+#include <lber.h>
 #include <model/handler/Handler.h>
 #include <model/lookup/Lookup.h>
 
@@ -51,17 +52,16 @@ void GameEngine::updateCharacterQueue() {
 }
 
 Snapshot GameEngine::createSceneSnapshot(CharacterId characterId) {
-  auto snap = Snapshot{
-      {characterId, lookup->character(characterId)},
-      lookup->whereIs(characterId),
-      lookup->consumablesIn(characterId),
-      lookup->equippablesIn(characterId),
-      lookup->closeByCharacters(characterId),
-      lookup->closeByStructures(characterId),
-      lookup->closeByBuildings(characterId),
-      lookup->closeByExteriors(characterId),
-      lookup->itemsIn(lookup->whereIs(characterId).id),
-  };
+  auto snap = Snapshot{{characterId, lookup->character(characterId)},
+                       lookup->whereIs(characterId),
+                       lookup->consumablesIn(characterId),
+                       lookup->equippablesIn(characterId),
+                       lookup->closeByCharacters(characterId),
+                       lookup->closeByStructures(characterId),
+                       lookup->closeByBuildings(characterId),
+                       lookup->closeByExteriors(characterId),
+                       lookup->itemsIn(lookup->whereIs(characterId).id),
+                       {}};
   snap.floor = lookup->itemsIn(snap.location.id);
   for (const auto &character : snap.characters) {
     snap.ownedBy.emplace(character.id, lookup->itemsIn(character.id));
@@ -71,8 +71,6 @@ Snapshot GameEngine::createSceneSnapshot(CharacterId characterId) {
 
 void GameEngine::handleCharacterTurn(const Decision &decision) {
   switch (decision.type) {
-    case Action::SKIP_TURN:
-      break;
     case Action::ATTACK_BUILDING:
       handler->attackBuilding(decision.sender, decision.receiver);
       break;
@@ -107,6 +105,12 @@ void GameEngine::handleCharacterTurn(const Decision &decision) {
       break;
     case Action::SPECIAL_POSSESS:
       handler->possess(decision.sender, decision.receiver);
+      break;
+    case Action::UNDEFINED:
+      throw std::invalid_argument("Cannot handle invalid decision");
+    case Action::SKIP_TURN:
+      [[fallthrough]];
+    default:
       break;
   }
 }
