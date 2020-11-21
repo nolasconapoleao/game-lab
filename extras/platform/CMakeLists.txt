@@ -5,5 +5,5 @@ else()
 endif()
 configure_file(platformconfig.h.in platformconfig.h @ONLY)
 
-## Clears COMPILE_FOR_NON_UNIX between cmake runs
+# Clears COMPILE_FOR_NON_UNIX between cmake runs
 unset(COMPILE_FOR_NON_UNIX CACHE)
