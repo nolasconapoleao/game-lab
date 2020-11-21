@@ -11,7 +11,7 @@
 
 namespace controller {
 
-GameEngine::GameEngine(const std::shared_ptr<model::Handler> &handler, const std::shared_ptr<model::Lookup> &lookup)
+GameEngine::GameEngine(const std::shared_ptr<model::Handler> handler, const std::shared_ptr<model::Lookup> lookup)
     : handler(std::move(handler)), lookup(std::move(lookup)) {
   handler->createWorld();
   updateCharacterQueue();
@@ -30,7 +30,7 @@ bool GameEngine::isTerminated() {
 }
 
 CharacterId GameEngine::loadNextCharacter() {
-  CharacterId idTurn;
+  CharacterId idTurn{0};
   do {
     idTurn = *characterQueue.begin();
     characterQueue.erase(idTurn);
@@ -42,10 +42,10 @@ CharacterId GameEngine::loadNextCharacter() {
 }
 
 void GameEngine::updateCharacterQueue() {
-  for (const auto it : lookup->playableCharacters()) {
-    characterQueue.insert(it.id);
-    for (const auto k : lookup->closeByCharacters(it.id)) {
-      characterQueue.insert(k.id);
+  for (const auto &character : lookup->playableCharacters()) {
+    characterQueue.insert(character.id);
+    for (const auto &characterNeighbour : lookup->closeByCharacters(character.id)) {
+      characterQueue.insert(characterNeighbour.id);
     }
   }
 }
@@ -63,8 +63,8 @@ Snapshot GameEngine::createSceneSnapshot(CharacterId characterId) {
       lookup->itemsIn(lookup->whereIs(characterId).id),
   };
   snap.floor = lookup->itemsIn(snap.location.id);
-  for (const auto it : snap.characters) {
-    snap.ownedBy.emplace(it.id, lookup->itemsIn(it.id));
+  for (const auto &character : snap.characters) {
+    snap.ownedBy.emplace(character.id, lookup->itemsIn(character.id));
   }
   return snap;
 }

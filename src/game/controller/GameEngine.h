@@ -22,14 +22,14 @@ namespace controller {
 
 class GameEngine {
 public:
-  GameEngine(const std::shared_ptr<model::Handler> &handler, const std::shared_ptr<model::Lookup> &lookup);
+  GameEngine(const std::shared_ptr<model::Handler> handler, const std::shared_ptr<model::Lookup> lookup);
   void run();
   bool isTerminated();
 
 private:
   CharacterId loadNextCharacter();
   void updateCharacterQueue();
-  Snapshot createSceneSnapshot(const CharacterId characterId);
+  Snapshot createSceneSnapshot(CharacterId characterId);
   void handleCharacterTurn(const Decision &decision);
   std::set<CharacterId> characterQueue;
 

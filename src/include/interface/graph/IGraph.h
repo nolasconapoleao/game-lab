@@ -18,19 +18,19 @@ public:
   using Edge = std::tuple<NodeId, NodeId, EdgeInfo>;
 
   // Node operations
-  [[maybe_unused]] bool addNode(const NodeId nodeId, const NodeInfo &node);
-  void removeNode(const NodeId nodeId);
-  NodeInfo getNode(const NodeId nodeId);
+  [[maybe_unused]] bool addNode(NodeId nodeId, const NodeInfo &node);
+  void removeNode(NodeId nodeId);
+  NodeInfo getNode(NodeId nodeId);
   size_t numberOfNodes();
 
   // Edge operations
-  virtual bool addEdge(const EdgeId edgeId, const EdgeInfo &edgeInfo) = 0;
+  virtual bool addEdge(EdgeId edgeId, const EdgeInfo &edgeInfo) = 0;
   virtual void removeEdge(const EdgeId &edgeId) = 0;
   virtual EdgeInfo getEdge(const EdgeId &edgeId) = 0;
-  virtual std::unordered_set<NodeId> neighbours(const NodeId nodeId) = 0;
+  virtual std::unordered_set<NodeId> neighbours(NodeId nodeId) = 0;
 
 protected:
-  bool nodeExists(const NodeId nodeId);
+  bool nodeExists(NodeId nodeId);
   std::vector<Node> nodes;
   std::vector<Edge> edges;
 };

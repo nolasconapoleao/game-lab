@@ -63,7 +63,7 @@ void Handler::depleteItem(const ItemId itemId) {
     if (consumable.consumed) {
       consumable.duration--;
     }
-    if (consumable.duration) {
+    if (0 == consumable.duration) {
       consumable.quantity--;
     }
   } else if (EQUIPPABLE == lookup->type(itemId)) {
@@ -71,7 +71,7 @@ void Handler::depleteItem(const ItemId itemId) {
     if (equipable.equipped) {
       equipable.uses--;
     }
-    if (equipable.uses) {
+    if (0 == equipable.uses) {
       equipable.quantity--;
     }
     equipable.equipped = !equipable.equipped;
@@ -84,7 +84,7 @@ void Handler::depleteItem(const ItemId itemId) {
 }
 
 void Handler::characterItemDepletion(const CharacterId characterId) {
-  for (auto &item : lookup->itemsIn(characterId)) {
+  for (const auto &item : lookup->itemsIn(characterId)) {
     depleteItem(item.id);
   };
 }

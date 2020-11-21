@@ -100,7 +100,7 @@ ItemId Factory::createConsumable(ConsumableType type, const Quantity quantity) {
   return entityCounter;
 }
 
-ItemEffect Factory::equipmentSpecs(const EquipmentType type) {
+constexpr ItemEffect Factory::equipmentSpecs(const EquipmentType type) {
   ItemEffect specs{};
   switch (type) {
     case EquipmentType::COAT:
@@ -117,7 +117,7 @@ ItemEffect Factory::equipmentSpecs(const EquipmentType type) {
   return specs;
 }
 
-ItemEffect Factory::staffSpecs(const StaffType type) {
+constexpr ItemEffect Factory::staffSpecs(const StaffType type) {
   ItemEffect specs{};
   switch (type) {
     case StaffType::CONJURING:
@@ -134,7 +134,7 @@ ItemEffect Factory::staffSpecs(const StaffType type) {
   return specs;
 }
 
-ItemEffect Factory::weaponSpecs(const WeaponType type) {
+constexpr ItemEffect Factory::weaponSpecs(const WeaponType type) {
   ItemEffect specs{};
   switch (type) {
     case WeaponType::AXE:
@@ -146,7 +146,7 @@ ItemEffect Factory::weaponSpecs(const WeaponType type) {
       specs.ran = 2;
       break;
     case WeaponType::DAGGER:
-      specs.atk = 1;
+      specs.atk = 2;
       specs.ran = 1;
       break;
     case WeaponType::KNIFE:
@@ -165,7 +165,7 @@ ItemEffect Factory::weaponSpecs(const WeaponType type) {
   return specs;
 }
 
-ItemEffect Factory::consumableSpecs(const ConsumableType type) {
+constexpr ItemEffect Factory::consumableSpecs(const ConsumableType type) {
   ItemEffect specs{};
   switch (type) {
     case ConsumableType::COIN:

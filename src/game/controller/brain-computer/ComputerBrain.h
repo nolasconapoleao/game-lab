@@ -12,12 +12,4 @@ namespace controller::brain::computer {
 
 Decision think(const Snapshot &snap);
 
-namespace // anonymous namespace
-{
-// TODO: investigate how to export this
-// Decision attack(const Snapshot &snap);
-// Decision inventory(const Snapshot &snap);
-// Decision tourist(const Snapshot &snap);
-} // namespace
-
 }; // namespace controller::brain::computer

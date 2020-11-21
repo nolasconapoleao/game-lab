@@ -19,8 +19,8 @@ constexpr auto separatorClose = ">>>>>>>>>>>>>>>>>>>>>>>>>>>>";
 
 void playerMenu(const std::vector<PlayerState> &options);
 void invalid(const std::string_view &header);
-void quantity(const Quantity max);
-void items(const std::string_view &header, const Snapshot snapshot);
+void quantity(Quantity max);
+void items(const std::string_view &header, const Snapshot &snapshot);
 template <typename T> void generic(const std::string_view &header, const std::vector<T> &entities) {
   std::cout << separatorClose << " " << header << ":\n";
   auto k = 1;

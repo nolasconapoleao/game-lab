@@ -4,12 +4,14 @@
 
 #include "Cleaner.h"
 
+#include <utility>
+
 #include "model/World.h"
 #include "model/lookup/Lookup.h"
 
 namespace model {
 
-Cleaner::Cleaner(const std::shared_ptr<World> &world, std::shared_ptr<Lookup> lookup)
+Cleaner::Cleaner(std::shared_ptr<World> world, std::shared_ptr<Lookup> lookup)
     : world(std::move(world)), lookup(std::move(lookup)) {
 }
 
@@ -17,7 +19,7 @@ void Cleaner::deleteCharacter(const CharacterId characterId) {
   world->characters.erase(characterId);
   world->locatedIn.erase(characterId);
   world->memberships.erase(characterId);
-  for (auto itemEntry : lookup->itemsIn(characterId)) {
+  for (const auto &itemEntry : lookup->itemsIn(characterId)) {
     world->locatedIn.erase(itemEntry.id);
   }
 }
@@ -43,27 +45,27 @@ void Cleaner::deleteBuilding(const LocationId buildingId) {
 }
 
 void Cleaner::deleteStructure(const StructureId structureId) {
-  for (auto itemEntry : lookup->itemsIn(structureId)) {
+  for (const auto &itemEntry : lookup->itemsIn(structureId)) {
     world->locatedIn.erase(itemEntry.id);
   }
   world->structures.erase(structureId);
 }
 
 void Cleaner::cleanupLocation(const LocationId locationId) {
-  for (auto itemEntry : lookup->itemsIn(locationId)) {
+  for (const auto &itemEntry : lookup->itemsIn(locationId)) {
     world->locatedIn.erase(itemEntry.id);
   }
 
-  for (auto characterEntry : lookup->charactersIn(locationId)) {
+  for (const auto &characterEntry : lookup->charactersIn(locationId)) {
     world->locatedIn.erase(characterEntry.id);
   }
 
-  for (auto structureEntry : lookup->structuresIn(locationId)) {
+  for (const auto &structureEntry : lookup->structuresIn(locationId)) {
     world->locatedIn.erase(structureEntry.id);
   }
 
   world->neighbours.erase(locationId);
-  for (auto locationEntry : lookup->neighboursEndingIn(locationId)) {
+  for (const auto &locationEntry : lookup->neighboursEndingIn(locationId)) {
     world->neighbours.erase(locationEntry.id);
   }
 }

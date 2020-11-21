@@ -24,49 +24,49 @@ class Lookup;
 class Handler {
 public:
   Handler(const std::shared_ptr<World> &world, const std::shared_ptr<Factory> &factory,
-          const std::shared_ptr<Cleaner> &cleaner, std::shared_ptr<Lookup> lookup);
+          const std::shared_ptr<Cleaner> &cleaner, const std::shared_ptr<Lookup> &lookup);
   void createWorld();
   void destroyWorld();
 
-  AttackResult attackCharacter(const CharacterId attackerId, const CharacterId attackedId);
-  void attackStructure(const CharacterId attackerId, const StructureId structureId);
-  void attackBuilding(const CharacterId attackerId, const LocationId buildingId);
+  AttackResult attackCharacter(CharacterId attackerId, CharacterId attackedId);
+  void attackStructure(CharacterId attackerId, StructureId structureId);
+  void attackBuilding(CharacterId attackerId, LocationId buildingId);
 
-  void dropItem(const ItemId itemId, const ResourceId locationId, const Quantity quantity = 0);
-  void pickupItem(const CharacterId characterId, const ItemId itemId, Quantity quantity);
-  void stealItem(const CharacterId roberId, const ItemId itemId);
-  void useItem(const ItemId itemId);
-  void depleteItem(const ItemId itemId);
-  void characterItemDepletion(const CharacterId characterId);
+  void dropItem(ItemId itemId, ResourceId locationId, Quantity quantity = 0);
+  void pickupItem(CharacterId characterId, ItemId itemId, Quantity quantity);
+  void stealItem(CharacterId roberId, ItemId itemId);
+  void useItem(ItemId itemId);
+  void depleteItem(ItemId itemId);
+  void characterItemDepletion(CharacterId characterId);
 
-  void buyItem(const CharacterId buyerId, const ItemId itemId, Quantity quantity);
-  void sellItem(const CharacterId sellerId, const ItemId itemId, Quantity quantity);
+  void buyItem(CharacterId buyerId, ItemId itemId, Quantity quantity);
+  void sellItem(CharacterId sellerId, ItemId itemId, Quantity quantity);
 
-  void travel(const CharacterId &characterId, const LocationId locationId);
-  void possess(const CharacterId mageId, const CharacterId possessedId);
-  void renameCharacter(const CharacterId characterId, const std::string &newName);
-  void renameTeam(const TeamId teamId, const std::string &newName);
+  void travel(const CharacterId &characterId, LocationId locationId);
+  void possess(CharacterId mageId, CharacterId possessedId);
+  void renameCharacter(CharacterId characterId, const std::string &newName);
+  void renameTeam(TeamId teamId, const std::string &newName);
 
 private:
   LocationId createGroundZero();
-  LocationId createNeighbour(const LocationId locationId, const ThreatLevel threat);
-  void fillLocation(const LocationId locationId, const ThreatLevel threat);
-  void fillInventory(const CharacterId characterId, const ThreatLevel threat);
-  void fillFloor(const ResourceId locationId, const ThreatLevel threat);
-  void fillExterior(const LocationId locationId, const ThreatLevel threat);
+  LocationId createNeighbour(LocationId locationId, ThreatLevel threat);
+  void fillLocation(LocationId locationId, ThreatLevel threat);
+  void fillInventory(CharacterId characterId, ThreatLevel threat);
+  void fillFloor(ResourceId locationId, ThreatLevel threat);
+  void fillExterior(LocationId locationId, ThreatLevel threat);
 
-  void demolishBuilding(const LocationId buildingId);
-  void demolishStructure(const StructureId structureId);
-  void killCharacter(const CharacterId characterId);
+  void demolishBuilding(LocationId buildingId);
+  void demolishStructure(StructureId structureId);
+  void killCharacter(CharacterId characterId);
   void destroyItem(ItemId itemId);
 
-  void transferItem(const ItemId itemId, const ResourceId destinationId, Quantity quantity);
-  void stackConsumable(const ItemId itemId, const ResourceId destinationId, Quantity quantity);
-  void applyItemEffect(const ItemId itemId);
-  void revertItemEffect(const ItemId itemId);
-  void transferMoney(const CharacterId originId, const CharacterId destinationId, Number amount);
-  Quantity maximumBuyable(const CharacterId characterId, const ItemId itemId);
-  int compare(const Quantity attacker, const Quantity defender);
+  void transferItem(ItemId itemId, ResourceId destinationId, Quantity quantity);
+  void stackConsumable(ItemId itemId, ResourceId destinationId, Quantity quantity);
+  void applyItemEffect(ItemId itemId);
+  void revertItemEffect(ItemId itemId);
+  void transferMoney(CharacterId originId, CharacterId destinationId, Number amount);
+  Quantity maximumBuyable(CharacterId characterId, ItemId itemId);
+  static int compare(Quantity attacker, Quantity defender);
 
   std::shared_ptr<World> world;
   std::shared_ptr<Factory> factory;

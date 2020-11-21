@@ -16,34 +16,34 @@ class World;
 
 class Lookup {
 public:
-  Lookup(const std::shared_ptr<World> &world);
-  const std::vector<ItemEntry> itemsIn(const ResourceId resourceId);
-  const std::vector<ConsumableEntry> consumablesIn(const ResourceId resourceId);
-  const std::vector<EquippableEntry> equippablesIn(const ResourceId resourceId);
-  const std::vector<CharacterEntry> charactersIn(const LocationId locationId);
-  const std::vector<StructureEntry> structuresIn(const LocationId locationId);
-  const std::vector<ExteriorEntry> neighbourExteriors(const LocationId locationId);
-  const std::vector<BuildingEntry> neighbourBuildings(const LocationId locationId);
-  const std::vector<LocationEntry> neighbourLocations(const LocationId locationId);
-  const std::vector<LocationEntry> neighboursEndingIn(const LocationId locationId);
+  explicit Lookup(std::shared_ptr<World> world);
+  std::vector<ItemEntry> itemsIn(ResourceId resourceId);
+  std::vector<ConsumableEntry> consumablesIn(ResourceId resourceId);
+  std::vector<EquippableEntry> equippablesIn(ResourceId resourceId);
+  std::vector<CharacterEntry> charactersIn(LocationId locationId);
+  std::vector<StructureEntry> structuresIn(LocationId locationId);
+  std::vector<ExteriorEntry> neighbourExteriors(LocationId locationId);
+  std::vector<BuildingEntry> neighbourBuildings(LocationId locationId);
+  std::vector<LocationEntry> neighbourLocations(LocationId locationId);
+  std::vector<LocationEntry> neighboursEndingIn(LocationId locationId);
 
-  [[maybe_unused]] const std::vector<LocationEntry> closeByLocations(const CharacterId characterId);
-  const std::vector<CharacterEntry> closeByCharacters(const CharacterId characterId);
-  const std::vector<StructureEntry> closeByStructures(const CharacterId characterId);
-  const std::vector<BuildingEntry> closeByBuildings(const CharacterId characterId);
-  const std::vector<ExteriorEntry> closeByExteriors(const CharacterId characterId);
+  [[maybe_unused]] std::vector<LocationEntry> closeByLocations(CharacterId characterId);
+  std::vector<CharacterEntry> closeByCharacters(CharacterId characterId);
+  std::vector<StructureEntry> closeByStructures(CharacterId characterId);
+  std::vector<BuildingEntry> closeByBuildings(CharacterId characterId);
+  std::vector<ExteriorEntry> closeByExteriors(CharacterId characterId);
   LocationEntry whereIs(CharacterId characterId);
 
-  const std::vector<CharacterEntry> playableCharacters();
+  std::vector<CharacterEntry> playableCharacters();
 
-  std::optional<ItemId> consumableTypeIn(const ResourceId resourceId, const ConsumableType type);
-  ResourceType type(const ResourceId resourceId);
+  std::optional<ItemId> consumableTypeIn(ResourceId resourceId, ConsumableType type);
+  ResourceType type(ResourceId resourceId);
 
   std::shared_ptr<entity::Character> character(CharacterId characterId);
-  std::shared_ptr<entity::Item> item(const ItemId itemId);
-  std::shared_ptr<entity::Location> location(const LocationId locationId);
+  std::shared_ptr<entity::Item> item(ItemId itemId);
+  std::shared_ptr<entity::Location> location(LocationId locationId);
 
-  bool characterExists(const CharacterId characterId);
+  bool characterExists(CharacterId characterId);
 
 private:
   std::shared_ptr<World> world;

@@ -16,13 +16,13 @@ public:
   using Edge = typename IGraph<NodeId, NodeInfo, EdgeInfo>::Edge;
 
   // Edge operations
-  bool addEdge(const EdgeId edgeId, const EdgeInfo &edgeInfo) override;
+  bool addEdge(EdgeId edgeId, const EdgeInfo &edgeInfo) override;
   void removeEdge(const EdgeId &edgeId) override;
   EdgeInfo getEdge(const EdgeId &edgeId) override;
   std::unordered_set<NodeId> neighbours(NodeId nodeId) override;
 
 private:
-  bool edgeExists(const EdgeId edgeId);
+  bool edgeExists(EdgeId edgeId);
 };
 
 // Method definition

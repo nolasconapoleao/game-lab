@@ -25,22 +25,22 @@ void Handler::destroyWorld() {
 }
 
 void Handler::demolishBuilding(const LocationId buildingId) {
-  for (auto &character : lookup->charactersIn(buildingId)) {
+  for (const auto &character : lookup->charactersIn(buildingId)) {
     killCharacter(character.id);
   };
 
-  for (auto &item : lookup->itemsIn(buildingId)) {
+  for (const auto &item : lookup->itemsIn(buildingId)) {
     transferItem(item.id, world->locatedIn[buildingId], 0);
   };
 
-  for (auto &structure : lookup->structuresIn(buildingId)) {
+  for (const auto &structure : lookup->structuresIn(buildingId)) {
     demolishStructure(structure.id);
   };
   cleaner->deleteBuilding(buildingId);
 }
 
 void Handler::demolishStructure(const StructureId structureId) {
-  for (auto &item : lookup->itemsIn(structureId)) {
+  for (const auto &item : lookup->itemsIn(structureId)) {
     transferItem(item.id, world->locatedIn[structureId], 0);
   };
   cleaner->deleteStructure(structureId);
@@ -48,7 +48,7 @@ void Handler::demolishStructure(const StructureId structureId) {
 
 void Handler::killCharacter(CharacterId characterId) {
   world->characters.find(characterId)->second.effects.emplace(StatusEffect::DEAD);
-  for (auto &item : lookup->itemsIn(characterId)) {
+  for (const auto &item : lookup->itemsIn(characterId)) {
     transferItem(item.id, world->locatedIn[characterId], 0);
   };
   cleaner->deleteCharacter(characterId);

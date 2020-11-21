@@ -29,7 +29,7 @@ class World;
 
 struct BuildingSpecs {
   Size size;
-  Quantity floors;
+  Quantity floors = 0;
 };
 
 namespace model {
@@ -39,39 +39,39 @@ class World;
 
 class Factory {
 public:
-  Factory(const std::shared_ptr<World> &world);
-  CharacterId createCharacter(const ThreatLevel threat, AttackType weaponAffinity = AttackType::UNDEFINED,
+  explicit Factory(const std::shared_ptr<World> &world);
+  CharacterId createCharacter(ThreatLevel threat, AttackType weaponAffinity = AttackType::UNDEFINED,
                               Race race = Race::UNDEFINED, Occupation type = Occupation::UNDEFINED);
   [[maybe_unused]] ItemId createEquipment(EquipmentType type = EquipmentType::UNDEFINED);
   ItemId createStaff(StaffType type = StaffType::UNDEFINED);
   ItemId createWeapon(WeaponType type = WeaponType::UNDEFINED);
   ItemId createEquippable(EquippableType type = EquippableType::UNDEFINED);
-  ItemId createConsumable(ConsumableType type = ConsumableType::UNDEFINED, const Quantity quantity = 1);
+  ItemId createConsumable(ConsumableType type = ConsumableType::UNDEFINED, Quantity quantity = 1);
   LocationId createConnector(ConnectorType type = ConnectorType::UNDEFINED);
   LocationId createBuilding(BuildingType type = BuildingType::UNDEFINED);
   LocationId createLocation(ExteriorType type = ExteriorType::UNDEFINED);
   StructureId createStructure(StructureType type = StructureType::UNDEFINED);
-  Stats growStats(ThreatLevel level, Stats stats);
+  static Stats growStats(ThreatLevel level, Stats stats);
 
 private:
-  Stats characterStats(const Info info, const ThreatLevel threat);
-  Stats rampupByOccupation(const Occupation occupation, Stats stats);
-  Stats rampupByClass(const AttackType weaponAffinity, Stats stats);
-  Stats rampupByRace(const Race race, Stats stats);
-  Stats randomizeStats(Stats stats);
+  Stats characterStats(Info info, ThreatLevel threat);
+  constexpr Stats rampupByOccupation(Occupation occupation, Stats stats);
+  constexpr Stats rampupByClass(AttackType weaponAffinity, Stats stats);
+  constexpr Stats rampupByRace(Race race, Stats stats);
+  static Stats randomizeStats(Stats stats);
 
   Size structureSize(const StructureType type);
   ResourceId entityCounter;
   std::shared_ptr<World> world;
 
-  Size connectorSize(const ConnectorType type);
-  BuildingSpecs buildingSpecs(const BuildingType type);
-  Size exteriorSize(const ExteriorType type);
+  constexpr Size connectorSize(ConnectorType type);
+  constexpr BuildingSpecs buildingSpecs(BuildingType type);
+  constexpr Size exteriorSize(ExteriorType type);
 
-  ItemEffect equipmentSpecs(const EquipmentType type);
-  ItemEffect staffSpecs(const StaffType type);
-  ItemEffect weaponSpecs(const WeaponType type);
-  ItemEffect consumableSpecs(const ConsumableType type);
+  constexpr ItemEffect equipmentSpecs(EquipmentType type);
+  constexpr ItemEffect staffSpecs(StaffType type);
+  constexpr ItemEffect weaponSpecs(WeaponType type);
+  constexpr ItemEffect consumableSpecs(ConsumableType type);
 
   void initCharacterNames();
   void initLocationNames();

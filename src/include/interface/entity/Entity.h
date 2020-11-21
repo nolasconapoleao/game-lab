@@ -5,12 +5,13 @@
 #pragma once
 
 #include <string>
+#include <utility>
 
 namespace entity {
 
 class Entity {
 public:
-  Entity(const std::string &name) : name(name) {
+  explicit Entity(std::string name) : name(std::move(name)) {
   }
 
   std::string name;

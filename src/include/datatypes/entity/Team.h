@@ -10,7 +10,7 @@ namespace entity {
 
 class Team : public Entity {
 public:
-  Team(const std::string &name);
+  explicit Team(const std::string &name);
 };
 
 } // namespace entity

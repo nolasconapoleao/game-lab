@@ -24,7 +24,7 @@ void quantity(Quantity max) {
   std::cout << "How much do you want? Maximum is " << max << "\n";
 }
 
-void items(const std::string_view &header, const Snapshot snapshot) {
+void items(const std::string_view &header, const Snapshot &snapshot) {
   std::cout << separatorClose << " " << header << "\n";
   std::cout << separatorClose << "Select item:\n";
   auto k = 1;

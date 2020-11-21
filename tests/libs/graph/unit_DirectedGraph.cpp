@@ -132,7 +132,7 @@ SCENARIO("Get neighbours for node", "[DirectedGraph]") {
         REQUIRE(stalkees2.size() == 1);
         REQUIRE(stalkees2.contains(constants::person3Id));
 
-        REQUIRE(stalkees3.size() == 0);
+        REQUIRE(stalkees3.empty());
       }
     }
   }
@@ -159,7 +159,7 @@ SCENARIO("Remove node with connections", "[DirectedGraph]") {
         REQUIRE(stalkees2.contains(constants::person3Id));
 
         const auto stalkees3 = stalkerNetwork.neighbours(constants::person3Id);
-        REQUIRE(stalkees3.size() == 0);
+        REQUIRE(stalkees3.empty());
       }
     }
 
@@ -172,7 +172,7 @@ SCENARIO("Remove node with connections", "[DirectedGraph]") {
         REQUIRE(stalkees1.contains(constants::person3Id));
 
         const auto stalkees3 = stalkerNetwork.neighbours(constants::person3Id);
-        REQUIRE(stalkees3.size() == 0);
+        REQUIRE(stalkees3.empty());
       }
     }
   }

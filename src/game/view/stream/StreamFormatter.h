@@ -8,10 +8,10 @@
 
 namespace view::stream {
 
-const std::string effectHeader();
-[[maybe_unused]] const std::string statsHeader();
-[[maybe_unused]] const std::string itemHeader();
-const std::string infoHeader();
-const std::string statDesc(const std::string &value);
+std::string effectHeader();
+[[maybe_unused]] std::string statsHeader();
+[[maybe_unused]] std::string itemHeader();
+std::string infoHeader();
+std::string statDesc(const std::string &value);
 
 } // namespace view::stream

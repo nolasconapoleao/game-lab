@@ -13,11 +13,12 @@ using Id = id_t;
 template <class EntryInfo> class Database {
 
 public:
+  Database() = default;
   // CRUD operations
   [[nodiscard]] Id createEntry(const EntryInfo &entry);
-  EntryInfo readEntry(const Id id);
-  void updateEntry(const Id id, const EntryInfo &entry);
-  void deleteEntry(const Id id);
+  EntryInfo readEntry(Id id);
+  void updateEntry(Id id, const EntryInfo &entry);
+  void deleteEntry(Id id);
 
   size_t size();
 

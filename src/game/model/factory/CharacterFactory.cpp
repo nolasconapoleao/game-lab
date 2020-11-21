@@ -36,7 +36,7 @@ CharacterId Factory::createCharacter(const ThreatLevel threat, AttackType weapon
   return entityCounter;
 }
 
-Stats Factory::rampupByOccupation(const Occupation occupation, Stats stats) {
+constexpr Stats Factory::rampupByOccupation(const Occupation occupation, Stats stats) {
   switch (occupation) {
     case Occupation::BEGGAR:
       stats.spd += 2;
@@ -71,7 +71,7 @@ Stats Factory::growStats(ThreatLevel level, Stats stats) {
   return stats * creationSpecs(level).stats_multiplier;
 }
 
-Stats Factory::rampupByClass(const AttackType weaponAffinity, Stats stats) {
+constexpr Stats Factory::rampupByClass(const AttackType weaponAffinity, Stats stats) {
   switch (weaponAffinity) {
     case AttackType::CONJURING:
       stats.mana += 8;
@@ -97,7 +97,7 @@ Stats Factory::rampupByClass(const AttackType weaponAffinity, Stats stats) {
   return stats;
 }
 
-Stats Factory::rampupByRace(const Race race, Stats stats) {
+constexpr Stats Factory::rampupByRace(const Race race, Stats stats) {
   switch (race) {
     case Race::DEMON:
       stats.mDef += 5;

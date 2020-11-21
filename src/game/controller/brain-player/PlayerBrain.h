@@ -24,7 +24,7 @@ private:
   Decision drop_item();
   Decision use_item();
   template <typename T> ConsoleIn selectFromVector(const std::vector<T> &vector);
-  template <typename T> Quantity selectItemQuantity(const std::vector<T> &vector, const ConsoleIn input);
+  template <typename T> Quantity selectItemQuantity(const std::vector<T> &vector, ConsoleIn input);
   void selectSubstate();
   void makeBranch(Action start, std::initializer_list<Action> const &end);
 

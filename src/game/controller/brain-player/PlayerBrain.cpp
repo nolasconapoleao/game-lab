@@ -45,18 +45,6 @@ Decision player::think(const Snapshot &snapshot) {
     } else {
       Decision decision{};
       switch (active) {
-        case Action::SKIP_TURN:
-          decision = Decision{Action::SKIP_TURN};
-          break;
-        case Action::MENU_SAVE:
-          decision = Decision{Action::SKIP_TURN};
-          break;
-        case Action::MENU_TUTORIAL:
-          decision = Decision{Action::SKIP_TURN};
-          break;
-        case Action::MENU_TERMINATE:
-          decision = Decision{Action::SKIP_TURN};
-          break;
         case Action::ATTACK_CHARACTER:
           decision = Decision{active, snap.character.id, selectFromVector(snap.characters).parsed};
           break;
@@ -74,33 +62,6 @@ Decision player::think(const Snapshot &snapshot) {
           break;
         case Action::INVENTORY_USE:
           decision = use_item();
-          break;
-        case Action::TEAM_CREATE:
-          decision = Decision{Action::SKIP_TURN};
-          break;
-        case Action::TEAM_DISBAND:
-          decision = Decision{Action::SKIP_TURN};
-          break;
-        case Action::TEAM_TRADE:
-          decision = Decision{Action::SKIP_TURN};
-          break;
-        case Action::TEAM_KICK:
-          decision = Decision{Action::SKIP_TURN};
-          break;
-        case Action::TEAM_INVITE:
-          decision = Decision{Action::SKIP_TURN};
-          break;
-        case Action::SHOP_BUY:
-          decision = Decision{Action::SKIP_TURN};
-          break;
-        case Action::SHOP_SELL:
-          decision = Decision{Action::SKIP_TURN};
-          break;
-        case Action::QUEST_ABANDON:
-          decision = Decision{Action::SKIP_TURN};
-          break;
-        case Action::QUEST_FINISH:
-          decision = Decision{Action::SKIP_TURN};
           break;
         case Action::TRAVEL_INTERIOR:
           decision = Decision{active, snap.character.id, selectFromVector(snap.buildings).parsed};
@@ -120,13 +81,9 @@ Decision player::think(const Snapshot &snapshot) {
         case Action::SPECIAL_POSSESS:
           decision = Decision{active, snap.character.id, selectFromVector(snap.buildings).parsed};
           break;
-        case Action::SPECIAL_READ:
-          decision = Decision{Action::SKIP_TURN};
-          break;
-        case Action::SPECIAL_CALL_REINFORCEMENT:
-          decision = Decision{Action::SKIP_TURN};
-          break;
-        case Action::SPECIAL_CALL_ENEMY:
+        case Action::SKIP_TURN:
+          [[fallthrough]];
+        default:
           decision = Decision{Action::SKIP_TURN};
           break;
       }
@@ -148,7 +105,7 @@ Decision player::use_item() {
   }
 
   view::input::items(gameconstants::stateInfo(active).prompt, snap);
-  ResourceId parsedInput;
+  ResourceId parsedInput{0};
   const auto in = controller::input::numeric(eLen + cLen);
   if (in <= cLen) {
     parsedInput = snap.consumables[in - 1].id;
@@ -168,8 +125,8 @@ Decision player::drop_item() {
   }
 
   view::input::items(gameconstants::stateInfo(active).prompt, snap);
-  ResourceId parsedInput;
-  Quantity quantity;
+  ResourceId parsedInput{0};
+  Quantity quantity{0};
   const auto in = controller::input::numeric(eLen + cLen);
   if (in <= cLen) {
     parsedInput = snap.consumables[in - 1].id;
@@ -183,7 +140,7 @@ Decision player::drop_item() {
 
 void player::selectSubstate() {
   std::vector<PlayerState> options;
-  std::string validInput = "";
+  std::string validInput;
   for (const auto &[start, end] : decisionTree) {
     if (end == active) {
       const auto &stateInfo = gameconstants::stateInfo(start);
@@ -204,7 +161,7 @@ void player::makeBranch(Action start, const std::initializer_list<Action> &end) 
 }
 
 template <typename T> ConsoleIn player::selectFromVector(const std::vector<T> &vector) {
-  if (vector.size() == 0) {
+  if (vector.empty()) {
     view::input::invalid(gameconstants::stateInfo(active).prompt);
     active = Action::UNDEFINED;
     return {0, 0};
@@ -217,7 +174,7 @@ template <typename T> ConsoleIn player::selectFromVector(const std::vector<T> &v
 }
 
 template <typename T> Quantity player::selectItemQuantity(const std::vector<T> &vector, ConsoleIn input) {
-  if (vector.size() == 0) {
+  if (vector.empty()) {
     view::input::invalid("No items available!");
     active = Action::UNDEFINED;
     return 0;

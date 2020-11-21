@@ -46,7 +46,7 @@ LocationId Factory::createLocation(ExteriorType type) {
   return entityCounter;
 }
 
-Size Factory::connectorSize(const ConnectorType type) {
+constexpr Size Factory::connectorSize(const ConnectorType type) {
   Size size{};
   switch (type) {
     case ConnectorType::BRIDGE:
@@ -69,7 +69,7 @@ Size Factory::connectorSize(const ConnectorType type) {
   return size;
 }
 
-BuildingSpecs Factory::buildingSpecs(const BuildingType type) {
+constexpr BuildingSpecs Factory::buildingSpecs(const BuildingType type) {
   BuildingSpecs specs{};
   switch (type) {
     case BuildingType::ARENA:
@@ -126,7 +126,7 @@ BuildingSpecs Factory::buildingSpecs(const BuildingType type) {
   return specs;
 }
 
-Size Factory::exteriorSize(const ExteriorType type) {
+constexpr Size Factory::exteriorSize(const ExteriorType type) {
   Size size{};
   switch (type) {
     case ExteriorType::CITY:

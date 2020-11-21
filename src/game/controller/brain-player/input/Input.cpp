@@ -11,11 +11,11 @@ namespace controller::input {
 constexpr char cInvalidCharInput{' '};
 constexpr int cInvalidNumInput{std::numeric_limits<int>::max()};
 
-const bool isInputValid(const char input, const std::string options) {
+bool isInputValid(const char input, const std::string &options) {
   return options.find(input) != std::string::npos;
 }
 
-const std::string sentence(bool flushFirst) {
+std::string sentence(bool flushFirst) {
   if (flushFirst) {
     std::cin.ignore();
   }
@@ -24,18 +24,18 @@ const std::string sentence(bool flushFirst) {
   return readFromConsole;
 }
 
-const char alphanum(const std::string options) {
+char alphanum(const std::string &options) {
   char input{cInvalidCharInput};
 
   do {
     std::cin >> input;
-    input = tolower(input);
+    input = static_cast<char>(tolower(input));
   } while (!isInputValid(input, options));
 
   return input;
 }
 
-const Quantity numeric(const Quantity upperBound) {
+Quantity numeric(const Quantity upperBound) {
   int input{cInvalidNumInput};
 
   do {

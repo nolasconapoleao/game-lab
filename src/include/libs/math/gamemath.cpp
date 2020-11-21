@@ -11,35 +11,34 @@ namespace gamemath {
 Quantity cSub(Quantity minuend, Quantity subtrahend, Quantity lowerBound) {
   if (minuend >= (subtrahend + lowerBound)) {
     return (minuend - subtrahend);
-  } else {
-    return lowerBound;
-  };
+  }
+  return lowerBound;
 }
 
 Quantity cAdd(Quantity augend, Quantity addend, Quantity upperBound) {
   if ((augend + addend) > upperBound) {
     return upperBound;
-  } else {
-    return (augend + addend);
-  };
+  }
+  return (augend + addend);
 }
 
 Quantity cMult(Quantity num, Quantity mult, Quantity upperBound) {
   if ((num * mult) > upperBound) {
     return upperBound;
-  } else {
-    return (num * mult);
-  };
+  }
+  return (num * mult);
 }
 
 Quantity cNum(Quantity num, Quantity lowerBound, Quantity upperBound) {
   if (num > upperBound) {
     return upperBound;
-  } else if (num < lowerBound) {
+  }
+
+  if (num < lowerBound) {
     return lowerBound;
-  } else {
-    return num;
-  };
+  }
+
+  return num;
 }
 
 Quantity diff(Quantity num1, Quantity num2) {

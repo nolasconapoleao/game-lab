@@ -16,7 +16,7 @@ constexpr auto orange = "orange";
 SCENARIO("Create entry in shopping list", "[Database]") {
 
   GIVEN("A shopping list") {
-    Database<std::string> shoppingList;
+    Database<std::string> shoppingList{};
     REQUIRE(shoppingList.size() == 0);
 
     WHEN("an entry is added is added") {
@@ -34,7 +34,7 @@ SCENARIO("Create entry in shopping list", "[Database]") {
 SCENARIO("Read entry by Id", "[Database]") {
 
   GIVEN("A shopping list") {
-    Database<std::string> shoppingList;
+    Database<std::string> shoppingList{};
     const auto entry1Id = shoppingList.createEntry(constants::potato);
 
     WHEN("the info for that connection is accessed") {
@@ -49,7 +49,7 @@ SCENARIO("Read entry by Id", "[Database]") {
 SCENARIO("Delete entry", "[Database]") {
 
   GIVEN("A shopping list with two items") {
-    Database<std::string> shoppingList;
+    Database<std::string> shoppingList{};
     const auto entryId = shoppingList.createEntry(constants::potato);
     const auto entry2Id = shoppingList.createEntry(constants::onion);
 
@@ -68,7 +68,7 @@ SCENARIO("Delete entry", "[Database]") {
 SCENARIO("Update entry", "[Database]") {
 
   GIVEN("A shopping list") {
-    Database<std::string> shoppingList;
+    Database<std::string> shoppingList{};
     const auto entryId = shoppingList.createEntry(constants::potato);
 
     WHEN("an entry is updated") {
