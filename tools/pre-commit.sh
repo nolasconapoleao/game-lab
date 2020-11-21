@@ -5,6 +5,9 @@ format_file() {
   if [[ -f $file ]] && [[ "$file" =~ \.(c|cpp|h|cc)$ ]]; then
     clang-format -i ${1}
     git add ${1}
+ elif [[ -f $file ]] && [[ "$file" =~ \CMakeLists.(txt)$ ]]; then
+    cmake-format -i ${1}
+    git add ${1}
   fi
 }
 

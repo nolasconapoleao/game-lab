@@ -13,6 +13,7 @@ What things you need to install the software and how to install them
 
 ```
 clang-format
+cmake-format
 cmake
 doxygen
 gcov
@@ -66,6 +67,7 @@ OR double click it if you are in windows
 In order to merge to master the code in the pull request should be formatted using the checks defined in <project>/.clang-format. To run the clang-format use:
 ```
 clang-format -i $file
+cmake-format -i $file
 ```
 
 Another way is to use automatic formatting.
