@@ -28,7 +28,7 @@ ItemId Factory::createEquippable(EquippableType type) {
   return entityCounter;
 }
 
-ItemId Factory::createEquipment(EquipmentType type) {
+[[maybe_unused]] ItemId Factory::createEquipment(EquipmentType type) {
   if (type == EquipmentType::UNDEFINED) {
     type = EquipmentType{Random::rand(0, static_cast<Quantity>(EquipmentType::UNDEFINED) - 1)};
   }

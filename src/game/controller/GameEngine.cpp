@@ -83,7 +83,7 @@ void GameEngine::handleCharacterTurn(const Decision &decision) {
       handler->attackStructure(decision.sender, decision.receiver);
       break;
     case Action::INVENTORY_USE:
-      handler->useItem(decision.sender, decision.receiver);
+      handler->useItem(decision.receiver);
       break;
     case Action::INVENTORY_PICKUP:
       handler->pickupItem(decision.sender, decision.receiver, decision.quantity);

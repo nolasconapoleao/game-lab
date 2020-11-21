@@ -17,14 +17,14 @@ const std::string effectHeader() {
   return os.str();
 }
 
-const std::string statsHeader() {
+[[maybe_unused]] const std::string statsHeader() {
   std::ostringstream os;
   os << std::string(NAME_LEN + 2, ' ') << statDesc("mhp") << statDesc("cst") << statDesc("lvl") << statDesc("xp")
      << effectHeader();
   return os.str();
 }
 
-const std::string itemHeader() {
+[[maybe_unused]] const std::string itemHeader() {
   std::ostringstream os;
   os << std::string(NAME_LEN + 22, ' ') << effectHeader() << statDesc("quan") << statDesc("weig") << statDesc("pric");
   return os.str();

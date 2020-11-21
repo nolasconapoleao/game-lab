@@ -32,7 +32,7 @@ void Cleaner::deleteConsumable(const ItemId consumableId) {
   world->locatedIn.erase(consumableId);
 }
 
-void Cleaner::deleteLocation(const LocationId locationId) {
+[[maybe_unused]] void Cleaner::deleteLocation(const LocationId locationId) {
   cleanupLocation(locationId);
   world->exteriors.erase(locationId);
 }

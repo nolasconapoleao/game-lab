@@ -42,7 +42,7 @@ public:
   Factory(const std::shared_ptr<World> &world);
   CharacterId createCharacter(const ThreatLevel threat, AttackType weaponAffinity = AttackType::UNDEFINED,
                               Race race = Race::UNDEFINED, Occupation type = Occupation::UNDEFINED);
-  ItemId createEquipment(EquipmentType type = EquipmentType::UNDEFINED);
+  [[maybe_unused]] ItemId createEquipment(EquipmentType type = EquipmentType::UNDEFINED);
   ItemId createStaff(StaffType type = StaffType::UNDEFINED);
   ItemId createWeapon(WeaponType type = WeaponType::UNDEFINED);
   ItemId createEquippable(EquippableType type = EquippableType::UNDEFINED);

@@ -14,7 +14,7 @@
 
 namespace view::input {
 
-constexpr auto separatorOpen = "<<<<<<<<<<<<<<<<<<<<<<<<<<<<";
+[[maybe_unused]] constexpr auto separatorOpen = "<<<<<<<<<<<<<<<<<<<<<<<<<<<<";
 constexpr auto separatorClose = ">>>>>>>>>>>>>>>>>>>>>>>>>>>>";
 
 void playerMenu(const std::vector<PlayerState> &options);

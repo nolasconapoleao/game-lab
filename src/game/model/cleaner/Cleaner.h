@@ -20,7 +20,7 @@ public:
   void deleteCharacter(const CharacterId characterId);
   void deleteEquipable(const ItemId equipableId);
   void deleteConsumable(const ItemId consumableId);
-  void deleteLocation(const LocationId locationId);
+  [[maybe_unused]] void deleteLocation(const LocationId locationId);
   void deleteBuilding(const LocationId buildingId);
   void deleteStructure(const StructureId structureId);
 

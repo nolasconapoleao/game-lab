@@ -27,7 +27,7 @@ public:
   const std::vector<LocationEntry> neighbourLocations(const LocationId locationId);
   const std::vector<LocationEntry> neighboursEndingIn(const LocationId locationId);
 
-  const std::vector<LocationEntry> closeByLocations(const CharacterId characterId);
+  [[maybe_unused]] const std::vector<LocationEntry> closeByLocations(const CharacterId characterId);
   const std::vector<CharacterEntry> closeByCharacters(const CharacterId characterId);
   const std::vector<StructureEntry> closeByStructures(const CharacterId characterId);
   const std::vector<BuildingEntry> closeByBuildings(const CharacterId characterId);

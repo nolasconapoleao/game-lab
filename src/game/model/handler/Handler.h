@@ -35,7 +35,7 @@ public:
   void dropItem(const ItemId itemId, const ResourceId locationId, const Quantity quantity = 0);
   void pickupItem(const CharacterId characterId, const ItemId itemId, Quantity quantity);
   void stealItem(const CharacterId roberId, const ItemId itemId);
-  void useItem(const CharacterId characterId, const ItemId itemId);
+  void useItem(const ItemId itemId);
   void depleteItem(const ItemId itemId);
   void characterItemDepletion(const CharacterId characterId);
 

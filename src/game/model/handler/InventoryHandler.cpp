@@ -38,7 +38,7 @@ void Handler::stealItem(const CharacterId roberId, const ItemId itemId) {
   }
 }
 
-void Handler::useItem(const CharacterId characterId, const ItemId itemId) {
+void Handler::useItem(const ItemId itemId) {
   if (CONSUMABLE == lookup->type(itemId)) {
     auto &consumable = world->consumables.find(itemId)->second;
     if (!consumable.consumed) {

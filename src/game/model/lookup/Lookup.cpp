@@ -125,7 +125,7 @@ const std::vector<LocationEntry> Lookup::neighboursEndingIn(const LocationId loc
   return result;
 }
 
-const std::vector<LocationEntry> Lookup::closeByLocations(const CharacterId characterId) {
+[[maybe_unused]] const std::vector<LocationEntry> Lookup::closeByLocations(const CharacterId characterId) {
   const auto locationId = world->locatedIn[characterId];
   return neighbourLocations(locationId);
 }
