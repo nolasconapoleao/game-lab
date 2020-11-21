@@ -78,4 +78,4 @@ chmod +x .git/hooks/pre-commit
 ```
 
 ## Authors
-* **Nolasco Napoleao** - *Initial work* - [nolasconapoleao](nolascoamadonapoleao@gmail.com)
+* **Nolasco Napoleao** - [nolasconapoleao](https://github.com/nolasconapoleao)

@@ -43,7 +43,7 @@ Quantity cNum(Quantity num, Quantity lowerBound, Quantity upperBound) {
 }
 
 Quantity diff(Quantity num1, Quantity num2) {
-  return abs(num1 - num2);
+  return static_cast<Quantity>(abs(num1 - num2));
 }
 
 ItemEffect operator+(ItemEffect &a1, const ItemEffect &a2) {

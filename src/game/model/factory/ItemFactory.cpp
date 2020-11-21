@@ -135,7 +135,7 @@ ItemEffect Factory::staffSpecs(const StaffType type) {
 }
 
 ItemEffect Factory::weaponSpecs(const WeaponType type) {
-  ItemEffect specs;
+  ItemEffect specs{};
   switch (type) {
     case WeaponType::AXE:
       specs.atk = 5;
@@ -166,7 +166,7 @@ ItemEffect Factory::weaponSpecs(const WeaponType type) {
 }
 
 ItemEffect Factory::consumableSpecs(const ConsumableType type) {
-  ItemEffect specs;
+  ItemEffect specs{};
   switch (type) {
     case ConsumableType::COIN:
       break;
