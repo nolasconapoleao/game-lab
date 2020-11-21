@@ -19,11 +19,9 @@ AttackResult Handler::attackCharacter(const CharacterId attackerId, const Charac
     killCharacter(attackedId);
   }
 
-  AttackResult result;
+  AttackResult result{AttackResult::Fail};
   if (fightResult > 0) {
     result = AttackResult::Hit;
-  } else if (fightResult < 0) {
-    result = AttackResult::Fail;
   }
   return result;
 }

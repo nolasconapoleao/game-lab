@@ -8,6 +8,9 @@
 
 namespace controller::input {
 
+constexpr char cInvalidCharInput{' '};
+constexpr int cInvalidNumInput{std::numeric_limits<int>::max()};
+
 const bool isInputValid(const char input, const std::string options) {
   return options.find(input) != std::string::npos;
 }
@@ -22,7 +25,7 @@ const std::string sentence(bool flushFirst) {
 }
 
 const char alphanum(const std::string options) {
-  char input;
+  char input{cInvalidCharInput};
 
   do {
     std::cin >> input;
@@ -33,7 +36,7 @@ const char alphanum(const std::string options) {
 }
 
 const Quantity numeric(const Quantity upperBound) {
-  int input;
+  int input{cInvalidNumInput};
 
   do {
     std::cout << "\t";

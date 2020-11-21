@@ -101,7 +101,7 @@ ItemId Factory::createConsumable(ConsumableType type, const Quantity quantity) {
 }
 
 ItemEffect Factory::equipmentSpecs(const EquipmentType type) {
-  ItemEffect specs;
+  ItemEffect specs{};
   switch (type) {
     case EquipmentType::COAT:
       specs.def = 3;
@@ -118,7 +118,7 @@ ItemEffect Factory::equipmentSpecs(const EquipmentType type) {
 }
 
 ItemEffect Factory::staffSpecs(const StaffType type) {
-  ItemEffect specs;
+  ItemEffect specs{};
   switch (type) {
     case StaffType::CONJURING:
       specs.mana = 4;

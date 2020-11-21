@@ -43,7 +43,7 @@ Decision player::think(const Snapshot &snapshot) {
     if (!gameconstants::stateInfo(active).terminal) {
       selectSubstate();
     } else {
-      Decision decision;
+      Decision decision{};
       switch (active) {
         case Action::SKIP_TURN:
           decision = Decision{Action::SKIP_TURN};

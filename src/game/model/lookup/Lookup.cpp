@@ -168,12 +168,11 @@ const std::vector<CharacterEntry> Lookup::playableCharacters() {
 }
 
 std::optional<ItemId> Lookup::consumableTypeIn(ResourceId resourceId, ConsumableType type) {
-  const auto findConsumable = [this, resourceId, type](const auto &entry) {
-    if (entry.second.type == type && world->locatedIn[entry.first] == resourceId) {
-      return entry.first;
+  for (const auto consumable : world->consumables) {
+    if (consumable.second.type == type && world->locatedIn[consumable.first] == resourceId) {
+      return consumable.first;
     }
-  };
-  std::for_each(world->consumables.begin(), world->consumables.end(), findConsumable);
+  }
   return {};
 }
 
@@ -192,6 +191,8 @@ ResourceType Lookup::type(const ResourceId resourceId) {
     return ResourceType::STRUCTURE;
   } else if (world->teams.contains(resourceId)) {
     return ResourceType::TEAM;
+  } else {
+    throw std::invalid_argument("Invalid entity type");
   }
 }
 
@@ -204,6 +205,8 @@ std::shared_ptr<entity::Item> Lookup::item(const ItemId itemId) {
     return std::make_shared<entity::Consumable>(world->consumables.find(itemId)->second);
   } else if (world->equippables.contains(itemId)) {
     return std::make_shared<entity::Equippable>(world->equippables.find(itemId)->second);
+  } else {
+    throw std::invalid_argument("Invalid item accessed");
   }
 }
 
@@ -212,6 +215,8 @@ std::shared_ptr<entity::Location> Lookup::location(const LocationId locationId) 
     return std::make_shared<entity::Exterior>(world->exteriors.find(locationId)->second);
   } else if (world->buildings.contains(locationId)) {
     return std::make_shared<entity::Building>(world->buildings.find(locationId)->second);
+  } else {
+    throw std::invalid_argument("Invalid location accessed");
   }
 }
 

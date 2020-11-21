@@ -24,7 +24,7 @@ StructureId Factory::createStructure(StructureType type) {
 }
 
 Size Factory::structureSize(const StructureType type) {
-  Size size;
+  Size size{};
   switch (type) {
     case StructureType::MAILBOX:
       size.width = 2;

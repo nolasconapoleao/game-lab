@@ -47,7 +47,7 @@ LocationId Factory::createLocation(ExteriorType type) {
 }
 
 Size Factory::connectorSize(const ConnectorType type) {
-  Size size;
+  Size size{};
   switch (type) {
     case ConnectorType::BRIDGE:
       size.width = 20;
@@ -70,7 +70,7 @@ Size Factory::connectorSize(const ConnectorType type) {
 }
 
 BuildingSpecs Factory::buildingSpecs(const BuildingType type) {
-  BuildingSpecs specs;
+  BuildingSpecs specs{};
   switch (type) {
     case BuildingType::ARENA:
       specs.floors = 2;
@@ -127,7 +127,7 @@ BuildingSpecs Factory::buildingSpecs(const BuildingType type) {
 }
 
 Size Factory::exteriorSize(const ExteriorType type) {
-  Size size;
+  Size size{};
   switch (type) {
     case ExteriorType::CITY:
       size.width = 220;
