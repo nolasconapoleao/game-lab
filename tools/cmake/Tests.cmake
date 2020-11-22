@@ -12,3 +12,12 @@ macro(create_test target)
   # To create a target that can run via ctest
   add_test(NAME ${target} COMMAND $<TARGET_FILE:${target}>)
 endmacro(create_test)
+
+# Unit tests target
+# ##################################################################################################
+add_custom_target(
+        RunUnitTests
+        COMMAND ${CMAKE_CTEST_COMMAND} --output-on-failure
+        COMMENT "Run all tests"
+        WORKING_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
+)
