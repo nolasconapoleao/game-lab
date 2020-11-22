@@ -1,38 +1,24 @@
 cmake_minimum_required(VERSION 3.12)
-project(text-game)
+project(Console-Game)
 
-# Defining compilation flags
+# Compilation flags definition
 set(CMAKE_CXX_STANDARD 20)
-
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wall -Wextra")
 
-option(COMPILE_FOR_NON_UNIX "Compile For Non Unix" OFF)
-if(COMPILE_FOR_NON_UNIX)
+# Operating system configuration
+option(UNIX_COMPILATION "Compile For Unix systems" ON)
+if(UNIX_COMPILATION)
+  set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_HOME_DIRECTORY}/build/linux)
+  set(BINARY_PATH ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME})
+else()
   # Set the compile flags to statically link the  libgcc dll files, this makes a standalone exe
   set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_DEBUG} -static-libgcc -static-libstdc++")
   set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_HOME_DIRECTORY}/build/windows)
   set(BINARY_PATH ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}.exe)
-else()
-  set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_HOME_DIRECTORY}/build/linux)
-  set(BINARY_PATH ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME})
 endif()
 
-# Compile flags for coverage target
-set(CMAKE_CXX_FLAGS "-g -O0 -Wall -fprofile-arcs -ftest-coverage")
-
-# Add cmake scripts
-include(tools/cmake/tests.cmake)
-
-# Renderer executable
+# Game executable
 add_executable(${PROJECT_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp)
-
-add_subdirectory(src)
-add_subdirectory(extras)
-# To disable tests, comment these two lines
-enable_testing()
-add_subdirectory(tests)
-
-# To allow absolute header paths in includes
 target_include_directories(
   ${PROJECT_NAME}
   PRIVATE ${CMAKE_BINARY_DIR}/extras
@@ -41,32 +27,51 @@ target_include_directories(
           ${CMAKE_SOURCE_DIR}/src/game
           ${CMAKE_SOURCE_DIR}/src/include
 )
+add_subdirectory(src)
+add_subdirectory(extras)
+add_subdirectory(tools/cmake)
+
+# Advanced compilation options
+option(ENABLE_TESTS "Compile and run unit tests" ON)
+option(ENABLE_DOCUMENTATION "Build documentation target" ON)
+option(ENABLE_COVERAGE "Build coverage target" ON)
+
+if(ENABLE_TESTS)
+  enable_testing()
+  add_subdirectory(tests)
+endif()
 
 # Unit tests target
+# ##################################################################################################
 add_custom_target(
-  RunAllTests
+  RunUnitTests
   COMMAND ${CMAKE_CTEST_COMMAND} --output-on-failure
   COMMENT "Run all tests"
   WORKING_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
 )
 
 # Documentation target
+# ##################################################################################################
+set(DOCUMENTATION_TARGET Documentation)
 add_custom_target(
-  Doxygen
+  ${DOCUMENTATION_TARGET}
   COMMAND doxygen
   COMMENT "Generate documentation"
   WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/docs
 )
 
-# Code coverage
+# Code coverage target
+# ##################################################################################################
+set(CMAKE_CXX_FLAGS "-g -O0 -Wall -fprofile-arcs -ftest-coverage")
+set(COVERAGE_TARGET Coverage)
 set(OBJECT_DIR ${CMAKE_BINARY_DIR}/CMakeFiles/${PROJECT_NAME}.dir/src)
 add_custom_target(
-  CodeCoverage
+  ${COVERAGE_TARGET}
   COMMAND mkdir -p coverage
   WORKING_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
 )
 add_custom_command(
-  TARGET CodeCoverage
+  TARGET ${COVERAGE_TARGET}
   # Generate gcov report
   COMMAND gcov -b ${CMAKE_SOURCE_DIR}/src/*.cpp -o ${OBJECT_DIR}
   # create baseline coverage data file
@@ -80,11 +85,11 @@ add_custom_command(
   COMMAND lcov -a base_coverage.info -a coverage.info -o coverage.info
   # Remove external libraries, main.cpp and test folder
   COMMAND lcov -r coverage.info '/usr/*' '9*' '*tests*' '*main.cpp' -o coverage.info
-  COMMAND genhtml coverage.info -o out
-  COMMAND echo "-- Coverage report saved to ${CMAKE_BINARY_DIR}/coverage/out"
+  COMMAND genhtml coverage.info -o ../../coverage
+  COMMAND echo "-- Coverage report saved to ${CMAKE_BINARY_DIR}/../coverage"
   WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/coverage
 )
-add_dependencies(CodeCoverage ${PROJECT_NAME})
+add_dependencies(${COVERAGE_TARGET} ${PROJECT_NAME})
 
 # Make sure to clean up the coverage folder
 set_property(
@@ -93,7 +98,7 @@ set_property(
   PROPERTY ADDITIONAL_MAKE_CLEAN_FILES coverage
 )
 
-# Resets counters for project object
+# Target to reset coverage counters
 add_custom_target(
   ClearUsages
   COMMAND ${CMAKE_MAKE_PROGRAM} clean
