@@ -1,5 +1,12 @@
 #!/bin/bash
 
+function append_eof_newline_if_needed() {
+  file="${1}"
+  if [[ $(tail -c1 "$file" | wc -l) -eq 0 ]]; then
+    echo "" >> "$file"
+  fi
+}
+
 function format_file() {
   file="${1}"
   if [[ -f $file ]] && [[ $file =~ \.(c|cpp|h|cc)$ ]]; then
@@ -18,6 +25,7 @@ case $file in
   * )
     for file in $( exec git diff-index --cached --name-only HEAD ); do
       format_file "$file"
+      append_eof_newline_if_needed "$file"
     done
     ;;
 esac
