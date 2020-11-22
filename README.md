@@ -26,7 +26,7 @@ lcov
 ```
 mkdir -p build/linux
 cd build/linux
-cmake -DCOMPILE_FOR_NON_UNIX:BOOL=OFF ../..
+cmake ../..
 ```
 
 2. Build the library and all the executables defined in the Cmake 
@@ -64,7 +64,7 @@ OR double click it if you are in windows
 
 ### And coding style tests
 
-In order to merge to master the code in the pull request should be formatted using the checks defined in <project>/.clang-format. To run the clang-format use:
+In order to merge to master the code in the pull request should be formatted using the checks defined in the project.
 ```
 clang-format -i $file
 cmake-format -i $file

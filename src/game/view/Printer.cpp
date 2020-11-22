@@ -8,7 +8,6 @@
 #include <iostream>
 
 #include "model/lookup/Lookup.h"
-#include "platform/platformconfig.h"
 #include "view/stream/StreamConverter.h"
 #include "view/stream/StreamFormatter.h"
 
@@ -31,10 +30,10 @@ void printScreen(const Snapshot &snap) {
 }
 
 void clearScreen() {
-#ifdef COMPILE_FOR_NON_UNIX
-  std::system("cls");
-#else
+#ifdef __unix__
   std::system("clear");
+#else
+  std::system("cls");
 #endif
 }
 
