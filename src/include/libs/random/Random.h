@@ -31,6 +31,7 @@ namespace Random {
 
 /**
  * @brief Generates a set of non repeating number between lowerBound and upperBound.
+ * @param quantity amount of generated numbers
  * @param lowerBound for generation
  * @param upperBound for generation
  * @return set of random numbers
