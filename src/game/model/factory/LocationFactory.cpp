@@ -15,9 +15,9 @@ LocationId Factory::createConnector(ConnectorType type) {
   }
 
   Size size = connectorSize(type);
-  entity::Exterior creation{Random::fromVec(world->locationNames) + " " + magic_enum::enum_name(type).data(), size};
+  entity::Exterior creation{Random::fromVec(mWorld->locationNames) + " " + magic_enum::enum_name(type).data(), size};
 
-  world->exteriors.emplace(++entityCounter, creation);
+  mWorld->exteriors.emplace(++entityCounter, creation);
   return entityCounter;
 }
 
@@ -27,10 +27,10 @@ LocationId Factory::createBuilding(BuildingType type) {
   }
 
   auto [size, floors] = buildingSpecs(type);
-  entity::Building creation{Random::fromVec(world->locationNames) + " " + magic_enum::enum_name(type).data(), type,
+  entity::Building creation{Random::fromVec(mWorld->locationNames) + " " + magic_enum::enum_name(type).data(), type,
                             size, floors};
 
-  world->buildings.emplace(++entityCounter, creation);
+  mWorld->buildings.emplace(++entityCounter, creation);
   return entityCounter;
 }
 
@@ -40,9 +40,9 @@ LocationId Factory::createLocation(ExteriorType type) {
   }
 
   Size size = exteriorSize(type);
-  entity::Exterior creation{Random::fromVec(world->locationNames) + " " + magic_enum::enum_name(type).data(), size};
+  entity::Exterior creation{Random::fromVec(mWorld->locationNames) + " " + magic_enum::enum_name(type).data(), size};
 
-  world->exteriors.emplace(++entityCounter, creation);
+  mWorld->exteriors.emplace(++entityCounter, creation);
   return entityCounter;
 }
 

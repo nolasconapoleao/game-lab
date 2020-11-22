@@ -10,55 +10,55 @@
 namespace model {
 
 void Handler::destroyWorld() {
-  world->characters.clear();
-  world->consumables.clear();
-  world->equippables.clear();
-  world->exteriors.clear();
-  world->buildings.clear();
-  world->structures.clear();
-  world->teams.clear();
+  mWorld->characters.clear();
+  mWorld->consumables.clear();
+  mWorld->equippables.clear();
+  mWorld->exteriors.clear();
+  mWorld->buildings.clear();
+  mWorld->structures.clear();
+  mWorld->teams.clear();
 
-  world->neighbours.clear();
-  world->locatedIn.clear();
-  world->locatedIn.clear();
-  world->memberships.clear();
+  mWorld->neighbours.clear();
+  mWorld->locatedIn.clear();
+  mWorld->locatedIn.clear();
+  mWorld->memberships.clear();
 }
 
 void Handler::demolishBuilding(const LocationId buildingId) {
-  for (const auto &character : lookup->charactersIn(buildingId)) {
+  for (const auto &character : mLookup->charactersIn(buildingId)) {
     killCharacter(character.id);
   };
 
-  for (const auto &item : lookup->itemsIn(buildingId)) {
-    transferItem(item.id, world->locatedIn[buildingId], 0);
+  for (const auto &item : mLookup->itemsIn(buildingId)) {
+    transferItem(item.id, mWorld->locatedIn[buildingId], 0);
   };
 
-  for (const auto &structure : lookup->structuresIn(buildingId)) {
+  for (const auto &structure : mLookup->structuresIn(buildingId)) {
     demolishStructure(structure.id);
   };
-  cleaner->deleteBuilding(buildingId);
+  mCleaner->deleteBuilding(buildingId);
 }
 
 void Handler::demolishStructure(const StructureId structureId) {
-  for (const auto &item : lookup->itemsIn(structureId)) {
-    transferItem(item.id, world->locatedIn[structureId], 0);
+  for (const auto &item : mLookup->itemsIn(structureId)) {
+    transferItem(item.id, mWorld->locatedIn[structureId], 0);
   };
-  cleaner->deleteStructure(structureId);
+  mCleaner->deleteStructure(structureId);
 }
 
 void Handler::killCharacter(CharacterId characterId) {
-  world->characters.find(characterId)->second.effects.emplace(StatusEffect::DEAD);
-  for (const auto &item : lookup->itemsIn(characterId)) {
-    transferItem(item.id, world->locatedIn[characterId], 0);
+  mWorld->characters.find(characterId)->second.effects.emplace(StatusEffect::DEAD);
+  for (const auto &item : mLookup->itemsIn(characterId)) {
+    transferItem(item.id, mWorld->locatedIn[characterId], 0);
   };
-  cleaner->deleteCharacter(characterId);
+  mCleaner->deleteCharacter(characterId);
 }
 
 void Handler::destroyItem(ItemId itemId) {
-  if (CONSUMABLE == lookup->type(itemId)) {
-    cleaner->deleteConsumable(itemId);
-  } else if (EQUIPPABLE == lookup->type(itemId)) {
-    cleaner->deleteEquipable(itemId);
+  if (CONSUMABLE == mLookup->type(itemId)) {
+    mCleaner->deleteConsumable(itemId);
+  } else if (EQUIPPABLE == mLookup->type(itemId)) {
+    mCleaner->deleteEquipable(itemId);
   }
 }
 

@@ -9,29 +9,86 @@
 #include <unordered_set>
 #include <vector>
 
+/// @brief Graph interface template class.
 template <class NodeId, class NodeInfo, class EdgeInfo> class IGraph {
 
 public:
   // Auxiliary types definition
+  /// @brief Node type containing id and information.
   using Node = std::pair<NodeId, NodeInfo>;
+  /// @brief Identifier for edge, contains origin and destination.
   using EdgeId = std::pair<NodeId, NodeId>;
+  /// @brief Edge type contains origin, destination and edge info.
   using Edge = std::tuple<NodeId, NodeId, EdgeInfo>;
 
   // Node operations
+  /**
+   * @brief Add node to graph.
+   * @param nodeId id for insertion of node.
+   * @param node information for insertion.
+   * @return true if successful insertion, false otherwise.
+   */
   [[maybe_unused]] bool addNode(NodeId nodeId, const NodeInfo &node);
+
+  /**
+   * @brief Remove node from graph.
+   * @param nodeId for deletion.
+   */
   void removeNode(NodeId nodeId);
+
+  /**
+   * @brief Retrieve read-only node entry, throws exception if id is non existing.
+   * @param nodeId for reading.
+   * @return node information.
+   */
   NodeInfo getNode(NodeId nodeId);
+
+  /**
+   * @brief Number of nodes in graph.
+   * @return number of nodes in graph.
+   */
   size_t numberOfNodes();
 
   // Edge operations
+  /**
+   * @brief Add edge.
+   * @param edgeId identification of origin and destination nodes.
+   * @param edgeInfo information for insertion.
+   * @return true if insertion is successful, false otherwise.
+   */
   virtual bool addEdge(EdgeId edgeId, const EdgeInfo &edgeInfo) = 0;
+
+  /**
+   * Remove edge connection.
+   * @param edgeId identification of origin and destination nodes.
+   */
   virtual void removeEdge(const EdgeId &edgeId) = 0;
+
+  /**
+   * @brief Retrieve read-only edge information.
+   * @param edgeId identification of origin and destination nodes.
+   * @return edge information for the provided edgeId.
+   */
   virtual EdgeInfo getEdge(const EdgeId &edgeId) = 0;
+
+  /**
+   * @brief Returns list of distinct neighbour node ids for provided node id.
+   * @param nodeId starting node.
+   * @return list of neighbour node ids.
+   */
   virtual std::unordered_set<NodeId> neighbours(NodeId nodeId) = 0;
 
 protected:
+  /**
+   * @brief Checks if node exists.
+   * @param nodeId to check.
+   * @return true if node exists.
+   */
   bool nodeExists(NodeId nodeId);
+
+  /// @brief node information for graph.
   std::vector<Node> nodes;
+  /// @brief edge information for graph.
   std::vector<Edge> edges;
 };
 

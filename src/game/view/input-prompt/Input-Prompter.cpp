@@ -10,7 +10,7 @@ using namespace view::stream;
 
 namespace view::input {
 
-void playerMenu(const std::vector<PlayerState> &options) {
+void playerMenu(const std::vector<MenuState> &options) {
   for (const auto &it : options) {
     std::cout << "\t" << it.transition << ": " << it.prompt << "\n";
   }

@@ -6,9 +6,14 @@
 
 #include "ItemEffect.h"
 
+/// @brief Character status.
 struct Stats : ItemEffect {
-  Quantity mhp = 0; // max health
-  Quantity cst = 0; // constitution
-  Quantity lvl = 0; // level
-  Quantity xp = 0;  // experience
+  /// @brief Max health.
+  Quantity mhp = 0;
+  /// @brief Constitution.
+  Quantity cst = 0;
+  /// @brief Level.
+  Quantity lvl = 0;
+  /// @brief Experience.
+  Quantity xp = 0;
 };

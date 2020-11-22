@@ -20,10 +20,23 @@ class Lookup;
 
 namespace controller {
 
+/// @brief Game turn handler.
 class GameEngine {
 public:
+  /**
+   * @brief Constructor.
+   * @param handler game entity controller.
+   * @param lookup game entity finder.
+   */
   GameEngine(const std::shared_ptr<model::Handler> handler, const std::shared_ptr<model::Lookup> lookup);
+
+  /// @brief Executes instructions for active character.
   void run();
+
+  /**
+   * @brief Game engine was terminated.
+   * @return true if game was terminated.
+   */
   bool isTerminated();
 
 private:
@@ -36,7 +49,7 @@ private:
   std::shared_ptr<model::Handler> handler;
   std::shared_ptr<model::Lookup> lookup;
   std::vector<std::string> history;
-  brain::player player;
+  brain::Player player;
 };
 
 } // namespace controller

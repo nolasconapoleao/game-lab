@@ -9,8 +9,8 @@
 namespace model {
 
 AttackResult Handler::attackCharacter(const CharacterId attackerId, const CharacterId attackedId) {
-  const auto &attacker = world->characters.find(attackerId)->second;
-  auto &attacked = world->characters.find(attackedId)->second;
+  const auto &attacker = mWorld->characters.find(attackerId)->second;
+  auto &attacked = mWorld->characters.find(attackedId)->second;
   const auto fightResult = compare(attacker.stats().atk, attacked.stats().def);
 
   attacked.base.hp = gamemath::cSub(attacked.base.hp, fightResult);
@@ -27,8 +27,8 @@ AttackResult Handler::attackCharacter(const CharacterId attackerId, const Charac
 }
 
 void Handler::attackStructure(const CharacterId attackerId, const StructureId structureId) {
-  const auto &attacker = world->characters.find(attackerId)->second;
-  auto &attacked = world->structures.find(structureId)->second;
+  const auto &attacker = mWorld->characters.find(attackerId)->second;
+  auto &attacked = mWorld->structures.find(structureId)->second;
   attacked.health = gamemath::cSub(attacked.health, attacker.stats().atk);
 
   if (attacked.health == 0) {
@@ -37,8 +37,8 @@ void Handler::attackStructure(const CharacterId attackerId, const StructureId st
 }
 
 void Handler::attackBuilding(const CharacterId attackerId, const LocationId buildingId) {
-  const auto &attacker = world->characters.find(attackerId)->second;
-  auto &attacked = world->buildings.find(buildingId)->second;
+  const auto &attacker = mWorld->characters.find(attackerId)->second;
+  auto &attacked = mWorld->buildings.find(buildingId)->second;
   attacked.health = gamemath::cSub(attacked.health, attacker.stats().atk);
 
   if (attacked.health == 0) {

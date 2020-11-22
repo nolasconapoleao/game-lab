@@ -6,19 +6,39 @@
 
 #include "IGraph.h"
 
+/// @brief Undirected graph template class.
 template <class NodeId, class NodeInfo, class EdgeInfo>
 class UndirectedGraph : public IGraph<NodeId, NodeInfo, EdgeInfo> {
 
 public:
   // Auxiliary types definition
+  /// @copydoc IGraph::Node
   using Node = typename IGraph<NodeId, NodeInfo, EdgeInfo>::Node;
+  /// @copydoc IGraph::EdgeId
   using EdgeId = typename IGraph<NodeId, NodeInfo, EdgeInfo>::EdgeId;
+  /// @copydoc IGraph::Edge
   using Edge = typename IGraph<NodeId, NodeInfo, EdgeInfo>::Edge;
 
   // Edge operations
+  /**
+   * @brief Add bidirectional edge.
+   * @param edgeId identification of origin and destination nodes.
+   * @param edgeInfo information for insertion.
+   * @return true if insertion is successful, false otherwise.
+   */
   bool addEdge(EdgeId edgeId, const EdgeInfo &edgeInfo) override;
+
+  /// @copydoc IGraph::removeEdge()
   void removeEdge(const EdgeId &edgeId) override;
-  EdgeInfo getEdge(const EdgeId &edgeId);
+
+  /// @copydoc IGraph::getEdge()
+  EdgeInfo getEdge(const EdgeId &edgeId) override;
+
+  /**
+   * @brief Returns list of distinct neighbour node ids that end or start in provided node id.
+   * @param nodeId starting node.
+   * @return list of neighbour node ids.
+   */
   std::unordered_set<NodeId> neighbours(NodeId nodeId) override;
 
 private:

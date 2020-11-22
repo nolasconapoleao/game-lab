@@ -8,11 +8,11 @@
 namespace model {
 
 void Handler::renameCharacter(const CharacterId characterId, const std::string &newName) {
-  world->characters.find(characterId)->second.name = newName;
+  mWorld->characters.find(characterId)->second.name = newName;
 }
 
 void Handler::renameTeam(const TeamId teamId, const std::string &newName) {
-  world->teams.find(teamId)->second.name = newName;
+  mWorld->teams.find(teamId)->second.name = newName;
 }
 
 } // namespace model

@@ -8,49 +8,49 @@
 
 namespace model {
 
-Factory::Factory(const std::shared_ptr<World> &world) : world(world), entityCounter(0) {
+Factory::Factory(const std::shared_ptr<World> &world) : mWorld(world), entityCounter(0) {
   initCharacterNames();
   initLocationNames();
   initTeamNames();
 }
 
 void Factory::initCharacterNames() {
-  world->characterNames.emplace_back("Charles");
-  world->characterNames.emplace_back("Cornelius");
-  world->characterNames.emplace_back("Fred");
-  world->characterNames.emplace_back("Gilliam");
-  world->characterNames.emplace_back("Jake");
-  world->characterNames.emplace_back("Louis");
-  world->characterNames.emplace_back("Mike");
-  world->characterNames.emplace_back("Peter");
-  world->characterNames.emplace_back("Philip");
-  world->characterNames.emplace_back("Robert");
-  world->characterNames.emplace_back("Zachary");
+  mWorld->characterNames.emplace_back("Charles");
+  mWorld->characterNames.emplace_back("Cornelius");
+  mWorld->characterNames.emplace_back("Fred");
+  mWorld->characterNames.emplace_back("Gilliam");
+  mWorld->characterNames.emplace_back("Jake");
+  mWorld->characterNames.emplace_back("Louis");
+  mWorld->characterNames.emplace_back("Mike");
+  mWorld->characterNames.emplace_back("Peter");
+  mWorld->characterNames.emplace_back("Philip");
+  mWorld->characterNames.emplace_back("Robert");
+  mWorld->characterNames.emplace_back("Zachary");
 }
 
 void Factory::initLocationNames() {
-  world->locationNames.emplace_back("Alligator");
-  world->locationNames.emplace_back("Big Boulder");
-  world->locationNames.emplace_back("Buddy");
-  world->locationNames.emplace_back("Dark abyss");
-  world->locationNames.emplace_back("Finegan");
-  world->locationNames.emplace_back("Furiosa");
-  world->locationNames.emplace_back("Interstice");
-  world->locationNames.emplace_back("Lord of The Flies");
-  world->locationNames.emplace_back("Lordelo");
-  world->locationNames.emplace_back("Obelisk");
-  world->locationNames.emplace_back("Outta here");
-  world->locationNames.emplace_back("St. Marianus");
-  world->locationNames.emplace_back("Stingify");
+  mWorld->locationNames.emplace_back("Alligator");
+  mWorld->locationNames.emplace_back("Big Boulder");
+  mWorld->locationNames.emplace_back("Buddy");
+  mWorld->locationNames.emplace_back("Dark abyss");
+  mWorld->locationNames.emplace_back("Finegan");
+  mWorld->locationNames.emplace_back("Furiosa");
+  mWorld->locationNames.emplace_back("Interstice");
+  mWorld->locationNames.emplace_back("Lord of The Flies");
+  mWorld->locationNames.emplace_back("Lordelo");
+  mWorld->locationNames.emplace_back("Obelisk");
+  mWorld->locationNames.emplace_back("Outta here");
+  mWorld->locationNames.emplace_back("St. Marianus");
+  mWorld->locationNames.emplace_back("Stingify");
 }
 
 void Factory::initTeamNames() {
-  world->teamNames.emplace_back("Alternate");
-  world->teamNames.emplace_back("Carp Dividers");
-  world->teamNames.emplace_back("Dark Ravens");
-  world->teamNames.emplace_back("Destruction");
-  world->teamNames.emplace_back("Everythingers");
-  world->teamNames.emplace_back("Obstruct");
+  mWorld->teamNames.emplace_back("Alternate");
+  mWorld->teamNames.emplace_back("Carp Dividers");
+  mWorld->teamNames.emplace_back("Dark Ravens");
+  mWorld->teamNames.emplace_back("Destruction");
+  mWorld->teamNames.emplace_back("Everythingers");
+  mWorld->teamNames.emplace_back("Obstruct");
 }
 
 } // namespace model

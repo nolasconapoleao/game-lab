@@ -11,10 +11,16 @@
 #include "Occupation.h"
 #include "Race.h"
 
+/// @brief Character information.
 struct Info {
-  Number cash;           // Money
-  Ghost ghost;           // Ghost
-  Race race;             // Race
-  AttackType attackType; // Attack Type
-  Occupation occupation; // Occupation
+  /// @brief Money owned by character.
+  Number cash;
+  /// @brief Character control mechanics.
+  Ghost ghost;
+  /// @brief Race of character.
+  Race race;
+  /// @brief AttackType for character.
+  AttackType attackType;
+  /// @brief Occupation for character.
+  Occupation occupation;
 };

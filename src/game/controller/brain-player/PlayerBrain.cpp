@@ -12,7 +12,7 @@
 
 namespace controller::brain {
 
-player::player() : active(Action::UNDEFINED) {
+Player::Player() : active(Action::UNDEFINED) {
   makeBranch(Action::UNDEFINED, {Action::SKIP_TURN, Action::MENU, Action::ATTACK, Action::INVENTORY, Action::TEAM,
                                  Action::SHOP, Action::QUEST, Action::TRAVEL, Action::SPECIAL});
 
@@ -31,7 +31,7 @@ player::player() : active(Action::UNDEFINED) {
   makeBranch(Action::SPECIAL_CALL, {Action::SPECIAL_CALL_REINFORCEMENT, Action::SPECIAL_CALL_ENEMY});
 }
 
-Decision player::think(const Snapshot &snapshot) {
+Decision Player::think(const Snapshot &snapshot) {
   active = Action::UNDEFINED;
   snap = snapshot;
 
@@ -95,7 +95,7 @@ Decision player::think(const Snapshot &snapshot) {
   }
 }
 
-Decision player::use_item() {
+Decision Player::use_item() {
   const auto cLen = snap.consumables.size();
   const auto eLen = snap.equippables.size();
   if (cLen == 0 && eLen == 0) {
@@ -115,7 +115,7 @@ Decision player::use_item() {
   return Decision{active, snap.character.id, parsedInput};
 }
 
-Decision player::drop_item() {
+Decision Player::drop_item() {
   const auto cLen = snap.consumables.size();
   const auto eLen = snap.equippables.size();
   if (cLen == 0 && eLen == 0) {
@@ -138,8 +138,8 @@ Decision player::drop_item() {
   return Decision{active, parsedInput, snap.location.id, quantity};
 }
 
-void player::selectSubstate() {
-  std::vector<PlayerState> options;
+void Player::selectSubstate() {
+  std::vector<MenuState> options;
   std::string validInput;
   for (const auto &[start, end] : decisionTree) {
     if (end == active) {
@@ -154,13 +154,13 @@ void player::selectSubstate() {
   active = options[validInput.find(in)].action;
 }
 
-void player::makeBranch(Action start, const std::initializer_list<Action> &end) {
+void Player::makeBranch(Action start, const std::initializer_list<Action> &end) {
   for (auto it : end) {
     decisionTree.emplace(it, start);
   }
 }
 
-template <typename T> ConsoleIn player::selectFromVector(const std::vector<T> &vector) {
+template <typename T> ConsoleIn Player::selectFromVector(const std::vector<T> &vector) {
   if (vector.empty()) {
     view::input::invalid(gameconstants::stateInfo(active).prompt);
     active = Action::UNDEFINED;
@@ -173,7 +173,7 @@ template <typename T> ConsoleIn player::selectFromVector(const std::vector<T> &v
   return ConsoleIn{static_cast<Quantity>(in), parsedInput};
 }
 
-template <typename T> Quantity player::selectItemQuantity(const std::vector<T> &vector, ConsoleIn input) {
+template <typename T> Quantity Player::selectItemQuantity(const std::vector<T> &vector, ConsoleIn input) {
   if (vector.empty()) {
     view::input::invalid("No items available!");
     active = Action::UNDEFINED;

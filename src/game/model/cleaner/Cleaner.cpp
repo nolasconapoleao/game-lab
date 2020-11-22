@@ -12,61 +12,61 @@
 namespace model {
 
 Cleaner::Cleaner(std::shared_ptr<World> world, std::shared_ptr<Lookup> lookup)
-    : world(std::move(world)), lookup(std::move(lookup)) {
+    : mWorld(std::move(world)), mLookup(std::move(lookup)) {
 }
 
 void Cleaner::deleteCharacter(const CharacterId characterId) {
-  world->characters.erase(characterId);
-  world->locatedIn.erase(characterId);
-  world->memberships.erase(characterId);
-  for (const auto &itemEntry : lookup->itemsIn(characterId)) {
-    world->locatedIn.erase(itemEntry.id);
+  mWorld->characters.erase(characterId);
+  mWorld->locatedIn.erase(characterId);
+  mWorld->memberships.erase(characterId);
+  for (const auto &itemEntry : mLookup->itemsIn(characterId)) {
+    mWorld->locatedIn.erase(itemEntry.id);
   }
 }
 
 void Cleaner::deleteEquipable(const ItemId equipableId) {
-  world->equippables.erase(equipableId);
-  world->locatedIn.erase(equipableId);
+  mWorld->equippables.erase(equipableId);
+  mWorld->locatedIn.erase(equipableId);
 }
 
 void Cleaner::deleteConsumable(const ItemId consumableId) {
-  world->consumables.erase(consumableId);
-  world->locatedIn.erase(consumableId);
+  mWorld->consumables.erase(consumableId);
+  mWorld->locatedIn.erase(consumableId);
 }
 
 [[maybe_unused]] void Cleaner::deleteLocation(const LocationId locationId) {
   cleanupLocation(locationId);
-  world->exteriors.erase(locationId);
+  mWorld->exteriors.erase(locationId);
 }
 
 void Cleaner::deleteBuilding(const LocationId buildingId) {
   cleanupLocation(buildingId);
-  world->buildings.erase(buildingId);
+  mWorld->buildings.erase(buildingId);
 }
 
 void Cleaner::deleteStructure(const StructureId structureId) {
-  for (const auto &itemEntry : lookup->itemsIn(structureId)) {
-    world->locatedIn.erase(itemEntry.id);
+  for (const auto &itemEntry : mLookup->itemsIn(structureId)) {
+    mWorld->locatedIn.erase(itemEntry.id);
   }
-  world->structures.erase(structureId);
+  mWorld->structures.erase(structureId);
 }
 
 void Cleaner::cleanupLocation(const LocationId locationId) {
-  for (const auto &itemEntry : lookup->itemsIn(locationId)) {
-    world->locatedIn.erase(itemEntry.id);
+  for (const auto &itemEntry : mLookup->itemsIn(locationId)) {
+    mWorld->locatedIn.erase(itemEntry.id);
   }
 
-  for (const auto &characterEntry : lookup->charactersIn(locationId)) {
-    world->locatedIn.erase(characterEntry.id);
+  for (const auto &characterEntry : mLookup->charactersIn(locationId)) {
+    mWorld->locatedIn.erase(characterEntry.id);
   }
 
-  for (const auto &structureEntry : lookup->structuresIn(locationId)) {
-    world->locatedIn.erase(structureEntry.id);
+  for (const auto &structureEntry : mLookup->structuresIn(locationId)) {
+    mWorld->locatedIn.erase(structureEntry.id);
   }
 
-  world->neighbours.erase(locationId);
-  for (const auto &locationEntry : lookup->neighboursEndingIn(locationId)) {
-    world->neighbours.erase(locationEntry.id);
+  mWorld->neighbours.erase(locationId);
+  for (const auto &locationEntry : mLookup->neighboursEndingIn(locationId)) {
+    mWorld->neighbours.erase(locationEntry.id);
   }
 }
 

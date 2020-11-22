@@ -8,8 +8,13 @@
 
 namespace entity {
 
+/// @brief Team entity.
 class Team : public Entity {
 public:
+  /**
+   * @brief Constructor.
+   * @param name of team.
+   */
   explicit Team(const std::string &name);
 };
 

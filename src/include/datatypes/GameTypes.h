@@ -9,8 +9,12 @@
 // Entity
 using Number = uint16_t;
 using Quantity = uint8_t;
+
+/// @brief Size of location.
 struct Size {
+  /// @brief Width of entity.
   uint8_t width = 0;
+  /// @brief Height of entity.
   uint8_t height = 0;
 };
 using Distance = uint8_t;

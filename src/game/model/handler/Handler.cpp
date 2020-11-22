@@ -11,16 +11,16 @@ namespace model {
 
 Handler::Handler(const std::shared_ptr<World> &world, const std::shared_ptr<Factory> &factory,
                  const std::shared_ptr<Cleaner> &cleaner, const std::shared_ptr<Lookup> &lookup)
-    : world(world), factory(factory), cleaner(cleaner), lookup(lookup) {
+    : mWorld(world), mFactory(factory), mCleaner(cleaner), mLookup(lookup) {
 }
 
 void Handler::travel(const CharacterId &characterId, const LocationId locationId) {
-  world->locatedIn[characterId] = locationId;
+  mWorld->locatedIn[characterId] = locationId;
 }
 
 void Handler::possess(const CharacterId mageId, const CharacterId possessedId) {
-  const auto &mage = world->characters.find(mageId)->second;
-  auto &possessed = world->characters.find(possessedId)->second;
+  const auto &mage = mWorld->characters.find(mageId)->second;
+  auto &possessed = mWorld->characters.find(possessedId)->second;
   if (0 < compare(mage.stats().mAtk, possessed.stats().mDef)) {
     possessed.info.ghost = Ghost::PLAYER;
   }

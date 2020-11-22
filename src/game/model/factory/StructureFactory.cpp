@@ -16,10 +16,10 @@ StructureId Factory::createStructure(StructureType type) {
   }
 
   Size size = structureSize(type);
-  entity::Structure creation{Random::fromVec(world->teamNames) + "'s " + magic_enum::enum_name(type).data(), type,
+  entity::Structure creation{Random::fromVec(mWorld->teamNames) + "'s " + magic_enum::enum_name(type).data(), type,
                              size};
 
-  world->structures.emplace(++entityCounter, creation);
+  mWorld->structures.emplace(++entityCounter, creation);
   return entityCounter;
 }
 

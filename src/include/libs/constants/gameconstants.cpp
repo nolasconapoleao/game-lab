@@ -3,7 +3,7 @@
 //
 
 #include "datatypes/controller/Action.h"
-#include "datatypes/controller/PlayerState.h"
+#include "datatypes/controller/MenuState.h"
 #include "datatypes/entity-aux/Stats.h"
 #include "datatypes/factory/CreationSpecs.h"
 #include "datatypes/factory/ThreatLevel.h"
@@ -101,7 +101,7 @@ constexpr CreationSpecs creationSpecs(const ThreatLevel level) {
   return specs;
 }
 
-constexpr PlayerState stateInfo(Action action) {
+constexpr MenuState stateInfo(Action action) {
   switch (action) {
     case Action::SKIP_TURN:
       return {action, 'e', "Skip turn", true};

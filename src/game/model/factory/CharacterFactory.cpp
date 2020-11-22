@@ -16,9 +16,10 @@ namespace model {
 
 constexpr Quantity randomRange = 4;
 
-CharacterId Factory::createCharacter(const ThreatLevel threat, AttackType weaponAffinity, Race race, Occupation type) {
-  if (type == Occupation::UNDEFINED) {
-    type = Occupation{Random::rand(0, static_cast<Quantity>(Occupation::UNDEFINED) - 1)};
+CharacterId Factory::createCharacter(const ThreatLevel threat, AttackType weaponAffinity, Race race,
+                                     Occupation occupation) {
+  if (occupation == Occupation::UNDEFINED) {
+    occupation = Occupation{Random::rand(0, static_cast<Quantity>(Occupation::UNDEFINED) - 1)};
   }
 
   if (weaponAffinity == AttackType::UNDEFINED) {
@@ -29,10 +30,10 @@ CharacterId Factory::createCharacter(const ThreatLevel threat, AttackType weapon
     race = Race{Random::rand(0, static_cast<Quantity>(Race::UNDEFINED) - 1)};
   }
 
-  Info info{0, Ghost::COMPUTER, race, weaponAffinity, type};
-  entity::Character creation(Random::fromVec(world->characterNames), characterStats(info, threat), info);
+  Info info{0, Ghost::COMPUTER, race, weaponAffinity, occupation};
+  entity::Character creation(Random::fromVec(mWorld->characterNames), characterStats(info, threat), info);
 
-  world->characters.emplace(++entityCounter, creation);
+  mWorld->characters.emplace(++entityCounter, creation);
   return entityCounter;
 }
 

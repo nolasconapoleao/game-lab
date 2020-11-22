@@ -9,11 +9,18 @@
 
 namespace entity {
 
+/// @brief Location entity.
 class Location : public Entity {
 public:
+  /**
+   * @brief Constructor.
+   * @param name of location.
+   * @param size of location.
+   */
   Location(const std::string &name, const Size &size) : Entity(name), size(size) {
   }
 
+  /// @brief Location size.
   Size size;
 };
 

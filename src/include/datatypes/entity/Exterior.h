@@ -8,8 +8,14 @@
 
 namespace entity {
 
+/// @brief Exterior location.
 class Exterior : public Location {
 public:
+  /**
+   * @brief Constructor.
+   * @param name of exterior.
+   * @param size of exterior location.
+   */
   Exterior(const std::string &name, const Size &size);
 };
 

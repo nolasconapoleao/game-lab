@@ -1,5 +1,0 @@
-target_sources(
-  ${PROJECT_NAME}
-  PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/EventManager.cpp ${CMAKE_CURRENT_SOURCE_DIR}/KingCrab.cpp
-  PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/EventManager.h ${CMAKE_CURRENT_SOURCE_DIR}/KingCrab.h
-)
