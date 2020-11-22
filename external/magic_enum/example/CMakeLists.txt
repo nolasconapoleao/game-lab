@@ -1,12 +1,17 @@
-﻿include(CheckCXXCompilerFlag)
+include(CheckCXXCompilerFlag)
 
 if((CMAKE_CXX_COMPILER_ID MATCHES "GNU") OR (CMAKE_CXX_COMPILER_ID MATCHES "Clang"))
-    set(OPTIONS -Wall -Wextra -pedantic-errors -Werror)
+  set(OPTIONS
+      -Wall
+      -Wextra
+      -pedantic-errors
+      -Werror
+  )
 elseif(CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
-    set(OPTIONS /W4 /WX)
-    if(HAS_PERMISSIVE_FLAG)
-        set(OPTIONS ${OPTIONS} /permissive-)
-    endif()
+  set(OPTIONS /W4 /WX)
+  if(HAS_PERMISSIVE_FLAG)
+    set(OPTIONS ${OPTIONS} /permissive-)
+  endif()
 endif()
 
 add_executable(example example.cpp)

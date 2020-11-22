@@ -7,6 +7,6 @@ add_subdirectory(logger)
 add_subdirectory(lookup)
 
 target_sources(
-    ${PROJECT_NAME}
-    PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/GameTypes.h
+  ${PROJECT_NAME}
+  PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/GameTypes.h
 )
