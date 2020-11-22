@@ -2,7 +2,7 @@
 
 function append_eof_newline_if_needed() {
   file="${1}"
-  if [[ $(tail -c1 "$file" | wc -l) -eq 0 ]]; then
+  if [[ -f $file ]] && [[ $(tail -c1 "$file" | wc -l) -eq 0 ]]; then
     echo "" >> "$file"
   fi
 }
