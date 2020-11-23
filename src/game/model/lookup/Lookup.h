@@ -28,111 +28,111 @@ public:
    * @param resourceId location of item.
    * @return list of items in position.
    */
-  std::vector<ItemEntry> itemsIn(ResourceId resourceId);
+  std::vector<DbEntry<entity::Item>> itemsIn(ResourceId resourceId);
 
   /**
    * @brief Returns list of consumables owned by character or located in location.
    * @param resourceId location of consumables.
    * @return list of consumables in position.
    */
-  std::vector<ConsumableEntry> consumablesIn(ResourceId resourceId);
+  std::vector<DbEntry<entity::Consumable>> consumablesIn(ResourceId resourceId);
 
   /**
    * @brief Returns list of equippables owned by character or located in location.
    * @param resourceId location of equippable.
    * @return list of equippables in position.
    */
-  std::vector<EquippableEntry> equippablesIn(ResourceId resourceId);
+  std::vector<DbEntry<entity::Equippable>> equippablesIn(ResourceId resourceId);
 
   /**
    * @brief Returns list of characters in location.
    * @param locationId location of character.
    * @return list of characters in position.
    */
-  std::vector<CharacterEntry> charactersIn(LocationId locationId);
+  std::vector<DbEntry<entity::Character>> charactersIn(LocationId locationId);
 
   /**
    * @brief Returns list of structures in location.
    * @param locationId location of structure.
    * @return list of structures in position.
    */
-  std::vector<StructureEntry> structuresIn(LocationId locationId);
+  std::vector<DbEntry<entity::Structure>> structuresIn(LocationId locationId);
 
   /**
    * @brief Returns list of exterior neighbours to given location.
    * @param locationId location id to search.
    * @return list of neighbour exteriors.
    */
-  std::vector<ExteriorEntry> neighbourExteriors(LocationId locationId);
+  std::vector<DbEntry<entity::Exterior>> neighbourExteriors(LocationId locationId);
 
   /**
    * @brief Returns list of building neighbours to given location.
    * @param locationId location id to search.
    * @return list of neighbour buildings.
    */
-  std::vector<BuildingEntry> neighbourBuildings(LocationId locationId);
+  std::vector<DbEntry<entity::Building>> neighbourBuildings(LocationId locationId);
 
   /**
    * @brief Returns list of location neighbours to given location.
    * @param locationId location id to search.
    * @return list of neighbour locations.
    */
-  std::vector<LocationEntry> neighbourLocations(LocationId locationId);
+  std::vector<DbEntry<entity::Location>> neighbourLocations(LocationId locationId);
 
   /**
    * @brief Returns list of location that can reach given location.
    * @param locationId location id to search.
    * @return list of location exteriors.
    */
-  std::vector<LocationEntry> neighboursEndingIn(LocationId locationId);
+  std::vector<DbEntry<entity::Location>> neighboursEndingIn(LocationId locationId);
 
   /**
    * @brief Returns list of location that can be reached by given character.
    * @param characterId character id for search.
    * @return list of locations reachable by character.
    */
-  [[maybe_unused]] std::vector<LocationEntry> closeByLocations(CharacterId characterId);
+  [[maybe_unused]] std::vector<DbEntry<entity::Location>> closeByLocations(CharacterId characterId);
 
   /**
    * @brief Returns list of characters close to given character.
    * @param characterId character id for search.
    * @return list of characters close to character.
    */
-  std::vector<CharacterEntry> closeByCharacters(CharacterId characterId);
+  std::vector<DbEntry<entity::Character>> closeByCharacters(CharacterId characterId);
 
   /**
    * @brief Returns list of structures close to given character.
    * @param characterId character id for search.
    * @return list of structures close to character.
    */
-  std::vector<StructureEntry> closeByStructures(CharacterId characterId);
+  std::vector<DbEntry<entity::Structure>> closeByStructures(CharacterId characterId);
 
   /**
    * @brief Returns list of buildings close to given character.
    * @param characterId character id for search.
    * @return list of buildings close to character.
    */
-  std::vector<BuildingEntry> closeByBuildings(CharacterId characterId);
+  std::vector<DbEntry<entity::Building>> closeByBuildings(CharacterId characterId);
 
   /**
    * @brief Returns list of exteriors close to given character.
    * @param characterId character id for search.
    * @return list of exteriors close to character.
    */
-  std::vector<ExteriorEntry> closeByExteriors(CharacterId characterId);
+  std::vector<DbEntry<entity::Exterior>> closeByExteriors(CharacterId characterId);
 
   /**
    * @brief Returns character location.
    * @param characterId character id for search.
    * @return location entry for character.
    */
-  LocationEntry whereIs(CharacterId characterId);
+  DbEntry<entity::Location> whereIs(CharacterId characterId);
 
   /**
    * @brief Returns list of living and player controllable characters.
    * @return list of playable characters.
    */
-  std::vector<CharacterEntry> playableCharacters();
+  std::vector<DbEntry<entity::Character>> playableCharacters();
 
   /**
    * @brief Returns Returns id for item of located in if the type matches the one provided.

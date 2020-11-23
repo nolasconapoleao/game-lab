@@ -20,6 +20,7 @@ struct Size {
 using Distance = uint8_t;
 
 // Database
+using EntityId = uint16_t;
 using CharacterId = uint16_t;
 using ItemId = uint16_t;
 using LocationId = uint16_t;
