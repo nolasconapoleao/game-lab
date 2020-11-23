@@ -4,6 +4,7 @@
 
 #include "Input-Prompter.h"
 
+#include <view/PrintingUtilities.h>
 #include <view/stream/StreamConverter.h>
 
 using namespace view::stream;
@@ -11,6 +12,7 @@ using namespace view::stream;
 namespace view::input {
 
 void playerMenu(const std::vector<MenuState> &options) {
+  std::cout << "What do you wan to do?\n";
   for (const auto &it : options) {
     std::cout << "\t" << it.transition << ": " << it.prompt << "\n";
   }

@@ -7,6 +7,7 @@
 #include <iomanip>
 #include <iostream>
 
+#include "PrintingUtilities.h"
 #include "model/lookup/Lookup.h"
 #include "view/stream/StreamConverter.h"
 #include "view/stream/StreamFormatter.h"
@@ -38,9 +39,9 @@ void clearScreen() {
 }
 
 void printScene(const Snapshot &snap) {
-  std::cout << "You are at: " << snap.location.entity->name << "\n";
+  std::cout << foreground::LightBlue << "Where am I?\n\t" << foreground::Blue << snap.location.entity->name << "\n";
   if (!snap.characters.empty()) {
-    std::cout << "Who's that guy?\n";
+    std::cout << foreground::LightMagenta << "Who's that guy?\n" << foreground::Magenta;
     for (const auto &it : snap.characters) {
       std::cout << "\t" << it.entity->name << " " << std::right << it.entity->stats().hp << "/" << std::left
                 << it.entity->stats().mhp;
@@ -49,7 +50,7 @@ void printScene(const Snapshot &snap) {
   }
 
   if (!snap.structures.empty() || !snap.buildings.empty()) {
-    std::cout << "What's that over there?\n";
+    std::cout << foreground::LightGreen << "What's that over there?\n" << foreground::Green;
     for (const auto &it : snap.structures) {
       std::cout << "\t$" << it.entity->name << " ";
     }
@@ -61,13 +62,17 @@ void printScene(const Snapshot &snap) {
   }
 
   if (!snap.floor.empty()) {
-    std::cout << "What's that on the floor?\n";
+    std::cout << foreground::LightYellow << "What's that on the floor?\n" << foreground::Yellow;
+    for (const auto &it : snap.floor) {
+      std::cout << "\t#" << it.entity->name << "#"
+                << "\n";
+    }
   }
-  std::cout << separator1 << "\n";
+  std::cout << foreground::White << separator1 << "\n";
 }
 
 void printHud(const Snapshot &snap) {
-  std::cout << separator1 << "\n";
+  std::cout << foreground::Red << separator1 << "\n";
   std::cout << std::string(15, ' ') << stream::infoHeader() << "\n";
   std::cout << std::setw(9) << snap.character.entity->name << " " << std::right << snap.character.entity->stats().hp
             << "/" << std::left << snap.character.entity->stats().mhp << snap.character.entity->info << "\n";

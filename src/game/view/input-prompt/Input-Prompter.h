@@ -21,6 +21,7 @@ void playerMenu(const std::vector<MenuState> &options);
 void invalid(const std::string_view &header);
 void quantity(Quantity max);
 void items(const std::string_view &header, const Snapshot &snapshot);
+
 template <typename T> void generic(const std::string_view &header, const std::vector<T> &entities) {
   std::cout << separatorClose << " " << header << ":\n";
   auto k = 1;
