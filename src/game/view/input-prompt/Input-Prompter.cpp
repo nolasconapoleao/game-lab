@@ -4,7 +4,7 @@
 
 #include "Input-Prompter.h"
 
-#include <view/PrintingUtilities.h>
+#include <view/stream/PrintingUtilities.h>
 #include <view/stream/StreamConverter.h>
 
 using namespace view::stream;

@@ -54,24 +54,4 @@ std::ostream &operator<<(std::ostream &os, const Stats &value);
 std::ostream &operator<<(std::ostream &os, const StatusEffect &value);
 std::ostream &operator<<(std::ostream &os, const StructureType &value);
 
-// Containers
-template <class T> std::ostream &operator<<(std::ostream &os, const std::shared_ptr<T> &value) {
-  os << *value.get();
-  return os;
-}
-
-template <class T> std::ostream &operator<<(std::ostream &os, const std::vector<T> &container) {
-  for (const auto &it : container) {
-    os << it << ", ";
-  }
-  return os;
-}
-
-template <class T> std::ostream &operator<<(std::ostream &os, const std::unordered_set<T> &container) {
-  for (const auto &it : container) {
-    os << it << ", ";
-  }
-  return os;
-}
-
 } // namespace view::stream

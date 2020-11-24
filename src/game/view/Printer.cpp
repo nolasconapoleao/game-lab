@@ -7,10 +7,11 @@
 #include <iomanip>
 #include <iostream>
 
-#include "PrintingUtilities.h"
 #include "model/lookup/Lookup.h"
+#include "view/stream/GeneralUtilities.h"
+#include "view/stream/PrintConstants.h"
+#include "view/stream/PrintingUtilities.h"
 #include "view/stream/StreamConverter.h"
-#include "view/stream/StreamFormatter.h"
 
 using namespace view::stream;
 
@@ -39,44 +40,42 @@ void clearScreen() {
 }
 
 void printScene(const Snapshot &snap) {
-  std::cout << foreground::LightBlue << "Where am I?\n\t" << foreground::Blue << snap.location.entity->name << "\n";
+  // Location
+  std::cout << foreground::LightBlue << "Where am I?\n";
+  std::cout << foreground::Blue << "\t" << snap.location.entity->name;
+  std::cout << "\n" << separator3 << "\n";
+
+  // Characters
   if (!snap.characters.empty()) {
-    std::cout << foreground::LightMagenta << "Who's that guy?\n" << foreground::Magenta;
-    for (const auto &it : snap.characters) {
-      std::cout << "\t" << it.entity->name << " " << std::right << it.entity->stats().hp << "/" << std::left
-                << it.entity->stats().mhp;
-    };
+    std::cout << foreground::LightMagenta << "Who's that guy?";
+    std::cout << foreground::Magenta << snap.characters;
     std::cout << "\n" << separator3 << "\n";
   }
 
+  // Landscape
   if (!snap.structures.empty() || !snap.buildings.empty()) {
-    std::cout << foreground::LightGreen << "What's that over there?\n" << foreground::Green;
-    for (const auto &it : snap.structures) {
-      std::cout << "\t$" << it.entity->name << " ";
-    }
-    for (const auto &it : snap.buildings) {
-      std::cout << "\t#" << it.entity->name << "#"
-                << "\n";
-    }
+    std::cout << foreground::LightGreen << "What's that over there?";
+    std::cout << foreground::Green << snap.structures;
+    std::cout << foreground::Green << snap.buildings;
     std::cout << "\n" << separator3 << "\n";
   }
 
+  // Floor items
   if (!snap.floor.empty()) {
-    std::cout << foreground::LightYellow << "What's that on the floor?\n" << foreground::Yellow;
-    for (const auto &it : snap.floor) {
-      std::cout << "\t#" << it.entity->name << "#"
-                << "\n";
-    }
+    std::cout << foreground::LightYellow << "What's that on the floor?";
+    std::cout << foreground::Yellow << snap.floor;
+    std::cout << "\n" << separator3 << "\n";
   }
-  std::cout << foreground::White << separator1 << "\n";
+
+  std::cout << foreground::White << "\n" << separator1 << "\n";
 }
 
 void printHud(const Snapshot &snap) {
+  const auto ch = snap.character.entity;
   std::cout << foreground::Red << separator1 << "\n";
-  std::cout << std::string(15, ' ') << stream::infoHeader() << "\n";
-  std::cout << std::setw(9) << snap.character.entity->name << " " << std::right << snap.character.entity->stats().hp
-            << "/" << std::left << snap.character.entity->stats().mhp << snap.character.entity->info << "\n";
-  std::cout << separator2 << "\n";
+  std::cout << cMinimalStatsHeader << "\n";
+  std::cout << std::setw(9) << ch->name << "\t\t\t" << ch->stats().hp << "/" << ch->stats().mhp << ch->info;
+  std::cout << "\n" << separator2 << "\n";
 }
 
 } // namespace view::printer

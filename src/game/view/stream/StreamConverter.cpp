@@ -7,12 +7,12 @@
 #include <iomanip>
 #include <magic_enum/include/magic_enum.hpp>
 
-#include "StreamFormatter.h"
+#include "GeneralUtilities.h"
 
 namespace view::stream {
 
 std::ostream &operator<<(std::ostream &os, const Quantity &value) {
-  os << std::setw(STAT_LEN) << std::to_string(value);
+  os << std::to_string(value);
   return os;
 }
 
@@ -98,8 +98,8 @@ std::ostream &operator<<(std::ostream &os, const Ghost &value) {
 }
 
 std::ostream &operator<<(std::ostream &os, const Info &value) {
-  os << std::setw(STAT_LEN) << value.cash << " " << value.ghost << " " << value.race << " " << value.attackType << " "
-     << value.occupation;
+  os << std::setw(STAT_LEN) << value.cash << "\t\t" << value.ghost << " " << value.race << " " << value.attackType
+     << " " << value.occupation;
   return os;
 }
 
