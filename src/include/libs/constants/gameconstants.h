@@ -16,7 +16,7 @@ namespace gameconstants {
 
 constexpr Stats minimalStats();
 constexpr CreationSpecs creationSpecs(ThreatLevel level);
-constexpr MenuState stateInfo(Action action);
+constexpr MenuState submenuInfo(Action action);
 
 }; // namespace gameconstants
 

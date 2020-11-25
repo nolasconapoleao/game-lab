@@ -101,7 +101,7 @@ constexpr CreationSpecs creationSpecs(const ThreatLevel level) {
   return specs;
 }
 
-constexpr MenuState stateInfo(Action action) {
+constexpr MenuState submenuInfo(Action action) {
   switch (action) {
     case Action::SKIP_TURN:
       return {action, 'e', "Skip turn", true};

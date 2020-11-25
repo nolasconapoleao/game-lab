@@ -12,6 +12,8 @@
 #include <memory>
 #include <set>
 
+#include "DecisionChecker.h"
+
 namespace model {
 
 // Forward declaration
@@ -21,7 +23,7 @@ class Lookup;
 
 namespace controller {
 
-/// @brief Game turn handler.
+/// @brief Game turn mHandler.
 class GameEngine {
 public:
   /**
@@ -31,7 +33,7 @@ public:
    */
   GameEngine(const std::shared_ptr<model::Handler> handler, const std::shared_ptr<model::Lookup> lookup);
 
-  /// @brief Executes instructions for active character.
+  /// @brief Executes instructions for activeSubmenu character.
   void run();
 
   /**
@@ -47,11 +49,13 @@ private:
   void handleCharacterTurn(const Decision &decision);
   std::set<CharacterId> characterQueue;
 
-  std::shared_ptr<model::Handler> handler;
-  std::shared_ptr<model::Lookup> lookup;
+  std::shared_ptr<model::Handler> mHandler;
+  std::shared_ptr<model::Lookup> mLookup;
   std::vector<std::string> history;
   brain::Player player;
   brain::Computer computer;
+  DecisionChecker checker;
+  Snapshot mSnapshot;
 };
 
 } // namespace controller

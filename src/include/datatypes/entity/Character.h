@@ -37,7 +37,7 @@ public:
   ItemEffect temp;
   /// @brief Character information.
   Info info;
-  /// @brief List of active status effects.
+  /// @brief List of activeSubmenu status effects.
   std::unordered_set<StatusEffect> effects;
 };
 

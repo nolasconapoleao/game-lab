@@ -12,7 +12,7 @@
 
 namespace controller::brain {
 
-Player::Player() : active(Action::UNDEFINED) {
+Player::Player() : activeSubmenu(Action::UNDEFINED) {
   makeBranch(Action::UNDEFINED, {Action::SKIP_TURN, Action::MENU, Action::ATTACK, Action::INVENTORY, Action::TEAM,
                                  Action::SHOP, Action::QUEST, Action::TRAVEL, Action::SPECIAL});
 
@@ -32,7 +32,7 @@ Player::Player() : active(Action::UNDEFINED) {
 }
 
 Decision Player::think(const Snapshot &snapshot) {
-  active = Action::UNDEFINED;
+  activeSubmenu = Action::UNDEFINED;
   snap = snapshot;
 
   // TODO: Change to have time termination
@@ -40,22 +40,22 @@ Decision Player::think(const Snapshot &snapshot) {
   while (true) {
     view::printer::printScreen(snapshot);
 
-    if (!gameconstants::stateInfo(active).terminal) {
-      selectSubstate();
+    if (!gameconstants::submenuInfo(activeSubmenu).terminal) {
+      selectSubmenu();
     } else {
       Decision decision{};
-      switch (active) {
+      switch (activeSubmenu) {
         case Action::ATTACK_CHARACTER:
-          decision = Decision{active, snap.character.id, selectFromVector(snap.characters).parsed};
+          decision = Decision{activeSubmenu, snap.character.id, selectFromVector(snap.characters).parsed};
           break;
         case Action::ATTACK_BUILDING:
-          decision = Decision{active, snap.character.id, selectFromVector(snap.buildings).parsed};
+          decision = Decision{activeSubmenu, snap.character.id, selectFromVector(snap.buildings).parsed};
           break;
         case Action::ATTACK_STRUCTURE:
-          decision = Decision{active, snap.character.id, selectFromVector(snap.structures).parsed};
+          decision = Decision{activeSubmenu, snap.character.id, selectFromVector(snap.structures).parsed};
           break;
         case Action::INVENTORY_PICKUP:
-          decision = Decision{active, snap.character.id, selectFromVector(snap.floor).parsed};
+          decision = Decision{activeSubmenu, snap.character.id, selectFromVector(snap.floor).parsed};
           break;
         case Action::INVENTORY_DROP:
           decision = drop_item();
@@ -64,10 +64,10 @@ Decision Player::think(const Snapshot &snapshot) {
           decision = use_item();
           break;
         case Action::TRAVEL_INTERIOR:
-          decision = Decision{active, snap.character.id, selectFromVector(snap.buildings).parsed};
+          decision = Decision{activeSubmenu, snap.character.id, selectFromVector(snap.buildings).parsed};
           break;
         case Action::TRAVEL_EXTERIOR:
-          decision = Decision{active, snap.character.id, selectFromVector(snap.exteriors).parsed};
+          decision = Decision{activeSubmenu, snap.character.id, selectFromVector(snap.exteriors).parsed};
           break;
         case Action::SPECIAL_SUMMON:
           decision = Decision{Action::SKIP_TURN};
@@ -75,11 +75,11 @@ Decision Player::think(const Snapshot &snapshot) {
         case Action::SPECIAL_PICKPOCKET: {
           const auto who = selectFromVector(snap.characters).parsed;
           const auto itemInput = selectFromVector(snap.ownedBy.find(who)->second);
-          decision = Decision{active, snap.character.id, itemInput.parsed};
+          decision = Decision{activeSubmenu, snap.character.id, itemInput.parsed};
           break;
         }
         case Action::SPECIAL_POSSESS:
-          decision = Decision{active, snap.character.id, selectFromVector(snap.buildings).parsed};
+          decision = Decision{activeSubmenu, snap.character.id, selectFromVector(snap.buildings).parsed};
           break;
         case Action::SKIP_TURN:
           [[fallthrough]];
@@ -88,7 +88,7 @@ Decision Player::think(const Snapshot &snapshot) {
           break;
       }
 
-      if (gameconstants::stateInfo(active).terminal) {
+      if (gameconstants::submenuInfo(activeSubmenu).terminal) {
         return decision;
       }
     }
@@ -99,12 +99,12 @@ Decision Player::use_item() {
   const auto cLen = snap.consumables.size();
   const auto eLen = snap.equippables.size();
   if (cLen == 0 && eLen == 0) {
-    view::input::invalid(gameconstants::stateInfo(active).prompt);
-    active = Action::UNDEFINED;
+    view::input::invalid(gameconstants::submenuInfo(activeSubmenu).prompt);
+    activeSubmenu = Action::UNDEFINED;
     return Decision{Action::UNDEFINED};
   }
 
-  view::input::items(gameconstants::stateInfo(active).prompt, snap);
+  view::input::items(gameconstants::submenuInfo(activeSubmenu).prompt, snap);
   ResourceId parsedInput{0};
   const auto in = controller::input::numeric(eLen + cLen);
   if (in <= cLen) {
@@ -112,19 +112,19 @@ Decision Player::use_item() {
   } else {
     parsedInput = snap.equippables[in - cLen - 1].id;
   }
-  return Decision{active, snap.character.id, parsedInput};
+  return Decision{activeSubmenu, snap.character.id, parsedInput};
 }
 
 Decision Player::drop_item() {
   const auto cLen = snap.consumables.size();
   const auto eLen = snap.equippables.size();
   if (cLen == 0 && eLen == 0) {
-    view::input::invalid(gameconstants::stateInfo(active).prompt);
-    active = Action::UNDEFINED;
+    view::input::invalid(gameconstants::submenuInfo(activeSubmenu).prompt);
+    activeSubmenu = Action::UNDEFINED;
     return Decision{Action::UNDEFINED};
   }
 
-  view::input::items(gameconstants::stateInfo(active).prompt, snap);
+  view::input::items(gameconstants::submenuInfo(activeSubmenu).prompt, snap);
   ResourceId parsedInput{0};
   Quantity quantity{0};
   const auto in = controller::input::numeric(eLen + cLen);
@@ -135,39 +135,39 @@ Decision Player::drop_item() {
     parsedInput = snap.equippables[in - cLen - 1].id;
     quantity = selectItemQuantity(snap.equippables, {static_cast<Quantity>(in - cLen - 1), parsedInput});
   }
-  return Decision{active, parsedInput, snap.location.id, quantity};
+  return Decision{activeSubmenu, parsedInput, snap.location.id, quantity};
 }
 
-void Player::selectSubstate() {
+void Player::selectSubmenu() {
   std::vector<MenuState> options;
   std::string validInput;
-  for (const auto &[start, end] : decisionTree) {
-    if (end == active) {
-      const auto &stateInfo = gameconstants::stateInfo(start);
-      options.emplace_back(stateInfo);
-      validInput += stateInfo.transition;
+  for (const auto &[endSubmenu, startSubmenu] : decisionTree) {
+    if (startSubmenu == activeSubmenu && menuHandler.shouldDisplaySubmenu(snap, endSubmenu)) {
+      const auto &submenuInfo = gameconstants::submenuInfo(endSubmenu);
+      options.emplace_back(submenuInfo);
+      validInput += submenuInfo.transition;
     }
   };
 
   view::input::playerMenu(options);
   const auto in = controller::input::alphanum(validInput);
-  active = options[validInput.find(in)].action;
+  activeSubmenu = options[validInput.find(in)].action;
 }
 
-void Player::makeBranch(Action start, const std::initializer_list<Action> &end) {
-  for (auto it : end) {
-    decisionTree.emplace(it, start);
+void Player::makeBranch(Action startSubmenu, const std::initializer_list<Action> &endSubmenus) {
+  for (auto endSubmenu : endSubmenus) {
+    decisionTree.emplace(endSubmenu, startSubmenu);
   }
 }
 
 template <typename T> ConsoleIn Player::selectFromVector(const std::vector<T> &vector) {
   if (vector.empty()) {
-    view::input::invalid(gameconstants::stateInfo(active).prompt);
-    active = Action::UNDEFINED;
+    view::input::invalid(gameconstants::submenuInfo(activeSubmenu).prompt);
+    activeSubmenu = Action::UNDEFINED;
     return {0, 0};
   }
 
-  view::input::generic(gameconstants::stateInfo(active).prompt, vector);
+  view::input::generic(gameconstants::submenuInfo(activeSubmenu).prompt, vector);
   const auto in = controller::input::numeric(vector.size()) - 1;
   const auto parsedInput = vector[in].id;
   return ConsoleIn{static_cast<Quantity>(in), parsedInput};
@@ -176,7 +176,7 @@ template <typename T> ConsoleIn Player::selectFromVector(const std::vector<T> &v
 template <typename T> Quantity Player::selectItemQuantity(const std::vector<T> &vector, ConsoleIn input) {
   if (vector.empty()) {
     view::input::invalid("No items available!");
-    active = Action::UNDEFINED;
+    activeSubmenu = Action::UNDEFINED;
     return 0;
   }
 

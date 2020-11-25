@@ -12,7 +12,7 @@ using namespace view::stream;
 namespace view::input {
 
 void playerMenu(const std::vector<MenuState> &options) {
-  std::cout << "What do you wan to do?\n";
+  std::cout << "What do you want to do?\n";
   for (const auto &it : options) {
     std::cout << "\t" << it.transition << ": " << it.prompt << "\n";
   }
