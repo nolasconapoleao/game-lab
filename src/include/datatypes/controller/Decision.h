@@ -4,6 +4,8 @@
 
 #pragma once
 
+#include <datatypes/GameTypes.h>
+
 #include "Action.h"
 
 /// @brief Character decision.

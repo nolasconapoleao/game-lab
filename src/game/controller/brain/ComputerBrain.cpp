@@ -4,18 +4,13 @@
 
 #include "ComputerBrain.h"
 
-#include <datatypes/entity-aux/Occupation.h>
-
 #include "libs/random/Random.h"
 
 using namespace Random;
 
-namespace controller::brain::computer {
-Decision attack(const Snapshot &snap);
-Decision inventory(const Snapshot &snap);
-Decision tourist(const Snapshot &snap);
+namespace controller::brain {
 
-Decision think(const Snapshot &snap) {
+Decision Computer::think(const Snapshot &snap) {
   if (rand(0, 5) == 0) {
     return attack(snap);
   }
@@ -37,7 +32,7 @@ Decision think(const Snapshot &snap) {
   }
 }
 
-Decision attack(const Snapshot &snap) {
+Decision Computer::attack(const Snapshot &snap) {
   if (!snap.characters.empty() && rand(0, 5) == 0) {
     const auto attackedId = fromVec(snap.characters).id;
     return Decision{Action::ATTACK_CHARACTER, snap.character.id, attackedId};
@@ -56,7 +51,7 @@ Decision attack(const Snapshot &snap) {
   return Decision{Action::SKIP_TURN};
 }
 
-Decision inventory(const Snapshot &snap) {
+Decision Computer::inventory(const Snapshot &snap) {
   if (!snap.consumables.empty() && rand(0, 2) == 0) {
     const auto item = fromVec(snap.consumables);
     return Decision{Action::INVENTORY_USE, snap.character.id, item.id};
@@ -73,7 +68,7 @@ Decision inventory(const Snapshot &snap) {
   return Decision{Action::SKIP_TURN};
 }
 
-Decision tourist(const Snapshot &snap) {
+Decision Computer::tourist(const Snapshot &snap) {
   if (!snap.exteriors.empty() && rand(0, 15) == 0) {
     const auto locationId = fromVec(snap.exteriors).id;
     return Decision{Action::TRAVEL, snap.character.id, locationId};
@@ -82,4 +77,4 @@ Decision tourist(const Snapshot &snap) {
   return Decision{Action::SKIP_TURN};
 }
 
-} // namespace controller::brain::computer
+} // namespace controller::brain

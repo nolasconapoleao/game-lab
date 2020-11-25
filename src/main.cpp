@@ -1,5 +1,5 @@
 #include <controller/GameEngine.h>
-#include <controller/brain-player/input/Signal_Handler.h>
+#include <controller/input/Signal_Handler.h>
 #include <csignal>
 #include <model/World.h>
 #include <model/cleaner/Cleaner.h>

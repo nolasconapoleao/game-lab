@@ -4,9 +4,7 @@
 
 #pragma once
 
-#include <datatypes/GameTypes.h>
-#include <datatypes/controller/Decision.h>
-#include <datatypes/lookup/ResourceEntry.h>
+#include "IBrain.h"
 
 /// @brief Player console input structure.
 struct ConsoleIn {
@@ -19,17 +17,13 @@ struct ConsoleIn {
 namespace controller::brain {
 
 /// @brief Player behaviour handler.
-class Player {
+class Player : public IBrain {
 public:
   /// @brief Constructor.
   Player();
 
-  /**
-   * @brief Handle player input and decision forwarding.
-   * @param snap current visible world.
-   * @return decision made by human player.
-   */
-  Decision think(const Snapshot &snap);
+  /// @copydoc IBrain::think()
+  Decision think(const Snapshot &snap) override;
 
 private:
   Decision drop_item();
@@ -41,7 +35,6 @@ private:
 
   std::map<Action, Action> decisionTree;
   Action active;
-  Snapshot snap;
 };
 
 } // namespace controller::brain

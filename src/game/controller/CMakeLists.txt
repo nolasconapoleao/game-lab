@@ -1,5 +1,5 @@
-add_subdirectory(brain-player)
-add_subdirectory(brain-computer)
+add_subdirectory(brain)
+add_subdirectory(input)
 
 target_sources(
   ${PROJECT_NAME}

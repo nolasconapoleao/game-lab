@@ -4,9 +4,6 @@
 
 #include "GameEngine.h"
 
-#include <controller/brain-computer/ComputerBrain.h>
-#include <controller/brain-player/PlayerBrain.h>
-#include <lber.h>
 #include <model/handler/Handler.h>
 #include <model/lookup/Lookup.h>
 
@@ -21,8 +18,7 @@ GameEngine::GameEngine(const std::shared_ptr<model::Handler> handler, const std:
 void GameEngine::run() {
   const auto idTurn = loadNextCharacter();
   const auto snap = createSceneSnapshot(idTurn);
-  auto decision
-      = lookup->character(idTurn)->info.ghost == Ghost::PLAYER ? player.think(snap) : brain::computer::think(snap);
+  auto decision = lookup->character(idTurn)->info.ghost == Ghost::PLAYER ? player.think(snap) : computer.think(snap);
   handleCharacterTurn(decision);
 }
 
@@ -62,7 +58,6 @@ Snapshot GameEngine::createSceneSnapshot(CharacterId characterId) {
                        lookup->closeByExteriors(characterId),
                        lookup->itemsIn(lookup->whereIs(characterId).id),
                        {}};
-  snap.floor = lookup->itemsIn(snap.location.id);
   for (const auto &character : snap.characters) {
     snap.ownedBy.emplace(character.id, lookup->itemsIn(character.id));
   }

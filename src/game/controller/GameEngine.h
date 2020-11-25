@@ -4,7 +4,8 @@
 
 #pragma once
 
-#include <controller/brain-player/PlayerBrain.h>
+#include <controller/brain/ComputerBrain.h>
+#include <controller/brain/PlayerBrain.h>
 #include <datatypes/GameTypes.h>
 #include <datatypes/controller/Decision.h>
 #include <datatypes/lookup/ResourceEntry.h>
@@ -50,6 +51,7 @@ private:
   std::shared_ptr<model::Lookup> lookup;
   std::vector<std::string> history;
   brain::Player player;
+  brain::Computer computer;
 };
 
 } // namespace controller

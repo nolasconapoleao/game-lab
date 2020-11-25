@@ -4,7 +4,7 @@
 
 #include "PlayerBrain.h"
 
-#include <controller/brain-player/input/Input.h>
+#include <controller/input/Input.h>
 #include <libs/constants/gameconstants.h>
 
 #include "view/Printer.h"
