@@ -22,7 +22,7 @@ public:
    */
   Building(const std::string &name, BuildingType type, const Size &size, Quantity floors);
 
-  /// @brief type of building.
+  /// @brief action of building.
   BuildingType type;
   /// @brief building health.
   Number health;

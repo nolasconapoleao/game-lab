@@ -21,7 +21,7 @@ public:
    */
   Structure(const std::string &name, StructureType type, const Size &size);
 
-  /// @brief Structure type.
+  /// @brief Structure action.
   StructureType type;
   /// @brief Structure health.
   Number health;

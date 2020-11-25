@@ -6,8 +6,9 @@
 
 namespace controller {
 
-bool MenuHandler::shouldDisplaySubmenu(const Snapshot &snapshot, const Action &action) {
-  switch (action) {
+// TODO: complete all cases
+bool MenuHandler::shouldDisplaySubmenu(const Snapshot &snapshot, const Action &submmenu) {
+  switch (submmenu) {
     case Action::ATTACK:
       return shouldDisplaySubmenu(snapshot, Action::ATTACK_CHARACTER)
              || shouldDisplaySubmenu(snapshot, Action::ATTACK_BUILDING)
@@ -51,7 +52,7 @@ bool MenuHandler::shouldDisplaySubmenu(const Snapshot &snapshot, const Action &a
     case Action::SHOP_BUY:
       [[fallthrough]];
     case Action::SHOP_SELL:
-      return shopkeeperAvailable(snapshot);
+      return snapshotUtilities.shopkeeperAvailable(snapshot);
     case Action::QUEST:
       return (shouldDisplaySubmenu(snapshot, Action::QUEST_ABANDON)
               || shouldDisplaySubmenu(snapshot, Action::QUEST_FINISH));
@@ -81,13 +82,13 @@ bool MenuHandler::shouldDisplaySubmenu(const Snapshot &snapshot, const Action &a
     case Action::SPECIAL_POSSESS:
       [[fallthrough]];
     case Action::SPECIAL_READ:
-      [[fallthrough]];
-    case Action::SPECIAL_CALL:
-      [[fallthrough]];
-    case Action::SPECIAL_CALL_REINFORCEMENT:
-      [[fallthrough]];
-    case Action::SPECIAL_CALL_ENEMY:
       return true;
+    case Action::SPECIAL_CALL:
+      return snapshotUtilities.phoneboothAvailable(snapshot);
+    case Action::SPECIAL_CALL_REINFORCEMENT:
+      return snapshotUtilities.phoneboothAvailable(snapshot);
+    case Action::SPECIAL_CALL_ENEMY:
+      return snapshotUtilities.phoneboothAvailable(snapshot);
     default:
       return true;
   }
@@ -95,15 +96,6 @@ bool MenuHandler::shouldDisplaySubmenu(const Snapshot &snapshot, const Action &a
 
 bool MenuHandler::ongoingCombat(const Snapshot & /*snapshot*/) {
   // TODO: Current implementation does not recognize combat situation
-  return false;
-}
-
-bool MenuHandler::shopkeeperAvailable(const Snapshot &snapshot) {
-  for (const auto &character : snapshot.characters) {
-    if (Occupation::SHOPKEEPER == character.entity->info.occupation) {
-      return true;
-    }
-  }
   return false;
 }
 

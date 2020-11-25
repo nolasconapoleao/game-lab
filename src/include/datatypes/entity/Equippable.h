@@ -25,7 +25,7 @@ public:
   Equippable(const std::string &name, EquippableType type, const ItemEffect &effect, Quantity quantity,
              Number unitWeight, Number unitPrice, Number uses);
 
-  /// @brief Equippable type.
+  /// @brief Equippable action.
   EquippableType type;
   /// @brief number of uses for equippable item.
   Number uses;

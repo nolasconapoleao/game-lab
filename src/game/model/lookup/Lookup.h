@@ -135,17 +135,17 @@ public:
   std::vector<DbEntry<entity::Character>> playableCharacters();
 
   /**
-   * @brief Returns Returns id for item of located in if the type matches the one provided.
+   * @brief Returns Returns id for item of located in if the action matches the one provided.
    * @param resourceId location of item.
-   * @param type consumable type for search.
-   * @return id for consumable of queried type.
+   * @param type consumable action for search.
+   * @return id for consumable of queried action.
    */
   std::optional<ItemId> consumableTypeIn(ResourceId resourceId, ConsumableType type);
 
   /**
-   * @brief Returns game entity type for provided id.
+   * @brief Returns game entity action for provided id.
    * @param resourceId for search.
-   * @return game entity type for provided id.
+   * @return game entity action for provided id.
    */
   ResourceType type(ResourceId resourceId);
 

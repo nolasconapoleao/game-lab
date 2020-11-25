@@ -97,7 +97,7 @@ constexpr Stats Factory::rampupByClass(const AttackType weaponAffinity, Stats st
       stats.mana += 2;
       break;
     case AttackType::UNDEFINED:
-      throw std::invalid_argument("Invalid attack type");
+      throw std::invalid_argument("Invalid attack action");
   }
   return stats;
 }

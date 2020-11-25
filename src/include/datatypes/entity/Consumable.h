@@ -25,7 +25,7 @@ public:
   Consumable(const std::string &name, const ItemEffect &effect, Quantity quantity, Number unitWeight, Number unitPrice,
              ConsumableType type, Quantity duration);
 
-  /// @brief consumable type.
+  /// @brief consumable action.
   ConsumableType type;
   /// @brief duration of consumable when consumed.
   Quantity duration;

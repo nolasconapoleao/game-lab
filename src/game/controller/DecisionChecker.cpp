@@ -9,10 +9,11 @@
 
 namespace controller {
 
+// TODO: complete all cases
 bool DecisionChecker::isDecisionValid(const Snapshot &snapshot, const Decision &decision) {
-  switch (decision.type) {
+  switch (decision.action) {
     case Action::SPECIAL_PICKPOCKET:
-      return (snapshot.ownedBy.contains(decision.receiver));
+      return (snapshot.ownedBy.contains(decision.object));
     case Action::UNDEFINED:
       return false;
     default:

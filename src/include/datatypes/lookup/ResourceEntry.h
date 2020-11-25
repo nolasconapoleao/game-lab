@@ -28,6 +28,7 @@ public:
   std::shared_ptr<T> entity;
 };
 
+// TODO: snapshot can be a derivation of world or vice versa
 /// @brief Game snapshot for decision making.
 struct Snapshot {
   /// @brief current character.

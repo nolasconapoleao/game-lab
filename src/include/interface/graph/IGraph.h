@@ -14,11 +14,11 @@ template <class NodeId, class NodeInfo, class EdgeInfo> class IGraph {
 
 public:
   // Auxiliary types definition
-  /// @brief Node type containing id and information.
+  /// @brief Node action containing id and information.
   using Node = std::pair<NodeId, NodeInfo>;
   /// @brief Identifier for edge, contains origin and destination.
   using EdgeId = std::pair<NodeId, NodeId>;
-  /// @brief Edge type contains origin, destination and edge info.
+  /// @brief Edge action contains origin, destination and edge info.
   using Edge = std::tuple<NodeId, NodeId, EdgeInfo>;
 
   // Node operations

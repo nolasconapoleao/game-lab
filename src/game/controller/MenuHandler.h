@@ -7,17 +7,25 @@
 #include <datatypes/controller/Action.h>
 #include <datatypes/lookup/ResourceEntry.h>
 
+#include "SnapshotUtilities.h"
+
 namespace controller {
 
 /// @brief Handles menu options
 class MenuHandler {
 
 public:
-  bool shouldDisplaySubmenu(const Snapshot &snapshot, const Action &action);
+  /**
+   * @brief Check if the submenu should be displayed.
+   * @param snapshot current world snapshot
+   * @param submmenu entry to check
+   * @return true if the menu should be displayed, false otherwise
+   */
+  bool shouldDisplaySubmenu(const Snapshot &snapshot, const Action &submmenu);
 
 private:
   bool ongoingCombat(const Snapshot &snapshot);
-  bool shopkeeperAvailable(const Snapshot &snapshot);
+  utils::SnapshotUtilities snapshotUtilities;
 };
 
 } // namespace controller

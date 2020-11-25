@@ -41,6 +41,7 @@ void Cleaner::deleteConsumable(const ItemId consumableId) {
 
 void Cleaner::deleteBuilding(const LocationId buildingId) {
   cleanupLocation(buildingId);
+  mWorld->locatedIn.erase(buildingId);
   mWorld->buildings.erase(buildingId);
 }
 
@@ -48,6 +49,7 @@ void Cleaner::deleteStructure(const StructureId structureId) {
   for (const auto &itemEntry : mLookup->itemsIn(structureId)) {
     mWorld->locatedIn.erase(itemEntry.id);
   }
+  mWorld->locatedIn.erase(structureId);
   mWorld->structures.erase(structureId);
 }
 

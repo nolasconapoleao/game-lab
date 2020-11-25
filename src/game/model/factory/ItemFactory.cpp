@@ -25,7 +25,7 @@ ItemId Factory::createEquippable(EquippableType type) {
       createWeapon();
       break;
     case EquippableType::UNDEFINED:
-      throw std::invalid_argument("Invalid equippable type");
+      throw std::invalid_argument("Invalid equippable action");
   }
   return entityCounter;
 }
@@ -116,7 +116,7 @@ constexpr ItemEffect Factory::equipmentSpecs(const EquipmentType type) {
       specs.spd = 3;
       break;
     case EquipmentType::UNDEFINED:
-      throw std::invalid_argument("Invalid equipment type");
+      throw std::invalid_argument("Invalid equipment action");
   }
   return specs;
 }
@@ -134,7 +134,7 @@ constexpr ItemEffect Factory::staffSpecs(const StaffType type) {
       specs.mana = 5;
       break;
     case StaffType::UNDEFINED:
-      throw std::invalid_argument("Invalid staff type");
+      throw std::invalid_argument("Invalid staff action");
   }
   specs.ran = 1;
   return specs;
@@ -168,7 +168,7 @@ constexpr ItemEffect Factory::weaponSpecs(const WeaponType type) {
       specs.ran = 1;
       break;
     case WeaponType::UNDEFINED:
-      throw std::invalid_argument("Invalid weapon type");
+      throw std::invalid_argument("Invalid weapon action");
   }
   return specs;
 }
@@ -188,7 +188,7 @@ constexpr ItemEffect Factory::consumableSpecs(const ConsumableType type) {
       specs.hp += 3;
       break;
     case ConsumableType::UNDEFINED:
-      throw std::invalid_argument("Invalid consumable type");
+      throw std::invalid_argument("Invalid consumable action");
   }
   return specs;
 }

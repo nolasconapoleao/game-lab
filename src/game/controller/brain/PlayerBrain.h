@@ -33,7 +33,7 @@ private:
   template <typename T> ConsoleIn selectFromVector(const std::vector<T> &vector);
   template <typename T> Quantity selectItemQuantity(const std::vector<T> &vector, ConsoleIn input);
   void selectSubmenu();
-  void makeBranch(Action startSubmenu, std::initializer_list<Action> const &endSubmenus);
+  void makeMenuConnection(Action startSubmenu, std::initializer_list<Action> const &endSubmenus);
 
   std::map<Action, Action> decisionTree;
   Action activeSubmenu;

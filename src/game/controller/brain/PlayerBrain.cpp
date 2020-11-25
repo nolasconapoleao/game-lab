@@ -13,22 +13,22 @@
 namespace controller::brain {
 
 Player::Player() : activeSubmenu(Action::UNDEFINED) {
-  makeBranch(Action::UNDEFINED, {Action::SKIP_TURN, Action::MENU, Action::ATTACK, Action::INVENTORY, Action::TEAM,
-                                 Action::SHOP, Action::QUEST, Action::TRAVEL, Action::SPECIAL});
+  makeMenuConnection(Action::UNDEFINED, {Action::SKIP_TURN, Action::MENU, Action::ATTACK, Action::INVENTORY,
+                                         Action::TEAM, Action::SHOP, Action::QUEST, Action::TRAVEL, Action::SPECIAL});
 
-  makeBranch(Action::MENU, {Action::MENU_SAVE, Action::MENU_TUTORIAL, Action::MENU_TERMINATE});
-  makeBranch(Action::ATTACK, {Action::ATTACK_CHARACTER, Action::ATTACK_BUILDING, Action::ATTACK_STRUCTURE});
-  makeBranch(Action::INVENTORY, {Action::INVENTORY_PICKUP, Action::INVENTORY, Action::INVENTORY_DROP, Action::INVENTORY,
-                                 Action::INVENTORY_USE});
-  makeBranch(Action::TEAM,
-             {Action::TEAM_CREATE, Action::TEAM_DISBAND, Action::TEAM_TRADE, Action::TEAM_KICK, Action::TEAM_INVITE});
-  makeBranch(Action::SHOP, {Action::SHOP_BUY, Action::SHOP_SELL});
-  makeBranch(Action::QUEST, {Action::QUEST_ABANDON, Action::QUEST_FINISH});
-  makeBranch(Action::SPECIAL, {Action::SPECIAL_SUMMON, Action::SPECIAL_PICKPOCKET, Action::SPECIAL_POSSESS,
-                               Action::SPECIAL_READ, Action::SPECIAL_CALL});
-  makeBranch(Action::TRAVEL, {Action::TRAVEL_EXTERIOR, Action::TRAVEL_INTERIOR});
+  makeMenuConnection(Action::MENU, {Action::MENU_SAVE, Action::MENU_TUTORIAL, Action::MENU_TERMINATE});
+  makeMenuConnection(Action::ATTACK, {Action::ATTACK_CHARACTER, Action::ATTACK_BUILDING, Action::ATTACK_STRUCTURE});
+  makeMenuConnection(Action::INVENTORY, {Action::INVENTORY_PICKUP, Action::INVENTORY, Action::INVENTORY_DROP,
+                                         Action::INVENTORY, Action::INVENTORY_USE});
+  makeMenuConnection(Action::TEAM, {Action::TEAM_CREATE, Action::TEAM_DISBAND, Action::TEAM_TRADE, Action::TEAM_KICK,
+                                    Action::TEAM_INVITE});
+  makeMenuConnection(Action::SHOP, {Action::SHOP_BUY, Action::SHOP_SELL});
+  makeMenuConnection(Action::QUEST, {Action::QUEST_ABANDON, Action::QUEST_FINISH});
+  makeMenuConnection(Action::SPECIAL, {Action::SPECIAL_SUMMON, Action::SPECIAL_PICKPOCKET, Action::SPECIAL_POSSESS,
+                                       Action::SPECIAL_READ, Action::SPECIAL_CALL});
+  makeMenuConnection(Action::TRAVEL, {Action::TRAVEL_EXTERIOR, Action::TRAVEL_INTERIOR});
 
-  makeBranch(Action::SPECIAL_CALL, {Action::SPECIAL_CALL_REINFORCEMENT, Action::SPECIAL_CALL_ENEMY});
+  makeMenuConnection(Action::SPECIAL_CALL, {Action::SPECIAL_CALL_REINFORCEMENT, Action::SPECIAL_CALL_ENEMY});
 }
 
 Decision Player::think(const Snapshot &snapshot) {
@@ -43,53 +43,33 @@ Decision Player::think(const Snapshot &snapshot) {
     if (!gameconstants::submenuInfo(activeSubmenu).terminal) {
       selectSubmenu();
     } else {
-      Decision decision{};
+      // TODO: complete all cases
       switch (activeSubmenu) {
         case Action::ATTACK_CHARACTER:
-          decision = Decision{activeSubmenu, snap.character.id, selectFromVector(snap.characters).parsed};
-          break;
+          return Decision{activeSubmenu, snap.character.id, selectFromVector(snap.characters).parsed};
         case Action::ATTACK_BUILDING:
-          decision = Decision{activeSubmenu, snap.character.id, selectFromVector(snap.buildings).parsed};
-          break;
+          return Decision{activeSubmenu, snap.character.id, selectFromVector(snap.buildings).parsed};
         case Action::ATTACK_STRUCTURE:
-          decision = Decision{activeSubmenu, snap.character.id, selectFromVector(snap.structures).parsed};
-          break;
+          return Decision{activeSubmenu, snap.character.id, selectFromVector(snap.structures).parsed};
         case Action::INVENTORY_PICKUP:
-          decision = Decision{activeSubmenu, snap.character.id, selectFromVector(snap.floor).parsed};
-          break;
+          return Decision{activeSubmenu, snap.character.id, selectFromVector(snap.floor).parsed};
         case Action::INVENTORY_DROP:
-          decision = drop_item();
-          break;
+          return drop_item();
         case Action::INVENTORY_USE:
-          decision = use_item();
-          break;
+          return use_item();
         case Action::TRAVEL_INTERIOR:
-          decision = Decision{activeSubmenu, snap.character.id, selectFromVector(snap.buildings).parsed};
-          break;
+          return Decision{activeSubmenu, snap.character.id, selectFromVector(snap.buildings).parsed};
         case Action::TRAVEL_EXTERIOR:
-          decision = Decision{activeSubmenu, snap.character.id, selectFromVector(snap.exteriors).parsed};
-          break;
-        case Action::SPECIAL_SUMMON:
-          decision = Decision{Action::SKIP_TURN};
-          break;
+          return Decision{activeSubmenu, snap.character.id, selectFromVector(snap.exteriors).parsed};
         case Action::SPECIAL_PICKPOCKET: {
           const auto who = selectFromVector(snap.characters).parsed;
           const auto itemInput = selectFromVector(snap.ownedBy.find(who)->second);
-          decision = Decision{activeSubmenu, snap.character.id, itemInput.parsed};
-          break;
+          return Decision{activeSubmenu, snap.character.id, itemInput.parsed};
         }
         case Action::SPECIAL_POSSESS:
-          decision = Decision{activeSubmenu, snap.character.id, selectFromVector(snap.buildings).parsed};
-          break;
-        case Action::SKIP_TURN:
-          [[fallthrough]];
+          return Decision{activeSubmenu, snap.character.id, selectFromVector(snap.characters).parsed};
         default:
-          decision = Decision{Action::SKIP_TURN};
-          break;
-      }
-
-      if (gameconstants::submenuInfo(activeSubmenu).terminal) {
-        return decision;
+          return Decision{Action::SKIP_TURN};
       }
     }
   }
@@ -98,11 +78,6 @@ Decision Player::think(const Snapshot &snapshot) {
 Decision Player::use_item() {
   const auto cLen = snap.consumables.size();
   const auto eLen = snap.equippables.size();
-  if (cLen == 0 && eLen == 0) {
-    view::input::invalid(gameconstants::submenuInfo(activeSubmenu).prompt);
-    activeSubmenu = Action::UNDEFINED;
-    return Decision{Action::UNDEFINED};
-  }
 
   view::input::items(gameconstants::submenuInfo(activeSubmenu).prompt, snap);
   ResourceId parsedInput{0};
@@ -118,11 +93,6 @@ Decision Player::use_item() {
 Decision Player::drop_item() {
   const auto cLen = snap.consumables.size();
   const auto eLen = snap.equippables.size();
-  if (cLen == 0 && eLen == 0) {
-    view::input::invalid(gameconstants::submenuInfo(activeSubmenu).prompt);
-    activeSubmenu = Action::UNDEFINED;
-    return Decision{Action::UNDEFINED};
-  }
 
   view::input::items(gameconstants::submenuInfo(activeSubmenu).prompt, snap);
   ResourceId parsedInput{0};
@@ -154,19 +124,13 @@ void Player::selectSubmenu() {
   activeSubmenu = options[validInput.find(in)].action;
 }
 
-void Player::makeBranch(Action startSubmenu, const std::initializer_list<Action> &endSubmenus) {
+void Player::makeMenuConnection(Action startSubmenu, const std::initializer_list<Action> &endSubmenus) {
   for (auto endSubmenu : endSubmenus) {
     decisionTree.emplace(endSubmenu, startSubmenu);
   }
 }
 
 template <typename T> ConsoleIn Player::selectFromVector(const std::vector<T> &vector) {
-  if (vector.empty()) {
-    view::input::invalid(gameconstants::submenuInfo(activeSubmenu).prompt);
-    activeSubmenu = Action::UNDEFINED;
-    return {0, 0};
-  }
-
   view::input::generic(gameconstants::submenuInfo(activeSubmenu).prompt, vector);
   const auto in = controller::input::numeric(vector.size()) - 1;
   const auto parsedInput = vector[in].id;
@@ -174,12 +138,6 @@ template <typename T> ConsoleIn Player::selectFromVector(const std::vector<T> &v
 }
 
 template <typename T> Quantity Player::selectItemQuantity(const std::vector<T> &vector, ConsoleIn input) {
-  if (vector.empty()) {
-    view::input::invalid("No items available!");
-    activeSubmenu = Action::UNDEFINED;
-    return 0;
-  }
-
   const auto max = vector[input.raw].entity->quantity;
   if (max == 1) {
     return 1;

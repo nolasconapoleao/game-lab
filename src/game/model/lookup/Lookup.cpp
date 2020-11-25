@@ -206,7 +206,7 @@ ResourceType Lookup::type(const ResourceId resourceId) {
   if (mWorld->teams.contains(resourceId)) {
     return ResourceType::TEAM;
   }
-  throw std::invalid_argument("Invalid entity type");
+  throw std::invalid_argument("Invalid entity action");
 }
 
 std::shared_ptr<entity::Character> Lookup::character(CharacterId characterId) {

@@ -71,41 +71,41 @@ void GameEngine::handleCharacterTurn(const Decision &decision) {
     return;
   }
 
-  switch (decision.type) {
+  switch (decision.action) {
     case Action::ATTACK_BUILDING:
-      mHandler->attackBuilding(decision.sender, decision.receiver);
+      mHandler->attackBuilding(decision.subject, decision.object);
       break;
     case Action::ATTACK_CHARACTER:
-      mHandler->attackCharacter(decision.sender, decision.receiver);
+      mHandler->attackCharacter(decision.subject, decision.object);
       break;
     case Action::ATTACK_STRUCTURE:
-      mHandler->attackStructure(decision.sender, decision.receiver);
+      mHandler->attackStructure(decision.subject, decision.object);
       break;
     case Action::INVENTORY_USE:
-      mHandler->useItem(decision.receiver);
+      mHandler->useItem(decision.object);
       break;
     case Action::INVENTORY_PICKUP:
-      mHandler->pickupItem(decision.sender, decision.receiver, decision.quantity);
+      mHandler->pickupItem(decision.subject, decision.object, decision.quantity);
       break;
     case Action::INVENTORY_DROP:
-      mHandler->dropItem(decision.sender, decision.receiver, decision.quantity);
+      mHandler->dropItem(decision.subject, decision.object, decision.quantity);
       break;
     case Action::TRAVEL_INTERIOR:
       [[fallthrough]];
     case Action::TRAVEL_EXTERIOR:
-      mHandler->travel(decision.sender, decision.receiver);
+      mHandler->travel(decision.subject, decision.object);
       break;
     case Action::SHOP_BUY:
-      mHandler->buyItem(decision.receiver, decision.sender, decision.quantity);
+      mHandler->buyItem(decision.object, decision.subject, decision.quantity);
       break;
     case Action::SHOP_SELL:
-      mHandler->sellItem(decision.receiver, decision.sender, decision.quantity);
+      mHandler->sellItem(decision.object, decision.subject, decision.quantity);
       break;
     case Action::SPECIAL_PICKPOCKET:
-      mHandler->stealItem(decision.sender, decision.receiver);
+      mHandler->stealItem(decision.subject, decision.object);
       break;
     case Action::SPECIAL_POSSESS:
-      mHandler->possess(decision.sender, decision.receiver);
+      mHandler->possess(decision.subject, decision.object);
       break;
     case Action::SKIP_TURN:
       [[fallthrough]];
