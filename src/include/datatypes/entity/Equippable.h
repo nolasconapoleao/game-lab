@@ -28,7 +28,7 @@ public:
   /// @brief Equippable action.
   EquippableType type;
   /// @brief number of uses for equippable item.
-  Number uses;
+  Quantity uses;
   /// @brief is item equipped.
   bool equipped;
 };

@@ -18,9 +18,8 @@
 
 namespace view::stream {
 
-constexpr auto STAT_LEN = 5;
-constexpr auto NAME_LEN = 25;
-constexpr auto ITEM_PADDING = 24;
+constexpr auto STAT_LEN = 3;
+constexpr auto NAME_LEN = 27;
 
 // Base variables
 std::ostream &operator<<(std::ostream &os, const Quantity &value);

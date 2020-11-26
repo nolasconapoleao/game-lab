@@ -10,7 +10,6 @@
 #include "libs/constants/gameconstants.h"
 #include "model/lookup/Lookup.h"
 #include "view/stream/GeneralUtilities.h"
-#include "view/stream/PrintConstants.h"
 #include "view/stream/PrintingUtilities.h"
 #include "view/stream/StreamConverter.h"
 
@@ -39,8 +38,7 @@ void history(const std::vector<Decision> &history) {
     std::cout << foreground::White << "On the last episode:\n";
     auto k = 1;
     for (const auto &decision : history) {
-      std::cout << "\t"
-                << "Character " << k << " used " << gameconstants::submenuInfo(decision.action).prompt << "\n";
+      std::cout << "\tCharacter " << k << " used " << gameconstants::submenuInfo(decision.action).prompt << "\n";
       k++;
     }
   }
@@ -57,7 +55,7 @@ void clearScreen() {
 void printScene(const Snapshot &snap) {
   // Location
   std::cout << foreground::LightBlue << "Where am I?\n";
-  std::cout << foreground::Blue << "\t" << snap.location.entity->name;
+  std::cout << foreground::Blue << snap.location;
   std::cout << "\n" << separator3 << "\n";
 
   // Characters
@@ -82,14 +80,21 @@ void printScene(const Snapshot &snap) {
     std::cout << "\n" << separator3 << "\n";
   }
 
+  // My items
+  if (!snap.consumables.empty() || !snap.equippables.empty()) {
+    std::cout << foreground::LightGray << "What's that on your pocket?";
+    std::cout << foreground::DarkGray << snap.consumables;
+    std::cout << foreground::DarkGray << snap.equippables;
+    std::cout << "\n" << separator3 << "\n";
+  }
+
   std::cout << foreground::White << "\n" << separator1 << "\n";
 }
 
 void printHud(const Snapshot &snap) {
-  const auto ch = snap.character.entity;
-  std::cout << foreground::Red << separator1 << "\n";
-  std::cout << cMinimalStatsHeader << "\n";
-  std::cout << std::setw(9) << ch->name << "\t\t\t" << ch->stats().hp << "/" << ch->stats().mhp << ch->info;
+  std::cout << foreground::White << separator1 << "\n";
+  std::cout << foreground::LightRed << "Who I am?\n";
+  std::cout << foreground::Red << snap.character.entity;
   std::cout << "\n" << separator2 << "\n";
 }
 void printActionScene(const Snapshot &snap, const Action &submenu) {

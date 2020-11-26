@@ -19,21 +19,20 @@ template <class T> std::ostream &operator<<(std::ostream &os, const std::shared_
 
 template <class T> std::ostream &operator<<(std::ostream &os, const std::vector<T> &vector) {
   for (const auto &it : vector) {
-    os << "\n"
-       << "\t" << it;
+    os << "\n" << it;
   }
   return os;
 }
 
 template <class T> std::ostream &operator<<(std::ostream &os, const std::unordered_set<T> &unorderedSet) {
   for (const auto &it : unorderedSet) {
-    os << "\n" << it << "\t";
+    os << "\n" << it;
   }
   return os;
 }
 
 template <class T> std::ostream &operator<<(std::ostream &os, const DbEntry<T> &entry) {
-  os << entry.entity->name;
+  os << *entry.entity.get();
   return os;
 }
 
