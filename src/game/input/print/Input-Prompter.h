@@ -17,8 +17,8 @@ namespace input::prompt {
 [[maybe_unused]] constexpr auto separatorOpen = "<<<<<<<<<<<<<<<<<<<<<<<<<<<<";
 constexpr auto separatorClose = ">>>>>>>>>>>>>>>>>>>>>>>>>>>>";
 
+// TODO: playerMenu and generic have the same structure
 void playerMenu(const std::vector<MenuState> &options);
-void invalid(const std::string_view &header);
 void quantity(Quantity max);
 void items(const std::string_view &header, const Snapshot &snapshot);
 

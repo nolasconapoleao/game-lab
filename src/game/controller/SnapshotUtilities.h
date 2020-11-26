@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include <datatypes/lookup/ResourceEntry.h>
+#include "datatypes/lookup/ResourceEntry.h"
 
 namespace utils {
 

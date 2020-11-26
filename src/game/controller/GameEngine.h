@@ -4,15 +4,15 @@
 
 #pragma once
 
-#include <controller/brain/ComputerBrain.h>
-#include <controller/brain/PlayerBrain.h>
-#include <datatypes/GameTypes.h>
-#include <datatypes/controller/Decision.h>
-#include <datatypes/lookup/ResourceEntry.h>
 #include <memory>
 #include <set>
 
 #include "DecisionChecker.h"
+#include "controller/brain/ComputerBrain.h"
+#include "controller/brain/PlayerBrain.h"
+#include "datatypes/GameTypes.h"
+#include "datatypes/controller/Decision.h"
+#include "datatypes/lookup/ResourceEntry.h"
 
 namespace model {
 

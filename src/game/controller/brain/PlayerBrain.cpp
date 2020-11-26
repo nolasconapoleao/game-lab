@@ -4,10 +4,9 @@
 
 #include "PlayerBrain.h"
 
-#include <input/capture/Input-Capture.h>
-#include <libs/constants/gameconstants.h>
-
+#include "input/capture/Input-Capture.h"
 #include "input/print/Input-Prompter.h"
+#include "libs/constants/gameconstants.h"
 #include "view/Printer.h"
 
 namespace controller::brain {

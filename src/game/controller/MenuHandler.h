@@ -4,10 +4,9 @@
 
 #pragma once
 
-#include <datatypes/controller/Action.h>
-#include <datatypes/lookup/ResourceEntry.h>
-
 #include "SnapshotUtilities.h"
+#include "datatypes/controller/Action.h"
+#include "datatypes/lookup/ResourceEntry.h"
 
 namespace controller {
 

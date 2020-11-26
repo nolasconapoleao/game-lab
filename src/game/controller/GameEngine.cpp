@@ -4,8 +4,8 @@
 
 #include "GameEngine.h"
 
-#include <model/handler/Handler.h>
-#include <model/lookup/Lookup.h>
+#include "model/handler/Handler.h"
+#include "model/lookup/Lookup.h"
 
 namespace controller {
 

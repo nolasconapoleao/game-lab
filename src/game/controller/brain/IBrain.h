@@ -4,8 +4,8 @@
 
 #pragma once
 
-#include <datatypes/controller/Decision.h>
-#include <datatypes/lookup/ResourceEntry.h>
+#include "datatypes/controller/Decision.h"
+#include "datatypes/lookup/ResourceEntry.h"
 
 namespace controller::brain {
 

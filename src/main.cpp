@@ -1,12 +1,13 @@
-#include <controller/GameEngine.h>
 #include <csignal>
-#include <input/capture/Signal_Handler.h>
-#include <model/World.h>
-#include <model/cleaner/Cleaner.h>
-#include <model/factory/Factory.h>
-#include <model/handler/Handler.h>
-#include <model/lookup/Lookup.h>
-#include <utils/exception/ExceptionHandler.h>
+
+#include "controller/GameEngine.h"
+#include "datatypes/exception/ExceptionHandler.h"
+#include "input/capture/Signal_Handler.h"
+#include "model/World.h"
+#include "model/cleaner/Cleaner.h"
+#include "model/factory/Factory.h"
+#include "model/handler/Handler.h"
+#include "model/lookup/Lookup.h"
 
 int main() {
   // TODO: Print stack trace for exception

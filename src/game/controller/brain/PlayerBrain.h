@@ -4,9 +4,8 @@
 
 #pragma once
 
-#include <controller/MenuHandler.h>
-
 #include "IBrain.h"
+#include "controller/MenuHandler.h"
 
 /// @brief Player console input structure.
 struct ConsoleIn {

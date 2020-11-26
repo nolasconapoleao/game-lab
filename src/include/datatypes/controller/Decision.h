@@ -4,9 +4,8 @@
 
 #pragma once
 
-#include <datatypes/GameTypes.h>
-
 #include "Action.h"
+#include "datatypes/GameTypes.h"
 
 /// @brief Character decision.
 struct Decision {
