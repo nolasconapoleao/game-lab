@@ -17,7 +17,9 @@ endmacro(create_test)
 # ##################################################################################################
 add_custom_target(
         RunUnitTests
-        COMMAND ${CMAKE_CTEST_COMMAND} --output-on-failure
+        # Make test executables and run tests
+        COMMAND ${CMAKE_MAKE_PROGRAM} all
         COMMENT "Run all tests"
+        COMMAND ${CMAKE_CTEST_COMMAND} --output-on-failure
         WORKING_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
 )

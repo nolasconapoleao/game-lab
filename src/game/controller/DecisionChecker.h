@@ -9,6 +9,7 @@ class Decision;
 
 namespace controller {
 
+/// @brief Checker for decisions.
 class DecisionChecker {
 public:
   /**
