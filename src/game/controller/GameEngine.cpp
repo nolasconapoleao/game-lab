@@ -6,6 +6,7 @@
 
 #include "model/handler/Handler.h"
 #include "model/lookup/Lookup.h"
+#include "view/Printer.h"
 
 namespace controller {
 
@@ -18,8 +19,15 @@ GameEngine::GameEngine(const std::shared_ptr<model::Handler> handler, const std:
 void GameEngine::run() {
   const auto idTurn = loadNextCharacter();
   mSnapshot = createSceneSnapshot(idTurn);
-  auto decision
-      = mLookup->character(idTurn)->info.ghost == Ghost::PLAYER ? player.think(mSnapshot) : computer.think(mSnapshot);
+  Decision decision{};
+  if (mLookup->character(idTurn)->info.ghost == Ghost::PLAYER) {
+    view::printer::history(history);
+    history.clear();
+    decision = player.think(mSnapshot);
+    view::printer::clearScreen();
+  } else {
+    decision = computer.think(mSnapshot);
+  }
   handleCharacterTurn(decision);
 }
 
@@ -68,9 +76,11 @@ Snapshot GameEngine::createSceneSnapshot(CharacterId characterId) {
 void GameEngine::handleCharacterTurn(const Decision &decision) {
   if (!checker.isDecisionValid(mSnapshot, decision)) {
     // Skip turn
+    history.emplace_back(Decision{Action::SKIP_TURN, mSnapshot.character.id});
     return;
   }
 
+  history.emplace_back(decision);
   switch (decision.action) {
     case Action::ATTACK_BUILDING:
       mHandler->attackBuilding(decision.subject, decision.object);

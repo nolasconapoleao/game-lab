@@ -34,10 +34,13 @@ Decision Player::think(const Snapshot &snapshot) {
   activeSubmenu = Action::UNDEFINED;
   snap = snapshot;
 
+  bool firstInteraction{true};
+
   // TODO: Change to have time termination
   // TODO: Change to disable invalid options
   while (true) {
-    view::printer::printScreen(snapshot);
+    view::printer::printScreen(snapshot, activeSubmenu, !firstInteraction);
+    firstInteraction = false;
 
     if (!gameconstants::submenuInfo(activeSubmenu).terminal) {
       selectSubmenu();

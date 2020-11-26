@@ -7,6 +7,7 @@
 #include <iomanip>
 #include <iostream>
 
+#include "libs/constants/gameconstants.h"
 #include "model/lookup/Lookup.h"
 #include "view/stream/GeneralUtilities.h"
 #include "view/stream/PrintConstants.h"
@@ -21,14 +22,28 @@ constexpr auto separator3 = "___________________________________________________
 
 namespace view::printer {
 
-void clearScreen();
 void printScene(const Snapshot &snap);
+void printActionScene(const Snapshot &snap, const Action &submenu);
 void printHud(const Snapshot &snap);
 
-void printScreen(const Snapshot &snap) {
-  clearScreen();
+void printScreen(const Snapshot &snap, const Action &submenu, const bool clearFirst) {
+  if (clearFirst) {
+    clearScreen();
+  }
   printHud(snap);
-  printScene(snap);
+  printActionScene(snap, submenu);
+}
+
+void history(const std::vector<Decision> &history) {
+  if (!history.empty()) {
+    std::cout << foreground::White << "On the last episode:\n";
+    auto k = 1;
+    for (const auto &decision : history) {
+      std::cout << "\t"
+                << "Character " << k << " used " << gameconstants::submenuInfo(decision.action).prompt << "\n";
+      k++;
+    }
+  }
 }
 
 void clearScreen() {
@@ -76,6 +91,85 @@ void printHud(const Snapshot &snap) {
   std::cout << cMinimalStatsHeader << "\n";
   std::cout << std::setw(9) << ch->name << "\t\t\t" << ch->stats().hp << "/" << ch->stats().mhp << ch->info;
   std::cout << "\n" << separator2 << "\n";
+}
+void printActionScene(const Snapshot &snap, const Action &submenu) {
+  switch (submenu) {
+    case Action::SKIP_TURN:
+      break;
+    case Action::MENU:
+      break;
+    case Action::MENU_SAVE:
+      break;
+    case Action::MENU_TUTORIAL:
+      break;
+    case Action::MENU_TERMINATE:
+      break;
+    case Action::ATTACK:
+      break;
+    case Action::ATTACK_CHARACTER:
+      break;
+    case Action::ATTACK_BUILDING:
+      break;
+    case Action::ATTACK_STRUCTURE:
+      break;
+    case Action::INVENTORY:
+      break;
+    case Action::INVENTORY_PICKUP:
+      break;
+    case Action::INVENTORY_DROP:
+      break;
+    case Action::INVENTORY_USE:
+      break;
+    case Action::TEAM:
+      break;
+    case Action::TEAM_CREATE:
+      break;
+    case Action::TEAM_DISBAND:
+      break;
+    case Action::TEAM_TRADE:
+      break;
+    case Action::TEAM_KICK:
+      break;
+    case Action::TEAM_INVITE:
+      break;
+    case Action::SHOP:
+      break;
+    case Action::SHOP_BUY:
+      break;
+    case Action::SHOP_SELL:
+      break;
+    case Action::QUEST:
+      break;
+    case Action::QUEST_ABANDON:
+      break;
+    case Action::QUEST_FINISH:
+      break;
+    case Action::TRAVEL:
+      break;
+    case Action::TRAVEL_EXTERIOR:
+      break;
+    case Action::TRAVEL_INTERIOR:
+      break;
+    case Action::SPECIAL:
+      break;
+    case Action::SPECIAL_SUMMON:
+      break;
+    case Action::SPECIAL_PICKPOCKET:
+      break;
+    case Action::SPECIAL_POSSESS:
+      break;
+    case Action::SPECIAL_READ:
+      break;
+    case Action::SPECIAL_CALL:
+      break;
+    case Action::SPECIAL_CALL_REINFORCEMENT:
+      break;
+    case Action::SPECIAL_CALL_ENEMY:
+      break;
+    case Action::UNDEFINED:
+      printScene(snap);
+      break;
+  }
 }
 
 } // namespace view::printer

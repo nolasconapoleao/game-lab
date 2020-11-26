@@ -1,13 +1,14 @@
 #include <csignal>
 
 #include "controller/GameEngine.h"
-#include "datatypes/exception/ExceptionHandler.h"
 #include "input/capture/Signal_Handler.h"
 #include "model/World.h"
 #include "model/cleaner/Cleaner.h"
 #include "model/factory/Factory.h"
 #include "model/handler/Handler.h"
 #include "model/lookup/Lookup.h"
+#include "utils/exception/ExceptionHandler.h"
+#include "view/Printer.h"
 
 int main() {
   // TODO: Print stack trace for exception
@@ -24,6 +25,7 @@ int main() {
   // Controller classes
   auto controller = std::make_shared<controller::GameEngine>(handler, lookup);
 
+  view::printer::clearScreen();
   while (!controller->isTerminated()) {
     try {
       controller->run();

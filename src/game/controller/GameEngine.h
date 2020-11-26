@@ -51,7 +51,7 @@ private:
 
   std::shared_ptr<model::Handler> mHandler;
   std::shared_ptr<model::Lookup> mLookup;
-  std::vector<std::string> history;
+  std::vector<Decision> history;
   brain::Player player;
   brain::Computer computer;
   DecisionChecker checker;
