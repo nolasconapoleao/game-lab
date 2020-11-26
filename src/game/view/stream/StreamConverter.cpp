@@ -53,14 +53,14 @@ std::ostream &operator<<(std::ostream &os, const entity::Character &value) {
 }
 
 std::ostream &operator<<(std::ostream &os, const entity::Consumable &value) {
-  os << static_cast<const entity::Entity &>(value) << " Uses:" << value.duration << " " << (value.consumed ? '+' : '-')
-     << " " << value.effect;
+  os << static_cast<const entity::Entity &>(value) << " Amount:" << value.quantity << " Uses:" << value.duration << " "
+     << (value.consumed ? '+' : '-') << " " << value.effect;
   return os;
 }
 
 std::ostream &operator<<(std::ostream &os, const entity::Equippable &value) {
-  os << static_cast<const entity::Entity &>(value) << " Uses:" << value.uses << " " << (value.equipped ? 'I' : 'O')
-     << " " << value.effect;
+  os << static_cast<const entity::Entity &>(value) << " Amount:" << value.quantity << " Uses:" << value.uses << " "
+     << (value.equipped ? 'I' : 'O') << " " << value.effect;
   return os;
 }
 
@@ -106,13 +106,13 @@ std::ostream &operator<<(std::ostream &os, const Info &value) {
 
 std::ostream &operator<<(std::ostream &os, const ItemEffect &value) {
   if (0 != value.hp) {
-    os << "Hp:" << std::left << value.hp;
+    os << "Hp:  " << std::left << value.hp;
   }
   if (0 != value.atk) {
-    os << "Atk:" << std::left << value.atk;
+    os << "Atk: " << std::left << value.atk;
   }
   if (0 != value.def) {
-    os << "Def:" << std::left << value.def;
+    os << "Def: " << std::left << value.def;
   }
   if (0 != value.mAtk) {
     os << "MAtk:" << std::left << value.mAtk;
@@ -121,22 +121,22 @@ std::ostream &operator<<(std::ostream &os, const ItemEffect &value) {
     os << "MDef:" << std::left << value.mDef;
   }
   if (0 != value.spd) {
-    os << "Spd:" << std::left << value.spd;
+    os << "Spd: " << std::left << value.spd;
   }
   if (0 != value.inte) {
     os << "Inte:" << std::left << value.inte;
   }
   if (0 != value.acc) {
-    os << "Acc:" << std::left << value.acc;
+    os << "Acc: " << std::left << value.acc;
   }
   if (0 != value.ste) {
-    os << "Ste:" << std::left << value.ste;
+    os << "Ste: " << std::left << value.ste;
   }
   if (0 != value.mana) {
     os << "Mana:" << std::left << value.mana;
   }
   if (0 != value.ran) {
-    os << "Ran:" << std::left << value.ran;
+    os << "Ran: " << std::left << value.ran;
   }
   return os;
 }

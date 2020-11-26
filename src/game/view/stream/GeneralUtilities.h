@@ -24,6 +24,14 @@ template <class T> std::ostream &operator<<(std::ostream &os, const std::vector<
   return os;
 }
 
+template <class T> std::string print(const std::vector<T> &vector) {
+  std::ostringstream os{};
+  for (const auto &it : vector) {
+    os << "\n" << it.entity->name;
+  }
+  return os.str();
+}
+
 template <class T> std::ostream &operator<<(std::ostream &os, const std::unordered_set<T> &unorderedSet) {
   for (const auto &it : unorderedSet) {
     os << "\n" << it;

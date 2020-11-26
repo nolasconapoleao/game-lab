@@ -16,11 +16,12 @@
 using namespace view::stream;
 
 constexpr auto separator1 = "################################################################";
-constexpr auto separator2 = "=================================================================";
+constexpr auto separator2 = "================================================================";
 constexpr auto separator3 = "________________________________________________________________";
 
 namespace view::printer {
 
+void debugScene(const Snapshot &snap);
 void printScene(const Snapshot &snap);
 void printActionScene(const Snapshot &snap, const Action &submenu);
 void printHud(const Snapshot &snap);
@@ -30,7 +31,9 @@ void printScreen(const Snapshot &snap, const Action &submenu, const bool clearFi
     clearScreen();
   }
   printHud(snap);
+  std::cout << foreground::White << "\n" << separator1 << "\n" << separator1 << "\n";
   printActionScene(snap, submenu);
+  std::cout << foreground::White << "\n" << separator1 << "\n";
 }
 
 void history(const std::vector<Decision> &history) {
@@ -52,12 +55,7 @@ void clearScreen() {
 #endif
 }
 
-void printScene(const Snapshot &snap) {
-  // Location
-  std::cout << foreground::LightBlue << "Where am I?\n";
-  std::cout << foreground::Blue << snap.location;
-  std::cout << "\n" << separator3 << "\n";
-
+void debugScene(const Snapshot &snap) {
   // Characters
   if (!snap.characters.empty()) {
     std::cout << foreground::LightMagenta << "Who's that guy?";
@@ -82,96 +80,111 @@ void printScene(const Snapshot &snap) {
 
   // My items
   if (!snap.consumables.empty() || !snap.equippables.empty()) {
-    std::cout << foreground::LightGray << "What's that on your pocket?";
+    std::cout << foreground::LightGray << "What's that on my pocket?";
     std::cout << foreground::DarkGray << snap.consumables;
     std::cout << foreground::DarkGray << snap.equippables;
     std::cout << "\n" << separator3 << "\n";
   }
 
-  std::cout << foreground::White << "\n" << separator1 << "\n";
+  // Neighbourhood
+  if (!snap.exteriors.empty()) {
+    std::cout << foreground::LightMagenta << "Where can I travel to?";
+    std::cout << foreground::Magenta << snap.exteriors;
+    std::cout << "\n" << separator3 << "\n";
+  }
+
+  // Characters pockets
+  if (!snap.ownedBy.empty()) {
+    std::cout << foreground::LightGreen << "What's that on your pocket?\n";
+    for (const auto &[id, items] : snap.ownedBy) {
+      std::cout << foreground::Green << "Character " << id << " items: " << items;
+      std::cout << "\n" << separator3 << "\n";
+    }
+  }
+}
+
+void printScene(const Snapshot &snap) {
+  // Characters
+  if (!snap.characters.empty()) {
+    std::cout << foreground::LightMagenta << "Who's that guy?";
+    std::cout << foreground::Magenta << print(snap.characters);
+    std::cout << "\n" << separator3 << "\n";
+  }
+
+  // Landscape
+  if (!snap.structures.empty() || !snap.buildings.empty()) {
+    std::cout << foreground::LightGreen << "What's that over there?";
+    std::cout << foreground::Green << print(snap.structures);
+    std::cout << foreground::Green << print(snap.buildings);
+    std::cout << "\n" << separator3 << "\n";
+  }
+
+  // Floor items
+  if (!snap.floor.empty()) {
+    std::cout << foreground::LightYellow << "What's that on the floor?";
+    std::cout << foreground::Yellow << print(snap.floor);
+    std::cout << "\n" << separator3 << "\n";
+  }
 }
 
 void printHud(const Snapshot &snap) {
+  // Player info
   std::cout << foreground::White << separator1 << "\n";
   std::cout << foreground::LightRed << "Who I am?\n";
   std::cout << foreground::Red << snap.character.entity;
   std::cout << "\n" << separator2 << "\n";
+
+  // Location
+  std::cout << foreground::LightBlue << "Where am I?\n";
+  std::cout << foreground::Blue << snap.location;
+  std::cout << "\n" << separator3 << "\n";
 }
+
 void printActionScene(const Snapshot &snap, const Action &submenu) {
   switch (submenu) {
-    case Action::SKIP_TURN:
-      break;
-    case Action::MENU:
-      break;
-    case Action::MENU_SAVE:
-      break;
-    case Action::MENU_TUTORIAL:
-      break;
-    case Action::MENU_TERMINATE:
-      break;
-    case Action::ATTACK:
-      break;
     case Action::ATTACK_CHARACTER:
+      std::cout << snap.characters << "\n";
       break;
     case Action::ATTACK_BUILDING:
+      std::cout << snap.buildings << "\n";
       break;
     case Action::ATTACK_STRUCTURE:
-      break;
-    case Action::INVENTORY:
+      std::cout << snap.structures << "\n";
       break;
     case Action::INVENTORY_PICKUP:
+      std::cout << snap.floor;
       break;
     case Action::INVENTORY_DROP:
+      std::cout << snap.consumables;
+      std::cout << snap.equippables << "\n";
       break;
     case Action::INVENTORY_USE:
-      break;
-    case Action::TEAM:
-      break;
-    case Action::TEAM_CREATE:
-      break;
-    case Action::TEAM_DISBAND:
-      break;
-    case Action::TEAM_TRADE:
-      break;
-    case Action::TEAM_KICK:
-      break;
-    case Action::TEAM_INVITE:
-      break;
-    case Action::SHOP:
-      break;
-    case Action::SHOP_BUY:
-      break;
-    case Action::SHOP_SELL:
-      break;
-    case Action::QUEST:
-      break;
-    case Action::QUEST_ABANDON:
-      break;
-    case Action::QUEST_FINISH:
-      break;
-    case Action::TRAVEL:
+      std::cout << snap.consumables;
+      std::cout << snap.equippables << "\n";
       break;
     case Action::TRAVEL_EXTERIOR:
+      std::cout << snap.exteriors << "\n";
       break;
     case Action::TRAVEL_INTERIOR:
+      std::cout << snap.buildings << "\n";
       break;
+    case Action::MENU:
+      [[fallthrough]];
+    case Action::ATTACK:
+      [[fallthrough]];
+    case Action::INVENTORY:
+      [[fallthrough]];
+    case Action::TEAM:
+      [[fallthrough]];
+    case Action::SHOP:
+      [[fallthrough]];
+    case Action::QUEST:
+      [[fallthrough]];
+    case Action::TRAVEL:
+      [[fallthrough]];
     case Action::SPECIAL:
-      break;
-    case Action::SPECIAL_SUMMON:
-      break;
-    case Action::SPECIAL_PICKPOCKET:
-      break;
-    case Action::SPECIAL_POSSESS:
-      break;
-    case Action::SPECIAL_READ:
-      break;
-    case Action::SPECIAL_CALL:
-      break;
-    case Action::SPECIAL_CALL_REINFORCEMENT:
-      break;
-    case Action::SPECIAL_CALL_ENEMY:
-      break;
-    case Action::UNDEFINED:
+      [[fallthrough]];
+    default:
       printScene(snap);
       break;
   }
