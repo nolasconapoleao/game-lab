@@ -4,11 +4,11 @@
 
 #include "PlayerBrain.h"
 
-#include <controller/input/Input.h>
+#include <input/capture/Input-Capture.h>
 #include <libs/constants/gameconstants.h>
 
+#include "input/print/Input-Prompter.h"
 #include "view/Printer.h"
-#include "view/input-prompt/Input-Prompter.h"
 
 namespace controller::brain {
 

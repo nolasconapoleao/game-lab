@@ -1,14 +1,17 @@
 #include <controller/GameEngine.h>
-#include <controller/input/Signal_Handler.h>
 #include <csignal>
+#include <input/capture/Signal_Handler.h>
 #include <model/World.h>
 #include <model/cleaner/Cleaner.h>
 #include <model/factory/Factory.h>
 #include <model/handler/Handler.h>
 #include <model/lookup/Lookup.h>
+#include <utils/exception/ExceptionHandler.h>
 
 int main() {
-  signal(SIGINT, Input::signal_callback_handler);
+  // TODO: Print stack trace for exception
+  signal(SIGINT, input::signal_callback_handler);
+  signal(SIGSEGV, segmentation_handler);
 
   // Model classes
   auto world = std::make_shared<model::World>();
@@ -21,7 +24,12 @@ int main() {
   auto controller = std::make_shared<controller::GameEngine>(handler, lookup);
 
   while (!controller->isTerminated()) {
-    controller->run();
+    try {
+      controller->run();
+    } catch (const std::exception &e) {
+      std::cerr << e.what();
+      return 1;
+    }
   }
 
   return 0;

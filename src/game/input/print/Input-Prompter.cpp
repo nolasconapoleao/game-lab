@@ -10,7 +10,7 @@
 using namespace view::stream;
 
 namespace view::input {
-
+// TODO: Refactor this class
 void playerMenu(const std::vector<MenuState> &options) {
   std::cout << "What do you want to do?\n";
   for (const auto &it : options) {

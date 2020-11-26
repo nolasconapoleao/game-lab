@@ -1,5 +1,4 @@
 add_subdirectory(brain)
-add_subdirectory(input)
 
 target_sources(
   ${PROJECT_NAME}

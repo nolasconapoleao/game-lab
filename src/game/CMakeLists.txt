@@ -1,3 +1,5 @@
 add_subdirectory(controller)
+add_subdirectory(input)
 add_subdirectory(model)
+add_subdirectory(utils)
 add_subdirectory(view)
