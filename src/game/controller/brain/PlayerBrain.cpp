@@ -53,10 +53,15 @@ Decision Player::think(const Snapshot &snapshot) {
           return Decision{activeSubmenu, snap.character.id, selectFromVector(snap.structures).parsed};
         case Action::INVENTORY_PICKUP:
           return Decision{activeSubmenu, snap.character.id, selectFromVector(snap.floor).parsed};
-        case Action::INVENTORY_DROP:
-          return drop_item();
-        case Action::INVENTORY_USE:
-          return use_item();
+        case Action::INVENTORY_DROP: {
+          const auto item = selectFromItems();
+          const auto quantity = selectItemQuantity(item.entity->quantity);
+          return Decision{activeSubmenu, item.id, snap.location.id, quantity};
+        }
+        case Action::INVENTORY_USE: {
+          const auto item = selectFromItems();
+          return Decision{activeSubmenu, snap.character.id, item.id};
+        }
         case Action::TRAVEL_INTERIOR:
           return Decision{activeSubmenu, snap.character.id, selectFromVector(snap.buildings).parsed};
         case Action::TRAVEL_EXTERIOR:
@@ -75,37 +80,17 @@ Decision Player::think(const Snapshot &snapshot) {
   }
 }
 
-Decision Player::use_item() {
+DbEntry<entity::Item> &Player::selectFromItems() {
   const auto cLen = snap.consumables.size();
   const auto eLen = snap.equippables.size();
 
-  view::input::items(gameconstants::submenuInfo(activeSubmenu).prompt, snap);
-  ResourceId parsedInput{0};
+  ::input::prompt::items(gameconstants::submenuInfo(activeSubmenu).prompt, snap);
   const auto in = controller::input::numeric(eLen + cLen);
   if (in <= cLen) {
-    parsedInput = snap.consumables[in - 1].id;
+    return reinterpret_cast<DbEntry<entity::Item> &>(snap.consumables[in - 1]);
   } else {
-    parsedInput = snap.equippables[in - cLen - 1].id;
+    return reinterpret_cast<DbEntry<entity::Item> &>(snap.equippables[in - cLen - 1]);
   }
-  return Decision{activeSubmenu, snap.character.id, parsedInput};
-}
-
-Decision Player::drop_item() {
-  const auto cLen = snap.consumables.size();
-  const auto eLen = snap.equippables.size();
-
-  view::input::items(gameconstants::submenuInfo(activeSubmenu).prompt, snap);
-  ResourceId parsedInput{0};
-  Quantity quantity{0};
-  const auto in = controller::input::numeric(eLen + cLen);
-  if (in <= cLen) {
-    parsedInput = snap.consumables[in - 1].id;
-    quantity = selectItemQuantity(snap.consumables, {static_cast<Quantity>(in - 1), parsedInput});
-  } else {
-    parsedInput = snap.equippables[in - cLen - 1].id;
-    quantity = selectItemQuantity(snap.equippables, {static_cast<Quantity>(in - cLen - 1), parsedInput});
-  }
-  return Decision{activeSubmenu, parsedInput, snap.location.id, quantity};
 }
 
 void Player::selectSubmenu() {
@@ -119,7 +104,7 @@ void Player::selectSubmenu() {
     }
   };
 
-  view::input::playerMenu(options);
+  ::input::prompt::playerMenu(options);
   const auto in = controller::input::alphanum(validInput);
   activeSubmenu = options[validInput.find(in)].action;
 }
@@ -131,19 +116,18 @@ void Player::makeMenuConnection(Action startSubmenu, const std::initializer_list
 }
 
 template <typename T> ConsoleIn Player::selectFromVector(const std::vector<T> &vector) {
-  view::input::generic(gameconstants::submenuInfo(activeSubmenu).prompt, vector);
+  ::input::prompt::generic(gameconstants::submenuInfo(activeSubmenu).prompt, vector);
   const auto in = controller::input::numeric(vector.size()) - 1;
   const auto parsedInput = vector[in].id;
   return ConsoleIn{static_cast<Quantity>(in), parsedInput};
 }
 
-template <typename T> Quantity Player::selectItemQuantity(const std::vector<T> &vector, ConsoleIn input) {
-  const auto max = vector[input.raw].entity->quantity;
-  if (max == 1) {
+Quantity Player::selectItemQuantity(const Quantity upperBound) {
+  if (upperBound == 1) {
     return 1;
   }
-  view::input::quantity(max);
-  return controller::input::numeric(max);
+  ::input::prompt::quantity(upperBound);
+  return controller::input::numeric(upperBound);
 }
 
 } // namespace controller::brain

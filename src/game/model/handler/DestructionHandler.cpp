@@ -30,7 +30,7 @@ void Handler::demolishBuilding(const LocationId buildingId) {
   };
 
   for (const auto &item : mLookup->itemsIn(buildingId)) {
-    transferItem(item.id, mWorld->locatedIn[buildingId], 0);
+    transferItem(item.id, mWorld->locatedIn[buildingId], mLookup->item(item.id)->quantity);
   };
 
   for (const auto &structure : mLookup->structuresIn(buildingId)) {
@@ -41,7 +41,7 @@ void Handler::demolishBuilding(const LocationId buildingId) {
 
 void Handler::demolishStructure(const StructureId structureId) {
   for (const auto &item : mLookup->itemsIn(structureId)) {
-    transferItem(item.id, mWorld->locatedIn[structureId], 0);
+    transferItem(item.id, mWorld->locatedIn[structureId], mLookup->item(item.id)->quantity);
   };
   mCleaner->deleteStructure(structureId);
 }
@@ -49,7 +49,7 @@ void Handler::demolishStructure(const StructureId structureId) {
 void Handler::killCharacter(CharacterId characterId) {
   mWorld->characters.find(characterId)->second.effects.emplace(StatusEffect::DEAD);
   for (const auto &item : mLookup->itemsIn(characterId)) {
-    transferItem(item.id, mWorld->locatedIn[characterId], 0);
+    transferItem(item.id, mWorld->locatedIn[characterId], mLookup->item(item.id)->quantity);
   };
   mCleaner->deleteCharacter(characterId);
 }

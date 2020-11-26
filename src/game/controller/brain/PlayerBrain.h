@@ -28,10 +28,10 @@ public:
   Decision think(const Snapshot &snap) override;
 
 private:
-  Decision drop_item();
-  Decision use_item();
+  DbEntry<entity::Item> &selectFromItems();
   template <typename T> ConsoleIn selectFromVector(const std::vector<T> &vector);
-  template <typename T> Quantity selectItemQuantity(const std::vector<T> &vector, ConsoleIn input);
+  Quantity selectItemQuantity(const Quantity upperBound);
+
   void selectSubmenu();
   void makeMenuConnection(Action startSubmenu, std::initializer_list<Action> const &endSubmenus);
 

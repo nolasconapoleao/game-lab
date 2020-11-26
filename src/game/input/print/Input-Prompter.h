@@ -12,7 +12,7 @@
 #include "datatypes/controller/MenuState.h"
 #include "datatypes/lookup/ResourceEntry.h"
 
-namespace view::input {
+namespace input::prompt {
 
 [[maybe_unused]] constexpr auto separatorOpen = "<<<<<<<<<<<<<<<<<<<<<<<<<<<<";
 constexpr auto separatorClose = ">>>>>>>>>>>>>>>>>>>>>>>>>>>>";
@@ -31,4 +31,4 @@ template <typename T> void generic(const std::string_view &header, const std::ve
   }
 }
 
-} // namespace view::input
+} // namespace input::prompt

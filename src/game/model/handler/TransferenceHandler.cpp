@@ -40,6 +40,7 @@ void Handler::stackConsumable(const ItemId itemId, const ResourceId destinationI
     } else {
       const auto newItemId = mFactory->createConsumable(consumable.type, quantity);
       mWorld->locatedIn.emplace(newItemId, destinationId);
+      consumable.quantity -= quantity;
     }
   }
 }

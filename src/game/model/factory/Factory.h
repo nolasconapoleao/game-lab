@@ -94,7 +94,7 @@ public:
    * @param quantity of consumable.
    * @return Id for created consumable.
    */
-  ItemId createConsumable(ConsumableType type = ConsumableType::UNDEFINED, Quantity quantity = 1);
+  ItemId createConsumable(ConsumableType type = ConsumableType::UNDEFINED, Quantity quantity = 0);
 
   /**
    * @brief Create connector.

@@ -9,7 +9,7 @@
 
 using namespace view::stream;
 
-namespace view::input {
+namespace input::prompt {
 // TODO: Refactor this class
 void playerMenu(const std::vector<MenuState> &options) {
   std::cout << "What do you want to do?\n";
@@ -40,4 +40,4 @@ void items(const std::string_view &header, const Snapshot &snapshot) {
   }
 }
 
-} // namespace view::input
+} // namespace input::prompt

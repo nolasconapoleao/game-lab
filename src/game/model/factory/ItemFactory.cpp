@@ -84,9 +84,13 @@ ItemId Factory::createWeapon(WeaponType type) {
   return entityCounter;
 }
 
-ItemId Factory::createConsumable(ConsumableType type, const Quantity quantity) {
+ItemId Factory::createConsumable(ConsumableType type, Quantity quantity) {
   if (type == ConsumableType::UNDEFINED) {
     type = ConsumableType{Random::rand(0, static_cast<Quantity>(ConsumableType::UNDEFINED) - 1)};
+  }
+
+  if (0 == quantity) {
+    quantity = Random::rand(1, 8);
   }
 
   ItemEffect specs = consumableSpecs(type);
