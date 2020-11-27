@@ -4,28 +4,7 @@
 
 #pragma once
 
-#include <memory>
-
-#include "datatypes/GameTypes.h"
-#include "datatypes/entity-aux/AttackType.h"
-#include "datatypes/entity-aux/BuildingType.h"
-#include "datatypes/entity-aux/ConsumableType.h"
-#include "datatypes/entity-aux/EquippableType.h"
-#include "datatypes/entity-aux/EventType.h"
-#include "datatypes/entity-aux/Info.h"
-#include "datatypes/entity-aux/Occupation.h"
-#include "datatypes/entity-aux/QuestType.h"
-#include "datatypes/entity-aux/Race.h"
-#include "datatypes/entity-aux/Stats.h"
-#include "datatypes/entity-aux/StructureType.h"
-#include "datatypes/factory/ConnectorType.h"
-#include "datatypes/factory/EquipmentType.h"
-#include "datatypes/factory/ExteriorType.h"
-#include "datatypes/factory/StaffType.h"
-#include "datatypes/factory/ThreatLevel.h"
-#include "datatypes/factory/WeaponType.h"
-
-class World;
+#include "interface/model/IFactory.h"
 
 /// @brief Building information structure.
 struct BuildingSpecs {
@@ -41,7 +20,7 @@ namespace model {
 class World;
 
 /// @brief Handles game entity creation.
-class Factory {
+class Factory : public IFactory {
 public:
   /**
    * @brief Constructor.
@@ -49,80 +28,27 @@ public:
    */
   explicit Factory(const std::shared_ptr<World> &world);
 
-  /**
-   * @brief @brief Create character.
-   * @param threat level for character.
-   * @param weaponAffinity character weapon affinity.
-   * @param race of character.
-   * @param occupation of character.
-   * @return Id for created character.
-   */
+  /// @copydoc IFactory::createCharacter()
   CharacterId createCharacter(ThreatLevel threat, AttackType weaponAffinity = AttackType::UNDEFINED,
-                              Race race = Race::UNDEFINED, Occupation occupation = Occupation::UNDEFINED);
-
-  /**
-   * @brief Create equipment.
-   * @param type of equipment.
-   * @return Id for created equipment.
-   */
-  [[maybe_unused]] ItemId createEquipment(EquipmentType type = EquipmentType::UNDEFINED);
-
-  /**
-   * @brief Create staff.
-   * @param type of staff.
-   * @return Id for created staff.
-   */
-  ItemId createStaff(StaffType type = StaffType::UNDEFINED);
-
-  /**
-   * @brief Create weapon.
-   * @param type of weapon.
-   * @return Id for created weapon.
-   */
-  ItemId createWeapon(WeaponType type = WeaponType::UNDEFINED);
-
-  /**
-   * @brief Create equippable.
-   * @param type of equippable.
-   * @return Id for created equippable.
-   */
-  ItemId createEquippable(EquippableType type = EquippableType::UNDEFINED);
-
-  /**
-   * @brief Create consumable.
-   * @param type of consumable.
-   * @param quantity of consumable.
-   * @return Id for created consumable.
-   */
-  ItemId createConsumable(ConsumableType type = ConsumableType::UNDEFINED, Quantity quantity = 0);
-
-  /**
-   * @brief Create connector.
-   * @param type of connector.
-   * @return Id for created connector.
-   */
-  LocationId createConnector(ConnectorType type = ConnectorType::UNDEFINED);
-
-  /**
-   * @brief Create building.
-   * @param type of building.
-   * @return Id for created building.
-   */
-  LocationId createBuilding(BuildingType type = BuildingType::UNDEFINED);
-
-  /**
-   * @brief Create exterior.
-   * @param type of exterior.
-   * @return Id for created exterior.
-   */
-  LocationId createLocation(ExteriorType type = ExteriorType::UNDEFINED);
-
-  /**
-   * @brief Create structure.
-   * @param type of structure.
-   * @return Id for created structure.
-   */
-  StructureId createStructure(StructureType type = StructureType::UNDEFINED);
+                              Race race = Race::UNDEFINED, Occupation occupation = Occupation::UNDEFINED) override;
+  /// @copydoc IFactory::createEquipment()
+  [[maybe_unused]] ItemId createEquipment(EquipmentType type = EquipmentType::UNDEFINED) override;
+  /// @copydoc IFactory::createStaff()
+  ItemId createStaff(StaffType type = StaffType::UNDEFINED) override;
+  /// @copydoc IFactory::createWeapon()
+  ItemId createWeapon(WeaponType type = WeaponType::UNDEFINED) override;
+  /// @copydoc IFactory::createEquippable()
+  ItemId createEquippable(EquippableType type = EquippableType::UNDEFINED) override;
+  /// @copydoc IFactory::createConsumable()
+  ItemId createConsumable(ConsumableType type = ConsumableType::UNDEFINED, Quantity quantity = 0) override;
+  /// @copydoc IFactory::createConnector()
+  LocationId createConnector(ConnectorType type = ConnectorType::UNDEFINED) override;
+  /// @copydoc IFactory::createBuilding()
+  LocationId createBuilding(BuildingType type = BuildingType::UNDEFINED) override;
+  /// @copydoc IFactory::createLocation()
+  LocationId createLocation(ExteriorType type = ExteriorType::UNDEFINED) override;
+  /// @copydoc IFactory::createStructure()
+  StructureId createStructure(StructureType type = StructureType::UNDEFINED) override;
 
 private:
   /**

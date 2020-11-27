@@ -9,8 +9,8 @@
 
 namespace model {
 
-Handler::Handler(const std::shared_ptr<World> &world, const std::shared_ptr<Factory> &factory,
-                 const std::shared_ptr<Cleaner> &cleaner, const std::shared_ptr<Lookup> &lookup)
+Handler::Handler(const std::shared_ptr<World> &world, const std::shared_ptr<IFactory> &factory,
+                 const std::shared_ptr<ICleaner> &cleaner, const std::shared_ptr<ILookup> &lookup)
     : mWorld(world), mFactory(factory), mCleaner(cleaner), mLookup(lookup) {
 }
 

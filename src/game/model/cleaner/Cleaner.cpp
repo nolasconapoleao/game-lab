@@ -11,7 +11,7 @@
 
 namespace model {
 
-Cleaner::Cleaner(std::shared_ptr<World> world, std::shared_ptr<Lookup> lookup)
+Cleaner::Cleaner(std::shared_ptr<World> world, std::shared_ptr<ILookup> lookup)
     : mWorld(std::move(world)), mLookup(std::move(lookup)) {
 }
 

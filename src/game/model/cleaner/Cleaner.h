@@ -4,9 +4,7 @@
 
 #pragma once
 
-#include <memory>
-
-#include "datatypes/GameTypes.h"
+#include "interface/model/ICleaner.h"
 
 namespace model {
 
@@ -15,55 +13,32 @@ class World;
 class Lookup;
 
 /// @brief Handles deletion of game entities.
-class Cleaner {
+class Cleaner : public ICleaner {
 public:
   /**
    * @brief Constructor.
    * @param world game entity database.
    * @param lookup game entity finder.
    */
-  Cleaner(std::shared_ptr<World> world, std::shared_ptr<Lookup> lookup);
+  Cleaner(std::shared_ptr<World> world, std::shared_ptr<ILookup> lookup);
 
-  /**
-   * @brief Delete character.
-   * @param characterId character id.
-   */
+  /// @copydoc ICleaner::deleteCharacter()
   void deleteCharacter(CharacterId characterId);
-
-  /**
-   * @brief Delete equippable.
-   * @param equipableId equippable id.
-   */
+  /// @copydoc ICleaner::deleteEquipable()
   void deleteEquipable(ItemId equipableId);
-
-  /**
-   * @brief Delete consumable.
-   * @param consumableId consumable id.
-   */
+  /// @copydoc ICleaner::deleteConsumable()
   void deleteConsumable(ItemId consumableId);
-
-  /**
-   * @brief Delete location.
-   * @param locationId location id.
-   */
+  /// @copydoc ICleaner::deleteLocation()
   [[maybe_unused]] void deleteLocation(LocationId locationId);
-
-  /**
-   * @brief Delete building.
-   * @param buildingId building id.
-   */
+  /// @copydoc ICleaner::deleteBuilding()
   void deleteBuilding(LocationId buildingId);
-
-  /**
-   * @brief Delete structure.
-   * @param structureId structure id.
-   */
+  /// @copydoc ICleaner::deleteStructure()
   void deleteStructure(StructureId structureId);
 
 private:
   void cleanupLocation(LocationId locationId);
   std::shared_ptr<World> mWorld;
-  std::shared_ptr<Lookup> mLookup;
+  std::shared_ptr<ILookup> mLookup;
 };
 
 } // namespace model

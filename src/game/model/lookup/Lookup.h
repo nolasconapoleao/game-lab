@@ -4,10 +4,7 @@
 
 #pragma once
 
-#include <memory>
-#include <vector>
-
-#include "datatypes/lookup/ResourceEntry.h"
+#include "interface/model/ILookup.h"
 
 namespace model {
 
@@ -15,7 +12,7 @@ namespace model {
 class World;
 
 /// @brief Game entity finder.
-class Lookup {
+class Lookup : public ILookup {
 public:
   /**
    * @brief Constructor.
@@ -23,159 +20,50 @@ public:
    */
   explicit Lookup(std::shared_ptr<World> world);
 
-  /**
-   * @brief Returns list of items owned by character or located in location.
-   * @param resourceId location of item.
-   * @return list of items in position.
-   */
-  std::vector<DbEntry<entity::Item>> itemsIn(ResourceId resourceId);
-
-  /**
-   * @brief Returns list of consumables owned by character or located in location.
-   * @param resourceId location of consumables.
-   * @return list of consumables in position.
-   */
-  std::vector<DbEntry<entity::Consumable>> consumablesIn(ResourceId resourceId);
-
-  /**
-   * @brief Returns list of equippables owned by character or located in location.
-   * @param resourceId location of equippable.
-   * @return list of equippables in position.
-   */
-  std::vector<DbEntry<entity::Equippable>> equippablesIn(ResourceId resourceId);
-
-  /**
-   * @brief Returns list of characters in location.
-   * @param locationId location of character.
-   * @return list of characters in position.
-   */
-  std::vector<DbEntry<entity::Character>> charactersIn(LocationId locationId);
-
-  /**
-   * @brief Returns list of structures in location.
-   * @param locationId location of structure.
-   * @return list of structures in position.
-   */
-  std::vector<DbEntry<entity::Structure>> structuresIn(LocationId locationId);
-
-  /**
-   * @brief Returns list of exterior neighbours to given location.
-   * @param locationId location id to search.
-   * @return list of neighbour exteriors.
-   */
-  std::vector<DbEntry<entity::Exterior>> neighbourExteriors(LocationId locationId);
-
-  /**
-   * @brief Returns list of building neighbours to given location.
-   * @param locationId location id to search.
-   * @return list of neighbour buildings.
-   */
-  std::vector<DbEntry<entity::Building>> neighbourBuildings(LocationId locationId);
-
-  /**
-   * @brief Returns list of location neighbours to given location.
-   * @param locationId location id to search.
-   * @return list of neighbour locations.
-   */
-  std::vector<DbEntry<entity::Location>> neighbourLocations(LocationId locationId);
-
-  /**
-   * @brief Returns list of location that can reach given location.
-   * @param locationId location id to search.
-   * @return list of location exteriors.
-   */
-  std::vector<DbEntry<entity::Location>> neighboursEndingIn(LocationId locationId);
-
-  /**
-   * @brief Returns list of location that can be reached by given character.
-   * @param characterId character id for search.
-   * @return list of locations reachable by character.
-   */
-  [[maybe_unused]] std::vector<DbEntry<entity::Location>> closeByLocations(CharacterId characterId);
-
-  /**
-   * @brief Returns list of characters close to given character.
-   * @param characterId character id for search.
-   * @return list of characters close to character.
-   */
-  std::vector<DbEntry<entity::Character>> closeByCharacters(CharacterId characterId);
-
-  /**
-   * @brief Returns list of structures close to given character.
-   * @param characterId character id for search.
-   * @return list of structures close to character.
-   */
-  std::vector<DbEntry<entity::Structure>> closeByStructures(CharacterId characterId);
-
-  /**
-   * @brief Returns list of buildings close to given character.
-   * @param characterId character id for search.
-   * @return list of buildings close to character.
-   */
-  std::vector<DbEntry<entity::Building>> closeByBuildings(CharacterId characterId);
-
-  /**
-   * @brief Returns list of exteriors close to given character.
-   * @param characterId character id for search.
-   * @return list of exteriors close to character.
-   */
-  std::vector<DbEntry<entity::Exterior>> closeByExteriors(CharacterId characterId);
-
-  /**
-   * @brief Returns character location.
-   * @param characterId character id for search.
-   * @return location entry for character.
-   */
-  DbEntry<entity::Location> whereIs(CharacterId characterId);
-
-  /**
-   * @brief Returns list of living and player controllable characters.
-   * @return list of playable characters.
-   */
-  std::vector<DbEntry<entity::Character>> playableCharacters();
-
-  /**
-   * @brief Returns Returns id for item of located in if the action matches the one provided.
-   * @param resourceId location of item.
-   * @param type consumable action for search.
-   * @return id for consumable of queried action.
-   */
-  std::optional<ItemId> consumableTypeIn(ResourceId resourceId, ConsumableType type);
-
-  /**
-   * @brief Returns game entity action for provided id.
-   * @param resourceId for search.
-   * @return game entity action for provided id.
-   */
-  ResourceType type(ResourceId resourceId);
-
-  /**
-   * @brief Return writable entry to character with the provided id.
-   * @param characterId character id to search.
-   * @return character matching the provided id.
-   */
-  std::shared_ptr<entity::Character> character(CharacterId characterId);
-
-  /**
-   * @brief Return writable entry to item with the provided id.
-   * @param itemId item id to search.
-   * @return item matching the provided id.
-   */
-  std::shared_ptr<entity::Item> item(ItemId itemId);
-
-  /**
-   * @brief Return writable entry to location with the provided id.
-   * @param locationId location id to search.
-   * @return location matching the provided id.
-   */
-  std::shared_ptr<entity::Location> location(LocationId locationId);
-
-  /**
-   * Checks if character with provided id exists.
-   * @param characterId character id for search.
-   * @return true if character exists, false otherwise.
-   */
-  bool characterExists(CharacterId characterId);
+  /// @copydoc ILookup::itemsIn()
+  std::vector<DbEntry<entity::Item>> itemsIn(ResourceId resourceId) override;
+  /// @copydoc ILookup::consumablesIn()
+  std::vector<DbEntry<entity::Consumable>> consumablesIn(ResourceId resourceId) override;
+  /// @copydoc ILookup::equippablesIn()
+  std::vector<DbEntry<entity::Equippable>> equippablesIn(ResourceId resourceId) override;
+  /// @copydoc ILookup::charactersIn()
+  std::vector<DbEntry<entity::Character>> charactersIn(LocationId locationId) override;
+  /// @copydoc ILookup::structuresIn()
+  std::vector<DbEntry<entity::Structure>> structuresIn(LocationId locationId) override;
+  /// @copydoc ILookup::neighbourExteriors()
+  std::vector<DbEntry<entity::Exterior>> neighbourExteriors(LocationId locationId) override;
+  /// @copydoc ILookup::neighbourBuildings()
+  std::vector<DbEntry<entity::Building>> neighbourBuildings(LocationId locationId) override;
+  /// @copydoc ILookup::neighbourLocations()
+  std::vector<DbEntry<entity::Location>> neighbourLocations(LocationId locationId) override;
+  /// @copydoc ILookup::neighboursEndingIn()
+  std::vector<DbEntry<entity::Location>> neighboursEndingIn(LocationId locationId) override;
+  /// @copydoc ILookup::closeByLocations()
+  [[maybe_unused]] std::vector<DbEntry<entity::Location>> closeByLocations(CharacterId characterId) override;
+  /// @copydoc ILookup::closeByCharacters()
+  std::vector<DbEntry<entity::Character>> closeByCharacters(CharacterId characterId) override;
+  /// @copydoc ILookup::closeByStructures()
+  std::vector<DbEntry<entity::Structure>> closeByStructures(CharacterId characterId) override;
+  /// @copydoc ILookup::closeByBuildings()
+  std::vector<DbEntry<entity::Building>> closeByBuildings(CharacterId characterId) override;
+  /// @copydoc ILookup::closeByExteriors()
+  std::vector<DbEntry<entity::Exterior>> closeByExteriors(CharacterId characterId) override;
+  /// @copydoc ILookup::whereIs()
+  DbEntry<entity::Location> whereIs(CharacterId characterId) override;
+  /// @copydoc ILookup::playableCharacters()
+  std::vector<DbEntry<entity::Character>> playableCharacters() override;
+  /// @copydoc ILookup::consumableTypeIn()
+  std::optional<ItemId> consumableTypeIn(ResourceId resourceId, ConsumableType type) override;
+  /// @copydoc ILookup::type()
+  ResourceType type(ResourceId resourceId) override;
+  /// @copydoc ILookup::character()
+  std::shared_ptr<entity::Character> character(CharacterId characterId) override;
+  /// @copydoc ILookup::item()
+  std::shared_ptr<entity::Item> item(ItemId itemId) override;
+  /// @copydoc ILookup::location()
+  std::shared_ptr<entity::Location> location(LocationId locationId) override;
+  /// @copydoc ILookup::characterExists()
+  bool characterExists(CharacterId characterId) override;
 
 private:
   std::shared_ptr<World> mWorld;
