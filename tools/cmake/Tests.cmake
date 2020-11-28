@@ -12,15 +12,17 @@ macro(create_test target)
 
   # To create a target that can run via ctest
   add_test(NAME ${target} COMMAND $<TARGET_FILE:${target}>)
+  set(CMAKE_CXX_FLAGS "-g -O0 -Wall -fprofile-arcs -ftest-coverage")
+  set_target_properties(${target} PROPERTIES COMPILE_FLAGS "${CMAKE_CXX_FLAGS}")
+
 endmacro(create_test)
 
 # Unit tests target
-# ##################################################################################################
 add_custom_target(
-        RunUnitTests
-        # Make test executables and run tests
-        COMMAND ${CMAKE_MAKE_PROGRAM} all
-        COMMENT "Run all tests"
-        COMMAND ${CMAKE_CTEST_COMMAND} --output-on-failure
-        WORKING_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
+  RunUnitTests
+  # Make test executables and run tests
+  COMMAND ${CMAKE_MAKE_PROGRAM} all
+  COMMENT "Run all tests"
+  COMMAND ${CMAKE_CTEST_COMMAND} --output-on-failure
+  WORKING_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
 )
