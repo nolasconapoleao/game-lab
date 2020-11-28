@@ -15,13 +15,9 @@ class Lookup;
 /// @brief Handles deletion of game entities.
 class Cleaner : public ICleaner {
 public:
-  /**
-   * @brief Constructor.
-   * @param world game entity database.
-   * @param lookup game entity finder.
-   */
-  Cleaner(std::shared_ptr<World> world, std::shared_ptr<ILookup> lookup);
-
+  Cleaner() = delete;
+  /// @copydoc ICleaner::ICleaner()
+  Cleaner(const std::shared_ptr<World> &world, const std::shared_ptr<ILookup> &lookup);
   /// @copydoc ICleaner::deleteCharacter()
   void deleteCharacter(CharacterId characterId);
   /// @copydoc ICleaner::deleteEquipable()
@@ -37,8 +33,6 @@ public:
 
 private:
   void cleanupLocation(LocationId locationId);
-  std::shared_ptr<World> mWorld;
-  std::shared_ptr<ILookup> mLookup;
 };
 
 } // namespace model

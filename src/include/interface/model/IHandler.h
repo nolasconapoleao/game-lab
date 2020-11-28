@@ -24,6 +24,20 @@ class ILookup;
 /// @brief Interface for wrapper for game world manipulation.
 class IHandler {
 public:
+  /// @brief Default constructor.
+  IHandler() = default;
+
+  /**
+   * @brief Constructor.
+   * @param world game entity database.
+   * @param factory game entity creator.
+   * @param cleaner game entity destructor.
+   * @param lookup game entity finder.
+   */
+  IHandler(const std::shared_ptr<World> &world, const std::shared_ptr<IFactory> &factory,
+           const std::shared_ptr<ICleaner> &cleaner, const std::shared_ptr<ILookup> &lookup)
+      : mWorld(world), mFactory(factory), mCleaner(cleaner), mLookup(lookup){};
+
   /// @brief Create world.
   virtual void createWorld() = 0;
   /// @brief Destroy world.
@@ -137,7 +151,6 @@ public:
   virtual void renameTeam(TeamId teamId, const std::string &newName) = 0;
 
 protected:
-  // TODO: protected member variable not recognized in the scope of derived class
   std::shared_ptr<World> mWorld;
   std::shared_ptr<IFactory> mFactory;
   std::shared_ptr<ICleaner> mCleaner;

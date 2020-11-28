@@ -14,12 +14,9 @@ class World;
 /// @brief Game entity finder.
 class Lookup : public ILookup {
 public:
-  /**
-   * @brief Constructor.
-   * @param world game entity database.
-   */
-  explicit Lookup(std::shared_ptr<World> world);
-
+  Lookup() = delete;
+  /// @copydoc ILookup::ILookup()
+  explicit Lookup(const std::shared_ptr<World> &world);
   /// @copydoc ILookup::itemsIn()
   std::vector<DbEntry<entity::Item>> itemsIn(ResourceId resourceId) override;
   /// @copydoc ILookup::consumablesIn()
@@ -64,9 +61,6 @@ public:
   std::shared_ptr<entity::Location> location(LocationId locationId) override;
   /// @copydoc ILookup::characterExists()
   bool characterExists(CharacterId characterId) override;
-
-private:
-  std::shared_ptr<World> mWorld;
 };
 
 } // namespace model

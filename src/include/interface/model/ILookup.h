@@ -17,6 +17,15 @@ class World;
 /// @brief Interface for game entity finder.
 class ILookup {
 public:
+  /// @brief Default constructor.
+  ILookup() = default;
+
+  /**
+   * @brief Constructor.
+   * @param world game entity database.
+   */
+  explicit ILookup(const std::shared_ptr<World> &world) : mWorld(std::move(world)){};
+
   /**
    * @brief Returns list of items owned by character or located in location.
    * @param resourceId location of item.
@@ -172,7 +181,6 @@ public:
   virtual bool characterExists(CharacterId characterId) = 0;
 
 protected:
-  // TODO: protected member variable not recognized in the scope of derived class
   std::shared_ptr<World> mWorld;
 };
 

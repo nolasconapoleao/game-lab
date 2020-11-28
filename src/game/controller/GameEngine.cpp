@@ -10,7 +10,7 @@
 
 namespace controller {
 
-GameEngine::GameEngine(const std::shared_ptr<model::Handler> handler, const std::shared_ptr<model::Lookup> lookup)
+GameEngine::GameEngine(const std::shared_ptr<model::IHandler> handler, const std::shared_ptr<model::ILookup> lookup)
     : mHandler(std::move(handler)), mLookup(std::move(lookup)) {
   handler->createWorld();
   updateCharacterQueue();

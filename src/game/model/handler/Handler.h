@@ -17,16 +17,10 @@ class Lookup;
 /// @brief Wrapper for game world manipulation.
 class Handler : public IHandler {
 public:
-  /**
-   * @brief Constructor.
-   * @param world game entity database.
-   * @param factory game entity creator.
-   * @param cleaner game entity destructor.
-   * @param lookup game entity finder.
-   */
+  Handler() = delete;
+  /// @copydoc IHandler::IHandler()
   Handler(const std::shared_ptr<World> &world, const std::shared_ptr<IFactory> &factory,
           const std::shared_ptr<ICleaner> &cleaner, const std::shared_ptr<ILookup> &lookup);
-
   /// @copydoc IHandler::createWorld()
   void createWorld() override;
   /// @copydoc IHandler::destroyWorld()
@@ -82,11 +76,6 @@ private:
   void transferMoney(CharacterId originId, CharacterId destinationId, Number amount);
   Quantity maximumBuyable(CharacterId characterId, ItemId itemId);
   static int compare(Quantity attacker, Quantity defender);
-
-  std::shared_ptr<World> mWorld;
-  std::shared_ptr<IFactory> mFactory;
-  std::shared_ptr<ICleaner> mCleaner;
-  std::shared_ptr<ILookup> mLookup;
 };
 
 } // namespace model

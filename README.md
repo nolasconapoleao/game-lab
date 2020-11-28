@@ -18,6 +18,8 @@ cmake
 doxygen
 gcov
 lcov
+catch2
+trompeloeil
 ```
 
 ### Building and running

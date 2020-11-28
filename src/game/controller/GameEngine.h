@@ -17,8 +17,8 @@
 namespace model {
 
 // Forward declaration
-class Handler;
-class Lookup;
+class IHandler;
+class ILookup;
 } // namespace model
 
 namespace controller {
@@ -31,7 +31,7 @@ public:
    * @param handler game entity controller.
    * @param lookup game entity finder.
    */
-  GameEngine(const std::shared_ptr<model::Handler> handler, const std::shared_ptr<model::Lookup> lookup);
+  GameEngine(const std::shared_ptr<model::IHandler> handler, const std::shared_ptr<model::ILookup> lookup);
 
   /// @brief Executes instructions for activeSubmenu character.
   void run();
@@ -49,8 +49,8 @@ private:
   void handleCharacterTurn(const Decision &decision);
   std::set<CharacterId> characterQueue;
 
-  std::shared_ptr<model::Handler> mHandler;
-  std::shared_ptr<model::Lookup> mLookup;
+  std::shared_ptr<model::IHandler> mHandler;
+  std::shared_ptr<model::ILookup> mLookup;
   std::vector<Decision> history;
   brain::Player player;
   brain::Computer computer;

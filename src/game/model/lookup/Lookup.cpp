@@ -10,7 +10,7 @@
 
 namespace model {
 
-Lookup::Lookup(std::shared_ptr<World> world) : mWorld(std::move(world)) {
+Lookup::Lookup(const std::shared_ptr<World> &world) : ILookup(std::move(world)) {
 }
 
 std::vector<DbEntry<entity::Item>> Lookup::itemsIn(const ResourceId resourceId) {

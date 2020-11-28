@@ -35,6 +35,16 @@ class World;
 /// @brief Interface for handler of game entity creation.
 class IFactory {
 public:
+  /// @brief Default constructor.
+  IFactory() = default;
+
+  /**
+   * @brief Constructor.
+   * @param world game entity database.
+   */
+  IFactory(const std::shared_ptr<World> &world, const ResourceId entityCounter = 0)
+      : mWorld(std::move(world)), entityCounter(entityCounter){};
+
   /**
    * @brief @brief Create character.
    * @param threat level for character.
@@ -112,7 +122,6 @@ public:
   virtual StructureId createStructure(StructureType type = StructureType::UNDEFINED) = 0;
 
 protected:
-  // TODO: protected member variable not recognized in the scope of derived class
   std::shared_ptr<World> mWorld;
   ResourceId entityCounter;
 };

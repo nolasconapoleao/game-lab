@@ -7,6 +7,7 @@ macro(create_test target)
     ${CMAKE_SOURCE_DIR}/extras
     ${CMAKE_SOURCE_DIR}/src/game
     ${CMAKE_SOURCE_DIR}/src/include
+    ${CMAKE_SOURCE_DIR}/tests
   )
 
   # To create a target that can run via ctest

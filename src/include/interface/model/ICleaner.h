@@ -17,6 +17,17 @@ class ILookup;
 /// @brief Interface for handler deletion of game entities.
 class ICleaner {
 public:
+  /// @brief Default constructor.
+  ICleaner() = default;
+
+  /**
+   * @brief Constructor.
+   * @param world game entity database.
+   * @param lookup game entity finder.
+   */
+  ICleaner(const std::shared_ptr<World> &world, const std::shared_ptr<ILookup> &lookup)
+      : mWorld(std::move(world)), mLookup(std::move(lookup)){};
+
   /**
    * @brief Delete character.
    * @param characterId character id.
@@ -54,7 +65,6 @@ public:
   virtual void deleteStructure(StructureId structureId) = 0;
 
 protected:
-  // TODO: protected member variable not recognized in the scope of derived class
   std::shared_ptr<World> mWorld;
   std::shared_ptr<ILookup> mLookup;
 };

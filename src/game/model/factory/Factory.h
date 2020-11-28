@@ -22,12 +22,9 @@ class World;
 /// @brief Handles game entity creation.
 class Factory : public IFactory {
 public:
-  /**
-   * @brief Constructor.
-   * @param world game entity database.
-   */
+  Factory() = delete;
+  /// @copydoc IFactory::IFactory()
   explicit Factory(const std::shared_ptr<World> &world);
-
   /// @copydoc IFactory::createCharacter()
   CharacterId createCharacter(ThreatLevel threat, AttackType weaponAffinity = AttackType::UNDEFINED,
                               Race race = Race::UNDEFINED, Occupation occupation = Occupation::UNDEFINED) override;
@@ -77,9 +74,6 @@ private:
   void initCharacterNames();
   void initLocationNames();
   void initTeamNames();
-
-  std::shared_ptr<World> mWorld;
-  ResourceId entityCounter;
 };
 
 } // namespace model

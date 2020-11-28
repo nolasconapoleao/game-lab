@@ -11,8 +11,8 @@
 
 namespace model {
 
-Cleaner::Cleaner(std::shared_ptr<World> world, std::shared_ptr<ILookup> lookup)
-    : mWorld(std::move(world)), mLookup(std::move(lookup)) {
+Cleaner::Cleaner(const std::shared_ptr<World> &world, const std::shared_ptr<ILookup> &lookup)
+    : ICleaner(std::move(world), std::move(lookup)) {
 }
 
 void Cleaner::deleteCharacter(const CharacterId characterId) {
