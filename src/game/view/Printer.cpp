@@ -9,9 +9,9 @@
 
 #include "libs/constants/gameconstants.h"
 #include "model/lookup/Lookup.h"
+#include "view/stream/EntityConverter.h"
 #include "view/stream/GeneralUtilities.h"
 #include "view/stream/PrintingUtilities.h"
-#include "view/stream/StreamConverter.h"
 
 using namespace view::stream;
 
@@ -142,6 +142,9 @@ void printHud(const Snapshot &snap) {
 
 void printActionScene(const Snapshot &snap, const Action &submenu) {
   switch (submenu) {
+    case Action::MENU:
+      debugScene(snap);
+      break;
     case Action::ATTACK_CHARACTER:
       std::cout << snap.characters << "\n";
       break;

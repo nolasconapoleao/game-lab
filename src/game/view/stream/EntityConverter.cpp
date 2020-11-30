@@ -2,7 +2,7 @@
 // Created by nolasco on 21/06/20.
 //
 
-#include "StreamConverter.h"
+#include "EntityConverter.h"
 
 #include <iomanip>
 #include <magic_enum/include/magic_enum.hpp>

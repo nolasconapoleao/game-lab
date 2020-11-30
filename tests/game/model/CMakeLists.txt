@@ -12,7 +12,7 @@ target_sources(
           ${CMAKE_SOURCE_DIR}/src/game/input/capture/Input-Capture.cpp
           ${CMAKE_SOURCE_DIR}/src/game/input/print/Input-Prompter.cpp
           ${CMAKE_SOURCE_DIR}/src/game/view/Printer.cpp
-          ${CMAKE_SOURCE_DIR}/src/game/view/stream/StreamConverter.cpp
+          ${CMAKE_SOURCE_DIR}/src/game/view/stream/EntityConverter.cpp
           ${CMAKE_SOURCE_DIR}/src/include/datatypes/entity/Building.cpp
           ${CMAKE_SOURCE_DIR}/src/include/datatypes/entity/Character.cpp
           ${CMAKE_SOURCE_DIR}/src/include/datatypes/entity/Consumable.cpp

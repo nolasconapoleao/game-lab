@@ -17,6 +17,11 @@ template <class T> std::ostream &operator<<(std::ostream &os, const std::shared_
   return os;
 }
 
+template <class T> std::ostream &operator<<(std::ostream &os, const DbEntry<T> &entry) {
+  os << *entry.entity.get();
+  return os;
+}
+
 template <class T> std::ostream &operator<<(std::ostream &os, const std::vector<T> &vector) {
   for (const auto &it : vector) {
     os << "\n" << it;
@@ -36,11 +41,6 @@ template <class T> std::ostream &operator<<(std::ostream &os, const std::unorder
   for (const auto &it : unorderedSet) {
     os << "\n" << it;
   }
-  return os;
-}
-
-template <class T> std::ostream &operator<<(std::ostream &os, const DbEntry<T> &entry) {
-  os << *entry.entity.get();
   return os;
 }
 
