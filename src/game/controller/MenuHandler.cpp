@@ -6,7 +6,7 @@
 
 namespace controller {
 
-// TODO: complete all cases
+// TODO(nn): complete all cases
 bool MenuHandler::shouldDisplaySubmenu(const Snapshot &snapshot, const Action &submmenu) {
   switch (submmenu) {
     case Action::ATTACK:
@@ -95,7 +95,7 @@ bool MenuHandler::shouldDisplaySubmenu(const Snapshot &snapshot, const Action &s
 }
 
 bool MenuHandler::ongoingCombat(const Snapshot & /*snapshot*/) {
-  // TODO: Current implementation does not recognize combat situation
+  // TODO(nn): Current implementation does not recognize combat situation
   return false;
 }
 

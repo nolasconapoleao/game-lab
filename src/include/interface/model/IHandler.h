@@ -151,9 +151,13 @@ public:
   virtual void renameTeam(TeamId teamId, const std::string &newName) = 0;
 
 protected:
+  /// @brief Database of game entities.
   std::shared_ptr<World> mWorld;
+  /// @brief Instance to create game instances.
   std::shared_ptr<IFactory> mFactory;
+  /// @brief Instance to destry game instances.
   std::shared_ptr<ICleaner> mCleaner;
+  /// @brief Instance to look for game instances.
   std::shared_ptr<ILookup> mLookup;
 };
 

@@ -181,6 +181,7 @@ public:
   virtual bool characterExists(CharacterId characterId) = 0;
 
 protected:
+  /// @brief Database of game entities.
   std::shared_ptr<World> mWorld;
 };
 

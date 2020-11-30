@@ -19,6 +19,13 @@ else()
   set(BINARY_PATH ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}.exe)
 endif()
 
+# Diagnostic tools
+option(ENABLE_DIAGNOSTIC_TOOLS "Build with diagnostic tools" OFF)
+if(ENABLE_DIAGNOSTIC_TOOLS)
+  message("Enable diagnostic tools in compilation")
+  set(CMAKE_CXX_CLANG_TIDY clang-tidy)
+endif()
+
 # Game executable
 add_executable(${PROJECT_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp)
 target_include_directories(
@@ -36,16 +43,19 @@ option(ENABLE_TESTS "Compile and run unit tests" ON)
 option(ENABLE_DOCUMENTATION "Build documentation target" ON)
 option(ENABLE_COVERAGE "Build coverage target" ON)
 
+if(ENABLE_COVERAGE)
+  message("Enable code coverage target")
+  include(tools/cmake/Coverage.cmake)
+endif()
+
 if(ENABLE_TESTS)
+  message("Enable unit tests target")
   include(tools/cmake/Tests.cmake)
   enable_testing()
   add_subdirectory(tests)
 endif()
 
 if(ENABLE_DOCUMENTATION)
+  message("Enable documentation target")
   include(tools/cmake/Documentation.cmake)
-endif()
-
-if(ENABLE_COVERAGE)
-  include(tools/cmake/Coverage.cmake)
 endif()

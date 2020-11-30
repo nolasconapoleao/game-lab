@@ -23,7 +23,12 @@ class World;
 class Factory : public IFactory {
 public:
   Factory() = delete;
-  /// @copydoc IFactory::IFactory()
+  /**
+   * @brief Constructor.
+   * @param world game entity database.
+   * @param entityCounter number of starting entities
+   * @param entityCounter number of starting entities
+   */
   explicit Factory(const std::shared_ptr<World> &world);
   /// @copydoc IFactory::createCharacter()
   CharacterId createCharacter(ThreatLevel threat, AttackType weaponAffinity = AttackType::UNDEFINED,

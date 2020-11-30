@@ -36,7 +36,7 @@ public:
   std::map<ResourceId, entity::Structure> structures;
   /// @brief Teams in world.
   std::map<ResourceId, entity::Team> teams;
-  // TODO: Add quests and events
+  // TODO(nn): Add quests and events
 
   // Entity relationships
   /// @brief Neighbourhood location network.

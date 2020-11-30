@@ -36,8 +36,8 @@ Decision Player::think(const Snapshot &snapshot) {
 
   bool firstInteraction{true};
 
-  // TODO: Change to have time termination
-  // TODO: Change to disable invalid options
+  // TODO(nn): Change to have time termination
+  // TODO(nn): Change to disable invalid options
   while (true) {
     view::printer::printScreen(snapshot, activeSubmenu, !firstInteraction);
     firstInteraction = false;
@@ -45,7 +45,7 @@ Decision Player::think(const Snapshot &snapshot) {
     if (!gameconstants::submenuInfo(activeSubmenu).terminal) {
       selectSubmenu();
     } else {
-      // TODO: complete all cases
+      // TODO(nn): complete all cases
       switch (activeSubmenu) {
         case Action::ATTACK_CHARACTER:
           return Decision{activeSubmenu, snap.character.id, selectFromVector(snap.characters).parsed};

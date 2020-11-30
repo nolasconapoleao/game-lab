@@ -18,7 +18,13 @@ class Lookup;
 class Handler : public IHandler {
 public:
   Handler() = delete;
-  /// @copydoc IHandler::IHandler()
+  /**
+   * @brief Constructor.
+   * @param world game entity database.
+   * @param factory game entity creator.
+   * @param cleaner game entity destructor.
+   * @param lookup game entity finder.
+   */
   Handler(const std::shared_ptr<World> &world, const std::shared_ptr<IFactory> &factory,
           const std::shared_ptr<ICleaner> &cleaner, const std::shared_ptr<ILookup> &lookup);
   /// @copydoc IHandler::createWorld()

@@ -155,9 +155,7 @@ void printActionScene(const Snapshot &snap, const Action &submenu) {
       std::cout << snap.floor;
       break;
     case Action::INVENTORY_DROP:
-      std::cout << snap.consumables;
-      std::cout << snap.equippables << "\n";
-      break;
+      [[fallthrough]];
     case Action::INVENTORY_USE:
       std::cout << snap.consumables;
       std::cout << snap.equippables << "\n";
@@ -168,22 +166,6 @@ void printActionScene(const Snapshot &snap, const Action &submenu) {
     case Action::TRAVEL_INTERIOR:
       std::cout << snap.buildings << "\n";
       break;
-    case Action::MENU:
-      [[fallthrough]];
-    case Action::ATTACK:
-      [[fallthrough]];
-    case Action::INVENTORY:
-      [[fallthrough]];
-    case Action::TEAM:
-      [[fallthrough]];
-    case Action::SHOP:
-      [[fallthrough]];
-    case Action::QUEST:
-      [[fallthrough]];
-    case Action::TRAVEL:
-      [[fallthrough]];
-    case Action::SPECIAL:
-      [[fallthrough]];
     default:
       printScene(snap);
       break;

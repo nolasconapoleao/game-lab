@@ -1,5 +1,4 @@
 # Code coverage target
-set(CMAKE_CXX_FLAGS "-g -O0 -Wall -fprofile-arcs -ftest-coverage")
 set(COVERAGE_TARGET Coverage)
 set(OBJECT_DIR ${CMAKE_BINARY_DIR}/CMakeFiles/${PROJECT_NAME}.dir/src)
 add_custom_target(

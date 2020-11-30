@@ -9,7 +9,7 @@
 
 namespace controller {
 
-// TODO: complete all cases
+// TODO(nn): complete all cases
 bool DecisionChecker::isDecisionValid(const Snapshot &snapshot, const Decision &decision) {
   switch (decision.action) {
     case Action::SPECIAL_PICKPOCKET:

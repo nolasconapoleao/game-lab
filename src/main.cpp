@@ -11,7 +11,7 @@
 #include "view/Printer.h"
 
 int main() {
-  // TODO: Print stack trace for exception
+  // TODO(nn): Print stack trace for exception
   signal(SIGINT, input::signal_callback_handler);
   signal(SIGSEGV, segmentation_handler);
 

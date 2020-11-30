@@ -15,7 +15,10 @@ class World;
 class Lookup : public ILookup {
 public:
   Lookup() = delete;
-  /// @copydoc ILookup::ILookup()
+  /**
+   * @brief Constructor.
+   * @param world game entity database.
+   */
   explicit Lookup(const std::shared_ptr<World> &world);
   /// @copydoc ILookup::itemsIn()
   std::vector<DbEntry<entity::Item>> itemsIn(ResourceId resourceId) override;

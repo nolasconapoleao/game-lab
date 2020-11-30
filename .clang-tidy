@@ -1,6 +1,8 @@
 ---
 Checks:
   '*,
+  -cert-*,
+  -clang-*,
   -fuchsia-*,
   -google-*,
   -zircon-*,

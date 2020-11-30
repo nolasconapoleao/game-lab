@@ -16,7 +16,11 @@ class Lookup;
 class Cleaner : public ICleaner {
 public:
   Cleaner() = delete;
-  /// @copydoc ICleaner::ICleaner()
+  /**
+   * @brief Constructor.
+   * @param world game entity database.
+   * @param lookup game entity finder.
+   */
   Cleaner(const std::shared_ptr<World> &world, const std::shared_ptr<ILookup> &lookup);
   /// @copydoc ICleaner::deleteCharacter()
   void deleteCharacter(CharacterId characterId);

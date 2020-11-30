@@ -41,6 +41,7 @@ public:
   /**
    * @brief Constructor.
    * @param world game entity database.
+   * @param entityCounter number of starting entities
    */
   IFactory(const std::shared_ptr<World> &world, const ResourceId entityCounter = 0)
       : mWorld(std::move(world)), entityCounter(entityCounter){};
@@ -122,7 +123,9 @@ public:
   virtual StructureId createStructure(StructureType type = StructureType::UNDEFINED) = 0;
 
 protected:
+  /// @brief Database of game entities.
   std::shared_ptr<World> mWorld;
+  /// @brief Current number of game entities.
   ResourceId entityCounter;
 };
 
