@@ -95,11 +95,11 @@ ItemId Factory::createConsumable(ConsumableType type, Quantity quantity) {
 
   ItemEffect specs = consumableSpecs(type);
   entity::Consumable creation{Random::fromVec(mWorld->characterNames) + "'s " + magic_enum::enum_name(type).data(),
+                              type,
                               specs,
                               quantity,
                               1,
                               3,
-                              type,
                               2};
 
   mWorld->consumables.emplace(++entityCounter, creation);

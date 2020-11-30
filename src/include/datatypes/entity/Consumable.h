@@ -22,8 +22,8 @@ public:
    * @param type of consumable.
    * @param duration of consumable.
    */
-  Consumable(const std::string &name, const ItemEffect &effect, Quantity quantity, Number unitWeight, Number unitPrice,
-             ConsumableType type, Quantity duration);
+  Consumable(const std::string &name, ConsumableType type, const ItemEffect &effect, Quantity quantity,
+             Number unitWeight, Number unitPrice, Quantity duration);
 
   /// @brief consumable action.
   ConsumableType type;
