@@ -58,6 +58,7 @@ public:
    */
   virtual bool addEdge(EdgeId edgeId, const EdgeInfo &edgeInfo) = 0;
 
+  // TODO(nn): Avoid virtual void methods or add documentation suppression, doxygen throws warnings for these
   /**
    * Remove edge connection.
    * @param edgeId identification of origin and destination nodes.

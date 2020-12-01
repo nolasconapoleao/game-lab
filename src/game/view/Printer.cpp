@@ -21,6 +21,7 @@ constexpr auto separator3 = "___________________________________________________
 
 namespace view::printer {
 
+// TODO(nn): Add menu entry to switch scene printing mode
 void debugScene(const Snapshot &snap);
 void printScene(const Snapshot &snap);
 void printActionScene(const Snapshot &snap, const Action &submenu);

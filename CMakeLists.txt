@@ -23,6 +23,7 @@ endif()
 option(ENABLE_DIAGNOSTIC_TOOLS "Build with diagnostic tools" OFF)
 if(ENABLE_DIAGNOSTIC_TOOLS)
   message("## Enable diagnostic tools in compilation")
+  # TODO(nn): Fix clang tidy warnings and investigate checks
   set(CMAKE_CXX_CLANG_TIDY clang-tidy)
 endif()
 

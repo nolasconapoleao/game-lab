@@ -6,7 +6,6 @@
 
 namespace controller {
 
-// TODO(nn): complete all cases
 bool MenuHandler::shouldDisplaySubmenu(const Snapshot &snapshot, const Action &submmenu) {
   switch (submmenu) {
     case Action::ATTACK:

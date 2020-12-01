@@ -8,6 +8,7 @@
 #include "datatypes/lookup/ResourceEntry.h"
 
 namespace controller::brain {
+// TODO(nn): History should be stored in the brain
 
 /// @brief Brain interface.
 class IBrain {

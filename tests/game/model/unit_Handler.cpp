@@ -7,14 +7,20 @@
 #include <trompeloeil/include/trompeloeil.hpp>
 
 #include "game/utilities/Comparators.h"
+#include "mocks/CleanerMock.h"
+#include "mocks/FactoryMock.h"
+#include "mocks/LookupMock.h"
 #include "model/World.h"
-#include "model/lookup/Lookup.h"
+#include "model/handler/Handler.h"
 
-SCENARIO("Lookup of character methods", "[Lookup]") {
+SCENARIO("Handling of character methods", "[Handler]") {
 
-  GIVEN("A lookup instance") {
+  GIVEN("A handler instance") {
     auto world = std::make_shared<model::World>();
-    auto lookup = std::make_shared<model::Lookup>(world);
+    auto lookup = std::make_shared<LookupMock>();
+    auto factory = std::make_shared<FactoryMock>();
+    auto cleaner = std::make_shared<CleanerMock>();
+    auto handler = std::make_shared<model::Handler>(world, factory, cleaner, lookup);
 
     auto character = entity::Character{"character", Stats{}, Info{}};
     auto building = entity::Building{"building", BuildingType::UNDEFINED, Size{}, 0};
@@ -32,11 +38,11 @@ SCENARIO("Lookup of character methods", "[Lookup]") {
     world->structures.emplace(6, structure);
     world->teams.emplace(7, team);
 
-    WHEN("The characters in the world are queried") {
-      auto resultCharacter = lookup->character(1);
+    WHEN("The characters in the world are querried") {
+      handler->renameCharacter(1, "newName");
 
       THEN("The correct characters are returned") {
-        REQUIRE(compare(*resultCharacter.get(), character));
+        REQUIRE(world->characters.find(1)->second.name == "newName");
       }
     }
   }

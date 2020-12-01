@@ -12,6 +12,7 @@ git:
 before_install:
   - sed -i 's/git@github.com:/https:\/\/github.com\//' .gitmodules
   - git submodule update --init --recursive
+  # TODO(nn): Add instalation of  doxygen, lcov and linters
 
 script:
   - mkdir build
