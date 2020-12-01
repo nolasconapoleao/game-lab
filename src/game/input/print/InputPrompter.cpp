@@ -2,7 +2,7 @@
 // Created by nolasco on 02/06/20.
 //
 
-#include "Input-Prompter.h"
+#include "InputPrompter.h"
 
 #include "view/stream/EntityConverter.h"
 #include "view/stream/PrintingUtilities.h"

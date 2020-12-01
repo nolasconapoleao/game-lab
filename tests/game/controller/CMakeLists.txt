@@ -9,8 +9,8 @@ target_sources(
           ${CMAKE_SOURCE_DIR}/src/game/controller/SnapshotUtilities.cpp
           ${CMAKE_SOURCE_DIR}/src/game/controller/brain/ComputerBrain.cpp
           ${CMAKE_SOURCE_DIR}/src/game/controller/brain/PlayerBrain.cpp
-          ${CMAKE_SOURCE_DIR}/src/game/input/capture/Input-Capture.cpp
-          ${CMAKE_SOURCE_DIR}/src/game/input/print/Input-Prompter.cpp
+          ${CMAKE_SOURCE_DIR}/src/game/input/capture/InputCapture.cpp
+          ${CMAKE_SOURCE_DIR}/src/game/input/print/InputPrompter.cpp
           ${CMAKE_SOURCE_DIR}/src/game/view/Printer.cpp
           ${CMAKE_SOURCE_DIR}/src/game/view/stream/EntityConverter.cpp
           ${CMAKE_SOURCE_DIR}/src/include/datatypes/entity/Building.cpp

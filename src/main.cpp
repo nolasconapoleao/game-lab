@@ -1,7 +1,7 @@
 #include <csignal>
 
 #include "controller/GameEngine.h"
-#include "input/capture/Signal_Handler.h"
+#include "input/capture/SignalHandler.h"
 #include "model/World.h"
 #include "model/cleaner/Cleaner.h"
 #include "model/factory/Factory.h"
