@@ -70,7 +70,7 @@ SCENARIO("Dependency injection", "[Test]") {
     auto real = std::make_shared<RealImpl>(2);
     REQUIRE(real->secret(1) == "one");
 
-    WHEN("A wrapper class is callec") {
+    WHEN("A wrapper class is called") {
       auto wrapperR = Wrapper(real);
       auto wrapperM = Wrapper(mock);
       auto wrapperM2 = Wrapper(mock2);

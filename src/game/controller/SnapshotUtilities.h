@@ -7,6 +7,7 @@
 #include "datatypes/lookup/ResourceEntry.h"
 
 namespace utils {
+// TODO(nn): Refactor methods to be more generic
 
 /// @brief Provides search utiliities for snapshot class.
 class SnapshotUtilities {

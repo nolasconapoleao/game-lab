@@ -18,7 +18,17 @@ SCENARIO("Creation of character", "[Factory][Character]") {
     auto factory = std::make_shared<model::Factory>(world);
 
     WHEN("A character is created") {
-      const auto creationId = factory->createCharacter(ThreatLevel::NOVICE);
+      auto race = GENERATE(as<Race>{}, Race::DEMON, Race::DRAGON, Race::ELF, Race::GIANT, Race::HUMAN, Race::ORC,
+                           Race::TROLL, Race::GOBLIN, Race::UNDEFINED);
+      auto attackType = GENERATE(as<AttackType>{}, AttackType::CONJURING, AttackType::ELEMENTAL, AttackType::MAGIC,
+                                 AttackType::PHYSICAL, AttackType::SUPPORT, AttackType::UNDEFINED);
+      auto occupation = GENERATE(as<Occupation>{}, Occupation::BEGGAR, Occupation::BLACKSMITH, Occupation::JESTER,
+                                 Occupation::LIBRARIAN, Occupation::MERCENARY, Occupation::SHOPKEEPER,
+                                 Occupation::THIEF, Occupation::TOURIST, Occupation::UNDEFINED);
+      auto threat = GENERATE(as<ThreatLevel>{}, ThreatLevel::SCARECROW, ThreatLevel::NOVICE, ThreatLevel::ACE,
+                             ThreatLevel::VETERAN, ThreatLevel::MONSTER, ThreatLevel::GOD);
+
+      const auto creationId = factory->createCharacter(threat, attackType, race, occupation);
       const auto &creation = world->characters.find(creationId)->second;
 
       THEN("The creation is available in the world and does not use placeholder values") {
@@ -38,7 +48,9 @@ SCENARIO("Creation of items", "[Factory][Item]") {
     auto factory = std::make_shared<model::Factory>(world);
 
     WHEN("An equippable item is created") {
-      const auto creationId = factory->createEquippable();
+      auto type = GENERATE(as<EquippableType>{}, EquippableType::EQUIPMENT, EquippableType::STAFF,
+                           EquippableType::WEAPON, EquippableType::UNDEFINED);
+      const auto creationId = factory->createEquippable(type);
       const auto &creation = world->equippables.find(creationId)->second;
 
       THEN("The creation is available in the world and all parameters are correctly initialized") {
@@ -50,7 +62,9 @@ SCENARIO("Creation of items", "[Factory][Item]") {
     }
 
     AND_WHEN("An equipment item is created") {
-      const auto creationId = factory->createEquipment();
+      auto type = GENERATE(as<EquipmentType>{}, EquipmentType::COAT, EquipmentType::SHIELD, EquipmentType::SKATE,
+                           EquipmentType::UNDEFINED);
+      const auto creationId = factory->createEquipment(type);
       const auto &creation = world->equippables.find(creationId)->second;
 
       THEN("The creation is available in the world and all parameters are correctly initialized") {
@@ -62,7 +76,9 @@ SCENARIO("Creation of items", "[Factory][Item]") {
     }
 
     AND_WHEN("A staff item is created") {
-      const auto creationId = factory->createStaff();
+      auto type
+          = GENERATE(as<StaffType>{}, StaffType::CONJURING, StaffType::DARK, StaffType::SUPPORT, StaffType::UNDEFINED);
+      const auto creationId = factory->createStaff(type);
       const auto &creation = world->equippables.find(creationId)->second;
 
       THEN("The creation is available in the world and all parameters are correctly initialized") {
@@ -74,7 +90,9 @@ SCENARIO("Creation of items", "[Factory][Item]") {
     }
 
     AND_WHEN("A weapon item is created") {
-      const auto creationId = factory->createWeapon();
+      auto type = GENERATE(as<WeaponType>{}, WeaponType::AXE, WeaponType::BOW, WeaponType::DAGGER, WeaponType::KNIFE,
+                           WeaponType::LONGBOW, WeaponType::SWORD, WeaponType::UNDEFINED);
+      const auto creationId = factory->createWeapon(type);
       const auto &creation = world->equippables.find(creationId)->second;
 
       THEN("The creation is available in the world and all parameters are correctly initialized") {
@@ -86,7 +104,9 @@ SCENARIO("Creation of items", "[Factory][Item]") {
     }
 
     AND_WHEN("A consumable item is created") {
-      const auto creationId = factory->createConsumable();
+      auto type = GENERATE(as<ConsumableType>{}, ConsumableType::COIN, ConsumableType::ELIXIR, ConsumableType::POISON,
+                           ConsumableType::POTION, ConsumableType::UNDEFINED);
+      const auto creationId = factory->createConsumable(type);
       const auto &creation = world->consumables.find(creationId)->second;
 
       THEN("The creation is available in the world and all parameters are correctly initialized") {
@@ -106,7 +126,11 @@ SCENARIO("Creation of locations", "[Factory][Location]") {
     auto factory = std::make_shared<model::Factory>(world);
 
     WHEN("A building is created") {
-      const auto creationId = factory->createBuilding();
+      auto type
+          = GENERATE(as<BuildingType>{}, BuildingType::ARENA, BuildingType::BARN, BuildingType::HOME,
+                     BuildingType::HOSPITAL, BuildingType::LIBRARY, BuildingType::MUSEUM, BuildingType::SALOON,
+                     BuildingType::SHOP, BuildingType::SKYSCRAPER, BuildingType::STORAGE, BuildingType::UNDEFINED);
+      const auto creationId = factory->createBuilding(type);
       const auto &creation = world->buildings.find(creationId)->second;
 
       THEN("The creation is available in the world and does not use placeholder values") {
@@ -118,7 +142,9 @@ SCENARIO("Creation of locations", "[Factory][Location]") {
     }
 
     AND_WHEN("A connector is created") {
-      const auto creationId = factory->createConnector();
+      auto type = GENERATE(as<ConnectorType>{}, ConnectorType::BRIDGE, ConnectorType::CAVE, ConnectorType::RIVER,
+                           ConnectorType::TUNNEL, ConnectorType::UNDEFINED);
+      const auto creationId = factory->createConnector(type);
       const auto &creation = world->exteriors.find(creationId)->second;
 
       THEN("The creation is available in the world and does not use placeholder values") {
@@ -129,7 +155,9 @@ SCENARIO("Creation of locations", "[Factory][Location]") {
     }
 
     AND_WHEN("An exterior location is created") {
-      const auto creationId = factory->createLocation();
+      auto type = GENERATE(as<ExteriorType>{}, ExteriorType::CITY, ExteriorType::TOWN, ExteriorType::VILLAGE,
+                           ExteriorType::UNDEFINED);
+      const auto creationId = factory->createLocation(type);
       const auto &creation = world->exteriors.find(creationId)->second;
 
       THEN("The creation is available in the world and does not use placeholder values") {
@@ -148,7 +176,9 @@ SCENARIO("Creation of structures", "[Factory][Structure]") {
     auto factory = std::make_shared<model::Factory>(world);
 
     WHEN("A structure is created") {
-      const auto creationId = factory->createStructure();
+      auto type
+          = GENERATE(as<StructureType>{}, StructureType::UNDEFINED, StructureType::MAILBOX, StructureType::PHONEBOOTH);
+      const auto creationId = factory->createStructure(type);
       const auto &creation = world->structures.find(creationId)->second;
 
       THEN("The creation is available in the world and does not use placeholder values") {

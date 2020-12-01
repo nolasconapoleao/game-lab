@@ -29,6 +29,7 @@ public:
 };
 
 // TODO(nn): snapshot can be a derivation of world or vice versa
+
 /// @brief Game snapshot for decision making.
 struct Snapshot {
   /// @brief current character.
