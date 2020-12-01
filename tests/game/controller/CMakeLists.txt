@@ -1,3 +1,5 @@
+add_subdirectory(brain)
+
 # unit_GameEngine
 set(EXECUTABLE_NAME unit_GameEngine)
 add_executable(${EXECUTABLE_NAME} unit_GameEngine.cpp)
@@ -22,7 +24,6 @@ target_sources(
           ${CMAKE_SOURCE_DIR}/src/include/datatypes/entity/Team.cpp
           ${CMAKE_SOURCE_DIR}/src/include/libs/math/gamemath.cpp
           ${CMAKE_SOURCE_DIR}/src/include/libs/random/Random.cpp
-          ${CMAKE_SOURCE_DIR}/src/game/model/cleaner/Cleaner.cpp
   PUBLIC ${CMAKE_SOURCE_DIR}/src/game/model/World.h
 )
 create_test(${EXECUTABLE_NAME})
