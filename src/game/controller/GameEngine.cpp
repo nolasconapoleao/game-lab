@@ -11,7 +11,7 @@
 namespace controller {
 
 GameEngine::GameEngine(const std::shared_ptr<model::IHandler> handler, const std::shared_ptr<model::ILookup> lookup)
-    : mHandler(std::move(handler)), mLookup(std::move(lookup)) {
+    : mHandler(std::move(handler)), mLookup(std::move(lookup)), mGameTerminated(false) {
   handler->createWorld();
   updateCharacterQueue();
 }
@@ -32,7 +32,7 @@ void GameEngine::run() {
 }
 
 bool GameEngine::isTerminated() {
-  return characterQueue.empty();
+  return characterQueue.empty() || mGameTerminated;
 }
 
 CharacterId GameEngine::loadNextCharacter() {
@@ -116,6 +116,9 @@ void GameEngine::handleCharacterTurn(const Decision &decision) {
       break;
     case Action::SPECIAL_POSSESS:
       mHandler->possess(decision.subject, decision.object);
+      break;
+    case Action::MENU_TERMINATE:
+      mGameTerminated = true;
       break;
     case Action::SKIP_TURN:
       [[fallthrough]];

@@ -56,6 +56,7 @@ private:
   brain::Computer computer;
   DecisionChecker checker;
   Snapshot mSnapshot;
+  bool mGameTerminated;
 };
 
 } // namespace controller

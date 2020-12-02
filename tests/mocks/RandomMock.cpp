@@ -2,8 +2,6 @@
 // Created by nolasco on 05/06/20.
 //
 
-#pragma once
-
 #include "RandomMock.h"
 
 RandomMock mock;

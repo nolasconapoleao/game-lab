@@ -73,6 +73,8 @@ Decision Player::think(const Snapshot &snapshot) {
         }
         case Action::SPECIAL_POSSESS:
           return Decision{activeSubmenu, snap.character.id, selectFromVector(snap.characters).parsed};
+        case Action::MENU_TERMINATE:
+          return Decision{activeSubmenu};
         default:
           return Decision{Action::SKIP_TURN};
       }

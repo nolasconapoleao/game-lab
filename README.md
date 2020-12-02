@@ -31,12 +31,12 @@ cmake ../..
 
 2. Build the library and all the executables defined in the Cmake 
 ```
-make ${Project}
+make Console-Game
 ```
 
 3. Run the game in the console
 ```
-./${Project}
+./Console-Game
 ```
 
 ### Building and running in windows
@@ -53,7 +53,7 @@ cmake -DCOMPILE_FOR_NON_UNIX:BOOL=ON -DCMAKE_BUILD_TYPE=Release ../..
 
 2. Build the library and all the executables defined in the Cmake
 ```
-make ${Project}
+make all
 ```
 
 3. Run the game in the console

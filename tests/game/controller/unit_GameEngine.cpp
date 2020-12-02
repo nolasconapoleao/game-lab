@@ -13,7 +13,7 @@
 #include "mocks/LookupMock.h"
 #include "model/World.h"
 
-SCENARIO("Full game validation", "[Main]") {
+SCENARIO("Game engine validation", "[Main]") {
 
   GIVEN("The multiple game objects") {
     // Model classes

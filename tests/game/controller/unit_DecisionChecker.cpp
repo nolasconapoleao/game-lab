@@ -8,14 +8,14 @@
 #include "datatypes/controller/Decision.h"
 #include "datatypes/lookup/ResourceEntry.h"
 
-SCENARIO("Snapshot handling", "[DecisionChecker]") {
-  GIVEN("A world snapshot object containing a shopkeeper") {
+SCENARIO("Decision handling", "[DecisionChecker]") {
+  GIVEN("A world snapshot and decision are generated") {
     Snapshot snapshot{};
     Decision decision{};
 
-    WHEN("The lookup utilities are called") {
+    WHEN("The combination of paramenters are checked ") {
 
-      THEN("The call is successful and the expected result is returned") {
+      THEN("The check returns a valid play") {
         controller::DecisionChecker checker;
         REQUIRE(checker.isDecisionValid(snapshot, decision));
       }

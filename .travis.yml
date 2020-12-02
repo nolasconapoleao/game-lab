@@ -12,11 +12,10 @@ git:
 before_install:
   - sed -i 's/git@github.com:/https:\/\/github.com\//' .gitmodules
   - git submodule update --init --recursive
-  # TODO(nn): Add instalation of  doxygen, lcov and linters
 
 script:
   - mkdir build
   - cd build
-  - cmake -DCMAKE_BUILD_TYPE=Debug -DCOMPILE_FOR_NON_UNIX:BOOL=OFF ../
+  - cmake -DCMAKE_BUILD_TYPE=Debug ../
   - cmake --build . --target all
   - ctest --output-on-failure
