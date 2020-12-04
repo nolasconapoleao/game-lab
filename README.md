@@ -18,6 +18,7 @@ cmake
 doxygen
 gcov
 lcov
+ccache
 ```
 
 ### Building and running

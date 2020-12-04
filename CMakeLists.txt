@@ -5,6 +5,12 @@ project(Console-Game)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wall -Wextra")
 
+find_program(CCACHE_FOUND ccache)
+if(CCACHE_FOUND)
+  message("## Compile with ccache")
+  set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE ccache)
+endif(CCACHE_FOUND)
+
 # Operating system configuration
 option(UNIX_COMPILATION "Compile For Unix systems" ON)
 if(UNIX_COMPILATION)
