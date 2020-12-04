@@ -31,7 +31,7 @@ public:
    * @param handler game entity controller.
    * @param lookup game entity finder.
    */
-  GameEngine(const std::shared_ptr<model::IHandler> handler, const std::shared_ptr<model::ILookup> lookup);
+  GameEngine(std::shared_ptr<model::IHandler> handler, std::shared_ptr<model::ILookup> lookup);
 
   /// @brief Executes instructions for activeSubmenu character.
   void run();
