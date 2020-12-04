@@ -12,7 +12,10 @@ macro(create_test target)
 
   # To create a target that can run via ctest
   add_test(NAME ${target} COMMAND $<TARGET_FILE:${target}>)
-  set(CMAKE_CXX_FLAGS "-g -O0 -Wall -fprofile-arcs -ftest-coverage")
+  set(CMAKE_CXX_FLAGS "-g -O0 -Wall")
+  if(ENABLE_COVERAGE)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fprofile-arcs -ftest-coverage")
+  endif()
   set_target_properties(${target} PROPERTIES COMPILE_FLAGS "${CMAKE_CXX_FLAGS}")
 
 endmacro(create_test)
