@@ -10,7 +10,7 @@
 
 namespace Random {
 
-Quantity rand(Quantity lowerBound, Quantity upperBound) {
+Quantity rand(const Quantity lowerBound, const Quantity upperBound) {
 
   if (lowerBound > upperBound) {
     std::cerr << "Lower bound has to be smaller than upper bound.\n";
@@ -26,7 +26,7 @@ Quantity rand(Quantity lowerBound, Quantity upperBound) {
   return distribution(generator);
 }
 
-Quantity rand_range(Quantity number, Quantity range) {
+Quantity rand_range(const Quantity number, const Quantity range) {
   Quantity lower = 0;
   Quantity upper = std::numeric_limits<Quantity>::max();
   if (number > range) {
@@ -38,7 +38,8 @@ Quantity rand_range(Quantity number, Quantity range) {
   return rand(lower, upper);
 }
 
-std::unordered_set<Quantity> multipleNonRepeated(Quantity quantity, Quantity lowerBound, Quantity upperBound) {
+std::unordered_set<Quantity> multipleNonRepeated(const Quantity quantity, const Quantity lowerBound,
+                                                 const Quantity upperBound) {
 
   if (lowerBound > upperBound) {
     std::cerr << "Lower bound has to be smaller than upper bound.\n";

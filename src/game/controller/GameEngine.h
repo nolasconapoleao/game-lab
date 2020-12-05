@@ -7,21 +7,21 @@
 #include <memory>
 #include <set>
 
-#include "DecisionChecker.h"
-#include "controller/brain/ComputerBrain.h"
-#include "controller/brain/PlayerBrain.h"
 #include "datatypes/GameTypes.h"
 #include "datatypes/controller/Decision.h"
 #include "datatypes/lookup/ResourceEntry.h"
 
-namespace model {
-
 // Forward declaration
+namespace model {
 class IHandler;
 class ILookup;
 } // namespace model
 
 namespace controller {
+class IDecisionChecker;
+namespace brain {
+class IBrain;
+}
 
 /// @brief Game turn mHandler.
 class GameEngine {
@@ -47,15 +47,15 @@ private:
   void updateCharacterQueue();
   Snapshot createSceneSnapshot(CharacterId characterId);
   void handleCharacterTurn(const Decision &decision);
-  std::set<CharacterId> characterQueue;
 
   std::shared_ptr<model::IHandler> mHandler;
   std::shared_ptr<model::ILookup> mLookup;
-  std::vector<Decision> history;
-  brain::Player player;
-  brain::Computer computer;
-  DecisionChecker checker;
+  std::set<CharacterId> characterQueue;
+  std::shared_ptr<brain::IBrain> mPlayer;
+  std::shared_ptr<brain::IBrain> mComputer;
+  std::shared_ptr<IDecisionChecker> mDecisionChecker;
   Snapshot mSnapshot;
+  std::vector<Decision> mHistory;
   bool mGameTerminated;
 };
 

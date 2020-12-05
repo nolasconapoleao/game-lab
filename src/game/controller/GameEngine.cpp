@@ -4,6 +4,9 @@
 
 #include "GameEngine.h"
 
+#include "controller/DecisionChecker.h"
+#include "controller/brain/ComputerBrain.h"
+#include "controller/brain/PlayerBrain.h"
 #include "model/handler/Handler.h"
 #include "model/lookup/Lookup.h"
 #include "view/Printer.h"
@@ -11,7 +14,9 @@
 namespace controller {
 
 GameEngine::GameEngine(const std::shared_ptr<model::IHandler> handler, const std::shared_ptr<model::ILookup> lookup)
-    : mHandler(std::move(handler)), mLookup(std::move(lookup)), mGameTerminated(false) {
+    : mHandler(std::move(handler)), mLookup(std::move(lookup)), mPlayer(std::make_shared<brain::Player>()),
+      mComputer(std::make_shared<brain::Computer>()), mDecisionChecker(std::make_shared<DecisionChecker>()),
+      mGameTerminated(false) {
   handler->createWorld();
   updateCharacterQueue();
 }
@@ -21,12 +26,12 @@ void GameEngine::run() {
   mSnapshot = createSceneSnapshot(idTurn);
   Decision decision{};
   if (mLookup->character(idTurn)->info.ghost == Ghost::PLAYER) {
-    view::printer::history(history);
-    history.clear();
-    decision = player.think(mSnapshot);
+    view::printer::history(mHistory);
+    mHistory.clear();
+    decision = mPlayer->think(mSnapshot);
     view::printer::clearScreen();
   } else {
-    decision = computer.think(mSnapshot);
+    decision = mComputer->think(mSnapshot);
   }
   handleCharacterTurn(decision);
 }
@@ -74,13 +79,13 @@ Snapshot GameEngine::createSceneSnapshot(CharacterId characterId) {
 }
 
 void GameEngine::handleCharacterTurn(const Decision &decision) {
-  if (!checker.isDecisionValid(mSnapshot, decision)) {
+  if (!mDecisionChecker->isDecisionValid(mSnapshot, decision)) {
     // Skip turn
-    history.emplace_back(Decision{Action::SKIP_TURN, mSnapshot.character.id});
+    mHistory.emplace_back(Decision{Action::SKIP_TURN, mSnapshot.character.id});
     return;
   }
 
-  history.emplace_back(decision);
+  mHistory.emplace_back(decision);
   switch (decision.action) {
     case Action::ATTACK_BUILDING:
       mHandler->attackBuilding(decision.subject, decision.object);

@@ -4,27 +4,21 @@
 
 #pragma once
 
-#include "datatypes/lookup/ResourceEntry.h"
+#include "interface/controller/ISnapshotUtilities.h"
+
+class Snapshot;
 
 namespace utils {
 // TODO(nn): Refactor methods to be more generic
 
-/// @brief Provides search utiliities for snapshot class.
-class SnapshotUtilities {
+/// @brief Provides search utilities for snapshot class.
+class SnapshotUtilities : public ISnapshotUtilities {
 public:
-  /**
-   * @brief Checks if a shopkeeper exists.
-   * @param snapshot slice of world to check
-   * @return true if shopkeeper exists, false otherwise
-   */
-  bool shopkeeperAvailable(const Snapshot &snapshot);
+  /// @copydoc ISnapshotUtilities::shopkeeperAvailable()
+  bool shopkeeperAvailable(const Snapshot &snapshot) override;
 
-  /**
-   * @brief Checks if a phonebooth exists.
-   * @param snapshot slice of world to check
-   * @return true if phonebooth exists, false otherwise
-   */
-  bool phoneboothAvailable(const Snapshot &snapshot);
+  /// @copydoc ISnapshotUtilities::phoneboothAvailable()
+  bool phoneboothAvailable(const Snapshot &snapshot) override;
 };
 
 } // namespace utils

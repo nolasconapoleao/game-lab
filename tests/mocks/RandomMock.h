@@ -10,9 +10,9 @@
 
 class RandomMock {
 public:
-  MAKE_MOCK2(rand, Quantity(Quantity, Quantity));
-  MAKE_MOCK2(rand_range, Quantity(Quantity, Quantity));
-  MAKE_MOCK3(multipleNonRepeated, std::unordered_set<Quantity>(Quantity, Quantity, Number));
+  MAKE_MOCK2(rand, Quantity(const Quantity, const Quantity));
+  MAKE_MOCK2(rand_range, Quantity(const Quantity, const Quantity));
+  MAKE_MOCK3(multipleNonRepeated, std::unordered_set<Quantity>(const Quantity, const Quantity, const Quantity));
 };
 
 extern RandomMock mock;

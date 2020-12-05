@@ -2,8 +2,7 @@
 // Created by nolasco on 28/11/20.
 //
 
-#define CATCH_CONFIG_MAIN
-#include <catch2/single_include/catch2/catch.hpp>
+#include <main_test.h>
 #include <trompeloeil/include/catch2/trompeloeil.hpp>
 
 class Base {

@@ -4,7 +4,14 @@
 
 #include "MenuHandler.h"
 
+#include "controller/SnapshotUtilities.h"
+#include "datatypes/lookup/ResourceEntry.h"
+
 namespace controller {
+
+MenuHandler::MenuHandler() {
+  snapshotUtilities = std::make_shared<utils::SnapshotUtilities>();
+}
 
 bool MenuHandler::shouldDisplaySubmenu(const Snapshot &snapshot, const Action &submmenu) {
   switch (submmenu) {
@@ -51,7 +58,7 @@ bool MenuHandler::shouldDisplaySubmenu(const Snapshot &snapshot, const Action &s
     case Action::SHOP_BUY:
       [[fallthrough]];
     case Action::SHOP_SELL:
-      return snapshotUtilities.shopkeeperAvailable(snapshot);
+      return snapshotUtilities->shopkeeperAvailable(snapshot);
     case Action::QUEST:
       return (shouldDisplaySubmenu(snapshot, Action::QUEST_ABANDON)
               || shouldDisplaySubmenu(snapshot, Action::QUEST_FINISH));
@@ -83,11 +90,11 @@ bool MenuHandler::shouldDisplaySubmenu(const Snapshot &snapshot, const Action &s
     case Action::SPECIAL_READ:
       return true;
     case Action::SPECIAL_CALL:
-      return snapshotUtilities.phoneboothAvailable(snapshot);
+      return snapshotUtilities->phoneboothAvailable(snapshot);
     case Action::SPECIAL_CALL_REINFORCEMENT:
-      return snapshotUtilities.phoneboothAvailable(snapshot);
+      return snapshotUtilities->phoneboothAvailable(snapshot);
     case Action::SPECIAL_CALL_ENEMY:
-      return snapshotUtilities.phoneboothAvailable(snapshot);
+      return snapshotUtilities->phoneboothAvailable(snapshot);
     default:
       return true;
   }

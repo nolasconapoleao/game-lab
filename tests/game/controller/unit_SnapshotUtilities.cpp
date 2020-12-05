@@ -2,10 +2,10 @@
 // Created by nolasco on 28/11/20.
 //
 
-#define CATCH_CONFIG_MAIN
-#include <catch2/single_include/catch2/catch.hpp>
+#include <main_test.h>
 
 #include "controller/SnapshotUtilities.h"
+#include "datatypes/lookup/ResourceEntry.h"
 
 SCENARIO("Snapshot handling", "[SnapshotUtilities]") {
   GIVEN("A world snapshot object containing a shopkeeper") {

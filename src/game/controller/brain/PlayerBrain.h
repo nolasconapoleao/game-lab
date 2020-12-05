@@ -4,8 +4,7 @@
 
 #pragma once
 
-#include "IBrain.h"
-#include "controller/MenuHandler.h"
+#include "interface/controller/IBrain.h"
 
 /// @brief Player console input structure.
 struct ConsoleIn {
@@ -15,7 +14,10 @@ struct ConsoleIn {
   ResourceId parsed;
 };
 
-namespace controller::brain {
+namespace controller {
+class IMenuHandler;
+
+namespace brain {
 
 /// @brief Player behaviour handler.
 class Player : public IBrain {
@@ -36,7 +38,8 @@ private:
 
   std::map<Action, Action> decisionTree;
   Action activeSubmenu;
-  MenuHandler menuHandler;
+  std::shared_ptr<IMenuHandler> mMenuHandler;
 };
 
-} // namespace controller::brain
+} // namespace brain
+} // namespace controller

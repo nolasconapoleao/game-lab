@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "IBrain.h"
+#include "interface/controller/IBrain.h"
 
 namespace controller::brain {
 

@@ -2,10 +2,7 @@
 // Created by nolasco on 28/11/20.
 //
 
-// TODO(nn): Catch main should only be compiled once, for faster compilation
-#define CATCH_CONFIG_MAIN
-#include <catch2/single_include/catch2/catch.hpp>
-#include <trompeloeil/include/trompeloeil.hpp>
+#include <main_test.h>
 
 #include "game/utilities/Comparators.h"
 #include "model/World.h"

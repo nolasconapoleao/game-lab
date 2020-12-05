@@ -4,6 +4,7 @@
 
 #include "PlayerBrain.h"
 
+#include "controller/MenuHandler.h"
 #include "input/capture/InputCapture.h"
 #include "input/print/InputPrompter.h"
 #include "libs/constants/gameconstants.h"
@@ -11,7 +12,7 @@
 
 namespace controller::brain {
 
-Player::Player() : activeSubmenu(Action::UNDEFINED) {
+Player::Player() : activeSubmenu(Action::UNDEFINED), mMenuHandler(std::make_shared<MenuHandler>()) {
   makeMenuConnection(Action::UNDEFINED, {Action::SKIP_TURN, Action::MENU, Action::ATTACK, Action::INVENTORY,
                                          Action::TEAM, Action::SHOP, Action::QUEST, Action::TRAVEL, Action::SPECIAL});
 
@@ -99,7 +100,7 @@ void Player::selectSubmenu() {
   std::vector<MenuState> options;
   std::string validInput;
   for (const auto &[endSubmenu, startSubmenu] : decisionTree) {
-    if (startSubmenu == activeSubmenu && menuHandler.shouldDisplaySubmenu(snap, endSubmenu)) {
+    if (startSubmenu == activeSubmenu && mMenuHandler->shouldDisplaySubmenu(snap, endSubmenu)) {
       const auto &submenuInfo = gameconstants::submenuInfo(endSubmenu);
       options.emplace_back(submenuInfo);
       validInput += submenuInfo.transition;

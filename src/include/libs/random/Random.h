@@ -37,7 +37,7 @@ namespace Random {
  * @return set of random numbers
  */
 [[nodiscard]] std::unordered_set<Quantity> multipleNonRepeated(Quantity quantity, Quantity lowerBound,
-                                                               Number upperBound);
+                                                               Quantity upperBound);
 
 /**
  * @brief Generates a random number from the vector of given options.

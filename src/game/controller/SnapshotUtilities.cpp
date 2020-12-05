@@ -4,6 +4,8 @@
 
 #include "SnapshotUtilities.h"
 
+#include "datatypes/lookup/ResourceEntry.h"
+
 namespace utils {
 bool SnapshotUtilities::shopkeeperAvailable(const Snapshot &snapshot) {
   for (const auto &character : snapshot.characters) {
