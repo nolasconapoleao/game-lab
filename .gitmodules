@@ -1,12 +1,11 @@
 [submodule "external/magic_enum"]
 	path = external/magic_enum
-	url = git@github.com:Neargye/magic_enum.git
+	url = https://github.com/Neargye/magic_enum.git
 
 [submodule "external/trompeloeil"]
 	path = external/trompeloeil
-	url = git@github.com:rollbear/trompeloeil.git
+	url = https://github.com/rollbear/trompeloeil.git
 
 [submodule "external/catch2"]
 	path = external/catch2
-	url = git@github.com:catchorg/Catch2.git
-	branch = v2.x
+	url = https://github.com/catchorg/Catch2.git
