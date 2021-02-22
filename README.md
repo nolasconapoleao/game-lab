@@ -77,17 +77,23 @@ Note : For windows build.
 cmake -DCMAKE_BUILD_TYPE=Release -DUNIX_COMPILATION=OFF ../..
 ```
 
-1. Build the game
+2. Build the game
 ```
 make Console-Game
 ```
 
-1. Run the game
+3. Run the game
 ```
 (WINDOWS) double-click executable in bin/Console-Game.exe
 (LINUX)   ./bin/Console-Game
 ```
 <br/>
+
+## Future work
+- Add static code analysis targets
+- Add dynamic code analysis targets
+- Add contribution guidelines
+<br/><br/>
 
 ## Authors
 * **Nolasco Napoleao** - [nolasconapoleao](https://github.com/nolasconapoleao)
