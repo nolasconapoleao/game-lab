@@ -4,7 +4,8 @@ set(OBJECT_DIR ${CMAKE_BINARY_DIR}/CMakeFiles/${PROJECT_NAME}.dir/src)
 add_custom_target(
   ${COVERAGE_TARGET}
   COMMAND mkdir -p coverage
-  WORKING_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
+  COMMAND mkdir -p debug/coverage
+  WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/build
 )
 
 add_custom_command(
@@ -24,7 +25,7 @@ add_custom_command(
   COMMAND lcov -r coverage.info '/usr/*' '*/external/*' '*/tests/*' '*main.cpp' -o coverage.info
   COMMAND genhtml coverage.info -o ../../coverage
   COMMAND echo "-- Coverage report saved to ${CMAKE_BINARY_DIR}/../coverage"
-  WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/coverage
+  WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/build/debug/coverage
 )
 add_dependencies(${COVERAGE_TARGET} ${PROJECT_NAME})
 

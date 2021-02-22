@@ -1,82 +1,93 @@
-# Game-v2
+# Console Game
 [![Build Status](https://travis-ci.org/nolasconapoleao/game-lab.svg?branch=develop)](https://travis-ci.org/nolasconapoleao/game-lab)
 
-Simple game to train design patterns in.
+Simple game to train design patterns.<br/><br/>
 
 ## Getting Started
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.<br/><br/>
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
-
-### Prerequisites
-
-What things you need to install the software and how to install them
-
+## Build dependencies
+These are the dependencies for the compilation of all the targets
 ```
-clang-format
-cmake-format
 cmake
+cmake-format
+clang-format
 doxygen
 gcov
-lcov
 ccache
 ```
+<br/>
 
-### Building and running
+# Build instructions for development
+## Create make files for each target (via cmake)
+Run the cmake command and output the make recipe in the build folder
+```
+mkdir -p build/debug
+cd build/debug
+cmake -DCMAKE_BUILD_TYPE=Debug ../..
+```
+<br/>
 
-1. Run the cmake project and output the make recipe in the build folder
-```
-mkdir -p build/linux
-cd build/linux
-cmake ../..
-```
+## Build the continuous integration targets
+Supported targets for continuous integration include:
 
-2. Build the library and all the executables defined in the Cmake 
-```
-make Console-Game
-```
+    - Documentation
+    - Coverage
+    - Automatic tests
+    - Static code analysis
+    - Dynamic code analysis
+<br/>
 
-3. Run the game in the console
+Run the jobs by running
 ```
-./Console-Game
+make Documentation
+make Coverage
+make all && make test
 ```
+<br/>
 
-### Building and running in windows
-In order to compile this game as an exe, use MinGW.
-
-1. Install MinGW (Instructions in): 
-http://www.mingw.org/wiki/getting_started
-
-```
-mkdir -p build/windows
-cd build/windows
-cmake -DCOMPILE_FOR_NON_UNIX:BOOL=ON -DCMAKE_BUILD_TYPE=Release ../..
-```
-
-2. Build the library and all the executables defined in the Cmake
-```
-make all
-```
-
-3. Run the game in the console
-```
-wine64 ${Project}.exe
-OR double click it if you are in windows
-```
-
-### And coding style tests
-
+## Run code linters locally 
 In order to merge to master the code in the pull request should be formatted using the checks defined in the project.
 ```
-clang-format -i $file
-cmake-format -i $file
+clang-format -i $filename
+cmake-format -i $filename
 ```
+<br/>
 
-Another way is to use automatic formatting.
+Code formating compliance can also be checked via pre commit hook.
 ```
 cd <project-path>
 cp tools/pre-commit.sh .git/hooks/pre-commit
 chmod +x .git/hooks/pre-commit
 ```
+<br/><br/>
+
+## Build and run game
+
+1. Create game target in release mode
+```
+mkdir -p build/release
+cd build/release
+cmake -DCMAKE_BUILD_TYPE=Release ../..
+```
+Note : For windows build.
+ - Install build toolchain with [MinGW](http://www.mingw.org/wiki/getting_started)
+ - Set the cmake option for windows build DUNIX_COMPILATION=OFF
+```
+cmake -DCMAKE_BUILD_TYPE=Release -DUNIX_COMPILATION=OFF ../..
+```
+
+1. Build the game
+```
+make Console-Game
+```
+
+1. Run the game
+```
+(WINDOWS) double-click executable in bin/Console-Game.exe
+(LINUX)   ./bin/Console-Game
+```
+<br/>
 
 ## Authors
 * **Nolasco Napoleao** - [nolasconapoleao](https://github.com/nolasconapoleao)

@@ -15,14 +15,12 @@ endif(CCACHE_FOUND)
 option(UNIX_COMPILATION "Compile For Unix systems" ON)
 if(UNIX_COMPILATION)
   message("## Compile for unix operating system")
-  set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_HOME_DIRECTORY}/build/linux)
-  set(BINARY_PATH ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME})
+  set(CMAKE_BINARY_DIR ${CMAKE_HOME_DIRECTORY}/build/bin)
 else()
   # Set the compile flags to statically link the  libgcc dll files, this makes a standalone exe
   message("## Compile for non unix operating system")
   set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_DEBUG} -static-libgcc -static-libstdc++")
-  set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_HOME_DIRECTORY}/build/windows)
-  set(BINARY_PATH ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}.exe)
+  set(CMAKE_BINARY_DIR ${CMAKE_HOME_DIRECTORY}/build/bin)
 endif()
 
 # Diagnostic tools
