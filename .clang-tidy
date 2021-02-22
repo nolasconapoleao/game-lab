@@ -8,7 +8,25 @@ Checks:
   modernize*,
   performance*,
   readability*,
-  -modernize-use-trailing-return-type
+  -modernize-use-trailing-return-type,
+  -cppcoreguidelines-pro-type-reinterpret-cast,
+  -readability-else-after-return,
+
+  # FIXME(nn): Add these jobs,
+  -bugprone-branch-clone,
+  -performance-unnecessary-value-param,
+  -performance-move-const-arg,
+  -hicpp-move-const-arg,
+  -cppcoreguidelines-avoid-magic-numbers,
+  -readability-magic-numbers,
+  -readability-convert-member-functions-to-static,
+  -performance-inefficient-vector-operation,
+  -cppcoreguidelines-pro-type-member-init,
+  -hicpp-member-init,
+  -cppcoreguidelines-explicit-virtual-functions,
+  -hicpp-use-override,
+  -modernize-use-override,
+  -hicpp-explicit-conversions,
   '
 WarningsAsErrors: '*'
 HeaderFilterRegex: ''
