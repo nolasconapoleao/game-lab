@@ -9,9 +9,9 @@ function append_eof_newline_if_needed() {
 
 function format_file() {
   file="${1}"
-  if [[ $file =~ \.(c|cpp|h|cc)$ ]]; then
+  if [[ $file =~ .(c|cpp|h|cc)$ ]]; then
     clang-format -i "$file"
-  elif [[ $file =~ \CMakeLists.(txt)$ ]]; then
+  elif [[ $file =~ (CMakeLists.txt|.cmake) ]]; then
     cmake-format -i "$file"
   fi
 }
