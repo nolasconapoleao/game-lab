@@ -23,14 +23,6 @@ else()
   set(CMAKE_BINARY_DIR ${CMAKE_HOME_DIRECTORY}/build/bin)
 endif()
 
-# Diagnostic tools
-option(ENABLE_DIAGNOSTIC_TOOLS "Build with diagnostic tools" OFF)
-if(ENABLE_DIAGNOSTIC_TOOLS)
-  message("## Enable diagnostic tools in compilation")
-  # TODO(nn): Fix clang tidy warnings and investigate checks
-  set(CMAKE_CXX_CLANG_TIDY clang-tidy)
-endif()
-
 # Game executable
 add_executable(${PROJECT_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp)
 target_include_directories(
@@ -47,6 +39,13 @@ add_subdirectory(src)
 option(ENABLE_TESTS "Compile and run unit tests" ON)
 option(ENABLE_DOCUMENTATION "Build documentation target" ON)
 option(ENABLE_COVERAGE "Build coverage target" ON)
+option(ENABLE_DIAGNOSTIC_TOOLS "Build with diagnostic tools" OFF)
+
+if(ENABLE_DIAGNOSTIC_TOOLS)
+  message("## Enable diagnostic tools in compilation")
+  include(tools/cmake/Sanitizers.cmake)
+  include(tools/cmake/StaticAnalyzers.cmake)
+endif()
 
 if(ENABLE_COVERAGE)
   message("## Enable code coverage target")
