@@ -62,6 +62,15 @@ chmod +x .git/hooks/pre-commit
 ```
 <br/><br/>
 
+## Code analysis
+```
+mkdir -p build/debug++
+cd build/debug++
+cmake -DCMAKE_BUILD_TYPE=Debug -DENABLE_DIAGNOSTIC_TOOLS=ON ../..
+make all
+```
+<br/><br/>
+
 ## Build and run game
 
 1. Create game target in release mode
