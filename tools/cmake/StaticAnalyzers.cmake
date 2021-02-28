@@ -1,14 +1,11 @@
 # CPP Check
-#TODO(nn): Analyse why the test targets fail to build with the cppcheck
-# set(CMAKE_CXX_CPPCHECK 
-#         "${CMAKE_SOURCE_DIR}/src"
-#         "${CMAKE_SOURCE_DIR}/tests"
-#         "-i/${CMAKE_SOURCE_DIR}/external"
-#         "--enable=warning"
-#         "--inconclusive"
-#         "--force" 
-#         "--inline-suppr"
-# )
+set(CMAKE_CXX_CPPCHECK
+  cppcheck
+    --suppress=missingInclude
+    --enable=all
+    --inline-suppr
+   --inconclusive
+)
 
 # Include what you use
 set(CMAKE_CXX_INCLUDE_WHAT_YOU_USE ${INCLUDE_WHAT_YOU_USE})
