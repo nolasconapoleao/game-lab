@@ -1,8 +1,5 @@
-target_sources(${PROJECT_NAME}
-    PRIVATE
-        # Sources
-        ${CMAKE_CURRENT_SOURCE_DIR}/Game.cpp
-    PUBLIC
-        # Headers
-        ${CMAKE_CURRENT_SOURCE_DIR}/Game.h
-)
+add_subdirectory(controller)
+add_subdirectory(input)
+add_subdirectory(model)
+add_subdirectory(utils)
+add_subdirectory(view)
