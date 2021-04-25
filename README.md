@@ -81,9 +81,8 @@ cmake -DCMAKE_BUILD_TYPE=Release ../..
 ```
 Note : For windows build.
  - Install build toolchain with [MinGW](http://www.mingw.org/wiki/getting_started)
- - Set the cmake option for windows build DUNIX_COMPILATION=OFF
 ```
-cmake -DCMAKE_BUILD_TYPE=Release -DUNIX_COMPILATION=OFF ../..
+cmake -DCMAKE_BUILD_TYPE=Release
 ```
 
 2. Build the game
