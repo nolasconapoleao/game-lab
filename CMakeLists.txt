@@ -12,11 +12,10 @@ if(CCACHE_FOUND)
 endif(CCACHE_FOUND)
 
 # Operating system configuration
-option(UNIX_COMPILATION "Compile For Unix systems" ON)
-if(UNIX_COMPILATION)
+if(UNIX)
   message("## Compile for unix operating system")
   set(CMAKE_BINARY_DIR ${CMAKE_HOME_DIRECTORY}/build/bin)
-else()
+elseif(WIN32 OR MINGW OR MSYS OR CYGWIN)
   # Set the compile flags to statically link the  libgcc dll files, this makes a standalone exe
   message("## Compile for non unix operating system")
   set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_DEBUG} -static-libgcc -static-libstdc++")
