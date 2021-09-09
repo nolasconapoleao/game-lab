@@ -15,11 +15,26 @@ endif(CCACHE_FOUND)
 if(UNIX)
   message("## Compile for unix operating system")
   set(CMAKE_BINARY_DIR ${CMAKE_HOME_DIRECTORY}/build/bin)
-elseif(WIN32 OR MINGW OR MSYS OR CYGWIN)
+elseif(
+  WIN32
+  OR MINGW
+  OR MSYS
+  OR CYGWIN
+)
   # Set the compile flags to statically link the  libgcc dll files, this makes a standalone exe
   message("## Compile for non unix operating system")
   set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_DEBUG} -static-libgcc -static-libstdc++")
   set(CMAKE_BINARY_DIR ${CMAKE_HOME_DIRECTORY}/build/bin)
+endif()
+
+# Advanced compilation options
+option(ENABLE_TESTS "Compile and run unit tests" ON)
+option(ENABLE_DOCUMENTATION "Build documentation target" ON)
+option(ENABLE_COVERAGE "Build coverage target" ON)
+option(ENABLE_DIAGNOSTIC_TOOLS "Build with diagnostic tools" OFF)
+
+if(ENABLE_COVERAGE)
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -O0 -fprofile-arcs -ftest-coverage")
 endif()
 
 include(tools/cmake/Libs.cmake)
@@ -68,12 +83,6 @@ target_link_libraries(
          Random::random
 )
 add_subdirectory(src)
-
-# Advanced compilation options
-option(ENABLE_TESTS "Compile and run unit tests" ON)
-option(ENABLE_DOCUMENTATION "Build documentation target" ON)
-option(ENABLE_COVERAGE "Build coverage target" ON)
-option(ENABLE_DIAGNOSTIC_TOOLS "Build with diagnostic tools" OFF)
 
 if(ENABLE_DIAGNOSTIC_TOOLS)
   message("## Enable diagnostic tools in compilation")
