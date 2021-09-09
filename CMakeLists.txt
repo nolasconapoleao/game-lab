@@ -22,6 +22,11 @@ elseif(WIN32 OR MINGW OR MSYS OR CYGWIN)
   set(CMAKE_BINARY_DIR ${CMAKE_HOME_DIRECTORY}/build/bin)
 endif()
 
+include(tools/cmake/Libs.cmake)
+
+add_subdirectory(libs)
+add_subdirectory(include)
+
 # Game executable
 add_executable(${PROJECT_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp)
 target_include_directories(
@@ -29,8 +34,38 @@ target_include_directories(
   PRIVATE ${CMAKE_BINARY_DIR}/extras
           ${CMAKE_SOURCE_DIR}/external
           ${CMAKE_SOURCE_DIR}/extras
-          ${CMAKE_SOURCE_DIR}/src/game
-          ${CMAKE_SOURCE_DIR}/src/include
+          ${CMAKE_SOURCE_DIR}/libs
+          ${CMAKE_SOURCE_DIR}/include
+          ${CMAKE_SOURCE_DIR}/src
+)
+
+target_link_libraries(
+  ${PROJECT_NAME}
+  PUBLIC Game::controller
+         Game::input
+         Game::model
+         Game::cleaner
+         Game::factory
+         Game::handler
+         Game::lookup
+         Game::utils
+         Game::view
+         Datatype::types
+         Datatype::controller
+         Datatype::entity
+         Datatype::entity-aux
+         Datatype::event
+         Datatype::factory
+         Datatype::logger
+         Datatype::lookup
+         Game::constants
+         Interface::controller
+         Interface::database
+         Interface::entity
+         Interface::graph
+         Interface::model
+         Game::gamemath
+         Random::random
 )
 add_subdirectory(src)
 

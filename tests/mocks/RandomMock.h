@@ -6,7 +6,7 @@
 
 #include <trompeloeil/include/trompeloeil.hpp>
 
-#include "libs/random/Random.h"
+#include "random/Random.h"
 
 class RandomMock {
 public:

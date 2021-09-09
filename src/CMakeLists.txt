@@ -1,2 +1,11 @@
-add_subdirectory(game)
-add_subdirectory(include)
+create_lib(controller Game::controller)
+create_lib(input Game::input)
+create_lib(model Game::model)
+create_lib(utils Game::utils)
+create_lib(view Game::view)
+
+add_subdirectory(controller)
+add_subdirectory(input)
+add_subdirectory(model)
+add_subdirectory(utils)
+add_subdirectory(view)

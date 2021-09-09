@@ -5,7 +5,7 @@
 #include <main_test.h>
 
 #include "controller/brain/PlayerBrain.h"
-#include "libs/constants/gameconstants.h"
+#include "datatypes/constants/gameconstants.h"
 #include "mocks/InputCaptureMock.h"
 #include "mocks/SnapshotMock.h"
 
