@@ -30,7 +30,7 @@ endif()
 # Advanced compilation options
 option(ENABLE_TESTS "Compile and run unit tests" ON)
 option(ENABLE_DOCUMENTATION "Build documentation target" ON)
-option(ENABLE_COVERAGE "Build coverage target" ON)
+option(ENABLE_COVERAGE "Build coverage target" OFF)
 option(ENABLE_DIAGNOSTIC_TOOLS "Build with diagnostic tools" OFF)
 
 if(ENABLE_COVERAGE)
