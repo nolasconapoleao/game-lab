@@ -1,92 +1,107 @@
-# Game Laboratory
+# Console Game
+[![Build Status](https://travis-ci.org/nolasconapoleao/game-lab.svg?branch=develop)](https://travis-ci.org/nolasconapoleao/game-lab)
 
-Game source code using C++ and Cmake for testing ideas and experimenting with game development.
-
-At the moment the game does not support graphics, it's only a text game, check these pictures:
-![Game_v1-menu](/demo/Demo1.png)
-![Game_v1-floor](/demo/Demo2.png)
-![Game_v1-talk](/demo/Demo3.png)
+Simple game to train design patterns.<br/><br/>
 
 ## Getting Started
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.<br/><br/>
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
-
-### Prerequisites
-
-What things you need to install the software and how to install them
-
+## Build dependencies
+These are the dependencies for the compilation of all the targets
 ```
-clang-format
 cmake
+cmake-format
+clang-format
 doxygen
 gcov
-lcov
+ccache
 ```
+<br/>
 
-### Building and running
+# Build instructions for development
+## Create make files for each target (via cmake)
+Run the cmake command and output the make recipe in the build folder
+```
+mkdir -p build/debug
+cd build/debug
+cmake -DCMAKE_BUILD_TYPE=Debug ../..
+```
+<br/>
 
-1. Run the cmake project and output the make recipe in the build folder
-```
-mkdir -p build/linux
-cd build/linux
-cmake -DCOMPILE_FOR_NON_UNIX:BOOL=OFF ../..
-```
+## Build the continuous integration targets
+Supported targets for continuous integration include:
 
-2. Build the library and all the executables defined in the Cmake 
-```
-make Game_v1
-```
+    - Documentation
+    - Coverage
+    - Automatic tests
+    - Static code analysis
+    - Dynamic code analysis
+<br/>
 
-3. Run the game in the console
+Run the jobs by running
 ```
-./Game_v1
+make Documentation
+make Coverage
+make all && make test
 ```
+<br/>
 
-### Building and running in windows
-In order to compile this game as an exe, use MinGW.
-
-1. Install MinGW (Instructions in): 
-http://www.mingw.org/wiki/getting_started
-
+## Run code linters locally 
+In order to merge to master the code in the pull request should be formatted using the checks defined in the project.
 ```
-mkdir -p build/windows
-cd build/windows
-cmake -DCOMPILE_FOR_NON_UNIX:BOOL=ON -DCMAKE_BUILD_TYPE=Release ../..
+clang-format -i $filename
+cmake-format -i $filename
 ```
+<br/>
 
-2. Build the library and all the executables defined in the Cmake
-```
-make Game_v1
-```
-
-3. Run the game in the console
-```
-wine64 Game_v1.exe
-OR double click it if you are in windows
-```
-
-### Play the game
-To get the latest compiled binary go to (windows and linux included):
-https://drive.google.com/open?id=1iK_VdFg1ob-4Bx3KE7HWeN77skZRrG-y
-
-### Contributing
-To contribute feel free to clone or fork the repository and check the board to see what needs doing.
-Help is needed in code architecture and definition of game concept.
-https://trello.com/b/CERrFOYJ/text-game
-
-### And coding style tests
-
-In order to merge to master the code in the pull request should be formatted using the checks defined in <project>/.clang-format. To run the clang-format use:
-```
-clang-format -i $file
-```
-
-Another way is to use automatic formatting.
+Code formating compliance can also be checked via pre commit hook.
 ```
 cd <project-path>
 cp tools/pre-commit.sh .git/hooks/pre-commit
 chmod +x .git/hooks/pre-commit
 ```
+<br/><br/>
+
+## Code analysis
+```
+mkdir -p build/debug++
+cd build/debug++
+cmake -DCMAKE_BUILD_TYPE=Debug -DENABLE_DIAGNOSTIC_TOOLS=ON ../..
+make all
+```
+<br/><br/>
+
+## Build and run game
+
+1. Create game target in release mode
+```
+mkdir -p build/release
+cd build/release
+cmake -DCMAKE_BUILD_TYPE=Release ../..
+```
+Note : For windows build.
+ - Install build toolchain with [MinGW](http://www.mingw.org/wiki/getting_started)
+```
+cmake -DCMAKE_BUILD_TYPE=Release
+```
+
+2. Build the game
+```
+make Console-Game
+```
+
+3. Run the game
+```
+(WINDOWS) double-click executable in bin/Console-Game.exe
+(LINUX)   ./bin/Console-Game
+```
+<br/>
+
+## Future work
+- Add static code analysis targets
+- Add dynamic code analysis targets
+- Add contribution guidelines
+<br/><br/>
 
 ## Authors
-* **Nolasco Napoleao** - *Initial work* - [nolasconapoleao](https://github.com/nolasconapoleao)
+* **Nolasco Napoleao** - [nolasconapoleao](https://github.com/nolasconapoleao)

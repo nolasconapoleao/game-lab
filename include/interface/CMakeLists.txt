@@ -1,0 +1,11 @@
+create_lib(Intercontroller Interface::controller)
+create_lib(database Interface::database)
+create_lib(Interentity Interface::entity)
+create_lib(graph Interface::graph)
+create_lib(Intermodel Interface::model)
+
+add_subdirectory(controller)
+add_subdirectory(database)
+add_subdirectory(entity)
+add_subdirectory(graph)
+add_subdirectory(model)

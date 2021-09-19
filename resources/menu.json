@@ -1,0 +1,57 @@
+[{
+  "e" : "Skip turn",
+  "m" : "Menu",
+  "m_options" : {
+    "s" : "Save",
+    "t" : "Tutorial",
+    "x" : "Terminate"
+  },
+  "a" : "Attack",
+  "a_options" : {
+    "c" : "Attack character",
+    "b" : "Attack building",
+    "s" : "Attack structure"
+  },
+  "i" : "Inventory",
+  "i_options" : {
+    "p" : "Inventory pickup",
+    "d" : "Inventory drop",
+    "u" : "Inventory use"
+  },
+  "t" : "Team",
+  "t_options" : {
+    "c" : "Create team",
+    "d" : "Disband team",
+    "t" : "Trade with team member",
+    "k" : "Kick team member",
+    "i" : "Invite to team"
+  },
+  "s" : "Shop",
+  "s_options" : {
+    "b" : "Buy",
+    "s" : "Sell"
+  },
+  "q" : "Quest",
+  "q_options" : {
+    "a" : "Abandon quest",
+    "f" : "Finish quest"
+  },
+  "w" : "Travel",
+  "w_options" : {
+    "e" : "Enter building",
+    "t" : "Travel to"
+  },
+  "*" : "Special",
+  "*_options" : {
+    "s" : "Summon",
+    "p" : "Pickpocket",
+    "o" : "Possess",
+    "r" : "Read"
+  },
+  "c" : "Call",
+  "c_options" : {
+    "r" : "Call reinforcement",
+    "e" : "Call enemy"
+  }
+}]
+      
