@@ -24,7 +24,8 @@ public:
    * @brief Constructor.
    * @param world game entity database.
    */
-  explicit ILookup(const std::shared_ptr<World> &world) : mWorld(std::move(world)){};
+  explicit ILookup(const std::shared_ptr<World> &world)
+      : mWorld(std::move(world)){};
 
   /**
    * @brief Returns list of items owned by character or located in location.

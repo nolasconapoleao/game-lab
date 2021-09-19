@@ -7,7 +7,10 @@
 namespace entity {
 
 Building::Building(const std::string &name, BuildingType type, const Size &size, Quantity floors)
-    : Location(name, size), type(type), health(size.height * size.width), floors(floors) {
+    : Location(name, size)
+    , type(type)
+    , health(size.height * size.width)
+    , floors(floors) {
 }
 
 } // namespace entity

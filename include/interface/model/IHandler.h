@@ -36,7 +36,10 @@ public:
    */
   IHandler(const std::shared_ptr<World> &world, const std::shared_ptr<IFactory> &factory,
            const std::shared_ptr<ICleaner> &cleaner, const std::shared_ptr<ILookup> &lookup)
-      : mWorld(world), mFactory(factory), mCleaner(cleaner), mLookup(lookup){};
+      : mWorld(world)
+      , mFactory(factory)
+      , mCleaner(cleaner)
+      , mLookup(lookup){};
 
   /// @brief Create world.
   virtual void createWorld() = 0;

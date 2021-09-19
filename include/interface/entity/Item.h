@@ -21,7 +21,11 @@ public:
    * @param unitPrice price for each item.
    */
   Item(const std::string &name, const ItemEffect &effect, Quantity quantity, Quantity unitWeight, Quantity unitPrice)
-      : Entity(name), effect(effect), quantity(quantity), unitWeight(unitWeight), unitPrice(unitPrice) {
+      : Entity(name)
+      , effect(effect)
+      , quantity(quantity)
+      , unitWeight(unitWeight)
+      , unitPrice(unitPrice) {
   }
 
   /// @brief Item effect.

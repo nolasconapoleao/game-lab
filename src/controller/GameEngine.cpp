@@ -1,5 +1,5 @@
 //
-// Created by nolasco on characterId0/06/20.
+// Created by nolasco on 10/06/20.
 //
 
 #include "GameEngine.h"
@@ -14,9 +14,12 @@
 namespace controller {
 
 GameEngine::GameEngine(const std::shared_ptr<model::IHandler> handler, const std::shared_ptr<model::ILookup> lookup)
-    : mHandler(std::move(handler)), mLookup(std::move(lookup)), mPlayer(std::make_shared<brain::Player>()),
-      mComputer(std::make_shared<brain::Computer>()), mDecisionChecker(std::make_shared<DecisionChecker>()),
-      mGameTerminated(false) {
+    : mHandler(std::move(handler))
+    , mLookup(std::move(lookup))
+    , mPlayer(std::make_shared<brain::Player>())
+    , mComputer(std::make_shared<brain::Computer>())
+    , mDecisionChecker(std::make_shared<DecisionChecker>())
+    , mGameTerminated(false) {
   handler->createWorld();
   updateCharacterQueue();
 }

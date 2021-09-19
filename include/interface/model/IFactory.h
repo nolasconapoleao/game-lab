@@ -44,7 +44,8 @@ public:
    * @param entityCounter number of starting entities
    */
   IFactory(const std::shared_ptr<World> &world, const ResourceId entityCounter = 0)
-      : mWorld(std::move(world)), entityCounter(entityCounter){};
+      : mWorld(std::move(world))
+      , entityCounter(entityCounter){};
 
   /**
    * @brief @brief Create character.

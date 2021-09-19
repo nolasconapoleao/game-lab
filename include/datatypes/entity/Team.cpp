@@ -6,7 +6,8 @@
 
 namespace entity {
 
-Team::Team(const std::string &name) : Entity(name) {
+Team::Team(const std::string &name)
+    : Entity(name) {
 }
 
 } // namespace entity

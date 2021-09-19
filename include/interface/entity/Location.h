@@ -17,7 +17,9 @@ public:
    * @param name of location.
    * @param size of location.
    */
-  Location(const std::string &name, const Size &size) : Entity(name), size(size) {
+  Location(const std::string &name, const Size &size)
+      : Entity(name)
+      , size(size) {
   }
 
   /// @brief Location size.

@@ -16,7 +16,8 @@ public:
    * @brief Game entity name.
    * @param name of game entity.
    */
-  explicit Entity(std::string name) : name(std::move(name)) {
+  explicit Entity(std::string name)
+      : name(std::move(name)) {
   }
 
   /// @brief Name of game entity.

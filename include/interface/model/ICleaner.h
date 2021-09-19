@@ -26,7 +26,8 @@ public:
    * @param lookup game entity finder.
    */
   ICleaner(const std::shared_ptr<World> &world, const std::shared_ptr<ILookup> &lookup)
-      : mWorld(std::move(world)), mLookup(std::move(lookup)){};
+      : mWorld(std::move(world))
+      , mLookup(std::move(lookup)){};
 
   /**
    * @brief Delete character.

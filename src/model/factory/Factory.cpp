@@ -8,7 +8,8 @@
 
 namespace model {
 
-Factory::Factory(const std::shared_ptr<World> &world) : IFactory(std::move(world)) {
+Factory::Factory(const std::shared_ptr<World> &world)
+    : IFactory(std::move(world)) {
   initCharacterNames();
   initLocationNames();
   initTeamNames();

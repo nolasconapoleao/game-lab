@@ -11,7 +11,9 @@ using namespace gamemath;
 namespace entity {
 
 Character::Character(const std::string &name, const Stats &baseStats, const Info &info)
-    : Entity(name), base(baseStats), info(info) {
+    : Entity(name)
+    , base(baseStats)
+    , info(info) {
 }
 
 Stats Character::stats() const {
