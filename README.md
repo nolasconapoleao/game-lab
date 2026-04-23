@@ -14,6 +14,7 @@ cmake-format
 clang-format
 doxygen
 gcov
+lcov
 ccache
 ```
 <br/>

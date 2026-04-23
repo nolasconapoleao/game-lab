@@ -4,6 +4,7 @@
 
 #pragma once
 
+#include <stdint.h>
 #include <string>
 
 // TODO(nn): Refactor and increase number of quantity types

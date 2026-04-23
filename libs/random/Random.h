@@ -5,6 +5,7 @@
 #pragma once
 
 #include <cstdint>
+#include <limits>
 #include <unordered_set>
 #include <vector>
 
@@ -44,7 +45,7 @@ namespace Random {
  * @param valuePool for generation
  * @return random vector element
  */
-template <class T>[[nodiscard]] T fromVec(const std::vector<T> &valuePool) {
+template <class T> [[nodiscard]] T fromVec(const std::vector<T> &valuePool) {
 
   const auto upperBound = valuePool.size();
   const auto index = rand(0, upperBound - 1);

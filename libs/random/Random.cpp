@@ -4,7 +4,6 @@
 
 #include "Random.h"
 
-#include <chrono>
 #include <iostream>
 #include <random>
 
@@ -17,10 +16,7 @@ Quantity rand(const Quantity lowerBound, const Quantity upperBound) {
     throw std::runtime_error("Invalid bounds for random generation");
   }
 
-  auto t = std::chrono::high_resolution_clock::now().time_since_epoch().count();
-  std::mt19937 generator;
-
-  generator.seed(static_cast<unsigned int>(t));
+  std::mt19937 generator{std::random_device{}()};
   std::uniform_int_distribution<Quantity> distribution(lowerBound, upperBound);
 
   return distribution(generator);
@@ -52,10 +48,7 @@ std::unordered_set<Quantity> multipleNonRepeated(const Quantity quantity, const 
     throw std::runtime_error("Invalid random generation");
   }
 
-  auto t = std::chrono::high_resolution_clock::now().time_since_epoch().count();
-  std::mt19937 generator;
-
-  generator.seed(static_cast<unsigned int>(t));
+  std::mt19937 generator{std::random_device{}()};
   std::uniform_int_distribution<Quantity> distribution(lowerBound, upperBound);
 
   std::unordered_set<Quantity> generated;

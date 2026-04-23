@@ -6,11 +6,11 @@
 	path = external/trompeloeil
 	url = https://github.com/rollbear/trompeloeil.git
 
+[submodule "tools/cmake"]
+	path = tools/cmake
+	url = https://github.com/nolasconapoleao/cmake-lib.git
+
 [submodule "external/catch2"]
 	path = external/catch2
 	url = https://github.com/catchorg/Catch2.git
 	branch = v2.x
-
-[submodule "tools/cmake"]
-	path = tools/cmake
-	url = https://github.com/nolasconapoleao/cmake-lib.git

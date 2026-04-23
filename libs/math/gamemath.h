@@ -4,10 +4,11 @@
 
 #pragma once
 
+#include <limits>
+
 #include "datatypes/GameTypes.h"
 #include "datatypes/entity-aux/ItemEffect.h"
 #include "datatypes/entity-aux/Stats.h"
-
 namespace gamemath {
 
 /**

@@ -5,6 +5,7 @@
 #include "InputCapture.h"
 
 #include <iostream>
+#include <limits>
 
 namespace controller::input {
 
