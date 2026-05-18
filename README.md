@@ -102,6 +102,7 @@ make Console-Game
 - Add static code analysis targets
 - Add dynamic code analysis targets
 - Add contribution guidelines
+- reference wrapper for view
 <br/><br/>
 
 ## Authors
