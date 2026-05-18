@@ -1,0 +1,7 @@
+threatlevel, stats_multiplier, characters, character_consumables, character_equippables, exterior_consumables, exterior_equippables, exteriors, buildings, structures
+SCARECROW, 1, 1, 0, 0, 0, 0, 1, 1, 1
+NOVICE, 2, 2, 1, 1, 1, 0, 1, 2, 2
+ACE, 5, 5, 2, 2, 2, 1, 3, 2, 2
+VETERAN, 10, 5, 3, 3, 3, 2, 2, 3, 2
+MONSTER, 20, 12, 4, 4, 5, 1, 3, 3, 2
+GOD, 50, 20, 5, 5, 5, 5, 3, 4, 2

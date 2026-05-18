@@ -1,3 +1,2 @@
-add_subdirectory(characters)
-add_subdirectory(common)
-add_subdirectory(utils)
+add_subdirectory(game)
+add_subdirectory(libs)

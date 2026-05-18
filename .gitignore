@@ -1,2 +1,9 @@
+# Build artifacts
 build*
+
+# IDE artifacts
 .idea
+.vscode
+
+# Developer files
+.draft
